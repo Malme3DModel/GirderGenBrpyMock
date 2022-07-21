@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production --base-href \"https://github.com/Malme3DModel/GirderGenBrpyMock\" && angular-cli-ghpages",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -24,6 +24,7 @@
     "rxjs": "~6.6.0",
     "three": "^0.130.1",
     "troika-three-text": "^0.42.0",
+    "angular-cli-ghpages": "^0.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },

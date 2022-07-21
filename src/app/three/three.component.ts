@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, HostListener, NgZone, OnDestroy } from '@angular/core';
 import * as THREE from 'three';
+import { ModelService } from './geo/model.service';
 
 import { SceneService } from './scene.service';
 
@@ -14,7 +15,8 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
 
 
   constructor(private ngZone: NgZone,
-              private scene: SceneService) {
+              private scene: SceneService,
+              private geo: ModelService) {
 
     THREE.Object3D.DefaultUp.set(0, 0, 1);
   }
@@ -31,6 +33,9 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
                       window.innerHeight);
     // レンダリングする
     this.animate();
+    
+    // モデルを呼び出す
+    this.geo.loadStl();
   }
 
   ngOnDestroy() {
