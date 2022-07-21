@@ -21,8 +21,6 @@ export class ModelService {
     //const model = this.get_stl();
     this.stlLoader.load('assets/model/model.stl',  ( geometry: THREE.BufferGeometry ) => {
 
-    
-
       const material1 = new THREE.MeshPhongMaterial( { color: 0x000000, wireframe: true } );
       const mesh1 = new THREE.Mesh( geometry, material1 );
       mesh1.position.set( -450, -300, -65 );

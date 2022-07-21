@@ -8,7 +8,7 @@ import { OrbitControls } from '@three-ts/orbit-controls';
 export class SceneService {
 
   // シーン
-  private scene: THREE.Scene;
+  public scene: THREE.Scene;
 
   // レンダラー
   private renderer!: THREE.WebGLRenderer;
@@ -54,16 +54,16 @@ export class SceneService {
     this.addControls();
 
     // 床面を生成する
-    this.createHelper();
+    // this.createHelper();
 
   }
 
 
   // 床面を生成する
   private createHelper() {
-    this.GridHelper = new THREE.GridHelper(200, 20);
+    this.GridHelper = new THREE.GridHelper(50, 50);
     this.GridHelper.geometry.rotateX(Math.PI / 2);
-    this.scene.add(this.GridHelper);                      
+    this.scene.add(this.GridHelper);
   }
 
   // コントロール
@@ -90,7 +90,7 @@ export class SceneService {
       0.1,
       1000
     );
-    this.camera.position.set(0, -50, 20);
+    this.camera.position.set(0, -25, 10);
     this.camera.name = 'camera';
     this.scene.add(this.camera);
 
@@ -169,5 +169,11 @@ export class SceneService {
     };
   }
 
+  public clear(): void {
+    while(this.scene.children.length > 0){
+      const mesh = this.scene.children[0];
+      this.scene.remove(mesh);
+  }
+}
 
 }
