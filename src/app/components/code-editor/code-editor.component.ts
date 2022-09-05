@@ -13,7 +13,7 @@ export class CodeEditorComponent implements OnInit {
   
   constructor(    
     service: IfcService,
-    private my_code: CodeServiceService,
+    public my_code: CodeServiceService,
     private http: HttpClient, 
     ) { 
       this.ifc = service;
@@ -57,7 +57,7 @@ export class CodeEditorComponent implements OnInit {
         const text: string = response.body;
         // string -> file に変換して読み込ませる
         const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-        const file = new File([blob], "file1.ifc", { type: "application/octet-stream" })
+        const file = new File([blob], "file1.ifc", { type: "text/plain;charset=utf-8" })
 
         // ifcViewer に読み込ませる
         this.ifc.loadIfc(file);
