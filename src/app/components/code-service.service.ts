@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class CodeServiceService {
 
   constructor() { }
-
   public busy: boolean = false;
 
   public value = {

@@ -1,9 +1,10 @@
 <div class="aaa">
-  <button mat-icon-button class="btnCreateIfc">
-    <mat-icon *ngIf="!my_code.busy" (click)="onCreateIfc()">play_arrow</mat-icon>
-    <mat-icon *ngIf="my_code.busy">pause</mat-icon>
-  </button>
-
-  <textarea class="textarea" [(ngModel)]="obj">
-  </textarea>
-</div>
+    <button mat-icon-button class="btnCreateIfc">
+      <mat-icon *ngIf="!my_code.busy" (click)="onCreateIfc()">play_arrow</mat-icon>
+      <mat-icon *ngIf="my_code.busy">pause</mat-icon>
+    </button>
+  
+    <textarea class="textarea" [(ngModel)]="obj" >
+    </textarea>
+  </div>
+  

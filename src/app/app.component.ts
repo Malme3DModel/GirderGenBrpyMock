@@ -1,8 +1,8 @@
 import { Component, AfterContentInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { CodeServiceService } from './components/code-service.service';
 import { IfcService } from './services/ifc.service';
 import { SpatialTreeComponent } from './spatial-tree/spatial-tree.component';
+import { CodeServiceService } from './components/code-service.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +19,8 @@ export class AppComponent implements AfterContentInit {
   @ViewChild('threeContainer', { static: true }) container?: ElementRef;
 
   constructor(
-    public my_code: CodeServiceService,
-    service: IfcService){
+    service: IfcService,
+    public my_code: CodeServiceService){
     this.ifc = service;
   }
 
@@ -35,13 +35,12 @@ export class AppComponent implements AfterContentInit {
     return this.container.nativeElement as HTMLElement;
   }
 
-    // フローティングウィンドウの位置
-    public dragPosition = { x: 0, y: 0 };
-    public changePosition() {
-      this.dragPosition = {
-        x: this.dragPosition.x,
-        y: this.dragPosition.y,
-      };
-    }
-
+  // フローティングウィンドウの位置
+  public dragPosition = { x: 0, y: 0 };
+  public changePosition() {
+    this.dragPosition = {
+      x: this.dragPosition.x,
+      y: this.dragPosition.y,
+    };
+  }
 }

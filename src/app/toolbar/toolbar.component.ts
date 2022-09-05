@@ -1,7 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IfcService } from '../services/ifc.service';
-import { CodeServiceService } from '../components/code-service.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -13,8 +11,7 @@ export class ToolbarComponent {
   clippingActive: boolean;
   private fileOpener: HTMLInputElement;
 
-  constructor(
-    service: IfcService) {
+  constructor(service: IfcService) {
     this.ifc = service;
     this.clippingActive = false;
     this.fileOpener = this.newFileOpener();

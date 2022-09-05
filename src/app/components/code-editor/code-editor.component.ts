@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { IfcService } from 'src/app/services/ifc.service';
 import { CodeServiceService } from '../code-service.service';
-  
+
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
@@ -10,14 +10,14 @@ import { CodeServiceService } from '../code-service.service';
 })
 export class CodeEditorComponent implements OnInit {
   ifc: IfcService;
-  
-  constructor(    
-    service: IfcService,
+
+  constructor(
+    private service: IfcService,
     public my_code: CodeServiceService,
-    private http: HttpClient, 
-    ) { 
-      this.ifc = service;
-    }
+    private http: HttpClient
+  ) { 
+    this.ifc = service;
+  }
 
   public obj!: string;
 
@@ -75,5 +75,7 @@ export class CodeEditorComponent implements OnInit {
       });
 
   }
+
+
 
 }
