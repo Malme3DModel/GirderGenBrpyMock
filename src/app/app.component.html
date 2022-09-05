@@ -5,6 +5,18 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <app-toolbar (onOpenNavbar)="sidenav.toggle()"></app-toolbar>
-    <div #threeContainer id="viewer-container"></div>
+    <div #threeContainer id="viewer-container">
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+<div cdkDrag [cdkDragFreeDragPosition]="dragPosition" class="contents-dailog"
+id="contents-dialog-id">
+<!-- ドラッグハンドルをテーブルの後ろに敷いて、テーブル領域以外がドラッグされたらcontetns-dialogを移動するイメージ -->
+<div class="dialog-header">
+  <div cdkDragHandle class="dialog-drag-handle"></div>
+</div>
+<app-code-editor></app-code-editor>
+</div>
+
+<mat-spinner *ngIf="my_code.busy"></mat-spinner>

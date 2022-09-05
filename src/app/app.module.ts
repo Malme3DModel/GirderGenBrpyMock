@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { FormsModule } from "@angular/forms";
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SpatialTreeComponent } from './spatial-tree/spatial-tree.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -21,6 +24,7 @@ import { PropertyMenuComponent } from './property-menu/property-menu.component';
 import { IfcService } from './services/ifc.service';
 import { SummaryPipe } from './pipes/summary';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 
 @NgModule({
   declarations: [
@@ -29,18 +33,22 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     SpatialTreeComponent,
     ClickStopPropagationDirective,
     PropertyMenuComponent,
-    SummaryPipe
+    SummaryPipe,
+    CodeEditorComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    DragDropModule,
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
     MatTreeModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
     MatCardModule,
     MatExpansionModule,
     MatDividerModule,

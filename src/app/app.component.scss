@@ -1,0 +1,71 @@
+.stats{
+  visibility: collapse;
+  right: 0;
+}
+
+.mat-drawer-inner-container{
+  padding: 0;
+}
+
+.sidemenu{
+  padding: 0 0 1rem 0;
+  max-width: 50%;
+}
+
+#viewer-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+
+// フローティングウィンドウ
+
+.dialog-header {
+  display: flex;
+  color: #fff;
+  background-color: #333333;
+  height: 30px;
+  .dialog-drag-handle {
+      padding: 4px 16px 8px 16px;
+      cursor: move;
+      width: 100%;
+  }
+}
+
+
+.contents-dailog {
+  border: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  min-width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 4px;
+  position: fixed;
+  top: 16px;
+  left: calc(100vw - 400px);
+  margin: 0;
+  z-index: 1048;
+  overflow: scroll;
+  display: inline;
+  resize: both;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  width: 384px;
+  height: 90vh;
+}
+
+.contents-dailog:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+mat-spinner {
+  position: absolute;
+  left: 40%;
+  top: 40%;
+  z-index: 1000;
+}
+
+
