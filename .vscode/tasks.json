@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "ng-serve",
+            "type": "shell",
+            "isBackground": true,
+            "command": "ng serve",
+            "problemMatcher": {
+                "owner": "custom",
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".*Angular Live Development Server.*",
+                    "endsPattern": ".*Compiled successfully.*"
+                }
+            }
+        },
+        {
+            "label": "ng-kill",
+            "type": "shell",
+            "command": "killall ng"
+        }
+    ]
+}

@@ -3,6 +3,9 @@
     <mat-icon>menu</mat-icon>
   </button>
   <button mat-icon-button>
+    <mat-icon (click)="onCreateIfc()">replay</mat-icon>
+  </button>
+  <button mat-icon-button>
     <mat-icon (click)="onOpenIfc()">folder</mat-icon>
   </button>
   <button [color]="clippingActive ? 'accent' : 'none'" mat-icon-button>

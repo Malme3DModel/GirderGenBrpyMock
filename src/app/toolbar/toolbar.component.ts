@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IfcService } from '../services/ifc.service';
 
 @Component({
@@ -11,13 +12,35 @@ export class ToolbarComponent {
   clippingActive: boolean;
   private fileOpener: HTMLInputElement;
 
-  constructor(service: IfcService) {
+  constructor(private http: HttpClient, service: IfcService) {
     this.ifc = service;
     this.clippingActive = false;
     this.fileOpener = this.newFileOpener();
   }
 
   @Output('onOpenNavbar') onOpenNavbar = new EventEmitter();
+
+  onCreateIfc() {
+    const url: string = 'https://kv4hx2ue8c.execute-api.ap-northeast-1.amazonaws.com/default/GirderGenBrpy';
+    // sconst url: string = 'https://api.twitter.com/1.1/search/tweets.json';
+    const inputJson: string = JSON.stringify({
+    })
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json'
+      })
+    };
+
+    this.http.post(url, {}, options )
+    .subscribe((response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+    });
+  }
+
 
   onOpenIfc() {
     this.fileOpener.click();
