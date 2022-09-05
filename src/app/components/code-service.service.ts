@@ -8,7 +8,7 @@ export class CodeServiceService {
   constructor() { }
   public busy: boolean = false;
 
-  public value = {
+  public value = JSON.stringify({
     "body": {
       "slab": {
         "b1": 4.25,
@@ -72,5 +72,5 @@ export class CodeServiceService {
         "amount_H": 5.5
       }
     }
-  };
+  }, null , "\t");
 }

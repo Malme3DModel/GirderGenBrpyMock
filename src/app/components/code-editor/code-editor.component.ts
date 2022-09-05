@@ -19,16 +19,13 @@ export class CodeEditorComponent implements OnInit {
     this.ifc = service;
   }
 
-  public obj!: string;
-
   ngOnInit(){
-    this.obj = JSON.stringify(this.my_code.value, null , "\t");
   }
 
   onCreateIfc() {
     this.my_code.busy = true;
     const url: string = 'https://kv4hx2ue8c.execute-api.ap-northeast-1.amazonaws.com/default/GirderGenBrpy';
-    const inputJson: string = JSON.stringify(this.my_code.value);
+    const inputJson: string = JSON.stringify(JSON.parse(this.my_code.value));
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
