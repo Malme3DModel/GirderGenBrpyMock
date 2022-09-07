@@ -84,7 +84,7 @@ export class ModelJsService {
   download() {
     const result = this.Exporter.parse(this.scene.scene);
     const blob = new window.Blob([result], { type: "text/plain" });
-    FileSaver.saveAs(blob, 'test.stl');
+    FileSaver.saveAs(blob, 'test.obj');
   }
 
 
