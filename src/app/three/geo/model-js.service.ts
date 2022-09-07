@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
 import { SceneService } from '../scene.service';
-import { STLExporter } from 'three/examples/jsm/exporters/STLExporter'
+import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter'
 import * as FileSaver from "file-saver";
 
 @Injectable({
@@ -9,7 +9,7 @@ import * as FileSaver from "file-saver";
 })
 export class ModelJsService {
 
-  private Exporter: STLExporter = new STLExporter();
+  private Exporter: OBJExporter = new OBJExporter();
 
   private slab: THREE.Mesh;
   private H1: THREE.Group;
