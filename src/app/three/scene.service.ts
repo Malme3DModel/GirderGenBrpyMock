@@ -119,6 +119,7 @@ export class SceneService {
                   Height: number): void {
 
     this.camera.updateProjectionMatrix();
+    this.renderer.setPixelRatio(deviceRatio);
     this.renderer.setSize(Width, Height);
     this.render();
   }

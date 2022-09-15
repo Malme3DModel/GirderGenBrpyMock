@@ -39,8 +39,6 @@ export class AppComponent  implements AfterViewInit{
         this.T1, this.T2, this.HH, this.BB, this.TT1, this.TT2, this.n);
     }
 
-    download(){
-      this.model.download();
-    }
+
 
 }

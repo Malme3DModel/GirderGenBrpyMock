@@ -1,30 +1,9 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.over-three {
+    z-index: 10;
+    position: relative;
 }
 
-h1.example-app-name {
-    margin-left: 8px;
-}
-
-.example-sidenav-container {
-    flex: 1;
-}
-
-input {
-    border: none;
-    width: 100px;
-}
-
-.example-value-label {
-    font-weight: 600;
-}
-
-.right-button {
-    margin: 0 0 0 auto;
+app-side-left {
+    width: 15%;
+    display: block;
 }

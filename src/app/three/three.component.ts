@@ -27,7 +27,7 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.scene.OnInit(this.getAspectRatio(),
+    this.scene.OnInit(window.devicePixelRatio,
                       this.canvas,
                       devicePixelRatio,
                       window.innerWidth,
@@ -71,16 +71,10 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
   // ウインドウがリサイズした時のイベント処理
   @HostListener('window:resize', ['$event'])
   public onResize(event: Event) {
-    this.scene.onResize(this.getAspectRatio(),
+    this.scene.onResize(window.devicePixelRatio,
                         window.innerWidth,
-                        window.innerHeight - 120);
+                        window.innerHeight);
   }
 
-  private getAspectRatio(): number {
-    if (this.canvas.clientHeight === 0) {
-      return 0;
-    }
-    return this.canvas.clientWidth / this.canvas.clientHeight;
-  }
 
 }
