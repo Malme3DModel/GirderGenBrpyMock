@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, HostListener, NgZone, OnDestroy } from '@angular/core';
 import * as THREE from 'three';
 import { ModelJsService } from './geo/model-js.service';
-import { ModelService } from './geo/model.service';
 
 import { SceneService } from './scene.service';
 
