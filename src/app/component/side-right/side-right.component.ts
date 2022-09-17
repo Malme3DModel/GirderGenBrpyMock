@@ -34,8 +34,8 @@ export class SideRightComponent implements OnInit {
   redraw() {
     // console.log('強制的に再描画させる');
     // this.changeDetectorRef.detectChanges();
-    this.model.reSetModel(this.L, this.B1, this.B3,
-      this.T1, this.T2, this.HH, this.BB, this.TT1, this.TT2, this.n);
+    // this.model.reSetModel(this.L, this.B1, this.B3,
+    //   this.T1, this.T2, this.HH, this.BB, this.TT1, this.TT2, this.n);
   }
   
 }
