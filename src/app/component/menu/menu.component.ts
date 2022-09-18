@@ -28,16 +28,17 @@ export class MenuComponent implements OnInit {
     // ヘッダを用意
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'Accept': 'application/json'
       })
     };
 
     // データを用意
     const json_str = this.getPostJson();
-
+    const url: string = environment.url;
+    
     // サーバーにポストする
-    this.http.post(environment.url, json_str, options)
+    this.http.post(url, json_str, options)
       .subscribe((response: any) => {
 
         if (!('body' in response)) {
