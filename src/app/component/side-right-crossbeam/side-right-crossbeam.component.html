@@ -3,11 +3,11 @@
 <div mat-dialog-content>
     <mat-list role="list">
         <mat-list-item role="listitem">W3
-            <mat-slider min="5000" max="50000" step="1000" [(ngModel)]="model.crossbeam.W3" (change)="redraw()"></mat-slider>
+            <mat-slider min="0.1" max="10" step="0.1" [(ngModel)]="model.crossbeam.W3" (change)="redraw()"></mat-slider>
             <label class="example-value-label">{{model.crossbeam.W3}}</label>
         </mat-list-item>
         <mat-list-item role="listitem">D4
-            <mat-slider min="1000" max="10000" step="100" [(ngModel)]="model.crossbeam.D4" (change)="redraw()"></mat-slider>
+            <mat-slider min="0.1" max="10" step="0.1" [(ngModel)]="model.crossbeam.D4" (change)="redraw()"></mat-slider>
             <label class="example-value-label">{{model.crossbeam.D4}}</label>
         </mat-list-item>
         <mat-list-item role="listitem">tf3
@@ -15,15 +15,15 @@
             <label class="example-value-label">{{model.crossbeam.tf3}}</label>
         </mat-list-item>
         <mat-list-item role="listitem">tw3
-            <mat-slider min="300" max="3000" step="1" [(ngModel)]="model.crossbeam.tw3" (change)="redraw()"></mat-slider>
+            <mat-slider min="0.1" max="10" step="0.1" [(ngModel)]="model.crossbeam.tw3" (change)="redraw()"></mat-slider>
             <label class="example-value-label">{{model.crossbeam.tw3}}</label>
         </mat-list-item>
         <mat-list-item role="listitem">s_edge2
-            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.crossbeam.s_edge2" (change)="redraw()"></mat-slider>
+            <mat-slider min="0.1" max="10" step="0.1" [(ngModel)]="model.crossbeam.s_edge2" (change)="redraw()"></mat-slider>
             <label class="example-value-label">{{model.crossbeam.s_edge2}}</label>
         </mat-list-item>
         <mat-list-item role="listitem">s_middle2
-            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.crossbeam.s_middle2" (change)="redraw()"></mat-slider>
+            <mat-slider min="0.1" max="10" step="0.1" [(ngModel)]="model.crossbeam.s_middle2" (change)="redraw()"></mat-slider>
             <label class="example-value-label">{{model.crossbeam.s_middle2}}</label>
         </mat-list-item>
     </mat-list>
