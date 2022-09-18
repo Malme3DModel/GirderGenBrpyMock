@@ -28,6 +28,11 @@ export class pyVistaService {
 
     const mesh = new THREE.Mesh(geometry, material);
 
+    // ワイヤーフレームを追加する
+    const edges = new THREE.EdgesGeometry( geometry );
+    const line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0x000000 } ) );
+    mesh.add( line );
+
     return mesh;
   }
 

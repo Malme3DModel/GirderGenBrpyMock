@@ -37,8 +37,7 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
     this.animate();
 
     // 初期モデルを呼び出す
-    const Model = this.model.createGirder(this.plam.palam());
-    this.scene.add(Model);
+    this.model.createGirder(this.plam.palam());
   }
 
   ngOnDestroy() {

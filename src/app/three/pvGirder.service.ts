@@ -30,7 +30,8 @@ export class pvGirderService {
   ) {
   }
 
-  public createGirder(plam: any) {
+  public createGirder(plam: any): void {
+    this.scene.clear();
 
     // スラブのパラメータ
     const pSlab = plam['slab'];
@@ -135,8 +136,8 @@ export class pvGirderService {
     const Model = new THREE.Group();
     Model.add(Slab, Girder);
 
-    return Model
-
+    this.scene.add(Model);
+    this.scene.render();
   }
 
   download() {

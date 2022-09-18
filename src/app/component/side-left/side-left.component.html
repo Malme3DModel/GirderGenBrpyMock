@@ -1,9 +1,9 @@
 <mat-selection-list #shoes [multiple]="false">
-    <mat-list-option (click)="openDialog('common')">共通</mat-list-option>
-    <mat-list-option (click)="openDialog('Ds')">床版</mat-list-option>
-    <mat-list-option (click)="openDialog('Mg')">主桁</mat-list-option>
-    <mat-list-option (click)="openDialog('Cf')">中間対傾構</mat-list-option>
-    <mat-list-option (click)="openDialog('Lu,Ll')">横構</mat-list-option>
-    <mat-list-option (click)="openDialog('Cr')">荷重分配横桁</mat-list-option>
-    <mat-list-option (click)="openDialog('Cu')">端横桁</mat-list-option>
+    <mat-list-option (click)="openDialog('slab')">床版</mat-list-option>
+    <mat-list-option (click)="openDialog('beam')">主桁</mat-list-option>
+    <mat-list-option (click)="openDialog('mid')">中間対傾構</mat-list-option>
+    <mat-list-option (click)="openDialog('cross')">横構</mat-list-option>
+    <mat-list-option (click)="openDialog('crossbeam')">荷重分配横桁</mat-list-option>
+    <mat-list-option (click)="openDialog('endbeam')">端横桁</mat-list-option>
+    <mat-list-option (click)="openDialog('others')">その他</mat-list-option>
 </mat-selection-list>
