@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { ModelJsService } from './three/geo/model-js.service';
+import { pvGirderService } from './three/geo/pvGirder.service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +26,7 @@ export class AppComponent  implements AfterViewInit{
 
   constructor(
     public changeDetectorRef: ChangeDetectorRef,
-    public model: ModelJsService){ }
+    public model: pvGirderService){ }
 
     ngAfterViewInit(): void {
       this.redraw();

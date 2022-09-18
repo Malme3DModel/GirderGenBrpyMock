@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef} from '@angular/material/dialog';
-import { ModelJsService } from 'src/app/three/geo/model-js.service';
+import { pvGirderService } from 'src/app/three/geo/pvGirder.service';
 
 @Component({
   selector: 'app-side-right',
@@ -10,7 +10,7 @@ import { ModelJsService } from 'src/app/three/geo/model-js.service';
 export class SideRightComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<SideRightComponent>,
-              public model: ModelJsService) { }
+              public model: pvGirderService) { }
 
   public L: number = 20000;   // 延長
 

@@ -85,4 +85,10 @@ export class GirderPalamService {
     };
   }
 
+  
+  public ProjectName = 'プロジェクト名'
+  public Name1 = '橋梁'     // 階層1のオブジェクト分類名
+  public Name2 = '上部構造' // 階層2のオブジェクト分類名
+  public Name3 = '主桁'     // 階層3のオブジェクト分類名
+
 }
