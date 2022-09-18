@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, HostListener, NgZone, OnDestroy } from '@angular/core';
 import * as THREE from 'three';
-import { pvGirderService } from './geo/pvGirder.service';
 
 import { SceneService } from './scene.service';
 
@@ -15,8 +14,7 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
 
 
   constructor(private ngZone: NgZone,
-              private scene: SceneService,
-              private model: pvGirderService) {
+              private scene: SceneService) {
 
     THREE.Object3D.DefaultUp.set(0, 0, 1);
   }

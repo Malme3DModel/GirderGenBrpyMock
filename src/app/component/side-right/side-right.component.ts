@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef} from '@angular/material/dialog';
-import { pvGirderService } from 'src/app/three/geo/pvGirder.service';
+import { GirderPalamService } from 'src/app/service/girder-palam.service';
 
 @Component({
   selector: 'app-side-right',
@@ -10,7 +10,7 @@ import { pvGirderService } from 'src/app/three/geo/pvGirder.service';
 export class SideRightComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<SideRightComponent>,
-              public model: pvGirderService) { }
+              public model: GirderPalamService) { }
 
   public L: number = 20000;   // 延長
 
@@ -37,5 +37,5 @@ export class SideRightComponent implements OnInit {
     // this.model.reSetModel(this.L, this.B1, this.B3,
     //   this.T1, this.T2, this.HH, this.BB, this.TT1, this.TT2, this.n);
   }
-  
+
 }
