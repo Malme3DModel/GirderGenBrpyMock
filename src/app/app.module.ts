@@ -26,7 +26,13 @@ import { MenuComponent } from './component/menu/menu.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 import { SideLeftComponent } from './component/side-left/side-left.component';
-import { SideRightComponent } from './component/side-right/side-right.component';
+import { SideRightSlabComponent } from './component/side-right-slab/side-right-slab.component';
+import { SideRightBeamComponent } from './component/side-right-beam/side-right-beam.component';
+import { SideRightMidComponent } from './component/side-right-mid/side-right-mid.component';
+import { SideRightCrossComponent } from './component/side-right-cross/side-right-cross.component';
+import { SideRightCrossbeamComponent } from './component/side-right-crossbeam/side-right-crossbeam.component';
+import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-right-endbeam.component';
+import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +40,13 @@ import { SideRightComponent } from './component/side-right/side-right.component'
     ThreeComponent,
     MenuComponent,
     SideLeftComponent,
-    SideRightComponent
+    SideRightSlabComponent,
+    SideRightBeamComponent,
+    SideRightMidComponent,
+    SideRightCrossComponent,
+    SideRightCrossbeamComponent,
+    SideRightEndbeamComponent,
+    SideRightOthersComponent
   ],
   imports: [
     BrowserModule,
