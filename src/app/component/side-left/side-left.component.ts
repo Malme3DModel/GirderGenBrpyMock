@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { SideRightBeamComponent } from '../side-right-beam/side-right-beam.component';
 import { SideRightCrossComponent } from '../side-right-cross/side-right-cross.component';
@@ -7,21 +7,17 @@ import { SideRightEndbeamComponent } from '../side-right-endbeam/side-right-endb
 import { SideRightMidComponent } from '../side-right-mid/side-right-mid.component';
 import { SideRightOthersComponent } from '../side-right-others/side-right-others.component';
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
-import { SideRightComponent } from '../side-right/side-right.component';
 
 @Component({
   selector: 'app-side-left',
   templateUrl: './side-left.component.html',
   styleUrls: ['./side-left.component.scss']
 })
-export class SideLeftComponent implements OnInit {
+export class SideLeftComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  ngOnInit(): void {
-  }
-
-  openDialog(id: string): void {
+  public openDialog(id: string): void {
 
     let rightSide: any = null;
     if( id==='slab')  // 床版
