@@ -6,7 +6,7 @@ import { pvGirderService } from 'src/app/three/pvGirder.service';
 @Component({
   selector: 'app-side-right-others',
   templateUrl: './side-right-others.component.html',
-  styleUrls: ['./side-right-others.component.scss']
+  styleUrls: ['../side-right/side-right.component.scss']
 })
 export class SideRightOthersComponent{
 
