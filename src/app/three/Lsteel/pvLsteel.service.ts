@@ -36,10 +36,13 @@ export class LsteelService {
     for (let i = 0; i < pointlist.length - 1; i++) {
       const A1 = pointlist[i];
       const A2 = pointlist[i + 1];
-      let A3 = A1;  // 一番前の要素を一番後ろに
-      A3.splice(0, 1).push(A1[0]);
-      let A4 = A2;  // 一番前の要素を一番後ろに
-      A4.splice(0, 1).push(A2[0]);
+      const A3 = A1.concat();  // 一番前の要素を一番後ろに
+      A3.splice(0, 1);
+      A3.push(A1[0]);
+      const A4 = A2.concat();  // 一番前の要素を一番後ろに
+      A4.splice(0, 1);
+      A4.push(A2[0]);
+
       for (let j = 0; j < A1.length; j++) {
         const Apoints = [A1[j], A3[j], A2[j]];
         const Bpoints = [A2[j], A4[j], A3[j]];
@@ -94,10 +97,13 @@ export class LsteelService {
     for (let i = 0; i < pointlist.length - 1; i++) {
       const A1 = pointlist[i];
       const A2 = pointlist[i + 1];
-      let A3 = A1;  // 一番前の要素を一番後ろに
-      A3.splice(0, 1).push(A1[0]);
-      let A4 = A2;  // 一番前の要素を一番後ろに
-      A4.splice(0, 1).push(A2[0]);
+      const A3 = A1.concat();  // 一番前の要素を一番後ろに
+      A3.splice(0, 1);
+      A3.push(A1[0]);
+      const A4 = A2.concat();  // 一番前の要素を一番後ろに
+      A4.splice(0, 1);
+      A4.push(A2[0]);
+
       for (let j = 0; j < A1.length; j++) {
         const Apoints = [A1[j], A3[j], A2[j]];
         const Bpoints = [A2[j], A4[j], A3[j]];
