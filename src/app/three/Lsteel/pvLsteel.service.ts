@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
-import { HsteelService } from '../Hsteel/pvHsteel.service';
-import { pvRotateService } from '../pvRotate.service';
-import { pvTranlateService } from '../pvTranlate.service';
+import { pvRotateService } from '../libs/pvRotate.service';
+import { pvTranlateService } from '../libs/pvTranlate.service';
+import { pyVistaService } from '../libs/pyVista.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LsteelService {
 
-  constructor(private pv: HsteelService,
+  constructor(private pv: pyVistaService,
     private Rotate: pvRotateService,
     private Move: pvTranlateService) { }
 
@@ -147,7 +147,7 @@ export class LsteelService {
     const x = (s_in * D) / (L + s_in);
     const z = (s_in * H) / (L + s_in) + dz + tf;
     const Obj = this.Create_Lsteel_R(A, B, t, L);
-    const y_rotate_R = Math.round(this.degrees(Math.atan(D / H)) * 10) / 10;
+    const y_rotate_R = Math.round(this.pv.degrees(Math.atan(D / H)) * 10) / 10;
     const Model_R = this.exchange(Obj, y_rotate_R, [x, 0.0, z]);
     return Model_R;
   }
@@ -158,7 +158,7 @@ export class LsteelService {
     const x = -(s_in * D) / (L + s_in);
     const z = (s_in * H) / (L + s_in) + dz + tf;
     const Obj = this.Create_Lsteel_L(A, B, t, L);
-    const y_rotate_L = -Math.round(this.degrees(Math.atan(D / H)) * 10) / 10;
+    const y_rotate_L = -Math.round(this.pv.degrees(Math.atan(D / H)) * 10) / 10;
     const Model_L = this.exchange(Obj, y_rotate_L, [x, 0.0, z]);
     return Model_L;
   }
@@ -196,7 +196,5 @@ export class LsteelService {
     return Model;
   }
 
-  public degrees(radian: number): number {
-    return radian * (180 / Math.PI);
-  }
+
 }

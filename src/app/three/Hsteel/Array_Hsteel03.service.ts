@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
 import { LsteelService } from '../Lsteel/pvLsteel.service';
-import { pvRotateService } from '../pvRotate.service';
-import { pvTranlateService } from '../pvTranlate.service';
+import { pvRotateService } from '../libs/pvRotate.service';
+import { pvTranlateService } from '../libs/pvTranlate.service';
 import { HsteelService } from './pvHsteel.service';
+import { pyVistaService } from '../libs/pyVista.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArrayH3Service {
 
-  constructor(private Hsteel: HsteelService,
+  constructor(private pv: pyVistaService,
+    private Hsteel: HsteelService,
     private Rotate: pvRotateService,
-    private Move: pvTranlateService,
-    private Lsteel: LsteelService) { }
+    private Move: pvTranlateService) { }
 
   private CreateBeam(D: number, W: number, tf: number, tw: number,
     s_edge: number, s_middle: number, interval_H: number, interval_V: number,
@@ -27,7 +28,7 @@ export class ArrayH3Service {
     const Model_L = this.Move.MoveObject(Model, [x, interval_H / 4.0, dz]);
     const Model_R = this.Move.MoveObject(Model, [x, 3.0 * interval_H / 4.0, dz]);
 
-    const z_rotate = Math.round(this.Lsteel.degrees(Math.atan(interval_V / (interval_H / 2.0))) * 10) / 10;
+    const z_rotate = Math.round(this.pv.degrees(Math.atan(interval_V / (interval_H / 2.0))) * 10) / 10;
     const Model_LM = this.Rotate.rotate(Model_L, [0.0, interval_H / 4.0, dz], 0.0, 0.0, -z_rotate);
     const Model_RM = this.Rotate.rotate(Model_R, [0.0, 3.0 * interval_H / 4.0, dz], 0.0, 0.0, z_rotate);
     const Models = new THREE.Group();

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
-import { HsteelService } from '../Hsteel/pvHsteel.service';
 import { pvTranlateService } from '../libs/pvTranlate.service';
 import { pyVistaService } from '../libs/pyVista.service';
 
