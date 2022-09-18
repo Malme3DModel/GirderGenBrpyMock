@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>その他の項目の編集</h1>
+
+<div mat-dialog-content>
+    <mat-list role="list">
+        <mat-list-item role="listitem">s_BP
+            <mat-slider min="5000" max="50000" step="1000" [(ngModel)]="model.others.s_BP" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.others.s_BP}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">s_EP
+            <mat-slider min="1000" max="10000" step="100" [(ngModel)]="model.others.s_EP" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.others.s_EP}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">L
+            <mat-slider min="100" max="500" step="10" [(ngModel)]="model.others.L" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.others.L}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">amount_H
+            <mat-slider min="300" max="3000" step="1" [(ngModel)]="model.others.amount_H" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.others.amount_H}}</label>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>閉じる</button>
+</div>

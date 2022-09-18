@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>主桁の編集</h1>
+
+<div mat-dialog-content>
+    <mat-list role="list">
+        <mat-list-item role="listitem">amount_V
+            <mat-slider min="5000" max="50000" step="1000" [(ngModel)]="model.beam.amount_V" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.beam.amount_V}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">W
+            <mat-slider min="1000" max="10000" step="100" [(ngModel)]="model.beam.W" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.beam.W}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">D
+            <mat-slider min="100" max="500" step="10" [(ngModel)]="model.beam.D" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.beam.D}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">tw
+            <mat-slider min="300" max="3000" step="1" [(ngModel)]="model.beam.tw" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.beam.tw}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">tf
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.beam.tf" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.beam.tf}}</label>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>閉じる</button>
+</div>

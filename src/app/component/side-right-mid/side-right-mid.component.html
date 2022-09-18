@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>中間対傾構の編集</h1>
+
+<div mat-dialog-content>
+    <mat-list role="list">
+        <mat-list-item role="listitem">A
+            <mat-slider min="5000" max="50000" step="1000" [(ngModel)]="model.mid.A" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.mid.A}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">B
+            <mat-slider min="1000" max="10000" step="100" [(ngModel)]="model.mid.B" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.mid.B}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">H
+            <mat-slider min="100" max="500" step="10" [(ngModel)]="model.mid.H" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.mid.H}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">t
+            <mat-slider min="300" max="3000" step="1" [(ngModel)]="model.mid.t" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.mid.t}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">s
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.mid.s" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.mid.s}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">s_in
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.mid.s_in" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.mid.s_in}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">s_out
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.mid.s_out" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.mid.s_out}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">dz
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.mid.dz" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.mid.dz}}</label>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>閉じる</button>
+</div>

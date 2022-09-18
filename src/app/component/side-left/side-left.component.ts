@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { SideRightBeamComponent } from '../side-right-beam/side-right-beam.component';
+import { SideRightCrossComponent } from '../side-right-cross/side-right-cross.component';
+import { SideRightCrossbeamComponent } from '../side-right-crossbeam/side-right-crossbeam.component';
+import { SideRightEndbeamComponent } from '../side-right-endbeam/side-right-endbeam.component';
+import { SideRightMidComponent } from '../side-right-mid/side-right-mid.component';
+import { SideRightOthersComponent } from '../side-right-others/side-right-others.component';
+import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
 import { SideRightComponent } from '../side-right/side-right.component';
 
 @Component({
@@ -16,25 +23,28 @@ export class SideLeftComponent implements OnInit {
 
   openDialog(id: string): void {
 
-    let rightSide: any = SideRightComponent; 
-    if( id==='common')  // 共通
-      rightSide = SideRightComponent;
-    else if( id==='Ds') // 床版
-      rightSide = SideRightComponent;
-    else if( id==='Mg') // 主桁
-      rightSide = SideRightComponent;
-    else if( id==='Cf') // 中間対傾構
-      rightSide = SideRightComponent;
-    else if( id==='Lu,Ll')  // 横構
-      rightSide = SideRightComponent;
-    else if( id==='Cr') // 荷重分配横桁
-      rightSide = SideRightComponent;
-    else if( id==='Cu') // 端横桁
-      rightSide = SideRightComponent;
+    let rightSide: any = null;
+    if( id==='slab')  // 床版
+      rightSide = SideRightSlabComponent;
+    else if( id==='beam') // 主桁
+      rightSide = SideRightBeamComponent;
+    else if( id==='mid') // 中間対傾構
+      rightSide = SideRightMidComponent;
+    else if( id==='cross') // 横構
+      rightSide = SideRightCrossComponent;
+    else if( id==='crossbeam')  // 荷重分配横桁
+      rightSide = SideRightCrossbeamComponent;
+    else if( id==='endbeam') // 端横桁
+      rightSide = SideRightEndbeamComponent;
+    else if( id==='others') // その他
+      rightSide = SideRightOthersComponent;
+
+    if(rightSide==null)
+      return;
 
     this.dialog.open(rightSide, {
       width: '350px',
-      position: { right: '100px' },
+      position: { right: '50px', top: '50px' },
       hasBackdrop: false
     });
 

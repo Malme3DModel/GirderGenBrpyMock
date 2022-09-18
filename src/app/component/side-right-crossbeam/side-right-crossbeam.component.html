@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>荷重分配横桁の編集</h1>
+
+<div mat-dialog-content>
+    <mat-list role="list">
+        <mat-list-item role="listitem">W3
+            <mat-slider min="5000" max="50000" step="1000" [(ngModel)]="model.crossbeam.W3" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.crossbeam.W3}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">D4
+            <mat-slider min="1000" max="10000" step="100" [(ngModel)]="model.crossbeam.D4" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.crossbeam.D4}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">tf3
+            <mat-slider min="100" max="500" step="10" [(ngModel)]="model.crossbeam.tf3" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.crossbeam.tf3}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">tw3
+            <mat-slider min="300" max="3000" step="1" [(ngModel)]="model.crossbeam.tw3" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.crossbeam.tw3}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">s_edge2
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.crossbeam.s_edge2" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.crossbeam.s_edge2}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">s_middle2
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.crossbeam.s_middle2" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.crossbeam.s_middle2}}</label>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>閉じる</button>
+</div>

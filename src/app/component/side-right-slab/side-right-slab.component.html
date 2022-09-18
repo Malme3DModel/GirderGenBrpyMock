@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>スラブの編集</h1>
+
+<div mat-dialog-content>
+    <mat-list role="list">
+        <mat-list-item role="listitem">b1
+            <mat-slider min="5000" max="50000" step="1000" [(ngModel)]="model.slab.b1" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.b1}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">b2
+            <mat-slider min="1000" max="10000" step="100" [(ngModel)]="model.slab.b2" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.b2}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">b3
+            <mat-slider min="100" max="500" step="10" [(ngModel)]="model.slab.b3" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.b3}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">i1
+            <mat-slider min="300" max="3000" step="1" [(ngModel)]="model.slab.i1" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.i1}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">i2
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.slab.i2" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.i2}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">SH
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.slab.SH" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.SH}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">T1
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.slab.T1" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.T1}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">T2
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.slab.T2" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.T2}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">n
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.slab.n" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.n}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">Ss
+            <mat-slider min="300" max="1000" step="1" [(ngModel)]="model.slab.Ss" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.slab.Ss}}</label>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>閉じる</button>
+</div>
