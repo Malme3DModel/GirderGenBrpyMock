@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, HostListener, NgZone, OnDestroy } from '@angular/core';
 import * as THREE from 'three';
-import { ModelJsService } from './geo/model-js.service';
+import { GirderPalamService } from '../service/girder-palam.service';
+import { pvGirderService } from './pvGirder.service';
 
 import { SceneService } from './scene.service';
 
@@ -15,8 +16,9 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
 
 
   constructor(private ngZone: NgZone,
-              private scene: SceneService,
-              private model: ModelJsService) {
+    private scene: SceneService,
+    private plam: GirderPalamService,
+    private model: pvGirderService) {
 
     THREE.Object3D.DefaultUp.set(0, 0, 1);
   }
@@ -27,16 +29,16 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.scene.OnInit(window.devicePixelRatio,
-                      this.canvas,
-                      devicePixelRatio,
-                      window.innerWidth,
-                      window.innerHeight);
+      this.canvas,
+      devicePixelRatio,
+      window.innerWidth,
+      window.innerHeight);
     // レンダリングする
     this.animate();
-    
-    // モデルを呼び出す
-    // this.model.OnInit();
-    // this.geo.loadStl();
+
+    // 初期モデルを呼び出す
+    const Model = this.model.createGirder(this.plam.palam());
+    this.scene.add(Model);
   }
 
   ngOnDestroy() {
@@ -47,7 +49,7 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
     // because it could trigger heavy changeDetection cycles.
     this.ngZone.runOutsideAngular(() => {
       window.addEventListener('DOMContentLoaded', () => {
-      this.scene.render();
+        this.scene.render();
       });
     });
   }
@@ -71,8 +73,8 @@ export class ThreeComponent implements AfterViewInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   public onResize(event: Event) {
     this.scene.onResize(window.devicePixelRatio,
-                        window.innerWidth,
-                        window.innerHeight);
+      window.innerWidth,
+      window.innerHeight);
   }
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelJsService } from 'src/app/three/geo/model-js.service';
+import { pvGirderService } from 'src/app/three/pvGirder.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +8,7 @@ import { ModelJsService } from 'src/app/three/geo/model-js.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(public model: ModelJsService) { }
+  constructor(public model: pvGirderService) { }
 
   ngOnInit(): void {
   }
