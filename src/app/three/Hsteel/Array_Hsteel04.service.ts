@@ -44,8 +44,7 @@ export class ArrayH4Service {
 
     let x2 = -x1 + interval;
     const HObj = new THREE.Group();
-    HObj.add(Obj_EL);
-    HObj.add(Obj_ER);
+    HObj.add(Obj_EL, Obj_ER);
 
     for (let i = 0; i < Amount - 2; i++) {
       const Obj_M = this.Move.MoveObject(RModel_M, [x2, 0.0, z]);
@@ -66,8 +65,7 @@ export class ArrayH4Service {
     const Obj1 = this.Move.MoveObject(obj, [0.0, 0.0, 0.0]);
     const Obj2 = this.Move.MoveObject(obj, [0.0, L, 0.0]);
     const Obj = new THREE.Group();
-    Obj.add(Obj1);
-    Obj.add(Obj2);
+    Obj.add(Obj1, Obj2);
     return Obj
   }
 }

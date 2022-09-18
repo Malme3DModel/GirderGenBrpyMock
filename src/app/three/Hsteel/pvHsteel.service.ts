@@ -166,11 +166,14 @@ export class HsteelService {
 
   }
 
-  private PolyData(poi: number[][], list: number[]) {
+  public PolyData(poi: number[][], list: number[]): THREE.Mesh {
 
     const points = []
     for (let p of poi) {
-      points.push(new THREE.Vector3(p[0], p[1], p[2]));
+      const n1 = list[1];
+      const n2 = list[2];
+      const n3 = list[3];
+      points.push(new THREE.Vector3(p[n1], p[n2], p[n3]));
     }
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
 

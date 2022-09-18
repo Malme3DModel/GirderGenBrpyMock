@@ -8,6 +8,7 @@ import { ArrayH1Service } from 'src/app/three/Hsteel/Array_Hsteel01.service';
 import { ArrayH2Service } from 'src/app/three/Hsteel/Array_Hsteel02.service';
 import { ArrayH3Service } from 'src/app/three/Hsteel/Array_Hsteel03.service';
 import { ArrayH4Service } from 'src/app/three/Hsteel/Array_Hsteel04.service';
+import { ArrayLService } from './Lsteel/Array_Lsteel.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class pvGirderService {
               private ArrayH2: ArrayH2Service,
               private ArrayH3: ArrayH3Service,
               private ArrayH4: ArrayH4Service,
+              private ArrayL: ArrayLService
               ) {
     this.createGirder(this.plam.palam())
   }
