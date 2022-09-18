@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
-import { pvRotateService } from '../pvRotate.service';
-import { pvTranlateService } from '../pvTranlate.service';
+import { pvRotateService } from '../libs/pvRotate.service';
+import { pvTranlateService } from '../libs/pvTranlate.service';
 import { HsteelService } from './pvHsteel.service';
 
 @Injectable({
