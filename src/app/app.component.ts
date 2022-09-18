@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { pvGirderService } from './three/geo/pvGirder.service';
+import { GirderPalamService } from './service/girder-palam.service';
+import { pvGirderService } from './three/pvGirder.service';
 
 @Component({
   selector: 'app-root',
@@ -26,19 +27,12 @@ export class AppComponent  implements AfterViewInit{
 
   constructor(
     public changeDetectorRef: ChangeDetectorRef,
-    public model: pvGirderService){ }
+    private plam: GirderPalamService,
+    private model: pvGirderService){ }
 
     ngAfterViewInit(): void {
-      this.redraw();
+      this.model.createGirder(this.plam.palam());
     }
-
-    redraw() {
-      // console.log('強制的に再描画させる');
-      // this.changeDetectorRef.detectChanges();
-      this.model.reSetModel(this.L, this.B1, this.B3,
-        this.T1, this.T2, this.HH, this.BB, this.TT1, this.TT2, this.n);
-    }
-
 
 
 }

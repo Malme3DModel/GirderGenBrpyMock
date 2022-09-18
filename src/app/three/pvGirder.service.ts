@@ -20,7 +20,6 @@ export class pvGirderService {
   private Exporter: OBJExporter = new OBJExporter();
 
   constructor(private scene: SceneService,
-    private plam: GirderPalamService,
     private ArrayH1: ArrayH1Service,
     private ArrayH2: ArrayH2Service,
     private ArrayH3: ArrayH3Service,
@@ -29,10 +28,9 @@ export class pvGirderService {
     private AddSlab: AddSlabService,
     private Move: pvTranlateService
   ) {
-    this.createGirder(this.plam.palam())
   }
 
-  private createGirder(plam: any) {
+  public createGirder(plam: any) {
 
     // スラブのパラメータ
     const pSlab = plam['slab'];

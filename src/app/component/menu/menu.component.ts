@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { pvGirderService } from 'src/app/three/geo/pvGirder.service';
+import { pvGirderService } from 'src/app/three/pvGirder.service';
 
 @Component({
   selector: 'app-menu',
