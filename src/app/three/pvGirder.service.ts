@@ -9,6 +9,8 @@ import { ArrayH2Service } from 'src/app/three/Hsteel/Array_Hsteel02.service';
 import { ArrayH3Service } from 'src/app/three/Hsteel/Array_Hsteel03.service';
 import { ArrayH4Service } from 'src/app/three/Hsteel/Array_Hsteel04.service';
 import { ArrayLService } from './Lsteel/Array_Lsteel.service';
+import { AddSlabService } from './Slab/pvSlab.service';
+import { pvTranlateService } from './libs/pvTranlate.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +20,19 @@ export class pvGirderService {
   private Exporter: OBJExporter = new OBJExporter();
 
   constructor(private scene: SceneService,
-              private plam: GirderPalamService,
-              private ArrayH1: ArrayH1Service,
-              private ArrayH2: ArrayH2Service,
-              private ArrayH3: ArrayH3Service,
-              private ArrayH4: ArrayH4Service,
-              private ArrayL: ArrayLService
-              ) {
+    private plam: GirderPalamService,
+    private ArrayH1: ArrayH1Service,
+    private ArrayH2: ArrayH2Service,
+    private ArrayH3: ArrayH3Service,
+    private ArrayH4: ArrayH4Service,
+    private ArrayL: ArrayLService,
+    private AddSlab: AddSlabService,
+    private Move: pvTranlateService
+  ) {
     this.createGirder(this.plam.palam())
   }
 
-  private createGirder(plam: any){
+  private createGirder(plam: any) {
 
     // スラブのパラメータ
     const pSlab = plam['slab'];
@@ -51,7 +55,7 @@ export class pvGirderService {
     const D = pBeam['D'];
     const tw = pBeam['tw'];
     const tf = pBeam['tf'];
-    const interval_V = (SB-2*Ss)/(amount_V-1.0); // 主桁の配置間隔
+    const interval_V = (SB - 2 * Ss) / (amount_V - 1.0); // 主桁の配置間隔
 
     // 中間対傾構のパラメータ
     const pMid = plam['mid'];
@@ -98,7 +102,7 @@ export class pvGirderService {
     // その他配置に関するパラメータ
     const pOthers = plam['others'];
     const s_BP = pOthers['s_BP']; // 始点側端部から端横構までの離隔
-    const s_EP =  pOthers['s_EP']; // 終点側端部から端横構までの離隔
+    const s_EP = pOthers['s_EP']; // 終点側端部から端横構までの離隔
     const L = pOthers['L']; // 支間長
     const L2 = L + (s_BP + s_EP); // 桁長
     const amount_H = pOthers['amount_H']; // 列数
@@ -106,108 +110,36 @@ export class pvGirderService {
     const z2 = tf * 2.0 + W + T2;
     const y2 = (s_BP + s_EP) / 2.0;
     const column: number[] = new Array(); // 中間対傾構を配置する列番号（起点側から0）
-    for(let i=0; i<amount_H; i++){
-        column.push(i);
+    for (let i = 0; i < amount_H; i++) {
+      column.push(i);
     }
     column.push(amount_H);
     let location = column;
-    for(let i=0; i<location2.length; i++){ 
+    for (let i = 0; i < location2.length; i++) {
       location = location.filter(item => item !== location2[i]);
     }
     location.shift(); // 先頭の要素を削除
     location.pop();   // 末尾の要素を削除
 
-    const MainGirader = this.ArrayH1.Array(L2, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V)
-    const IntermediateSwayBracing = this.ArrayL.Array( A, B, t, s, s_in, s_out, H, W, D2, tf, dz, amount_H, amount_V, interval_H, interval_V, location)
-    const CrossBeam01_T = this.ArrayH3.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, false)
-    const CrossBeam01_D = this.ArrayH3.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true)
-    const CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2)
-    const CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L, amount_V, interval_V)
+    const MainGirader = this.ArrayH1.Array(L2, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V);
+    const IntermediateSwayBracing = this.ArrayL.Array(A, B, t, s, s_in, s_out, H, W, D2, tf, dz, amount_H, amount_V, interval_H, interval_V, location);
+    const CrossBeam01_T = this.ArrayH3.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, false);
+    const CrossBeam01_D = this.ArrayH3.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true);
+    const CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2);
+    const CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L, amount_V, interval_V);
 
-    Slab = AddSlab.add_Slab(AddSlab, b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L2, amount_V, interval_V)
-    Girder_0 = MainGirader + IntermediateSwayBracing + CrossBeam01_T + CrossBeam01_D + CrossBeam02 + CrossBeam03
-    Girder = Move.MoveObject(Move, obj=Girder_0, coordinate=(0.0, y2,-z2))
+    const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L2, amount_V, interval_V);
 
-    Model = Slab + Girder
+    const Girder_0 = new THREE.Group();
+    Girder_0.add(MainGirader, IntermediateSwayBracing, CrossBeam01_T, CrossBeam01_D, CrossBeam02, CrossBeam03);
+    const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
+
+    const Model = new THREE.Group();
+    Model.add(Slab, Girder);
 
     return Model
 
   }
-
-  private create(color: THREE.ColorRepresentation): THREE.Mesh {
-    // スラブをあらかじめ作成しておく
-    const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    const material = new THREE.MeshBasicMaterial( {color, transparent :true, opacity: 0.5} );
-    const slab = new THREE.Mesh( geometry, material );
-    // ワイヤフレーム
-    const material2 = new THREE.MeshBasicMaterial( {color: 0x000000, wireframe :true} );
-    const wf = new THREE.Mesh( geometry, material2 );
-    slab.add(wf);
-    return slab;
-  }
-
-  private createH(color: THREE.ColorRepresentation): THREE.Group {
-    const g = new THREE.Group();
-
-    const uFlg = this.create(color);
-    uFlg.scale.set( 1, 1, 0.1);
-    uFlg.position.set(0, 0, 1);
-    g.add(uFlg)
-
-    const bFlg = this.create(color);
-    bFlg.scale.set( 1, 1, 0.1);
-    bFlg.position.set(0, 0, 0);
-    g.add(bFlg)
-
-    const Web = this.create(color);
-    Web.scale.set( 0.1, 1, 1);
-    Web.position.set(0, 0, 0.5);
-    g.add(Web)
-
-    return g;
-  }
-
-
-  public reSetModel(L: number, B1: number, B3: number,
-      T1: number, T2: number, HH: number, BB: number, TT1: number, TT2: number, n: number) {
-
-        // スラブ
-        this.slab.scale.set( B1/1000, L/1000, T1/1000);
-        this.slab.position.set(0, 0, HH/1000+T1/2000);
-
-        const start = -B1/3000;
-        const span = B1/3000;
-        for (let i = 0; i < n; i++) {
-          const H = this.H_list.children[i];
-          H.scale.set( BB/1000, L/1000, HH/1000);
-          H.position.set(start + span * i, 0, 0);
-        // }
-        // H鋼
-        // this.H1.scale.set( BB/1000, L/1000, HH/1000);
-        // this.H1.position.set(-B1/3000, 0, 0);
-        // H鋼
-        // this.H2.scale.set( BB/1000, L/1000, HH/1000);
-        // this.H2.position.set(0, 0, 0);
-        // H鋼
-        // this.H3.scale.set( BB/1000, L/1000, HH/1000);
-        // this.H3.position.set(B1/3000, 0, 0);
-        for (let i = 0; i < n; i++ ) {
-          // 変数を代入できるようにする
-          const Model = this.CreateBeam();
-          if (i === 1) {
-            Model.position.set(-2, 0, 0)
-          } else if (i === 2) {
-            Model.position.set(0, 0, 0)
-          } else {
-            Model.position.set(2, 0, 0)
-          }
-          this.scene.add(Model);
-        }
-        this.scene.render();
-    }
-  }
-
-
 
   download() {
     const result = this.Exporter.parse(this.scene.scene);
