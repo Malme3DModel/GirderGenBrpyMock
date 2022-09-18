@@ -6,7 +6,7 @@ import { pvGirderService } from 'src/app/three/pvGirder.service';
 @Component({
   selector: 'app-side-right-cross',
   templateUrl: './side-right-cross.component.html',
-  styleUrls: ['./side-right-cross.component.scss']
+  styleUrls: ['../side-right/side-right.component.scss']
 })
 export class SideRightCrossComponent {
 

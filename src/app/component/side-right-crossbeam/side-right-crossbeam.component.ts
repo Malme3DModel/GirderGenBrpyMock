@@ -6,7 +6,7 @@ import { pvGirderService } from 'src/app/three/pvGirder.service';
 @Component({
   selector: 'app-side-right-crossbeam',
   templateUrl: './side-right-crossbeam.component.html',
-  styleUrls: ['./side-right-crossbeam.component.scss']
+  styleUrls: ['../side-right/side-right.component.scss']
 })
 export class SideRightCrossbeamComponent {
 
