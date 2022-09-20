@@ -42,18 +42,13 @@ export class MenuComponent implements OnInit {
       .subscribe((response: any) => {
 
         if (!('body' in response)) {
-          if ('errorMessage' in response) {
-            alert(response.errorMessage);
-          } else {
-            alert('unknown error');
-          }
           return;
         }
 
         const text: string = response.body;
         // string -> file に変換して読み込ませる
         const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-        FileSaver.saveAs(blob, 'test.obj');
+        FileSaver.saveAs(blob, 'test.ifc');
 
       },
         (error) => {
