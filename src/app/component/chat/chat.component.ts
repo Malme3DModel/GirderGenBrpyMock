@@ -13,4 +13,10 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  comments: { user: boolean, content: string }[] = [
+    { user: true,  content: '１つ目のコメントです。'},
+    { user: false,  content: '２つ目のコメントです。'},
+    { user: true,  content: '３つ目のコメントです。'}
+  ];
+
 }
