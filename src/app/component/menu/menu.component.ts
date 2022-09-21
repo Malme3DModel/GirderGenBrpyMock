@@ -71,7 +71,6 @@ export class MenuComponent implements OnInit {
     });
 
 
-
   }
 
   // ダーバーに送信する用のデータ作成する
