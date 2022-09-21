@@ -54,19 +54,19 @@ export class SceneService {
     this.addControls();
 
     // 床面を生成する
-    this.createHelper();
+    //this.createHelper();
 
   }
 
 
   // 床面を生成する
   private createHelper() {
-    const axisHelper = new THREE.AxesHelper(0.02);
+    const axisHelper = new THREE.AxesHelper(200);
     axisHelper.name = "axisHelper";
     this.scene.add(axisHelper);
-    this.GridHelper = new THREE.GridHelper(50, 50);
-    this.GridHelper.geometry.rotateX(Math.PI / 2);
-    this.scene.add(this.GridHelper);
+    // this.GridHelper = new THREE.GridHelper(50, 50);
+    // this.GridHelper.geometry.rotateX(Math.PI / 2);
+    // this.scene.add(this.GridHelper);
   }
 
   // コントロール
@@ -180,6 +180,9 @@ export class SceneService {
       const mesh = this.scene.children[0];
       this.scene.remove(mesh);
   }
+  // 床面を生成する
+  this.createHelper();
+
 }
 
 }
