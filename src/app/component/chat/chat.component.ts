@@ -1,16 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { SocketioService } from './socketio-service.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
-  constructor(public dialogRef: MatDialogRef<ChatComponent>) { }
+  constructor(
+    private socketService: SocketioService,
+    public dialogRef: MatDialogRef<ChatComponent>) { }
 
   ngOnInit(): void {
+    this.socketService.setupSocketConnection();
+  }
+
+  ngOnDestroy() {
+    this.socketService.disconnect();
   }
 
   comments: { user: boolean, content: string }[] = [
