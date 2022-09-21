@@ -35,6 +35,7 @@ import { SideRightCrossComponent } from './component/side-right-cross/side-right
 import { SideRightCrossbeamComponent } from './component/side-right-crossbeam/side-right-crossbeam.component';
 import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-right-endbeam.component';
 import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
+import { ChatComponent } from './component/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { SideRightOthersComponent } from './component/side-right-others/side-rig
     SideRightCrossComponent,
     SideRightCrossbeamComponent,
     SideRightEndbeamComponent,
-    SideRightOthersComponent
+    SideRightOthersComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

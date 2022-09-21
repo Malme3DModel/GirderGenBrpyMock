@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>あなたは内田裕也です</h1>
+
+<div mat-dialog-content>
+    <div id="your_container">
+        <!-- チャットの外側部分① -->
+        <div id="bms_messages_container">
+            <!-- タイムライン部分③ -->
+            <div id="bms_messages">
+
+                <!--メッセージ１（左側）-->
+                <div class="bms_message bms_left">
+                    <div class="bms_message_box">
+                        <div class="bms_message_content">
+                            <div class="bms_message_text">
+                                怖いと感じる人とかいるんですか？
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+
+                <!--メッセージ２（右側）-->
+                <div class="bms_message bms_right">
+                    <div class="bms_message_box">
+                        <div class="bms_message_content">
+                            <div class="bms_message_text">
+                                この世界ではいない
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+            </div>
+
+            <!-- テキストボックス、送信ボタン④ -->
+            <div id="bms_send">
+                <textarea id="bms_send_message"></textarea>
+                <div id="bms_send_btn">送信</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>閉じる</button>
+</div>

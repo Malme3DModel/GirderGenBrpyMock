@@ -3,6 +3,20 @@
     position: relative;
 }
 
+.right-buttom{
+    z-index: 10;
+    position:fixed;
+    right:50px;
+    bottom:50px;
+    transition:1s;
+    opacity:0.7;
+}
+
+.right-buttom:hover{
+    opacity:1;
+}
+
+
 app-side-left {
     width: 15%;
     display: block;
