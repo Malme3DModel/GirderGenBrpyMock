@@ -12,16 +12,16 @@ export class pvRotateService {
 
     const origine = new THREE.Vector3(point[0], point[1], point[2]);
 
-    const x = Math.floor(x_rotate * Math.PI / 180.0);
-    const y = Math.floor(y_rotate * Math.PI / 180.0);
-    const z = Math.floor(z_rotate * Math.PI / 180.0 + Math.PI / 4.0);
+    const x = Math.floor(x_rotate);
+    const y = Math.floor(y_rotate);
+    const z = Math.floor(z_rotate);
 
     let Mesh = obj.clone();
 
 
-    const Model_x = Mesh.rotateX(x);
-    const Model_xy = Model_x.rotateY(y);
-    const Model = Model_xy.rotateZ(z);
+    const Model_x = Mesh.rotateX(x * Math.PI / 180.0);
+    const Model_xy = Model_x.rotateY(y * Math.PI / 180.0);
+    const Model = Model_xy.rotateZ(z * Math.PI / 180.0);
 
     return Model
   }
