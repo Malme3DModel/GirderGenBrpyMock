@@ -9,9 +9,14 @@
 
     <span>合成桁-3Dモデルジェネレーター</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="download ifc file" (click)="download()">
+
+    <button *ngIf="!isLoading" mat-icon-button class="example-icon favorite-icon" aria-label="download ifc file" (click)="download()">
         <mat-icon>cloud_download</mat-icon>
     </button>
+    <div *ngIf="isLoading">
+        <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
         <mat-icon>share</mat-icon>
     </button>

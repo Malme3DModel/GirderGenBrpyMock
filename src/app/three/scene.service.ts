@@ -14,14 +14,14 @@ export class SceneService {
   private renderer!: THREE.WebGLRenderer;
 
   // カメラ
-  private camera!: THREE.PerspectiveCamera;
+  private camera!: THREE.OrthographicCamera;
   private aspectRatio: number = 0;
   private Width: number = 0;
   private Height: number = 0;
 
-  private GridHelper!: THREE.GridHelper;
+  private controls!: OrbitControls;
 
-  // 初期化
+   // 初期化
   public constructor() {
     // シーンを作成
     this.scene = new THREE.Scene();
@@ -53,23 +53,22 @@ export class SceneService {
     // コントロール
     this.addControls();
 
-    // 床面を生成する
-    // this.createHelper();
-
   }
 
 
   // 床面を生成する
   private createHelper() {
-    this.GridHelper = new THREE.GridHelper(50, 50);
-    this.GridHelper.geometry.rotateX(Math.PI / 2);
-    this.scene.add(this.GridHelper);
+    const axisHelper = new THREE.AxesHelper(200);
+    axisHelper.name = "axisHelper";
+    this.scene.add(axisHelper);
   }
 
   // コントロール
   public addControls() {
-    const controls = new OrbitControls(this.camera, this.renderer.domElement);
-    controls.addEventListener('change', this.render);
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.addEventListener('change', this.render);
+    this.controls.target.set(0, 10, 0); // 注視点のデフォルトの位置
+    this.controls.update();
   }
 
   // カメラの初期化
@@ -84,13 +83,15 @@ export class SceneService {
     if (target !== undefined) {
       this.scene.remove(this.camera);
     }
-    this.camera = new THREE.PerspectiveCamera(
-      70,
-      aspectRatio,
-      0.1,
+    this.camera = new THREE.OrthographicCamera(
+      -Width / 50,
+      Width / 50,
+      Height / 50,
+      -Height / 50,
+      -1000,
       1000
     );
-    this.camera.position.set(0, -25, 10);
+    this.camera.position.set(10, -5, 5);
     this.camera.name = 'camera';
     this.scene.add(this.camera);
 
@@ -174,7 +175,10 @@ export class SceneService {
     while(this.scene.children.length > 0){
       const mesh = this.scene.children[0];
       this.scene.remove(mesh);
+    }
+    // 床面を生成する
+     this.createHelper();
+
   }
-}
 
 }

@@ -27,20 +27,20 @@ export class ArrayH3Service {
     const x = s_edge - s_middle;
     const Model_L = this.Move.MoveObject(Model, [x, interval_H / 4.0, dz]);
     const Model_R = this.Move.MoveObject(Model, [x, 3.0 * interval_H / 4.0, dz]);
+    
 
-    const z_rotate = Math.round(this.pv.degrees(Math.atan(interval_V / (interval_H / 2.0))) * 10) / 10;
+    let z_rotate = Math.round(this.pv.degrees(Math.atan(interval_V / (interval_H / 2.0))) * 10) / 10;
+    if (reverse == true) {
+      z_rotate *= 1.0;
+    } else {
+      z_rotate *= -1.0;
+    }
     const Model_LM = this.Rotate.rotate(Model_L, [0.0, interval_H / 4.0, dz], 0.0, 0.0, -z_rotate);
     const Model_RM = this.Rotate.rotate(Model_R, [0.0, 3.0 * interval_H / 4.0, dz], 0.0, 0.0, z_rotate);
     const Models = new THREE.Group();
     Models.add(Model_LM);
     Models.add(Model_RM);
 
-    if (reverse == true) {
-      const RModel_0 = this.Move.MoveObject(Models, [0.0, 0.0, -z - dz]);
-      const RModel_R = this.Rotate.rotate(RModel_0, [0.0, 0.0, 0.0], 0.0, 180.0, 0.0);
-      const RModel = this.Move.MoveObject(RModel_R, [0.0, 0.0, z + dz]);
-      Models.add(RModel);
-    }
     return Models
   }
 
