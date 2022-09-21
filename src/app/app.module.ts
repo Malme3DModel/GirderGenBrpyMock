@@ -24,6 +24,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MenuComponent } from './component/menu/menu.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 import { SideLeftComponent } from './component/side-left/side-left.component';
 import { SideRightSlabComponent } from './component/side-right-slab/side-right-slab.component';
@@ -66,6 +68,7 @@ import { SideRightOthersComponent } from './component/side-right-others/side-rig
     MatTableModule,
     MatDialogModule,
     MatBottomSheetModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule
   ],
   providers: [],

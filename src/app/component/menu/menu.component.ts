@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public isLoading = false;
 
   private Exporter: OBJExporter = new OBJExporter();
 
@@ -36,24 +37,41 @@ export class MenuComponent implements OnInit {
     // データを用意
     const json_str = this.getPostJson();
     const url: string = environment.url;
-    
+
     // サーバーにポストする
-    this.http.post(url, json_str, options)
-      .subscribe((response: any) => {
+    this.isLoading = true;
+    this.http.get(url, options).subscribe((response: any) => {
+      // AWS Lamdaサーバー休止状態からの起動が遅いんで、get で起こす
+      console.log(response[0]);
+      // get に成功したら post する
+      this.http.post(url, json_str, options)
+        .subscribe((response: any) => {
 
-        if (!('body' in response)) {
-          return;
-        }
+          this.isLoading = false;
+          const res = JSON.parse(response[0]);
+          if (!('body' in res)) {
+            return;
+          }
 
-        const text: string = response.body;
-        // string -> file に変換して読み込ませる
-        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-        FileSaver.saveAs(blob, 'test.ifc');
+          const text: string = res.body;
+          // string -> file に変換して読み込ませる
+          const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+          FileSaver.saveAs(blob, 'test.ifc');
 
-      },
-        (error) => {
-          alert(error.message);
-        });
+        },
+          (error) => {
+            this.isLoading = false;
+            alert(error.message);
+          });
+
+    },
+    (error) => {
+      this.isLoading = false;
+      alert(error.message);
+    });
+
+
+
   }
 
   // ダーバーに送信する用のデータ作成する
