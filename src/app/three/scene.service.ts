@@ -14,7 +14,7 @@ export class SceneService {
   private renderer!: THREE.WebGLRenderer;
 
   // カメラ
-  private camera!: THREE.PerspectiveCamera;
+  private camera!: THREE.OrthographicCamera;
   private aspectRatio: number = 0;
   private Width: number = 0;
   private Height: number = 0;
@@ -54,13 +54,16 @@ export class SceneService {
     this.addControls();
 
     // 床面を生成する
-    // this.createHelper();
+    this.createHelper();
 
   }
 
 
   // 床面を生成する
   private createHelper() {
+    const axisHelper = new THREE.AxesHelper(0.02);
+    axisHelper.name = "axisHelper";
+    this.scene.add(axisHelper);
     this.GridHelper = new THREE.GridHelper(50, 50);
     this.GridHelper.geometry.rotateX(Math.PI / 2);
     this.scene.add(this.GridHelper);
@@ -84,10 +87,12 @@ export class SceneService {
     if (target !== undefined) {
       this.scene.remove(this.camera);
     }
-    this.camera = new THREE.PerspectiveCamera(
-      70,
-      aspectRatio,
-      0.1,
+    this.camera = new THREE.OrthographicCamera(
+      -Width / 10,
+      Width / 10,
+      Height / 10,
+      -Height / 10,
+      -1000,
       1000
     );
     this.camera.position.set(0, -25, 10);
