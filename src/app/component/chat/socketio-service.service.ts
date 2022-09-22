@@ -9,26 +9,30 @@ export class SocketioService {
 
   public socket: any;
 
-  constructor() { }
+  constructor() {}
 
-  setupSocketConnection() {
-    this.socket = io(environment.SOCKET_ENDPOINT, {
-      auth: {
-        token: 'cde'
-      }
+  public setupSocketConnection() {
+
+    console.log('setupSocketConnection', environment.SOCKET_ENDPOINT);
+
+    this.socket = io(environment.SOCKET_ENDPOINT);
+
+    this.socket.on('my broadcast', (data: string) => {
+      console.log(data);
     });
 
-    this.socket.emit('my message', 'Hello there from Angular.');
-
-      this.socket.on('my broadcast', (data: string) => {
-    console.log(data);
-  });
   }
 
-  disconnect() {
+  public disconnect() {
+    console.log('disconnect', 'calling');
     if (this.socket) {
       this.socket.disconnect();
     }
+  }
+
+  sendMessage(message: string) {
+    this.socket.emit('my message', message);
+    console.log("this.socket.emit('my message', message);");
   }
 
 

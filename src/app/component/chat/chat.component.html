@@ -41,8 +41,8 @@
 
             <!-- テキストボックス、送信ボタン④ -->
             <div id="bms_send">
-                <textarea id="bms_send_message" placeholder='Start typing...'></textarea>
-                <div id="bms_send_btn">送信</div>
+                <textarea id="bms_send_message" [(ngModel)] = "Message"></textarea>
+                <div id="bms_send_btn" (click)="sendMessage()">送信</div>
             </div>
         </div>
     </div>
