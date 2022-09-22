@@ -17,15 +17,15 @@ export class SocketioService {
 
     this.socket = io(environment.SOCKET_ENDPOINT);
 
-    this.socket.on('a->b', (data: string) => {
-      console.log("receive a message from a:", data);
+    this.socket.on('HelpDesk->Customer', (data: string) => {
+      console.log("receive a message from HelpDesk:", data);
     });
 
   }
 
   sendMessage(message: string) {
-    this.socket.emit('b->a', message);
-    console.log("send a message to b: ", message);
+    this.socket.emit('Customer->HelpDesk', message);
+    console.log("send a message to HelpDesk: ", message);
   }
 
   public disconnect() {
