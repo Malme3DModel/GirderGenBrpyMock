@@ -36,6 +36,7 @@ import { SideRightCrossbeamComponent } from './component/side-right-crossbeam/si
 import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-right-endbeam.component';
 import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
 import { ChatComponent } from './component/chat/chat.component';
+import { SocketioService } from './component/chat/socketio-service.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import { ChatComponent } from './component/chat/chat.component';
     MatProgressSpinnerModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [SocketioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
