@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>あなたは内田裕也です</h1>
+<h1 mat-dialog-title>あなたはユーザー1です</h1>
 
 <div mat-dialog-content>
     <div id="your_container">
@@ -6,35 +6,42 @@
         <div id="bms_messages_container">
             <!-- タイムライン部分③ -->
             <div id="bms_messages">
+                <ng-container *ngFor="let comment of comments">
 
-                <!--メッセージ１（左側）-->
-                <div class="bms_message bms_left">
-                    <div class="bms_message_box">
-                        <div class="bms_message_content">
-                            <div class="bms_message_text">
-                                怖いと感じる人とかいるんですか？
+                    <ng-container *ngIf="comment.user">
+                        <!--メッセージ１（左側）-->
+                        <div class="bms_message bms_left">
+                            <div class="bms_message_box">
+                                <div class="bms_message_content">
+                                    <div class="bms_message_text">
+                                        {{comment.content}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+                        <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+                    </ng-container>
 
-                <!--メッセージ２（右側）-->
-                <div class="bms_message bms_right">
-                    <div class="bms_message_box">
-                        <div class="bms_message_content">
-                            <div class="bms_message_text">
-                                この世界ではいない
+                    <ng-container *ngIf="!comment.user">
+                        <!--メッセージ２（右側）-->
+                        <div class="bms_message bms_right">
+                            <div class="bms_message_box">
+                                <div class="bms_message_content">
+                                    <div class="bms_message_text">
+                                        {{comment.content}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+                        <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
+                    </ng-container>
+                </ng-container>
+
             </div>
 
             <!-- テキストボックス、送信ボタン④ -->
             <div id="bms_send">
-                <textarea id="bms_send_message"></textarea>
+                <textarea id="bms_send_message" placeholder='Start typing...'></textarea>
                 <div id="bms_send_btn">送信</div>
             </div>
         </div>
