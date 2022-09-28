@@ -17,16 +17,11 @@ export class pvRotateService {
     const z = Math.floor(z_rotate);
 
     let Mesh = obj.clone();
-    if (!obj.position.equals(origine)) {
-      // 回転中心が異なっていたら、回転中心を持つGroupを作って登録する
-      Mesh = new THREE.Group();
-      Mesh.position.set(origine.x, origine.y, origine.z);
-      Mesh.add(obj)
-    }
 
-    const Model_x = Mesh.rotateX(x);
-    const Model_xy = Model_x.rotateY(y);
-    const Model = Model_xy.rotateZ(z);
+
+    const Model_x = Mesh.rotateX(x * Math.PI / 180.0);
+    const Model_xy = Model_x.rotateY(y * Math.PI / 180.0);
+    const Model = Model_xy.rotateZ(z * Math.PI / 180.0);
 
     return Model
   }

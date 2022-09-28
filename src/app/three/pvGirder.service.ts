@@ -105,14 +105,13 @@ export class pvGirderService {
     const L = pOthers['L']; // 支間長
     const L2 = L + (s_BP + s_EP); // 桁長
     const amount_H = pOthers['amount_H']; // 列数
-    const interval_H = L / (amount_H - 1.0);  // 対傾構の配置間隔(主桁長？)
+    const interval_H = L / (amount_H - 1.0);  // 対傾構の配置間隔
     const z2 = tf * 2.0 + W + T2;
     const y2 = (s_BP + s_EP) / 2.0;
     const column: number[] = new Array(); // 中間対傾構を配置する列番号（起点側から0）
     for (let i = 0; i < amount_H; i++) {
       column.push(i);
     }
-    column.push(amount_H);
     let location = column;
     for (let i = 0; i < location2.length; i++) {
       location = location.filter(item => item !== location2[i]);

@@ -24,6 +24,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MenuComponent } from './component/menu/menu.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 import { SideLeftComponent } from './component/side-left/side-left.component';
 import { SideRightSlabComponent } from './component/side-right-slab/side-right-slab.component';
@@ -33,6 +35,8 @@ import { SideRightCrossComponent } from './component/side-right-cross/side-right
 import { SideRightCrossbeamComponent } from './component/side-right-crossbeam/side-right-crossbeam.component';
 import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-right-endbeam.component';
 import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
+import { ChatComponent } from './component/chat/chat.component';
+import { SocketioService } from './component/chat/socketio-service.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,8 @@ import { SideRightOthersComponent } from './component/side-right-others/side-rig
     SideRightCrossComponent,
     SideRightCrossbeamComponent,
     SideRightEndbeamComponent,
-    SideRightOthersComponent
+    SideRightOthersComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -66,9 +71,10 @@ import { SideRightOthersComponent } from './component/side-right-others/side-rig
     MatTableModule,
     MatDialogModule,
     MatBottomSheetModule,
+    MatProgressSpinnerModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [SocketioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
