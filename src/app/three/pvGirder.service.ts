@@ -11,6 +11,8 @@ import { ArrayH4Service } from 'src/app/three/Hsteel/Array_Hsteel04.service';
 import { ArrayLService } from './Lsteel/Array_Lsteel.service';
 import { AddSlabService } from './Slab/pvSlab.service';
 import { pvTranlateService } from './libs/pvTranlate.service';
+import { ArrayH3Service_u } from './Hsteel/Array_Hsteel03_u.service';
+import { ArrayH3Service_l } from './Hsteel/Array_Hsteel03_l.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,8 @@ export class pvGirderService {
   constructor(private scene: SceneService,
     private ArrayH1: ArrayH1Service,
     private ArrayH2: ArrayH2Service,
-    private ArrayH3: ArrayH3Service,
+    private ArrayH3_u: ArrayH3Service_u,
+    private ArrayH3_l: ArrayH3Service_l,
     private ArrayH4: ArrayH4Service,
     private ArrayL: ArrayLService,
     private AddSlab: AddSlabService,
@@ -58,10 +61,19 @@ export class pvGirderService {
 
     // 中間対傾構のパラメータ
     const pMid = plam['mid'];
-    const A = pMid['A'];
-    const B = pMid['B'];
+    const RA = pMid['A'];
+    const RB = pMid['B'];
+    const Rt = pMid['t'];
+    const LA = pMid['A'];
+    const LB = pMid['B'];
+    const Lt = pMid['t'];
+    const TA = pMid['A'];
+    const TB = pMid['B'];
+    const Tt = pMid['t'];
+    const DA = pMid['A'];
+    const DB = pMid['B'];
+    const Dt = pMid['t'];
     const H = pMid['H'];
-    const t = pMid['t'];
     const s = pMid['s']; // 離隔
     const D2 = interval_V / 2.0 - s;
     const s_in = pMid['s_in'];
@@ -120,16 +132,18 @@ export class pvGirderService {
     location.pop();   // 末尾の要素を削除
 
     const MainGirader = this.ArrayH1.Array(L2, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V);
-    const IntermediateSwayBracing = this.ArrayL.Array(A, B, t, s, s_in, s_out, H, W, D2, tf, dz, amount_H, amount_V, interval_H, interval_V, location);
-    const CrossBeam01_T = this.ArrayH3.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, false);
-    const CrossBeam01_D = this.ArrayH3.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true);
+    const IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
+    const CrossBeam01_T = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, false);
+    const CrossBeam01_D = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true);
     const CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2);
     const CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L, amount_V, interval_V);
 
+
     const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L2, amount_V, interval_V);
+    Slab.name = "Slab";
 
     const Girder_0 = new THREE.Group();
-    Girder_0.add(MainGirader, IntermediateSwayBracing, CrossBeam01_T, CrossBeam01_D, CrossBeam02, CrossBeam03);
+    Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03);
     const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
 
     const Model = new THREE.Group();

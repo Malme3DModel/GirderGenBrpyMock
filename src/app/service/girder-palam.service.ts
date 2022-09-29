@@ -21,7 +21,7 @@ export class GirderPalamService {
   };
 
   public beam = {
-    'amount_V': 3.0, 
+    'amount_V': 3.0,
     'W': 1.70,
     'D': 0.31,
     'tw': 0.028,
@@ -36,7 +36,7 @@ export class GirderPalamService {
     's': 0.1,
     's_in': 0.16,
     's_out': 0.16,
-    'dz': 0.30, 
+    'dz': 0.30,
   };
 
   public cross = { 
@@ -70,7 +70,7 @@ export class GirderPalamService {
     's_BP': 0.4, 
     's_EP': 0.4, 
     'L': 33.0,
-    'amount_H': 5.5
+    'amount_H': 6.0
   };
 
   public palam(): any {

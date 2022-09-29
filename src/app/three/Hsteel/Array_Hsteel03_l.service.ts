@@ -9,7 +9,7 @@ import { pyVistaService } from '../libs/pyVista.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ArrayH3Service {
+export class ArrayH3Service_l {
 
   constructor(private pv: pyVistaService,
     private Hsteel: HsteelService,
