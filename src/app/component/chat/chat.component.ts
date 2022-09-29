@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { SocketioService } from './socketio-service.service';
 
@@ -8,9 +8,9 @@ import { SocketioService } from './socketio-service.service';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, OnDestroy {
-
+  
   constructor(
-    private socketService: SocketioService,
+    public socketService: SocketioService,
     public dialogRef: MatDialogRef<ChatComponent>) { }
 
   ngOnInit(): void {
@@ -21,10 +21,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.socketService.disconnect();
   }
 
-  comments: { user: boolean, content: string }[] = [
-    { user: true,  content: '１つ目のコメントです。'},
-    { user: false,  content: '２つ目のコメントです。'},
-    { user: true,  content: '３つ目のコメントです。'}
-  ];
+  public sendMessage(Message : string): void {
+    this.socketService.sendMessage(Message);
+  }
 
 }

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>あなたはユーザー1です</h1>
+<h3 mat-dialog-title>あなたはユーザー1です</h3>
 
 <div mat-dialog-content>
     <div id="your_container">
@@ -6,9 +6,9 @@
         <div id="bms_messages_container">
             <!-- タイムライン部分③ -->
             <div id="bms_messages">
-                <ng-container *ngFor="let comment of comments">
+                <ng-container *ngFor="let comment of socketService.comments">
 
-                    <ng-container *ngIf="comment.user">
+                    <ng-container *ngIf="!comment.user">
                         <!--メッセージ１（左側）-->
                         <div class="bms_message bms_left">
                             <div class="bms_message_box">
@@ -22,7 +22,7 @@
                         <div class="bms_clear"></div><!-- 回り込みを解除（スタイルはcssで充てる） -->
                     </ng-container>
 
-                    <ng-container *ngIf="!comment.user">
+                    <ng-container *ngIf="comment.user">
                         <!--メッセージ２（右側）-->
                         <div class="bms_message bms_right">
                             <div class="bms_message_box">
@@ -41,8 +41,15 @@
 
             <!-- テキストボックス、送信ボタン④ -->
             <div id="bms_send">
-                <textarea id="bms_send_message" placeholder='Start typing...'></textarea>
-                <div id="bms_send_btn">送信</div>
+                <textarea #send_message 
+                    id="bms_send_message" 
+                    (keydown.enter)="sendMessage(send_message.value); send_message.value='';">
+                </textarea>
+                <div #send_btn 
+                    id="bms_send_btn" 
+                    (click)="sendMessage(send_message.value); send_message.value='';">
+                    送信
+                </div>
             </div>
         </div>
     </div>
