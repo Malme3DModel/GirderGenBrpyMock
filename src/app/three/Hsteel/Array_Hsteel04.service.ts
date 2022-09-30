@@ -40,7 +40,6 @@ export class ArrayH4Service {
     // 配置
     const x1 = (Amount - 1.0) * interval_V / 2.0;
     z = dz;
-    let x2 = -x1 + interval_V;
     let y = 0.0;
     let n = 0.0;
     const Obj = new THREE.Group();
@@ -52,8 +51,9 @@ export class ArrayH4Service {
 
       Obj.add(Obj_ELb, Obj_ERb);
       let s = n + 2.0;
-      for (let j = 0; j < Amount - 2; i++) {
-        const Obj_Mb = this.Move.MoveObject(RModel_M, [x2, 0.0, z]);
+      let x2 = -x1 + interval_V;
+      for (let j = 0; j < Amount - 2; j++) {
+        const Obj_Mb = this.Move.MoveObject(RModel_M, [x2, y, z]);
         Obj_Mb.name = "Cu_"+ String(s);
         Obj.add(Obj_Mb);
         x2 += interval_V;

@@ -58,7 +58,6 @@ export class ArrayH2Service {
       y += interval_H;
     }
 
-
     const Obj = new THREE.Group();
     let s = 0.0;
     for (let i = 0; i < location.length; i++) {
