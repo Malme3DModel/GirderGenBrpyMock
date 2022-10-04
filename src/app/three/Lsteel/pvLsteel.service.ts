@@ -150,8 +150,8 @@ export class LsteelService {
     s_in: number, s_out: number, dz: number, tf: number): THREE.Object3D {
 
     const L = Math.sqrt(H ** 2.0 + D ** 2.0) - (s_in + s_out);
-    const x = (s_in * D) / (L + s_in);
-    const z = (s_in * H) / (L + s_in) + dz + tf;
+    const x = (s_in * D) / (L + s_in + s_out);
+    const z = (s_in * H) / (L + s_in + s_out) + dz + tf;
     const Obj = this.Create_Lsteel_R(A, B, t, L);
     const y_rotate_R = Math.round(this.pv.degrees(Math.atan(D / H)) * 10) / 10;
     const Model_R = this.exchange(Obj, y_rotate_R, [x, 0.0, z]);
@@ -161,8 +161,8 @@ export class LsteelService {
   private add_LSteel_L(A: number, B: number, t: number, H: number, D: number,
     s_in: number, s_out: number, dz: number, tf: number): THREE.Object3D {
     const L = Math.sqrt(H ** 2.0 + D ** 2.0) - (s_in + s_out);
-    const x = -(s_in * D) / (L + s_in);
-    const z = (s_in * H) / (L + s_in) + dz + tf;
+    const x = -(s_in * D) / (L + s_in + s_out);
+    const z = (s_in * H) / (L + s_in + s_out) + dz + tf;
     const Obj = this.Create_Lsteel_L(A, B, t, L);
     const y_rotate_L = -Math.round(this.pv.degrees(Math.atan(D / H)) * 10) / 10;
     const Model_L = this.exchange(Obj, y_rotate_L, [x, 0.0, z]);
@@ -189,16 +189,17 @@ export class LsteelService {
     return Model_T;
   }
 
-  public add_LSteel(A: number, B: number, t: number, H: number, D: number, s: number,
-    s_in: number, s_out: number, dz: number, tf: number): THREE.Group {
+  public add_LSteel(RA: number, RB: number, Rt: number, LA: number, LB: number, Lt: number,
+    TA: number, TB: number, Tt: number, DA: number, DB: number, Dt: number,
+    H: number, D: number, s: number, s_in: number, s_out: number, dz: number, tf: number) {
 
-    const Model_R = this.add_LSteel_R(A, B, t, H, D, s_in, s_out, dz, tf);
-    const Model_L = this.add_LSteel_L(A, B, t, H, D, s_in, s_out, dz, tf);
-    const Model_T = this.add_LSteel_T(A, B, t, s, H, D, dz, tf);
-    const Model_D = this.add_LSteel_D(A, B, t, s, D, dz, tf);
+    const Model_R = this.add_LSteel_R(RA, RB, Rt, H, D, s_in, s_out, dz, tf);
+    const Model_L = this.add_LSteel_L(LA, LB, Lt, H, D, s_in, s_out, dz, tf);
+    const Model_T = this.add_LSteel_T(TA, TB, Tt, s, H, D, dz, tf);
+    const Model_D = this.add_LSteel_D(DA, DB, Dt, s, D, dz, tf);
 
-    const Model = new THREE.Group();
-    Model.add(Model_L, Model_R, Model_T, Model_D);
+    const Model: THREE.Object3D[] = [];
+    Model.push(Model_L, Model_R, Model_T, Model_D);
     return Model;
   }
 
