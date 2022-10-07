@@ -34,6 +34,9 @@ import { SideRightMidComponent } from './component/side-right-mid/side-right-mid
 import { SideRightCrossComponent } from './component/side-right-cross/side-right-cross.component';
 import { SideRightCrossbeamComponent } from './component/side-right-crossbeam/side-right-crossbeam.component';
 import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-right-endbeam.component';
+import { SideRightGusset01Component } from './component/side-right-gusset01/side-right-gusset01.component';
+import { SideRightGusset02Component } from './component/side-right-gusset02/side-right-gusset02.component';
+import { SideRightGusset03Component } from './component/side-right-gusset03/side-right-gusset03.component';
 import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { SocketioService } from './component/chat/socketio-service.service';
@@ -50,6 +53,9 @@ import { SocketioService } from './component/chat/socketio-service.service';
     SideRightCrossComponent,
     SideRightCrossbeamComponent,
     SideRightEndbeamComponent,
+    SideRightGusset01Component,
+    SideRightGusset02Component,
+    SideRightGusset03Component,
     SideRightOthersComponent,
     ChatComponent
   ],
