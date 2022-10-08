@@ -61,10 +61,10 @@ export class SideRightBeamComponent {
       cell: this.integer_cell,
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        if(changes==null) return;
         for(const [row, prop, oldValue, newValue] of changes){
           let value = parseFloat(newValue);
-          if( isNaN(value) ) return false;
+          if( isNaN(value) )
+            return false;
           const name: string = this.dataset[row].name;
           const isInteger = this.integer_cell.find( element => element.row === row);
           if(isInteger != null)
@@ -73,6 +73,7 @@ export class SideRightBeamComponent {
         }
         // 再描画
         this.redraw();
+        return true;
       },
     };
 
