@@ -20,7 +20,7 @@ export class GirderPalamService {
     'Ss': 1.025
   };
 
-  public beam = {
+  public beam: any = {
     'amount_V': 4.0,
     'W': 1.70,
     'D': 0.31,

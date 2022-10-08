@@ -58,6 +58,7 @@ export class SceneService {
 
   // 床面を生成する
   private createHelper() {
+    return; // 無効にした
     const axisHelper = new THREE.AxesHelper(200);
     axisHelper.name = "axisHelper";
     this.scene.add(axisHelper);

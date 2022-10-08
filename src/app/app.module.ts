@@ -9,6 +9,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HotTableModule } from '@handsontable/angular';
+import { registerAllModules } from 'handsontable/registry';
+// register Handsontable's modules
+registerAllModules();
 
 
 import { MatIconModule } from '@angular/material/icon';
@@ -65,6 +69,7 @@ import { SocketioService } from './component/chat/socketio-service.service';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    HotTableModule,
     MatSidenavModule,
     MatMenuModule,
     MatIconModule,

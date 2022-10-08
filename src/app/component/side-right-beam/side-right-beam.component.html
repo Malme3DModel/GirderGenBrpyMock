@@ -1,6 +1,15 @@
 <h1 mat-dialog-title>主桁の編集</h1>
 
 <div mat-dialog-content>
+    <hot-table
+        [settings]="hotSettings"
+        [rowHeaderWidth]="100"
+        [stretchH]="'last'"
+        height="auto"
+        licenseKey="non-commercial-and-evaluation">
+    </hot-table>
+
+    <!--
     <mat-list role="list">
         <mat-list-item role="listitem">amount_V
             <mat-slider min="2.0" max="10" step="1.0" [(ngModel)]="model.beam.amount_V" (change)="redraw()"></mat-slider>
@@ -23,6 +32,7 @@
             <label class="example-value-label">{{model.beam.tf}}</label>
         </mat-list-item>
     </mat-list>
+    -->
 </div>
 
 <div mat-dialog-actions>
