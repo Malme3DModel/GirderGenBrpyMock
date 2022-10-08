@@ -5,6 +5,9 @@ import { SideRightCrossComponent } from '../side-right-cross/side-right-cross.co
 import { SideRightCrossbeamComponent } from '../side-right-crossbeam/side-right-crossbeam.component';
 import { SideRightEndbeamComponent } from '../side-right-endbeam/side-right-endbeam.component';
 import { SideRightMidComponent } from '../side-right-mid/side-right-mid.component';
+import { SideRightGusset01Component } from '../side-right-gusset01/side-right-gusset01.component';
+import { SideRightGusset02Component } from '../side-right-gusset02/side-right-gusset02.component';
+import { SideRightGusset03Component } from '../side-right-gusset03/side-right-gusset03.component';
 import { SideRightOthersComponent } from '../side-right-others/side-right-others.component';
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
 
@@ -32,6 +35,12 @@ export class SideLeftComponent {
       rightSide = SideRightCrossbeamComponent;
     else if( id==='endbeam') // 端横桁
       rightSide = SideRightEndbeamComponent;
+    else if( id==='gusset01') // ガセットプレート01
+      rightSide = SideRightGusset01Component;
+    else if( id==='gusset02') // ガセットプレート02
+      rightSide = SideRightGusset02Component;
+    else if( id==='gusset03') // ガセットプレート03
+      rightSide = SideRightGusset03Component;
     else if( id==='others') // その他
       rightSide = SideRightOthersComponent;
 

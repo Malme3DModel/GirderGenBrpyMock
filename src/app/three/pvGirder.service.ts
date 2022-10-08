@@ -13,6 +13,9 @@ import { AddSlabService } from './Slab/pvSlab.service';
 import { pvTranlateService } from './libs/pvTranlate.service';
 import { ArrayH3Service_u } from './Hsteel/Array_Hsteel03_u.service';
 import { ArrayH3Service_l } from './Hsteel/Array_Hsteel03_l.service';
+import { ArrayG1Service} from './Gusset/Array_Gusset01.service';
+import { ArrayG2Service} from './Gusset/Array_Gusset02.service';
+import { ArrayG3Service} from './Gusset/Array_Gusset03.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +31,9 @@ export class pvGirderService {
     private ArrayH3_l: ArrayH3Service_l,
     private ArrayH4: ArrayH4Service,
     private ArrayL: ArrayLService,
+    private ArrayG1: ArrayG1Service,
+    private ArrayG2: ArrayG2Service,
+    private ArrayG3: ArrayG3Service,
     private AddSlab: AddSlabService,
     private Move: pvTranlateService
   ) {
@@ -48,7 +54,7 @@ export class pvGirderService {
     const T2 = pSlab['T2'];
     const n = pSlab['n'];   // 1:n
     const Ss = pSlab['Ss']; // 端部から主桁中心までの離隔
-    const SB = b1 + b2 + b3 * 2.0;
+    const S_B = b1 + b2 + b3 * 2.0;
 
     // 主桁のパラメータ
     const pBeam = plam['beam'];
@@ -57,7 +63,7 @@ export class pvGirderService {
     const D = pBeam['D'];
     const tw = pBeam['tw'];
     const tf = pBeam['tf'];
-    const interval_V = (SB - 2 * Ss) / (amount_V - 1.0); // 主桁の配置間隔
+    const interval_V = (S_B - (2 * Ss)) / (amount_V - 1.0); // 主桁の配置間隔
 
     // 中間対傾構のパラメータ
     const pMid = plam['mid'];
@@ -110,6 +116,32 @@ export class pvGirderService {
     const s_edge3 = pEndBeam['s_edge3']; // 端部における主桁からの離隔
     const s_middle3 = pEndBeam['s_middle3']; // 中間部における主桁からの離隔
 
+    // ガセットプレート01のパラメータ
+    const pGusset01 = plam['gusset01'];
+    const GA1 = pGusset01['A'];
+    const GB1 = pGusset01['B'];
+    const GC1 = pGusset01['C'];
+    const GD1 = pGusset01['D'];
+    const Gt1 = pGusset01['t'];
+
+    // ガセットプレート02のパラメータ
+    const pGusset02 = plam['gusset02'];
+    const GA2 = pGusset02['A'];
+    const GB2 = pGusset02['B'];
+    const GC2 = pGusset02['C'];
+    const GD2 = pGusset02['D'];
+    const Gt2 = pGusset02['t'];
+    const Gdx2 = pGusset02['dx'];
+
+    // ガセットプレート03のパラメータ
+    const pGusset03 = plam['gusset03'];
+    const GA3 = pGusset03['A'];
+    const GB3 = pGusset03['B'];
+    const GC3 = pGusset03['C'];
+    const GD3 = pGusset03['D'];
+    const Gt3 = pGusset03['t'];
+    const Gdx3 = pGusset03['dx'];
+
     // その他配置に関するパラメータ
     const pOthers = plam['others'];
     const s_BP = pOthers['s_BP']; // 始点側端部から端横構までの離隔
@@ -137,13 +169,16 @@ export class pvGirderService {
     const CrossBeam01_D = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true);
     const CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2);
     const CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L, amount_V, interval_V);
+    const Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
+    const Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location);
+    const Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx2, tf, H, amount_H, amount_V, interval_H, interval_V, location);
 
 
     const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L2, amount_V, interval_V);
     Slab.name = "Slab";
 
     const Girder_0 = new THREE.Group();
-    Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03);
+    Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03);
     const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
 
     const Model = new THREE.Group();

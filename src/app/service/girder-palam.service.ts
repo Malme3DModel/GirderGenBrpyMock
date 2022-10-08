@@ -17,11 +17,11 @@ export class GirderPalamService {
     'T1': 0.2,
     'T2': 0.35,
     'n': 3.0,
-    'Ss': 1.0
+    'Ss': 1.025
   };
 
   public beam = {
-    'amount_V': 3.0,
+    'amount_V': 4.0,
     'W': 1.70,
     'D': 0.31,
     'tw': 0.028,
@@ -29,11 +29,11 @@ export class GirderPalamService {
   };
 
   public mid = {
-    'A': 0.15,
-    'B': 0.15,
-    'H': 1.38,
+    'A': 0.075,
+    'B': 0.075,
+    'H': 1.24,
     't': 0.009,
-    's': 0.1,
+    's': 0.0745,
     's_in': 0.16,
     's_out': 0.16,
     'dz': 0.30,
@@ -66,9 +66,35 @@ export class GirderPalamService {
     's_middle3': 0.0
   };
 
+  public gusset01 = {
+    'A': 0.31,
+    'B': 0.49,
+    'C': 0.49,
+    'D': 0.15,
+    't': 0.009
+  };
+
+  public gusset02 = {
+    'A': 0.23,
+    'B': 0.25,
+    'C': 0.12,
+    'D': 0.15,
+    't': 0.009,
+    'dx':0.1
+  };
+
+  public gusset03 = {
+    'A': 0.34,
+    'B': 0.29,
+    'C': 0.1,
+    'D': 0.34,
+    't': 0.009,
+    'dx':0.1
+  };
+
   public others = {
-    's_BP': 0.4, 
-    's_EP': 0.4, 
+    's_BP': 0.4,
+    's_EP': 0.4,
     'L': 33.0,
     'amount_H': 6.0
   };
@@ -81,6 +107,9 @@ export class GirderPalamService {
     'cross': this.cross,
     'crossbeam': this.crossbeam,
     'endbeam': this.endbeam,
+    'gusset01': this.gusset01,
+    'gusset02': this.gusset02,
+    'gusset03': this.gusset03,
     'others': this.others
     };
   }

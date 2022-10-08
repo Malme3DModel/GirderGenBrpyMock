@@ -14,7 +14,8 @@ import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
 export class MenuComponent implements OnInit {
 
   constructor(private http: HttpClient,
-    private scene: SceneService) { }
+    private scene: SceneService,
+    private pv: pvGirderService) { }
 
   ngOnInit(): void {
   }
@@ -42,13 +43,13 @@ export class MenuComponent implements OnInit {
     this.isLoading = true;
     this.http.get(url, options).subscribe((response: any) => {
       // AWS Lamdaサーバー休止状態からの起動が遅いんで、get で起こす
-      console.log(response[0]);
+      console.log(response);
       // get に成功したら post する
       this.http.post(url, json_str, options)
         .subscribe((response: any) => {
 
           this.isLoading = false;
-          const res = JSON.parse(response[0]);
+          const res = response;
           if (!('body' in res)) {
             return;
           }
@@ -167,6 +168,7 @@ export class MenuComponent implements OnInit {
     // 付加情報と一緒に Json形式にまとめる
     const result: string = JSON.stringify({
       "body": {
+        "ProjectName": "Test01",
 
         "slab": {
           "obj": slab_str
