@@ -23,7 +23,8 @@ export class ArrayH1Service {
 
     const Models = new THREE.Group();
     for (let i = 0; i < amount; i++) {
-      const Model = this.Hsteel.CreateBeam(L, D, W, tf, tw, pointlist[i])
+      const Model = this.Hsteel.CreateBeam(L, D, W, tf, tw, pointlist[i]);
+      Model.name = "Hsteel-01-"+ String(i);
       Models.add(Model);
     }
 

@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>ガセットプレート2の編集</h1>
+
+<div mat-dialog-content>
+    <mat-list role="list">
+        <mat-list-item role="listitem">A
+            <mat-slider min="0.1" max="1" step="0.01" [(ngModel)]="model.gusset02.A" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.gusset02.A}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">B
+            <mat-slider min="0.1" max="1" step="0.01" [(ngModel)]="model.gusset02.B" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.gusset02.B}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">C
+            <mat-slider min="0.1" max="1" step="0.01" [(ngModel)]="model.gusset02.C" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.gusset02.C}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">D
+            <mat-slider min="0.1" max="10" step="0.01" [(ngModel)]="model.gusset02.D" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.gusset02.D}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">t
+            <mat-slider min="0.001" max="0.01" step="0.001" [(ngModel)]="model.gusset02.t" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.gusset02.t}}</label>
+        </mat-list-item>
+        <mat-list-item role="listitem">dx
+            <mat-slider min="0.01" max="0.1" step="0.01" [(ngModel)]="model.gusset02.dx" (change)="redraw()"></mat-slider>
+            <label class="example-value-label">{{model.gusset02.dx}}</label>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>閉じる</button>
+</div>

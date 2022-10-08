@@ -16,13 +16,14 @@ export class ArrayH4Service {
   /// <summary>端横桁を作成</summary>
   /// <param name="amount">主桁の数</param>
   /// <param name="interval">主桁の配置間隔</param>
-  private createBeam(D: number, W: number, tf: number, tw: number, s_edge: number, s_middle: number,
-    dz: number, amount: number, interval: number): THREE.Group {
+  public Array(D: number, W: number, tf: number, tw: number, s_edge: number,
+    s_middle: number, dz: number, L: number, amount_V: number,
+    interval_V: number): THREE.Group {
 
     // 端横桁を作成
-    const Amount = amount - 1.0;
-    const L1 = interval - (s_edge + s_middle);
-    const L2 = interval - (s_middle * 2.0);
+    const Amount = amount_V - 1.0;
+    const L1 = interval_V - (s_edge + s_middle);
+    const L2 = interval_V - (s_middle * 2.0);
     const y1 = -L1 / 2.0;
     const y2 = -L2 / 2.0;
     let z = (W / 2.0 + tf);
@@ -36,36 +37,32 @@ export class ArrayH4Service {
     const RModel_ER = this.Move.MoveObject(RModel_E, [dx, 0.0, 0.0]);
     const RModel_M = this.Rotate.rotate(Model_M, [0.0, 0.0, 0.0], 0.0, 0.0, 90.0);
 
-    // 荷重分配横桁を水平方向に配置
-    const x1 = (Amount - 1.0) * interval / 2.0;
+    // 配置
+    const x1 = (Amount - 1.0) * interval_V / 2.0;
     z = dz;
-    const Obj_EL = this.Move.MoveObject(RModel_EL, [-x1, 0.0, z]);
-    const Obj_ER = this.Move.MoveObject(RModel_ER, [x1, 0.0, z]);
-
-    let x2 = -x1 + interval;
-    const HObj = new THREE.Group();
-    HObj.add(Obj_EL, Obj_ER);
-
-    for (let i = 0; i < Amount - 2; i++) {
-      const Obj_M = this.Move.MoveObject(RModel_M, [x2, 0.0, z]);
-      HObj.add(Obj_M);
-      x2 += interval;
-    }
-    return HObj;
-  }
-
-  /// <summary>荷重分配横桁を縦断方向に配置</summary>
-  /// <param name="_H">横構</param>
-  /// <param name="_V">主桁を表すパラメータ</param>
-  public Array(D: number, W: number, tf: number, tw: number, s_edge: number,
-    s_middle: number, dz: number, L: number, amount_V: number,
-    interval_V: number): THREE.Group {
-    const obj = this.createBeam(D, W, tf, tw, s_edge, s_middle, dz, amount_V, interval_V);
-    // 荷重分配横桁を縦断方向に配置
-    const Obj1 = this.Move.MoveObject(obj, [0.0, 0.0, 0.0]);
-    const Obj2 = this.Move.MoveObject(obj, [0.0, L, 0.0]);
+    let y = 0.0;
+    let n = 0.0;
     const Obj = new THREE.Group();
-    Obj.add(Obj1, Obj2);
-    return Obj
+    for (let i = 0; i < 2; i++) {
+      const Obj_ELb = this.Move.MoveObject(RModel_EL, [-x1, y, z]);
+      Obj_ELb.name = "Cu_"+ String(n);
+      const Obj_ERb = this.Move.MoveObject(RModel_ER, [x1, y, z]);
+      Obj_ERb.name = "Cu_"+ String(n+1);
+
+      Obj.add(Obj_ELb, Obj_ERb);
+      let s = n + 2.0;
+      let x2 = -x1 + interval_V;
+      for (let j = 0; j < Amount - 2; j++) {
+        const Obj_Mb = this.Move.MoveObject(RModel_M, [x2, y, z]);
+        Obj_Mb.name = "Cu_"+ String(s);
+        Obj.add(Obj_Mb);
+        x2 += interval_V;
+        s += 1.0;
+      }
+      n += Amount;
+      y += L;
+    }
+    return Obj;
   }
 }
+

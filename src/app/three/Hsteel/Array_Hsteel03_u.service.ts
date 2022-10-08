@@ -9,7 +9,7 @@ import { pyVistaService } from '../libs/pyVista.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ArrayH3Service {
+export class ArrayH3Service_u {
 
   constructor(private pv: pyVistaService,
     private Hsteel: HsteelService,
@@ -52,11 +52,11 @@ export class ArrayH3Service {
     }
     for (let i = 0; i < amount_H - 1; i++) {
       const Models_ML : any = this.Move.MoveObject(Models[0], [x, y2_L, dz]);
-      Models_ML.name = "Ll_" + String(n);
+      Models_ML.name = "Lu_" + String(n);
       Obj_0.add(Models_ML);
       const Models_MR : any = this.Move.MoveObject(Models[1], [x, y2_R, dz]);
       Obj_0.add(Models_MR);
-      Models_MR.name = "Ll_" + String(n+1);
+      Models_MR.name = "Lu_" + String(n+1);
       y2_L += interval_H;
       y2_R += interval_H;
       n += 2
