@@ -150,7 +150,7 @@ export class pvGirderService {
     const L2 = L + (s_BP + s_EP); // 桁長
     const amount_H = pOthers['amount_H']; // 列数
     const interval_H = L / (amount_H - 1.0);  // 対傾構の配置間隔
-    const z2 = tf * 2.0 + W + T2;
+    const z2 = tf * 2.0 + W + T1 + T2;
     const y2 = (s_BP + s_EP) / 2.0;
     const column: number[] = new Array(); // 中間対傾構を配置する列番号（起点側から0）
     for (let i = 0; i < amount_H; i++) {

@@ -14,7 +14,7 @@ export class AddSlabService {
   private selection(b1: number, b2: number, b3: number,
     i1: number, i2: number, H: number,
     T1: number, T2: number, n: number,
-    s: number, D: number, position: number[]): number[][] {
+    s: number, D: number, position: number[], amount_V: number, interval_V: number){
 
     const x = position[0];
     const y = position[1];
@@ -27,16 +27,14 @@ export class AddSlabService {
     const dx6 = dx3 - (s - D / 2.0);
     const dx7 = dx5 + D;
     const dx8 = dx6 - D;
+    const dx9 = dx7 + n * T2;
+    const dx10 = dx8 - n * T2;
     const dz1 = -b1 * i1;
-    const dz2 = dz1 + (H - T1 - b3 * i1);
-    const dz3 = dz1 - (T1 - b3 * i1);
+    const dz2 = H - T1;
+    const dz3 = -T1;
     const dz4 = -b2 * i2;
-    const dz5 = -T2;
-    const dx9 = dx7 + ((dz3 - dz5) + ((s - D / 2.0) + D) * i1) / ((1 / n) - i1);
-    const dx10 = dx8 - ((dz3 - dz5) + ((s - D / 2.0) + D) * i2) / ((1 / n) - i2);
-    const dz6 = dz5 + ((dz3 - dz5) + ((s - D / 2.0) + D) * i1) / ((1 / n) - i1) / n;
-    const dz7 = dz5 + ((dz3 - dz5) + ((s - D / 2.0) + D) * i2) / ((1 / n) - i2) / n;
-    const dz8 = -T1;
+    const dz5 = H - T2;
+    const dz6 = -(T1 + T2);
     const x1 = x + dx1;
     const x2 = x + dx2;
     const x3 = x + dx3;
@@ -53,34 +51,57 @@ export class AddSlabService {
     const z4 = z + dz4;
     const z5 = z + dz5;
     const z6 = z + dz6;
-    const z7 = z + dz7;
-    const z8 = z + dz8;
     const a0 = [x, y, z];
     const a1 = [x1, y, z1];
     const a2 = [x1, y, z2];
     const a3 = [x2, y, z2];
     const a4 = [x2, y, z3];
-    const a5 = [x5, y, z5];
-    const a6 = [x7, y, z5];
-    const a7 = [x9, y, z6];
-    const a8 = [x, y, z8];
-    const a9 = [x10, y, z7];
-    const a10 = [x8, y, z5];
-    const a11 = [x6, y, z5];
-    const a12 = [x3, y, z3];
-    const a13 = [x3, y, z2];
-    const a14 = [x4, y, z2];
-    const a15 = [x4, y, z4];
-    const points = [a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15];
-    return points;
+    const a5 = [x5, y, z6];
+    const a6 = [x7, y, z6];
+    const a7 = [x9, y, z3];
+    const a8 = [x10, y, z3];
+    const a9 = [x8, y, z6];
+    const a10 = [x6, y, z6];
+    const a11 = [x3, y, z3];
+    const a12 = [x3, y, z5];
+    const a13 = [x4, y, z5];
+    const a14 = [x4, y, z4]
+    const points = [a0, a1, a2, a3, a4, a5, a6, a7];
+    const point_a = [a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14]
+
+    // ハンチの座標を作成
+    const Amount = amount_V - 2;
+    let Hx = -(amount_V -1.0) * (interval_V / 2.0) + interval_V;
+    const Hy = y;
+    const Hz = -(T1 + T2);
+    const point_b = [];
+    for (let i = 0; i < Amount; i++){
+      const Hp1x = Hx - (n * T2 + D / 2.0);
+      const Hp2x = Hx - D / 2.0;
+      const Hp3x = Hx + D / 2.0;
+      const Hp4x = Hx + (n * T2 + D / 2.0);
+      const Hp1z = Hz + T2;
+      const Hp2z = Hz;
+      const Hp1 = [Hp1x, Hy, Hp1z];
+      const Hp2 = [Hp2x, Hy, Hp2z];
+      const Hp3 = [Hp3x, Hy, Hp2z];
+      const Hp4 = [Hp4x, Hy, Hp1z];
+      points.push(Hp1, Hp2, Hp3, Hp4);
+      point_b.push(Hp1, Hp2, Hp3, Hp4);
+      Hx += interval_V;
+    }
+
+    points.push(a8, a9, a10, a11, a12, a13, a14);
+
+    return [points, point_a, point_b] ;
   }
 
-  private createSlab(b1: number, b2: number, b3: number, i1: number, i2: number, H: number,
-    T1: number, T2: number, n: number, s: number, D: number, L: number): THREE.Group {
+  public add_Slab(b1: number, b2: number, b3: number, i1: number, i2: number, H: number,
+    T1: number, T2: number, n: number, s: number, D: number, L: number, amount_V: number, interval_V: number): THREE.Group {
 
-    const points_BP = this.selection(b1, b2, b3, i1, i2, H, T1, T2, n, s, D, [0.0, 0.0, 0.0]);
-    const points_EP = this.selection(b1, b2, b3, i1, i2, H, T1, T2, n, s, D, [0.0, L, 0.0]);
-    const pointlist = [points_BP, points_EP];
+    const points_BP = this.selection(b1, b2, b3, i1, i2, H, T1, T2, n, s, D, [0.0, 0.0, 0.0], amount_V, interval_V);
+    const points_EP = this.selection(b1, b2, b3, i1, i2, H, T1, T2, n, s, D, [0.0, L, 0.0], amount_V, interval_V);
+    const pointlist = [points_BP[0], points_EP[0]];
 
     const Model = new THREE.Group();
     for (let i = 0; i < pointlist.length - 1; i++) {
@@ -102,21 +123,21 @@ export class AddSlabService {
       }
     }
 
-    const Lib1 = pointlist[0];
-    const p1 = [Lib1[0], Lib1[1], Lib1[8]];
+    const Lib1 = points_BP[1];
+    const Lib2 = points_BP[2];
+    const p1 = [Lib1[0], Lib1[1], Lib1[14]];
     const p2 = [Lib1[1], Lib1[2], Lib1[3]];
     const p3 = [Lib1[1], Lib1[3], Lib1[4]];
     const p4 = [Lib1[1], Lib1[4], Lib1[5]];
     const p5 = [Lib1[1], Lib1[5], Lib1[6]];
     const p6 = [Lib1[1], Lib1[6], Lib1[7]];
-    const p7 = [Lib1[1], Lib1[7], Lib1[8]];
-    const p8 = [Lib1[0], Lib1[8], Lib1[15]];
-    const p9 = [Lib1[8], Lib1[9], Lib1[15]];
-    const p10 = [Lib1[9], Lib1[10], Lib1[15]];
-    const p11 = [Lib1[10], Lib1[11], Lib1[15]];
-    const p12 = [Lib1[11], Lib1[12], Lib1[15]];
-    const p13 = [Lib1[12], Lib1[13], Lib1[15]];
-    const p14 = [Lib1[13], Lib1[14], Lib1[15]];
+    const p7 = [Lib1[7], Lib1[8], Lib1[14]];
+    const p8 = [Lib1[8], Lib1[9], Lib1[14]];
+    const p9 = [Lib1[9], Lib1[10], Lib1[14]];
+    const p10 = [Lib1[10], Lib1[11], Lib1[14]];
+    const p11 = [Lib1[11], Lib1[12], Lib1[14]];
+    const p12 = [Lib1[12], Lib1[13], Lib1[14]];
+    const p13 = [Lib1[1], Lib1[7], Lib1[14]];
     const m1 = this.pv.PolyData(p1, [3, 0, 1, 2]);
     const m2 = this.pv.PolyData(p2, [3, 0, 1, 2]);
     const m3 = this.pv.PolyData(p3, [3, 0, 1, 2]);
@@ -130,82 +151,24 @@ export class AddSlabService {
     const m11 = this.pv.PolyData(p11, [3, 0, 1, 2]);
     const m12 = this.pv.PolyData(p12, [3, 0, 1, 2]);
     const m13 = this.pv.PolyData(p13, [3, 0, 1, 2]);
-    const m14 = this.pv.PolyData(p14, [3, 0, 1, 2]);
     const Mesh_Lib1 = new THREE.Group();
-    Mesh_Lib1.add(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14);
+    Mesh_Lib1.add(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13);
+    let count = 0;
+    for (let i = 0; i < amount_V - 2; i++) {
+      const H1 = Lib2[count];
+      const H2 = Lib2[count + 1];
+      const H3 = Lib2[count + 2];
+      const H4 = Lib2[count + 3];
+      const Hp1 = [H1, H2, H3];
+      const Hp2 = [H1, H3, H4];
+      const Hm1 = this.pv.PolyData(Hp1, [3, 0, 1, 2]);
+      const Hm2 = this.pv.PolyData(Hp2, [3, 0, 1, 2]);
+      Mesh_Lib1.add(Hm1, Hm2);
+      count += 4;
+    }
     const Mesh_Lib2 = this.Move.MoveObject(Mesh_Lib1, [0.0, L, 0.0]);
     Model.add(Mesh_Lib1, Mesh_Lib2)
     return Model;
-  }
-
-  private createHunch(T1: number, T2: number, D: number, n: number, L: number): THREE.Group {
-
-    const Hz = T2 - T1;
-    const Hx1 = D / 2.0;
-    const Hx2 = Hx1 + n * Hz;
-
-    const H1 = [-Hx1, 0.0, 0.0];
-    const H2 = [-Hx2, 0.0, Hz];
-    const H3 = [Hx2, 0.0, Hz];
-    const H4 = [Hx1, 0.0, 0.0];
-    const H5 = [-Hx1, L, 0.0];
-    const H6 = [-Hx2, L, Hz];
-    const H7 = [Hx2, L, Hz];
-    const H8 = [Hx1, L, 0.0];
-    const Hp1 = [H1, H2, H3];
-    const Hp2 = [H1, H3, H4];
-    const Hp3 = [H5, H6, H7];
-    const Hp4 = [H5, H7, H8];
-    const Hm1 = this.pv.PolyData(Hp1, [3, 0, 1, 2]);
-    const Hm2 = this.pv.PolyData(Hp2, [3, 0, 1, 2]);
-    const Hm3 = this.pv.PolyData(Hp3, [3, 0, 1, 2]);
-    const Hm4 = this.pv.PolyData(Hp4, [3, 0, 1, 2]);
-    const Model = new THREE.Group();
-    Model.add(Hm1, Hm2, Hm3, Hm4);
-
-    const pointlist = [[H1, H2, H3, H4], [H5, H6, H7, H8]];
-
-    for (let i = 0; i < pointlist.length - 1; i++) {
-      const A1 = pointlist[i];
-      const A2 = pointlist[i + 1];
-      const A3 = A1.concat();  // 一番前の要素を一番後ろに
-      A3.splice(0, 1);
-      A3.push(A1[0]);
-      const A4 = A2.concat();  // 一番前の要素を一番後ろに
-      A4.splice(0, 1);
-      A4.push(A2[0]);
-
-      for (let j = 0; j < A1.length; j++) {
-        const Apoints = [A1[j], A3[j], A2[j]];
-        const Bpoints = [A2[j], A4[j], A3[j]];
-        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2])
-        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2])
-        Model.add(Mesh_A, Mesh_B);
-      }
-    }
-    return Model
-  }
-
-  public add_Slab(b1: number, b2: number, b3: number, i1: number, i2: number, H: number,
-    T1: number, T2: number, n: number, s: number, D: number,
-    L: number, amount_V: number, interval_V: number): THREE.Group {
-
-    const Model_S = this.createSlab(b1, b2, b3, i1, i2, H, T1, T2, n, s, D, L);
-    const Obj = new THREE.Group();
-    Obj.add(Model_S);
-
-    const Model_H = this.createHunch(T1, T2, D, n, L);
-
-    let x = -(amount_V - 3.0) * (interval_V / 2.0);
-    const z = -T2;
-
-    for (let i = 0; i < amount_V - 2; i++) {
-      const Model_H1 = this.Move.MoveObject(Model_H, [x, 0.0, z]);
-      Obj.add(Model_H1);
-      x += interval_V;
-    }
-
-    return Obj
   }
 
 }
