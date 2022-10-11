@@ -7,7 +7,7 @@ export class GirderPalamService {
 
   constructor() { }
 
-  public slab = {
+  public slab: any = {
     'b1': 4.25,
     'b2': 4.25,
     'b3': 0.6,
@@ -20,7 +20,7 @@ export class GirderPalamService {
     'Ss': 1.025
   };
 
-  public beam = {
+  public beam: any = {
     'amount_V': 4.0,
     'W': 1.70,
     'D': 0.31,
@@ -28,7 +28,7 @@ export class GirderPalamService {
     'tf': 0.024,
   };
 
-  public mid = {
+  public mid: any = {
     'A': 0.075,
     'B': 0.075,
     'H': 1.24,
@@ -39,7 +39,7 @@ export class GirderPalamService {
     'dz': 0.30,
   };
 
-  public cross = { 
+  public cross: any = { 
     'W2': 0.12,
     'D3': 0.18,
     'tf2': 0.012,
@@ -48,7 +48,7 @@ export class GirderPalamService {
     's_middle': 0.2,
   };
 
-  public crossbeam = {
+  public crossbeam: any = {
     'W3': 1.28,
     'D4': 0.25,
     'tf3': 0.012,
@@ -58,7 +58,7 @@ export class GirderPalamService {
     's_middle2': 0.0
   };
 
-  public endbeam = {
+  public endbeam: any = {
     'D5': 0.25,
     'tf4': 0.012,
     'tw4': 0.012,
@@ -66,7 +66,7 @@ export class GirderPalamService {
     's_middle3': 0.0
   };
 
-  public gusset01 = {
+  public gusset01: any = {
     'A': 0.31,
     'B': 0.49,
     'C': 0.49,
@@ -74,7 +74,7 @@ export class GirderPalamService {
     't': 0.009
   };
 
-  public gusset02 = {
+  public gusset02: any = {
     'A': 0.23,
     'B': 0.25,
     'C': 0.12,
@@ -83,7 +83,7 @@ export class GirderPalamService {
     'dx':0.1
   };
 
-  public gusset03 = {
+  public gusset03: any = {
     'A': 0.34,
     'B': 0.29,
     'C': 0.1,
@@ -92,7 +92,7 @@ export class GirderPalamService {
     'dx':0.1
   };
 
-  public others = {
+  public others: any = {
     's_BP': 0.4,
     's_EP': 0.4,
     'L': 33.0,

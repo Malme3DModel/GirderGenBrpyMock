@@ -49,7 +49,16 @@ export class MenuComponent implements OnInit {
         .subscribe((response: any) => {
 
           this.isLoading = false;
-          const res = response;
+
+          let res: any = response;
+          if(Array.isArray(res)){
+            res = response[0];
+          }
+          if(typeof res === 'string'){
+              res = JSON.parse(res);
+          }
+
+
           if (!('body' in res)) {
             return;
           }
