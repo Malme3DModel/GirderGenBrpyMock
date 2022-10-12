@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { SceneService } from './scene.service';
 import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter'
 import * as FileSaver from "file-saver";
+import { pyVistaService } from 'src/app/three/libs/pyVista.service';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { ArrayH1Service } from 'src/app/three/Hsteel/Array_Hsteel01.service';
 import { ArrayH2Service } from 'src/app/three/Hsteel/Array_Hsteel02.service';
@@ -11,6 +12,7 @@ import { ArrayH4Service } from 'src/app/three/Hsteel/Array_Hsteel04.service';
 import { ArrayLService } from './Lsteel/Array_Lsteel.service';
 import { AddSlabService } from './Slab/pvSlab.service';
 import { pvTranlateService } from './libs/pvTranlate.service';
+import { pvRotateService } from './libs/pvRotate.service';
 import { ArrayH3Service_u } from './Hsteel/Array_Hsteel03_u.service';
 import { ArrayH3Service_l } from './Hsteel/Array_Hsteel03_l.service';
 import { ArrayG1Service} from './Gusset/Array_Gusset01.service';
@@ -25,6 +27,7 @@ export class pvGirderService {
   private Exporter: OBJExporter = new OBJExporter();
 
   constructor(private scene: SceneService,
+    private pv: pyVistaService,
     private ArrayH1: ArrayH1Service,
     private ArrayH2: ArrayH2Service,
     private ArrayH3_u: ArrayH3Service_u,
@@ -35,12 +38,22 @@ export class pvGirderService {
     private ArrayG2: ArrayG2Service,
     private ArrayG3: ArrayG3Service,
     private AddSlab: AddSlabService,
+    private Rotate: pvRotateService,
     private Move: pvTranlateService
   ) {
   }
 
   public createGirder(plam: any): void {
     this.scene.clear();
+
+    // 起終点座標を取得
+    const pCoordinate = plam['coordinate'];
+    const BPx = pCoordinate['BPx'];
+    const BPy = pCoordinate['BPy'];
+    const BPz = pCoordinate['BPz'];
+    const EPx = pCoordinate['EPx'];
+    const EPy = pCoordinate['EPy'];
+    const EPz = pCoordinate['EPz'];
 
     // スラブのパラメータ
     const pSlab = plam['slab'];
@@ -181,9 +194,35 @@ export class pvGirderService {
     Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03);
     const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
 
-    const Model = new THREE.Group();
-    Model.add(Slab, Girder);
+    const Model_0 = new THREE.Group();
+    Model_0.add(Slab, Girder);
 
+    const Cx = EPx - BPx;
+    const Cy = EPy - BPy;
+    const Cz = EPz - BPz;
+    let thetax = 0.0;
+    let thetay = 0.0;
+    let thetaz = 0.0;
+
+    if (Cz == 0){
+      thetax = 0.0;
+    } else {
+      thetax = Math.round(this.pv.degrees(Math.atan(Cy / Cz)) * 10) / 10;
+    }
+    if (Cz == 0){
+      thetay = 0.0;
+    } else {
+      thetay = Math.round(this.pv.degrees(Math.atan(Cx / Cz)) * 10) / 10;
+    }
+    if (Cz == 0){
+      thetaz = 0.0;
+    } else {
+      thetaz = Math.round(this.pv.degrees(Math.atan(Cx / Cy)) * 10) / 10;
+    }
+
+    const Model_T = this.Move.MoveObject(Model_0, [BPx,BPy,BPz]);
+
+    const Model = this.Rotate.rotate(Model_T, [BPx,BPy,BPz], thetax, thetay, thetaz)
     this.scene.add(Model);
     this.scene.render();
   }

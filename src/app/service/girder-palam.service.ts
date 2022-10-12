@@ -7,6 +7,15 @@ export class GirderPalamService {
 
   constructor() { }
 
+  public coordinate: any = {
+    'BPx': 0.0,
+    'BPy': 0.0,
+    'BPz': 0.0,
+    'EPx': 0.0,
+    'EPy': 30.0,
+    'EPz': 0.0
+  };
+
   public slab: any = {
     'b1': 4.25,
     'b2': 4.25,
@@ -95,12 +104,13 @@ export class GirderPalamService {
   public others: any = {
     's_BP': 0.4,
     's_EP': 0.4,
-    'L': 33.0,
+    'L': 30.0,
     'amount_H': 6.0
   };
 
   public palam(): any {
     return {
+    'coordinate': this.coordinate,
     'slab': this.slab,
     'beam': this.beam,
     'mid': this.mid,
