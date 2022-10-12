@@ -201,20 +201,15 @@ export class pvGirderService {
     const Cy = EPy - BPy;
     const Cz = EPz - BPz;
     let thetax = 0.0;
-    let thetay = 0.0;
     let thetaz = 0.0;
 
     if (Cz == 0){
       thetax = 0.0;
     } else {
-      thetax = Math.round(this.pv.degrees(Math.atan(Cy / Cz)) * 10) / 10;
+      thetax = Math.round(this.pv.degrees(Math.atan(Cz / Cy)) * 10) / 10;
     }
-    if (Cz == 0){
-      thetay = 0.0;
-    } else {
-      thetay = Math.round(this.pv.degrees(Math.atan(Cx / Cz)) * 10) / 10;
-    }
-    if (Cz == 0){
+
+    if (Cx == 0){
       thetaz = 0.0;
     } else {
       thetaz = Math.round(this.pv.degrees(Math.atan(Cx / Cy)) * 10) / 10;
@@ -222,7 +217,7 @@ export class pvGirderService {
 
     const Model_T = this.Move.MoveObject(Model_0, [BPx,BPy,BPz]);
 
-    const Model = this.Rotate.rotate(Model_T, [BPx,BPy,BPz], thetax, thetay, thetaz)
+    const Model = this.Rotate.rotate(Model_T, [BPx,BPy,BPz], thetax, 0.0, -thetaz)
     this.scene.add(Model);
     this.scene.render();
   }
@@ -232,6 +227,5 @@ export class pvGirderService {
     const blob = new window.Blob([result], { type: "text/plain" });
     FileSaver.saveAs(blob, 'test.obj');
   }
-
 
 }

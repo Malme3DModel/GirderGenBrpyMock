@@ -46,11 +46,8 @@ export class ArrayH4Service {
     for (let i = 0; i < 2; i++) {
       const Obj_ELb = this.Move.MoveObject(RModel_EL, [-x1, y, z]);
       Obj_ELb.name = "Cu_"+ String(n);
-      const Obj_ERb = this.Move.MoveObject(RModel_ER, [x1, y, z]);
-      Obj_ERb.name = "Cu_"+ String(n+1);
-
-      Obj.add(Obj_ELb, Obj_ERb);
-      let s = n + 2.0;
+      Obj.add(Obj_ELb);
+      let s = n + 1.0;
       let x2 = -x1 + interval_V;
       for (let j = 0; j < Amount - 2; j++) {
         const Obj_Mb = this.Move.MoveObject(RModel_M, [x2, y, z]);
@@ -59,7 +56,11 @@ export class ArrayH4Service {
         x2 += interval_V;
         s += 1.0;
       }
-      n += Amount;
+      n += Amount - 1;
+      const Obj_ERb = this.Move.MoveObject(RModel_ER, [x1, y, z]);
+      Obj_ERb.name = "Cu_"+ String(n);
+      Obj.add(Obj_ERb);
+      n += 1;
       y += L;
     }
     return Obj;

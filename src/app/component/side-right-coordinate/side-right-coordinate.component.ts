@@ -20,18 +20,22 @@ export class SideRightCoordinateComponent {
     }
 
     private rowheader: string[] = [
+      '始点',
       'x座標',
       'y座標',
       'z座標',
+      '終点',
       'x座標',
       'y座標',
       'z座標',
     ];
 
     private dataset: any[] = [
+      {name: 'BP',        value: '',      unit: ''},
       {name: 'BPx',       value: this.model.coordinate.BPx,      unit: 'm'},
       {name: 'BPy',       value: this.model.coordinate.BPy,      unit: 'm'},
       {name: 'BPz',       value: this.model.coordinate.BPz,      unit: 'm'},
+      {name: 'EP',        value: '',      unit: ''},
       {name: 'EPx',       value: this.model.coordinate.EPx,      unit: 'm'},
       {name: 'EPy',       value: this.model.coordinate.EPy,      unit: 'm'},
       {name: 'EPz',       value: this.model.coordinate.EPz,      unit: 'm'},
@@ -63,7 +67,7 @@ export class SideRightCoordinateComponent {
           if( isNaN(value) )
             return false;
           const name: string = this.dataset[row].name;
-          this.model.cross[name] = value;
+          this.model.coordinate[name] = value;
         }
         // 再描画
         this.redraw();

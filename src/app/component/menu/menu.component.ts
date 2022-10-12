@@ -88,8 +88,12 @@ export class MenuComponent implements OnInit {
 
     // シーンから obj ファイルを生成する
     const obj_str: string = this.Exporter.parse(this.scene.scene);
-    const slab: any = this.scene.scene.getObjectByName("Slab");
-    let slab_str: string = this.Exporter.parse(slab);
+    const slabs = new Array();
+    for (let i = 0; i < 1; i++) {
+      const slab: any = this.scene.scene.getObjectByName("Slab");
+      let slab_str: string = this.Exporter.parse(slab);
+      slabs.push(slab_str);
+    }
     const beams = new Array();
     for (let i = 0; i < 100; i++) {
       const beam: any = this.scene.scene.getObjectByName("Hsteel-01-"+ String(i));
@@ -180,7 +184,7 @@ export class MenuComponent implements OnInit {
         "ProjectName": "Test01",
 
         "slab": {
-          "obj": slab_str
+          "obj": slabs
         },
         "beam": {
           "obj": beams
