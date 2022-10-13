@@ -206,13 +206,13 @@ export class pvGirderService {
     if (Cz == 0){
       thetax = 0.0;
     } else {
-      thetax = Math.round(this.pv.degrees(Math.atan(Cz / Cy)) * 10) / 10;
+      thetax = this.pv.degrees(Math.atan(Cz / Cy)) ;
     }
 
     if (Cx == 0){
       thetaz = 0.0;
     } else {
-      thetaz = Math.round(this.pv.degrees(Math.atan(Cx / Cy)) * 10) / 10;
+      thetaz = this.pv.degrees(Math.atan(Cx / Cy)) ;
     }
 
     const Model_T = this.Move.MoveObject(Model_0, [BPx,BPy,BPz]);
