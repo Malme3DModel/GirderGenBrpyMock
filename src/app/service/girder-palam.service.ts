@@ -127,4 +127,27 @@ export class GirderPalamService {
     };
   }
 
+  public set_palam(value: any){
+    if('others' in value)
+      this.others = value['others'];
+    if('slab' in value)
+      this.slab = value['slab'];
+    if('beam' in value)
+      this.beam = value['beam'];
+    if('mid' in value)
+      this.mid = value['mid'];
+    if('cross' in value)
+      this.cross = value['cross'];
+    if('crossbeam' in value)
+      this.crossbeam = value['crossbeam'];
+    if('endbeam' in value)
+      this.endbeam = value['endbeam'];
+    if('gusset01' in value)
+      this.gusset01 = value['gusset01'];
+    if('gusset02' in value)
+      this.gusset02 = value['gusset02'];
+    if('gusset03' in value)
+      this.gusset03 = value['gusset03'];
+  }
+
 }

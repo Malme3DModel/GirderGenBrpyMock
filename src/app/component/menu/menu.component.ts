@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
+import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
 import { SceneService } from 'src/app/three/scene.service';
 import { environment } from 'src/environments/environment';
@@ -15,9 +16,44 @@ export class MenuComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private scene: SceneService,
-    private pv: pvGirderService) { }
+    public model: GirderPalamService,
+    private girder: pvGirderService) { }
 
   ngOnInit(): void {
+  }
+
+  public open(evt: any) {
+    const file = evt.target.files[0];
+    evt.target.value = "";
+    this.fileToText(file)
+      .then((text: string) => {
+        const jsonData: {} = JSON.parse(text);
+        this.model.set_palam(jsonData);
+        this.girder.createGirder(this.model.palam());
+      })
+      .catch((err: any) => {
+        alert(err);
+      });
+  }
+
+  private fileToText(file: any): any {
+    const reader = new FileReader();
+    reader.readAsText(file);
+    return new Promise((resolve, reject) => {
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = () => {
+        reject(reader.error);
+      };
+    });
+  }
+
+  // ファイルを保存
+  public save(): void {
+    const inputJson: string = JSON.stringify(this.model.palam());
+    const blob = new window.Blob([inputJson], { type: "text/plain" });
+    FileSaver.saveAs(blob, "test.json");
   }
 
   public isLoading = false;
