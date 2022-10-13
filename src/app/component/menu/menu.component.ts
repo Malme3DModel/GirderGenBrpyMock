@@ -239,12 +239,28 @@ export class MenuComponent implements OnInit {
       gusset_03s.push(gusset03_str);
     }
 
+    const palam = this.model.palam();
+    const pOthers = palam['others'];
+    const Name_P = pOthers['Name_P'];
+    const Name_R = pOthers['Name_R'];
+    const Class_R = pOthers['Class_R'];
+    const Milepost_B = pOthers['Milepost_B'] + 'km';
+    const Milepost_E = pOthers['Milepost_E'] + 'km';
+    const BP = 'NO.' + pOthers['BP'];
+    const EP = 'NO.' + pOthers['EP'];
+
 
 
     // 付加情報と一緒に Json形式にまとめる
     const result: string = JSON.stringify({
       "body": {
-        "ProjectName": "Test01",
+        "ProjectName": Name_P,
+        "RouteName": Name_R,
+        "RoadClass": Class_R,
+        "Milepost_B": Milepost_B,
+        "Milepost_E": Milepost_E,
+        "BP": BP,
+        "EP": EP,
 
         "slab": {
           "obj": slabs
