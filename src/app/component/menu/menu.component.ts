@@ -175,6 +175,33 @@ export class MenuComponent implements OnInit {
       let cross_D_str: string = this.Exporter.parse(cross_D);
       cross_Ds.push(cross_D_str);
     }
+    const gusset_01s = new Array();
+    for (let i = 0; i < 100; i++) {
+      const gusset_01: any = this.scene.scene.getObjectByName("PL1_"+ String(i));
+      if (gusset_01 == null){
+        break;
+      }
+      let gusset01_str: string = this.Exporter.parse(gusset_01);
+      gusset_01s.push(gusset01_str);
+    }
+    const gusset_02s = new Array();
+    for (let i = 0; i < 100; i++) {
+      const gusset_02: any = this.scene.scene.getObjectByName("PL2_"+ String(i));
+      if (gusset_02 == null){
+        break;
+      }
+      let gusset02_str: string = this.Exporter.parse(gusset_02);
+      gusset_02s.push(gusset02_str);
+    }
+    const gusset_03s = new Array();
+    for (let i = 0; i < 100; i++) {
+      const gusset_03: any = this.scene.scene.getObjectByName("PL3_"+ String(i));
+      if (gusset_03 == null){
+        break;
+      }
+      let gusset03_str: string = this.Exporter.parse(gusset_03);
+      gusset_03s.push(gusset03_str);
+    }
 
 
 
@@ -212,6 +239,15 @@ export class MenuComponent implements OnInit {
         },
         "endbeam": {
           "obj": endbeams
+        },
+        "gusset01": {
+          "obj": gusset_01s
+        },
+        "gusset02": {
+          "obj": gusset_02s
+        },
+        "gusset03": {
+          "obj": gusset_03s
         }
       }
     });

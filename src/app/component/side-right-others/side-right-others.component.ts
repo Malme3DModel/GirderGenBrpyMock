@@ -20,17 +20,43 @@ export class SideRightOthersComponent{
     }
 
     private rowheader: string[] = [
-      '起点端部から端横構までの離隔',
-      '終点端部から端横構までの離隔',
-      '端横構、荷重分配横桁、中間対傾構の総和',
+      '業務名',
+      '路線名',
+      '道路種別',
       '橋長',
+      '桁長',
+      '支間長',
+      '開始距離標',
+      '終了距離標',
+      '開始測点番号',
+      '開始測点x座標',
+      '開始測点y座標',
+      '開始測点z座標',
+      '終了測点番号',
+      '終了測点x座標',
+      '終了測点y座標',
+      '終了測点z座標',
+      '横桁・対傾構の列数',
     ];
 
     private dataset: any[] = [
-      {name: 's_BP', value: this.model.others.s_BP, unit: 'm'},
-      {name: 's_EP', value: this.model.others.s_EP, unit: 'm'},
-      {name: 'amount_H', value: this.model.others.amount_H, unit: '本'},
+      {name: 'ProjectName', value: this.model.others.Name_P, unit: ''},
+      {name: 'RouteName', value: this.model.others.Name_R, unit: ''},
+      {name: 'RoadClass', value: this.model.others.Class_R, unit: ''},
       {name: 'L', value: this.model.others.L, unit: 'm'},
+      {name: 'L_01', value: this.model.others.L_01, unit: 'm'},
+      {name: 'L_02', value: this.model.others.L_02, unit: 'm'},
+      {name: 'Milepost_B', value: this.model.others.Milepost_B, unit: 'km'},
+      {name: 'Milepost_E', value: this.model.others.Milepost_E, unit: 'km'},
+      {name: 'BP', value: this.model.others.BP, unit: 'NO.'},
+      {name: 'BPx', value: this.model.others.BPx, unit: 'm'},
+      {name: 'BPy', value: this.model.others.BPy, unit: 'm'},
+      {name: 'BPz', value: this.model.others.BPz, unit: 'm'},
+      {name: 'EP', value: this.model.others.EP, unit: 'NO.'},
+      {name: 'EPx', value: this.model.others.EPx, unit: 'm'},
+      {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
+      {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
+      {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
     ];
 
     private columns = [

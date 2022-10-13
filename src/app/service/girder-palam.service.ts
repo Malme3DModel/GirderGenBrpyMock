@@ -7,15 +7,6 @@ export class GirderPalamService {
 
   constructor() { }
 
-  public coordinate: any = {
-    'BPx': 0.0,
-    'BPy': 0.0,
-    'BPz': 0.0,
-    'EPx': 0.0,
-    'EPy': 30.0,
-    'EPz': 0.0
-  };
-
   public slab: any = {
     'b1': 4.25,
     'b2': 4.25,
@@ -62,9 +53,9 @@ export class GirderPalamService {
     'D4': 0.25,
     'tf3': 0.012,
     'tw3': 0.012,
-    'location2':[3], 
-    's_edge2': 0.0, 
-    's_middle2': 0.0
+    's_edge2': 0.0,
+    's_middle2': 0.0,
+    'location2' : 1.0
   };
 
   public endbeam: any = {
@@ -102,15 +93,28 @@ export class GirderPalamService {
   };
 
   public others: any = {
-    's_BP': 0.4,
-    's_EP': 0.4,
+    'Name_P':'〇〇橋梁予備設計',
+    'Name_R':'国道〇〇号〇〇橋',
+    'Class_R':'第3種-第1級',
     'L': 30.0,
+    'L_01': 29.8,
+    'L_02': 29.0,
+    'Milepost_B':'23.20',
+    'Milepost_E':'23.23',
+    'BP':'1+10.0',
+    'BPx': 0.0,
+    'BPy': 0.0,
+    'BPz': 0.0,
+    'EP':'3+0.0',
+    'EPx': 0.0,
+    'EPy': 30.0,
+    'EPz': 0.0,
     'amount_H': 6.0
   };
 
   public palam(): any {
     return {
-    'coordinate': this.coordinate,
+    'others': this.others,
     'slab': this.slab,
     'beam': this.beam,
     'mid': this.mid,
@@ -120,14 +124,7 @@ export class GirderPalamService {
     'gusset01': this.gusset01,
     'gusset02': this.gusset02,
     'gusset03': this.gusset03,
-    'others': this.others
     };
   }
-
-  
-  public ProjectName = 'プロジェクト名'
-  public Name1 = '橋梁'     // 階層1のオブジェクト分類名
-  public Name2 = '上部構造' // 階層2のオブジェクト分類名
-  public Name3 = '主桁'     // 階層3のオブジェクト分類名
 
 }

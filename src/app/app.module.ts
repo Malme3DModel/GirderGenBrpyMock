@@ -32,7 +32,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 import { SideLeftComponent } from './component/side-left/side-left.component';
-import { SideRightCoordinateComponent } from './component/side-right-coordinate/side-right-coordinate.component';
 import { SideRightSlabComponent } from './component/side-right-slab/side-right-slab.component';
 import { SideRightBeamComponent } from './component/side-right-beam/side-right-beam.component';
 import { SideRightMidComponent } from './component/side-right-mid/side-right-mid.component';
@@ -52,7 +51,7 @@ import { SocketioService } from './component/chat/socketio-service.service';
     ThreeComponent,
     MenuComponent,
     SideLeftComponent,
-    SideRightCoordinateComponent,
+    SideRightOthersComponent,
     SideRightSlabComponent,
     SideRightBeamComponent,
     SideRightMidComponent,
@@ -62,7 +61,6 @@ import { SocketioService } from './component/chat/socketio-service.service';
     SideRightGusset01Component,
     SideRightGusset02Component,
     SideRightGusset03Component,
-    SideRightOthersComponent,
     ChatComponent
   ],
   imports: [

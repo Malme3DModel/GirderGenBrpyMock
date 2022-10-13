@@ -46,14 +46,6 @@ export class pvGirderService {
   public createGirder(plam: any): void {
     this.scene.clear();
 
-    // 起終点座標を取得
-    const pCoordinate = plam['coordinate'];
-    const BPx = pCoordinate['BPx'];
-    const BPy = pCoordinate['BPy'];
-    const BPz = pCoordinate['BPz'];
-    const EPx = pCoordinate['EPx'];
-    const EPy = pCoordinate['EPy'];
-    const EPz = pCoordinate['EPz'];
 
     // スラブのパラメータ
     const pSlab = plam['slab'];
@@ -116,7 +108,7 @@ export class pvGirderService {
     const D4 = pCrossBeam['D4'];
     const tf3 = pCrossBeam['tf3'];
     const tw3 = pCrossBeam['tw3'];
-    const location2: number[] = pCrossBeam['location2']; // 荷重分配横桁を配置する列番号（起点側から0）
+    const amount = pCrossBeam['location2'];
     const s_edge2 = pCrossBeam['s_edge2']; // 端部における主桁からの離隔
     const s_middle2 = pCrossBeam['s_middle2']; // 中間部における主桁からの離隔
 
@@ -155,14 +147,20 @@ export class pvGirderService {
     const Gt3 = pGusset03['t'];
     const Gdx3 = pGusset03['dx'];
 
-    // その他配置に関するパラメータ
+    // 共通のパラメータ
     const pOthers = plam['others'];
-    const s_BP = pOthers['s_BP']; // 始点側端部から端横構までの離隔
-    const s_EP = pOthers['s_EP']; // 終点側端部から端横構までの離隔
-    const L = pOthers['L']; // 支間長
-    const L2 = L + (s_BP + s_EP); // 桁長
+    const BPx = pOthers['BPx'];
+    const BPy = pOthers['BPy'];
+    const BPz = pOthers['BPz'];
+    const EPx = pOthers['EPx'];
+    const EPy = pOthers['EPy'];
+    const EPz = pOthers['EPz'];
+    const L = pOthers['L_01']; // 桁長
+    const L2 = pOthers['L_02']; // 支間長
+    const s_BP = (L - L2)/2.0; // 始点側端部から端横構までの離隔
+    const s_EP = (L - L2)/2.0; // 終点側端部から端横構までの離隔
     const amount_H = pOthers['amount_H']; // 列数
-    const interval_H = L / (amount_H - 1.0);  // 対傾構の配置間隔
+    const interval_H = L2 / (amount_H - 1.0);  // 対傾構の配置間隔
     const z2 = tf * 2.0 + W + T1 + T2;
     const y2 = (s_BP + s_EP) / 2.0;
     const column: number[] = new Array(); // 中間対傾構を配置する列番号（起点側から0）
@@ -170,24 +168,31 @@ export class pvGirderService {
       column.push(i);
     }
     let location = column;
+    const location2 :number[] = new Array();
+    let m = (column.length - 1) / (amount + 1);
+    for (let i = 0; i < amount; i++) {
+      const A = column[Math.trunc(m)+1];
+      location2.push(A);
+      m += m;
+    }
     for (let i = 0; i < location2.length; i++) {
       location = location.filter(item => item !== location2[i]);
     }
     location.shift(); // 先頭の要素を削除
     location.pop();   // 末尾の要素を削除
 
-    const MainGirader = this.ArrayH1.Array(L2, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V);
+    const MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V);
     const IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
     const CrossBeam01_T = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, false);
     const CrossBeam01_D = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true);
     const CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2);
-    const CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L, amount_V, interval_V);
+    const CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L2, amount_V, interval_V);
     const Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
     const Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location);
-    const Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx2, tf, H, amount_H, amount_V, interval_H, interval_V, location);
+    const Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location);
 
 
-    const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L2, amount_V, interval_V);
+    const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
     Slab.name = "Slab";
 
     const Girder_0 = new THREE.Group();

@@ -57,9 +57,9 @@ export class ArrayG3Service {
         let n = 0;
         for (let i = 0; i < pointlist2.length; i++) {
             const Obj0 = this.Gusset.CreateGusset(A, B, C, D, t, pointlist2[i], false);
-            Obj0.name = "PL3-"+ String(n)
+            Obj0.name = "PL3_"+ String(n)
             const Obj1 = this.Gusset.CreateGusset(A, B, C, D, t, pointlist2_r[i], true);
-            Obj1.name = "PL3-"+ String(n+1)
+            Obj1.name = "PL3_"+ String(n+1)
             Obj.add(Obj0)
             Obj.add(Obj1)
             n += 2;

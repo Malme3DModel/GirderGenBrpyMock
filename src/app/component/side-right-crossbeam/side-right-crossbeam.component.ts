@@ -26,7 +26,7 @@ export class SideRightCrossbeamComponent {
       'ウェブ厚',
       '離隔（外側）',
       '離隔（内側）',
-      '配置列番号',
+      '配置列数',
     ];
 
 
@@ -37,6 +37,7 @@ export class SideRightCrossbeamComponent {
       { name: 'tw3', value: this.model.crossbeam.tw3, unit: 'm'},
       { name: 's_edge2', value: this.model.crossbeam.s_edge2, unit: 'm'},
       { name: 's_middle2', value: this.model.crossbeam.s_middle2, unit: 'm'},
+      { name: 'location2', value: this.model.crossbeam.location2, unit: '列'},
     ];
 
     private columns = [

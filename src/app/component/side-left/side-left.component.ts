@@ -10,7 +10,6 @@ import { SideRightGusset02Component } from '../side-right-gusset02/side-right-gu
 import { SideRightGusset03Component } from '../side-right-gusset03/side-right-gusset03.component';
 import { SideRightOthersComponent } from '../side-right-others/side-right-others.component';
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
-import { SideRightCoordinateComponent } from '../side-right-coordinate/side-right-coordinate.component';
 
 @Component({
   selector: 'app-side-left',
@@ -24,8 +23,8 @@ export class SideLeftComponent {
   public openDialog(id: string): void {
 
     let rightSide: any = null;
-    if( id==='coordinate')  // 座標
-      rightSide = SideRightCoordinateComponent;
+    if( id==='others') // 共通
+      rightSide = SideRightOthersComponent;
     else if( id==='slab')  // 床版
       rightSide = SideRightSlabComponent;
     else if( id==='beam') // 主桁
@@ -44,8 +43,6 @@ export class SideLeftComponent {
       rightSide = SideRightGusset02Component;
     else if( id==='gusset03') // ガセットプレート03
       rightSide = SideRightGusset03Component;
-    else if( id==='others') // その他
-      rightSide = SideRightOthersComponent;
 
     if(rightSide==null)
       return;
