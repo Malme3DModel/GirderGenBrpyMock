@@ -38,11 +38,11 @@ export class SideRightSlabComponent{
       {name: 'b2', value: this.model.slab.b2, unit: 'm'},
       {name: 'b3', value: this.model.slab.b3, unit: 'm'},
       {name: 'SH', value: this.model.slab.SH, unit: 'm'},
-      {name: 'i1', value: this.model.slab.i1, unit: 'm'},
-      {name: 'i2', value: this.model.slab.i2, unit: 'm'},
+      {name: 'i1', value: this.model.slab.i1, unit: '%'},
+      {name: 'i2', value: this.model.slab.i2, unit: '%'},
       {name: 'T1', value: this.model.slab.T1, unit: 'm'},
       {name: 'T2', value: this.model.slab.T2, unit: 'm'},
-      {name: 'n', value: this.model.slab.n, unit: 'm'},
+      {name: 'n', value: this.model.slab.n, unit: '1:n'},
       {name: 'Ss', value: this.model.slab.Ss, unit: 'm'},
     ];
 

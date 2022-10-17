@@ -18,6 +18,7 @@ import { ArrayH3Service_l } from './Hsteel/Array_Hsteel03_l.service';
 import { ArrayG1Service} from './Gusset/Array_Gusset01.service';
 import { ArrayG2Service} from './Gusset/Array_Gusset02.service';
 import { ArrayG3Service} from './Gusset/Array_Gusset03.service';
+import { ArrayG4Service} from './Gusset/Array_Gusset04.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,7 @@ export class pvGirderService {
     private ArrayG1: ArrayG1Service,
     private ArrayG2: ArrayG2Service,
     private ArrayG3: ArrayG3Service,
+    private ArrayG4: ArrayG4Service,
     private AddSlab: AddSlabService,
     private Rotate: pvRotateService,
     private Move: pvTranlateService
@@ -52,8 +54,8 @@ export class pvGirderService {
     const b1 = pSlab['b1'];
     const b2 = pSlab['b2'];
     const b3 = pSlab['b3'];
-    const i1 = pSlab['i1'];
-    const i2 = pSlab['i2'];
+    const i1 = pSlab['i1'] * 0.01;
+    const i2 = pSlab['i2'] * 0.01;
     const SH = pSlab['SH'];
     const T1 = pSlab['T1'];
     const T2 = pSlab['T2'];
@@ -190,13 +192,13 @@ export class pvGirderService {
     const Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
     const Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location);
     const Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location);
-
+    const Gusset04 = this.ArrayG4.Array(GA1, GB1, GC1, GD1, Gt1, dz, H, W2, tf, tw2, amount_H, amount_V, interval_H, interval_V, location, false);
 
     const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
     Slab.name = "Slab";
 
     const Girder_0 = new THREE.Group();
-    Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03);
+    Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03, Gusset04);
     const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
 
     const Model_0 = new THREE.Group();
