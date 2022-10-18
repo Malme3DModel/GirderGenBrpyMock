@@ -148,23 +148,23 @@ export class MenuComponent implements OnInit {
       let crossbeam_str: string = this.Exporter.parse(crossbeam);
       crossbeams.push(crossbeam_str);
     }
-    const mids01 = new Array();
+    const cross01s = new Array();
     for (let i = 0; i < 100; i++) {
-      const mid01: any = this.scene.scene.getObjectByName("Ll_"+ String(i));
-      if (mid01 == null){
+      const cross01: any = this.scene.scene.getObjectByName("Ll_"+ String(i));
+      if (cross01 == null){
         break;
       }
-      let mid01_str: string = this.Exporter.parse(mid01);
-      mids01.push(mid01_str);
+      let cross01_str: string = this.Exporter.parse(cross01);
+      cross01s.push(cross01_str);
     }
-    const mids02 = new Array();
+    const cross02s = new Array();
     for (let i = 0; i < 100; i++) {
-      const mid02: any = this.scene.scene.getObjectByName("Lu_"+ String(i));
-      if (mid02 == null){
+      const cross02: any = this.scene.scene.getObjectByName("Lu_"+ String(i));
+      if (cross02 == null){
         break;
       }
-      let mid02_str: string = this.Exporter.parse(mid02);
-      mids02.push(mid02_str);
+      let cross02_str: string = this.Exporter.parse(cross02);
+      cross02s.push(cross02_str);
     }
     const endbeams = new Array();
     for (let i = 0; i < 100; i++) {
@@ -175,41 +175,41 @@ export class MenuComponent implements OnInit {
       let endbeam_str: string = this.Exporter.parse(endbeam);
       endbeams.push(endbeam_str);
     }
-    const cross_Ls = new Array();
+    const mid_Ls = new Array();
     for (let i = 0; i < 100; i++) {
-      const cross_L: any = this.scene.scene.getObjectByName("Cfl_"+ String(i));
-      if (cross_L == null){
+      const mid_L: any = this.scene.scene.getObjectByName("Cfl_"+ String(i));
+      if (mid_L == null){
         break;
       }
-      let cross_L_str: string = this.Exporter.parse(cross_L);
-      cross_Ls.push(cross_L_str);
+      let mid_L_str: string = this.Exporter.parse(mid_L);
+      mid_Ls.push(mid_L_str);
     }
-    const cross_Rs = new Array();
+    const mid_Rs = new Array();
     for (let i = 0; i < 100; i++) {
-      const cross_R: any = this.scene.scene.getObjectByName("Cfr_"+ String(i));
-      if (cross_R == null){
+      const mid_R: any = this.scene.scene.getObjectByName("Cfr_"+ String(i));
+      if (mid_R == null){
         break;
       }
-      let cross_R_str: string = this.Exporter.parse(cross_R);
-      cross_Rs.push(cross_R_str);
+      let mid_R_str: string = this.Exporter.parse(mid_R);
+      mid_Rs.push(mid_R_str);
     }
-    const cross_Ts = new Array();
+    const mid_Ts = new Array();
     for (let i = 0; i < 100; i++) {
-      const cross_T: any = this.scene.scene.getObjectByName("Cft_"+ String(i));
-      if (cross_T == null){
+      const mid_T: any = this.scene.scene.getObjectByName("Cft_"+ String(i));
+      if (mid_T == null){
         break;
       }
-      let cross_T_str: string = this.Exporter.parse(cross_T);
-      cross_Ts.push(cross_T_str);
+      let mid_T_str: string = this.Exporter.parse(mid_T);
+      mid_Ts.push(mid_T_str);
     }
-    const cross_Ds = new Array();
+    const mid_Ds = new Array();
     for (let i = 0; i < 100; i++) {
-      const cross_D: any = this.scene.scene.getObjectByName("Cfd_"+ String(i));
-      if (cross_D == null){
+      const mid_D: any = this.scene.scene.getObjectByName("Cfd_"+ String(i));
+      if (mid_D == null){
         break;
       }
-      let cross_D_str: string = this.Exporter.parse(cross_D);
-      cross_Ds.push(cross_D_str);
+      let mid_D_str: string = this.Exporter.parse(mid_D);
+      mid_Ds.push(mid_D_str);
     }
     const gusset_01s = new Array();
     for (let i = 0; i < 100; i++) {
@@ -238,6 +238,24 @@ export class MenuComponent implements OnInit {
       let gusset03_str: string = this.Exporter.parse(gusset_03);
       gusset_03s.push(gusset03_str);
     }
+    const gusset_04s = new Array();
+    for (let i = 0; i < 100; i++) {
+      const gusset_04: any = this.scene.scene.getObjectByName("PL4_"+ String(i));
+      if (gusset_04 == null){
+        break;
+      }
+      let gusset04_str: string = this.Exporter.parse(gusset_04);
+      gusset_04s.push(gusset04_str);
+    }
+    const pavements = new Array();
+    for (let i = 0; i < 100; i++) {
+      const pavement: any = this.scene.scene.getObjectByName("Pv_"+ String(i));
+      if (pavement == null){
+        break;
+      }
+      let pavement_str: string = this.Exporter.parse(pavement);
+      pavements.push(pavement_str);
+    }
 
     const palam = this.model.palam();
     const pOthers = palam['others'];
@@ -262,45 +280,57 @@ export class MenuComponent implements OnInit {
         "BP": BP,
         "EP": EP,
 
+        "pavement": {
+          "obj": [pavements],
+          "Name":'舗装',
+          "Name_s":['舗装'],
+          "Class":'舗装',
+          "Info":'',
+          "Info_s":[],
+          "Type":'車道',
+        },
+
         "slab": {
-          "obj": slabs
+          "obj": [slabs],
+          "Name":'床版',
+          "Name_s":['コンクリート'],
+          "Class":'床版',
+          "Info":'A1/A2',
+          "Info_s":[],
+          "Type":'RC床版',
         },
         "beam": {
-          "obj": beams
+          "obj": [beams],
+          "Name":'主桁',
+          "Name_s":['主桁'],
+          "Class":'主桁',
+          "Info":'A1/A2',
+          "Type":'',
         },
-        "mid_l": {
-          "obj": mids01
+        "cross": {
+          "obj": [cross01s, cross02s],
+          "Name":'横構',
+          "Name_s":['下横構', '上横構'],
+          "Class":'横構',
+          "Info":'A1/A2',
+          "Type":'',
         },
-        "mid_u": {
-          "obj": mids02
-        },
-        "cross_L": {
-          "obj": cross_Ls
-        },
-        "cross_R": {
-          "obj": cross_Rs
-        },
-        "cross_T": {
-          "obj": cross_Ts
-        },
-        "cross_D": {
-          "obj": cross_Ds
+        "mid": {
+          "obj": [mid_Ls, mid_Rs, mid_Ds, mid_Ts, gusset_01s, gusset_02s, gusset_03s],
+          "Name":'対傾構',
+          "Name_s":['左斜材', '右斜材','下弦材', '上弦材', 'ガセットプレート01-', 'ガセットプレート02-', 'ガセットプレート03-'],
+          "Class":'対傾構',
+          "Info":'A1/A2',
+          "Type":'',
         },
         "crossbeam": {
-          "obj": crossbeams
+          "obj": [crossbeams, endbeams, gusset_04s],
+          "Name":'横桁',
+          "Name_s":['荷重分配横桁', '端横桁', 'ガセットプレート'],
+          "Class":'横桁',
+          "Info":'A1/A2',
+          "Type":'',
         },
-        "endbeam": {
-          "obj": endbeams
-        },
-        "gusset01": {
-          "obj": gusset_01s
-        },
-        "gusset02": {
-          "obj": gusset_02s
-        },
-        "gusset03": {
-          "obj": gusset_03s
-        }
       }
     });
     return result;
