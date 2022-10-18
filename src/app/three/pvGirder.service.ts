@@ -11,6 +11,7 @@ import { ArrayH3Service } from 'src/app/three/Hsteel/Array_Hsteel03.service';
 import { ArrayH4Service } from 'src/app/three/Hsteel/Array_Hsteel04.service';
 import { ArrayLService } from './Lsteel/Array_Lsteel.service';
 import { AddSlabService } from './Slab/pvSlab.service';
+import { AddPavementService } from './Pavement/pvPavement.servis';
 import { pvTranlateService } from './libs/pvTranlate.service';
 import { pvRotateService } from './libs/pvRotate.service';
 import { ArrayH3Service_u } from './Hsteel/Array_Hsteel03_u.service';
@@ -40,6 +41,7 @@ export class pvGirderService {
     private ArrayG3: ArrayG3Service,
     private ArrayG4: ArrayG4Service,
     private AddSlab: AddSlabService,
+    private AddPavement: AddPavementService,
     private Rotate: pvRotateService,
     private Move: pvTranlateService
   ) {
@@ -49,7 +51,7 @@ export class pvGirderService {
     this.scene.clear();
 
 
-    // スラブのパラメータ
+    // 床版のパラメータ
     const pSlab = plam['slab'];
     const b1 = pSlab['b1'];
     const b2 = pSlab['b2'];
@@ -62,6 +64,12 @@ export class pvGirderService {
     const n = pSlab['n'];   // 1:n
     const Ss = pSlab['Ss']; // 端部から主桁中心までの離隔
     const S_B = b1 + b2 + b3 * 2.0;
+
+    // 舗装のパラメータ
+    const pPavement = plam['pavement'];
+    const i3 = pPavement['i1'] * 0.01;
+    const i4 = pPavement['i2'] * 0.01;
+    const T3 = pPavement['T'];
 
     // 主桁のパラメータ
     const pBeam = plam['beam'];
@@ -196,13 +204,14 @@ export class pvGirderService {
 
     const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
     Slab.name = "Slab";
+    const Pavement = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
 
     const Girder_0 = new THREE.Group();
     Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03, Gusset04);
     const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
 
     const Model_0 = new THREE.Group();
-    Model_0.add(Slab, Girder);
+    Model_0.add(Slab, Girder, Pavement);
 
     const Cx = EPx - BPx;
     const Cy = EPy - BPy;

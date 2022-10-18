@@ -10,6 +10,7 @@ import { SideRightGusset02Component } from '../side-right-gusset02/side-right-gu
 import { SideRightGusset03Component } from '../side-right-gusset03/side-right-gusset03.component';
 import { SideRightOthersComponent } from '../side-right-others/side-right-others.component';
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
+import { SideRightPavementComponent } from '../side-right-pavement/side-right-pavement.component';
 
 @Component({
   selector: 'app-side-left',
@@ -25,6 +26,8 @@ export class SideLeftComponent {
     let rightSide: any = null;
     if( id==='others') // 共通
       rightSide = SideRightOthersComponent;
+    else if( id==='pavement')  // 舗装
+      rightSide = SideRightPavementComponent;
     else if( id==='slab')  // 床版
       rightSide = SideRightSlabComponent;
     else if( id==='beam') // 主桁
