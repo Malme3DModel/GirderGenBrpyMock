@@ -58,6 +58,8 @@ export class pvGirderService {
     const b3 = pSlab['b3'];
     const i1 = pSlab['i1'] * 0.01;
     const i2 = pSlab['i2'] * 0.01;
+    const j1 = pSlab['j1'] * 0.01;
+    const j2 = pSlab['j2'] * 0.01;
     const SH = pSlab['SH'];
     const T1 = pSlab['T1'];
     const T2 = pSlab['T2'];
@@ -202,7 +204,7 @@ export class pvGirderService {
     const Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location);
     const Gusset04 = this.ArrayG4.Array(GA1, GB1, GC1, GD1, Gt1, dz, H, W2, tf, tw2, amount_H, amount_V, interval_H, interval_V, location, false);
 
-    const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
+    const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
     Slab.name = "Slab";
     const Pavement = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
 

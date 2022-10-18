@@ -19,6 +19,8 @@ export class GirderPalamService {
     'b3': 0.6,
     'i1': 2.0,
     'i2': 2.0,
+    'j1': 2.0,
+    'j2': 2.0,
     'SH': 0.55,
     'T1': 0.2,
     'T3': 0.15,
