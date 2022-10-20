@@ -173,7 +173,7 @@ export class pvGirderService {
     const s_EP = (L - L2)/2.0; // 終点側端部から端横構までの離隔
     const amount_H = pOthers['amount_H']; // 列数
     const interval_H = L2 / (amount_H - 1.0);  // 対傾構の配置間隔
-    const z2 = tf * 2.0 + W + T1 + T2;
+    const z2 = tf * 2.0 + W + (b1 * i1 + T1 + (T2 - (Ss - b3) * j1));
     const y2 = (s_BP + s_EP) / 2.0;
     const column: number[] = new Array(); // 中間対傾構を配置する列番号（起点側から0）
     for (let i = 0; i < amount_H; i++) {
@@ -193,7 +193,7 @@ export class pvGirderService {
     location.shift(); // 先頭の要素を削除
     location.pop();   // 末尾の要素を削除
 
-    const MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V);
+    const MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V, j1, j2);
     const IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
     const CrossBeam01_T = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, false);
     const CrossBeam01_D = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true);
