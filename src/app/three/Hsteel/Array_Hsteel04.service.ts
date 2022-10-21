@@ -51,7 +51,7 @@ export class ArrayH4Service {
         const Obj_Mb = this.Move.MoveObject(RModel_M, [-x2, y, z]);
         Obj_Mb.name = "Cu_"+ String(s);
         Obj.add(Obj_Mb);
-        x2 += interval_V;
+        x2 -= interval_V;
         s += 1.0;
       }
       n += Amount - 1;

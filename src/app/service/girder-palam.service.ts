@@ -7,14 +7,23 @@ export class GirderPalamService {
 
   constructor() { }
 
+  public pavement: any = {
+    'i1': 2.0,
+    'i2': 2.0,
+    'T': 0.2,
+  };
+
   public slab: any = {
     'b1': 4.25,
     'b2': 4.25,
     'b3': 0.6,
-    'i1': 0.02,
-    'i2': 0.02,
+    'i1': 2.0,
+    'i2': 2.0,
+    'j1': 2.0,
+    'j2': 2.0,
     'SH': 0.55,
     'T1': 0.2,
+    'T3': 0.15,
     'T2': 0.1,
     'n': 3.0,
     'Ss': 1.025
@@ -115,6 +124,7 @@ export class GirderPalamService {
   public palam(): any {
     return {
     'others': this.others,
+    'pavement': this.pavement,
     'slab': this.slab,
     'beam': this.beam,
     'mid': this.mid,
@@ -130,6 +140,8 @@ export class GirderPalamService {
   public set_palam(value: any){
     if('others' in value)
       this.others = value['others'];
+    if('pavement' in value)
+      this.pavement = value['pavement'];
     if('slab' in value)
       this.slab = value['slab'];
     if('beam' in value)

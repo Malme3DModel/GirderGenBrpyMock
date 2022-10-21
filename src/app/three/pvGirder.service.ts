@@ -11,6 +11,7 @@ import { ArrayH3Service } from 'src/app/three/Hsteel/Array_Hsteel03.service';
 import { ArrayH4Service } from 'src/app/three/Hsteel/Array_Hsteel04.service';
 import { ArrayLService } from './Lsteel/Array_Lsteel.service';
 import { AddSlabService } from './Slab/pvSlab.service';
+import { AddPavementService } from './Pavement/pvPavement.servis';
 import { pvTranlateService } from './libs/pvTranlate.service';
 import { pvRotateService } from './libs/pvRotate.service';
 import { ArrayH3Service_u } from './Hsteel/Array_Hsteel03_u.service';
@@ -18,6 +19,7 @@ import { ArrayH3Service_l } from './Hsteel/Array_Hsteel03_l.service';
 import { ArrayG1Service} from './Gusset/Array_Gusset01.service';
 import { ArrayG2Service} from './Gusset/Array_Gusset02.service';
 import { ArrayG3Service} from './Gusset/Array_Gusset03.service';
+import { ArrayG4Service} from './Gusset/Array_Gusset04.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +39,9 @@ export class pvGirderService {
     private ArrayG1: ArrayG1Service,
     private ArrayG2: ArrayG2Service,
     private ArrayG3: ArrayG3Service,
+    private ArrayG4: ArrayG4Service,
     private AddSlab: AddSlabService,
+    private AddPavement: AddPavementService,
     private Rotate: pvRotateService,
     private Move: pvTranlateService
   ) {
@@ -47,19 +51,27 @@ export class pvGirderService {
     this.scene.clear();
 
 
-    // スラブのパラメータ
+    // 床版のパラメータ
     const pSlab = plam['slab'];
     const b1 = pSlab['b1'];
     const b2 = pSlab['b2'];
     const b3 = pSlab['b3'];
-    const i1 = pSlab['i1'];
-    const i2 = pSlab['i2'];
+    const i1 = pSlab['i1'] * 0.01;
+    const i2 = pSlab['i2'] * 0.01;
+    const j1 = pSlab['j1'] * 0.01;
+    const j2 = pSlab['j2'] * 0.01;
     const SH = pSlab['SH'];
     const T1 = pSlab['T1'];
     const T2 = pSlab['T2'];
     const n = pSlab['n'];   // 1:n
     const Ss = pSlab['Ss']; // 端部から主桁中心までの離隔
     const S_B = b1 + b2 + b3 * 2.0;
+
+    // 舗装のパラメータ
+    const pPavement = plam['pavement'];
+    const i3 = pPavement['i1'] * 0.01;
+    const i4 = pPavement['i2'] * 0.01;
+    const T3 = pPavement['T'];
 
     // 主桁のパラメータ
     const pBeam = plam['beam'];
@@ -161,7 +173,7 @@ export class pvGirderService {
     const s_EP = (L - L2)/2.0; // 終点側端部から端横構までの離隔
     const amount_H = pOthers['amount_H']; // 列数
     const interval_H = L2 / (amount_H - 1.0);  // 対傾構の配置間隔
-    const z2 = tf * 2.0 + W + T1 + T2;
+    const z2 = tf * 2.0 + W + (b1 * i1 + T1 + (T2 - (Ss - b3) * j1));
     const y2 = (s_BP + s_EP) / 2.0;
     const column: number[] = new Array(); // 中間対傾構を配置する列番号（起点側から0）
     for (let i = 0; i < amount_H; i++) {
@@ -181,7 +193,7 @@ export class pvGirderService {
     location.shift(); // 先頭の要素を削除
     location.pop();   // 末尾の要素を削除
 
-    const MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V);
+    const MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V, j1, j2);
     const IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
     const CrossBeam01_T = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, false);
     const CrossBeam01_D = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true);
@@ -190,17 +202,18 @@ export class pvGirderService {
     const Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
     const Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location);
     const Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location);
+    const Gusset04 = this.ArrayG4.Array(GA1, GB1, GC1, GD1, Gt1, dz, H, W2, tf, tw2, amount_H, amount_V, interval_H, interval_V, location, false);
 
-
-    const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
+    const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
     Slab.name = "Slab";
+    const Pavement = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
 
     const Girder_0 = new THREE.Group();
-    Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03);
+    Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03, Gusset04);
     const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
 
     const Model_0 = new THREE.Group();
-    Model_0.add(Slab, Girder);
+    Model_0.add(Slab, Girder, Pavement);
 
     const Cx = EPx - BPx;
     const Cy = EPy - BPy;
