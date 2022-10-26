@@ -28,11 +28,11 @@ export class SideRightEndbeamComponent {
     ];
 
     private dataset: any[] = [
-      {name: 'D5', value: this.model.endbeam.D5, unit: 'm'},
-      {name: 'tf4', value: this.model.endbeam.tf4, unit: 'm'},
-      {name: 'tw4', value: this.model.endbeam.tw4, unit: 'm'},
-      {name: 's_edge3', value: this.model.endbeam.s_edge3, unit: 'm'},
-      {name: 's_middle3', value: this.model.endbeam.s_middle3, unit: 'm'},    ];
+      {name: 'D5', value: this.model.endbeam.D5, unit: 'mm'},
+      {name: 'tf4', value: this.model.endbeam.tf4, unit: 'mm'},
+      {name: 'tw4', value: this.model.endbeam.tw4, unit: 'mm'},
+      {name: 's_edge3', value: this.model.endbeam.s_edge3, unit: 'mm'},
+      {name: 's_middle3', value: this.model.endbeam.s_middle3, unit: 'mm'},    ];
 
     private columns = [
       {
@@ -43,7 +43,7 @@ export class SideRightEndbeamComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: '0,0.000'
+          pattern: '0,0.0'
         }
       }
     ];

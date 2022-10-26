@@ -106,7 +106,7 @@ export class SceneService {
     this.renderer = new THREE.WebGLRenderer({
       preserveDrawingBuffer: true,
       canvas: canvasElement,
-      alpha: true,    // transparent background
+      alpha: false,    // transparent background
       antialias: true // smooth edges
     });
     this.renderer.setPixelRatio(deviceRatio);

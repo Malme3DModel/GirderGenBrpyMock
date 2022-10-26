@@ -29,10 +29,10 @@ export class SideRightBeamComponent {
 
     private dataset: any[] = [
       {name: 'amount_V',  value: this.model.beam.amount_V,  unit: '本'},
-      {name: 'D',         value: this.model.beam.D,         unit: 'm'},
-      {name: 'tf',        value: this.model.beam.tf,        unit: 'm'},
-      {name: 'W',         value: this.model.beam.W,         unit: 'm'},
-      {name: 'tw',        value: this.model.beam.tw,        unit: 'm'},
+      {name: 'D',         value: this.model.beam.D,         unit: 'mm'},
+      {name: 'tf',        value: this.model.beam.tf,        unit: 'mm'},
+      {name: 'W',         value: this.model.beam.W,         unit: 'mm'},
+      {name: 'tw',        value: this.model.beam.tw,        unit: 'mm'},
     ];
 
     private columns = [
@@ -44,7 +44,7 @@ export class SideRightBeamComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: '0,0.000'
+          pattern: '0,0.0'
         }
       }
     ];
