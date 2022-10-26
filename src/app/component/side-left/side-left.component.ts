@@ -72,6 +72,7 @@ export class SideLeftComponent {
     this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
   }
 
+<<<<<<< HEAD
   someComplete(): boolean {
     if (this.task.subtasks == null) {
       return false;
@@ -86,5 +87,8 @@ export class SideLeftComponent {
     }
     this.task.subtasks.forEach(t => (t.completed = completed));
   }
+=======
+
+>>>>>>> origin/check_box
 }
 
