@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
 
@@ -18,4 +19,59 @@ export class SideRightCrossbeamComponent {
       this.girder.createGirder(this.model.palam());
     }
 
+    private rowheader: string[] = [
+      'フランジ幅',
+      'フランジ厚',
+      'ウェブ幅',
+      'ウェブ厚',
+      '離隔（外側）',
+      '離隔（内側）',
+      '配置列数',
+    ];
+
+
+    private dataset: any[] = [
+      { name: 'D4', value: this.model.crossbeam.D4, unit: 'mm'},
+      { name: 'tf3', value: this.model.crossbeam.tf3, unit: 'mm'},
+      { name: 'W3', value: this.model.crossbeam.W3, unit: 'mm'},
+      { name: 'tw3', value: this.model.crossbeam.tw3, unit: 'mm'},
+      { name: 's_edge2', value: this.model.crossbeam.s_edge2, unit: 'mm'},
+      { name: 's_middle2', value: this.model.crossbeam.s_middle2, unit: 'mm'},
+      { name: 'location2', value: this.model.crossbeam.location2, unit: '列'},
+    ];
+
+    private columns = [
+      {
+        data: 'unit',
+        readOnly: true
+      },
+      {
+        data: 'value',
+        type: 'numeric',
+        numericFormat: {
+          pattern: '0,0.0'
+        }
+      }
+    ];
+
+    public hotSettings: Handsontable.GridSettings = {
+      data: this.dataset,
+      colHeaders: false,
+      rowHeaders: this.rowheader,
+      columns: this.columns,
+      allowEmpty: false,
+      beforeChange: (changes, source)=>{
+        for(const [row, prop, oldValue, newValue] of changes){
+          let value = parseFloat(newValue);
+          if( isNaN(value) )
+            return false;
+          const name: string = this.dataset[row].name;
+          this.model.crossbeam[name] = value;
+        }
+        // 再描画
+        this.redraw();
+        return true;
+      },
+    };
+    
 }

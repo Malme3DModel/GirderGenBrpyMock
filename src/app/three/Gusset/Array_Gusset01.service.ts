@@ -37,7 +37,7 @@ export class ArrayG1Service {
         
         for (let i = 0; i < pointlist2.length; i++) {
             const Obj0 = this.Gusset.CreateGusset(A, B, C, D, t, pointlist2[i]);
-            Obj0.name = "PL1-"+ String(i)
+            Obj0.name = "PL1_"+ String(i)
             Obj.add(Obj0)
         }
         return Obj

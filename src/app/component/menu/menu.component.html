@@ -3,8 +3,13 @@
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
+        <label mat-menu-item >
+            <span>
+                ファイルを開く
+                <input type="file" accept="application/json" (change)="open($event)" style="display: none" />
+            </span>
+        </label>
+        <button mat-menu-item (click)="save()">ファイルを保存</button>
     </mat-menu>
 
     <span>合成桁-3Dモデルジェネレーター</span>

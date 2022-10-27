@@ -33,33 +33,32 @@ export class ArrayH4Service {
     // 端横桁を回転,移動
     const dx = s_middle - s_edge;
     const RModel_E = this.Rotate.rotate(Model_E, [0.0, 0.0, 0.0], 0.0, 0.0, 90.0);
-    const RModel_EL = this.Move.MoveObject(RModel_E, [-dx, 0.0, 0.0]);
-    const RModel_ER = this.Move.MoveObject(RModel_E, [dx, 0.0, 0.0]);
     const RModel_M = this.Rotate.rotate(Model_M, [0.0, 0.0, 0.0], 0.0, 0.0, 90.0);
 
     // 配置
-    const x1 = (Amount - 1.0) * interval_V / 2.0;
+    const x1 = (Amount - 1.0) * (interval_V / 2.0) + (dx / 2.0);
     z = dz;
     let y = 0.0;
     let n = 0.0;
     const Obj = new THREE.Group();
     for (let i = 0; i < 2; i++) {
-      const Obj_ELb = this.Move.MoveObject(RModel_EL, [-x1, y, z]);
+      const Obj_ELb = this.Move.MoveObject(RModel_E, [-x1, y, z]);
       Obj_ELb.name = "Cu_"+ String(n);
-      const Obj_ERb = this.Move.MoveObject(RModel_ER, [x1, y, z]);
-      Obj_ERb.name = "Cu_"+ String(n+1);
-
-      Obj.add(Obj_ELb, Obj_ERb);
-      let s = n + 2.0;
-      let x2 = -x1 + interval_V;
+      Obj.add(Obj_ELb);
+      let s = n + 1.0;
+      let x2 = (Amount - 1.0) * (interval_V / 2.0) - interval_V;
       for (let j = 0; j < Amount - 2; j++) {
-        const Obj_Mb = this.Move.MoveObject(RModel_M, [x2, y, z]);
+        const Obj_Mb = this.Move.MoveObject(RModel_M, [-x2, y, z]);
         Obj_Mb.name = "Cu_"+ String(s);
         Obj.add(Obj_Mb);
-        x2 += interval_V;
+        x2 -= interval_V;
         s += 1.0;
       }
-      n += Amount;
+      n += Amount - 1;
+      const Obj_ERb = this.Move.MoveObject(RModel_E, [x1, y, z]);
+      Obj_ERb.name = "Cu_"+ String(n);
+      Obj.add(Obj_ERb);
+      n += 1;
       y += L;
     }
     return Obj;

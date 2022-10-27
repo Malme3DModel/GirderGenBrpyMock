@@ -5,13 +5,13 @@ import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
 
 @Component({
-  selector: 'app-side-right-cross',
-  templateUrl: './side-right-cross.component.html',
+  selector: 'app-side-right-pavement',
+  templateUrl: './side-right-pavement.component.html',
   styleUrls: ['../side-right/side-right.component.scss']
 })
-export class SideRightCrossComponent {
+export class SideRightPavementComponent{
 
-  constructor(public dialogRef: MatDialogRef<SideRightCrossComponent>,
+  constructor(public dialogRef: MatDialogRef<SideRightPavementComponent>,
     public model: GirderPalamService,
     private girder: pvGirderService) { }
 
@@ -20,23 +20,17 @@ export class SideRightCrossComponent {
     }
 
     private rowheader: string[] = [
-      'フランジ幅',
-      'フランジ厚',
-      'ウェブ幅',
-      'ウェブ厚',
-      '離隔（外側',
-      '離隔（内側',
+      '舗装勾配（左）',
+      '舗装勾配（右）',
+      '舗装厚',
     ];
 
-    
+
     private dataset: any[] = [
-      {name: 'D3',        value: this.model.cross.D3,       unit: 'mm'},
-      {name: 'tf2',       value: this.model.cross.tf2,      unit: 'mm'},
-      {name: 'W2',        value: this.model.cross.W2,       unit: 'mm'},
-      {name: 'tw2',       value: this.model.cross.tw2,      unit: 'mm'},
-      {name: 's_edge',    value: this.model.cross.s_edge,   unit: 'mm'},
-      {name: 's_middle',  value: this.model.cross.s_middle, unit: 'mm'},
-      ];
+      {name: 'i1', value: this.model.pavement.i1, unit: '%'},
+      {name: 'i2', value: this.model.pavement.i2, unit: '%'},
+      {name: 'T', value: this.model.pavement.T2, unit: 'm'},
+    ];
 
     private columns = [
       {
@@ -47,11 +41,10 @@ export class SideRightCrossComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: '0,0.0'
+          pattern: '0,0.000'
         }
       }
     ];
-
 
     public hotSettings: Handsontable.GridSettings = {
       data: this.dataset,
@@ -65,7 +58,7 @@ export class SideRightCrossComponent {
           if( isNaN(value) )
             return false;
           const name: string = this.dataset[row].name;
-          this.model.cross[name] = value;
+          this.model.pavement[name] = value;
         }
         // 再描画
         this.redraw();
