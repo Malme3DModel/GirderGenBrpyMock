@@ -31,12 +31,12 @@ export class SideRightCrossbeamComponent {
 
 
     private dataset: any[] = [
-      { name: 'D4', value: this.model.crossbeam.D4, unit: 'm'},
-      { name: 'tf3', value: this.model.crossbeam.tf3, unit: 'm'},
-      { name: 'W3', value: this.model.crossbeam.W3, unit: 'm'},
-      { name: 'tw3', value: this.model.crossbeam.tw3, unit: 'm'},
-      { name: 's_edge2', value: this.model.crossbeam.s_edge2, unit: 'm'},
-      { name: 's_middle2', value: this.model.crossbeam.s_middle2, unit: 'm'},
+      { name: 'D4', value: this.model.crossbeam.D4, unit: 'mm'},
+      { name: 'tf3', value: this.model.crossbeam.tf3, unit: 'mm'},
+      { name: 'W3', value: this.model.crossbeam.W3, unit: 'mm'},
+      { name: 'tw3', value: this.model.crossbeam.tw3, unit: 'mm'},
+      { name: 's_edge2', value: this.model.crossbeam.s_edge2, unit: 'mm'},
+      { name: 's_middle2', value: this.model.crossbeam.s_middle2, unit: 'mm'},
       { name: 'location2', value: this.model.crossbeam.location2, unit: '列'},
     ];
 
@@ -49,7 +49,7 @@ export class SideRightCrossbeamComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: '0,0.000'
+          pattern: '0,0.0'
         }
       }
     ];

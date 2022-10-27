@@ -3,6 +3,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import {ThemePalette} from '@angular/material/core';
+
+export interface Task {
+  name: string;
+  completed: boolean;
+  color: ThemePalette;
+  subtasks?: Task[];
+}
 
 @Component({
   selector: 'app-side-right-beam',
@@ -29,10 +37,10 @@ export class SideRightBeamComponent {
 
     private dataset: any[] = [
       {name: 'amount_V',  value: this.model.beam.amount_V,  unit: '本'},
-      {name: 'D',         value: this.model.beam.D,         unit: 'm'},
-      {name: 'tf',        value: this.model.beam.tf,        unit: 'm'},
-      {name: 'W',         value: this.model.beam.W,         unit: 'm'},
-      {name: 'tw',        value: this.model.beam.tw,        unit: 'm'},
+      {name: 'D',         value: this.model.beam.D,         unit: 'mm'},
+      {name: 'tf',        value: this.model.beam.tf,        unit: 'mm'},
+      {name: 'W',         value: this.model.beam.W,         unit: 'mm'},
+      {name: 'tw',        value: this.model.beam.tw,        unit: 'mm'},
     ];
 
     private columns = [
@@ -44,7 +52,7 @@ export class SideRightBeamComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: '0,0.000'
+          pattern: '0,0.0'
         }
       }
     ];
@@ -77,4 +85,37 @@ export class SideRightBeamComponent {
       },
     };
 
+
+      // check box 関係
+  task: Task = {
+    name: 'Indeterminate',
+    completed: false,
+    color: 'primary',
+    subtasks: [
+      {name: 'Primary', completed: false, color: 'primary'},
+      {name: 'Accent', completed: false, color: 'accent'},
+      {name: 'Warn', completed: false, color: 'warn'},
+    ],
+  };
+
+  allComplete: boolean = false;
+
+  updateAllComplete() {
+    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+  }
+
+  someComplete(): boolean {
+    if (this.task.subtasks == null) {
+      return false;
+    }
+    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+  }
+
+  setAll(completed: boolean) {
+    this.allComplete = completed;
+    if (this.task.subtasks == null) {
+      return;
+    }
+    this.task.subtasks.forEach(t => (t.completed = completed));
+  }
 }

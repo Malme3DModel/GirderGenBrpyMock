@@ -33,7 +33,7 @@ export class AddSlabService {
     const dz2 = (H - T1) + dz1;
     const dz3 = dz1 - T1;
     const dz4 = -b2 * i2;
-    const dz5 = (H - T1) + dz2;
+    const dz5 = (H - T1) + dz4;
     const dz6 = dz3 - (T2 - (s - b3) * j1);
     const dz7 = dz4 - T1;
     const dz8 = dz7 - (T2 - (s - b3) * j2);

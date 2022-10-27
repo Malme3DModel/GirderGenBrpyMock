@@ -5,13 +5,13 @@ import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
 
 @Component({
-  selector: 'app-side-right-cross',
-  templateUrl: './side-right-cross.component.html',
+  selector: 'app-side-right-beam',
+  templateUrl: './side-right-beam.component.html',
   styleUrls: ['../side-right/side-right.component.scss']
 })
-export class SideRightCrossComponent {
+export class SideRightBeamComponent {
 
-  constructor(public dialogRef: MatDialogRef<SideRightCrossComponent>,
+  constructor(public dialogRef: MatDialogRef<SideRightBeamComponent>,
     public model: GirderPalamService,
     private girder: pvGirderService) { }
 
@@ -20,23 +20,20 @@ export class SideRightCrossComponent {
     }
 
     private rowheader: string[] = [
+      '主桁本数',
       'フランジ幅',
       'フランジ厚',
       'ウェブ幅',
-      'ウェブ厚',
-      '離隔（外側',
-      '離隔（内側',
+      'ウェブ厚'
     ];
 
-    
     private dataset: any[] = [
-      {name: 'D3',        value: this.model.cross.D3,       unit: 'mm'},
-      {name: 'tf2',       value: this.model.cross.tf2,      unit: 'mm'},
-      {name: 'W2',        value: this.model.cross.W2,       unit: 'mm'},
-      {name: 'tw2',       value: this.model.cross.tw2,      unit: 'mm'},
-      {name: 's_edge',    value: this.model.cross.s_edge,   unit: 'mm'},
-      {name: 's_middle',  value: this.model.cross.s_middle, unit: 'mm'},
-      ];
+      {name: 'amount_V',  value: this.model.beam.amount_V,  unit: '本'},
+      {name: 'D',         value: this.model.beam.D,         unit: 'm'},
+      {name: 'tf',        value: this.model.beam.tf,        unit: 'm'},
+      {name: 'W',         value: this.model.beam.W,         unit: 'm'},
+      {name: 'tw',        value: this.model.beam.tw,        unit: 'm'},
+    ];
 
     private columns = [
       {
@@ -52,12 +49,16 @@ export class SideRightCrossComponent {
       }
     ];
 
+    private integer_cell: any[] = [
+      {row: 0, col: 1, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
+    ];
 
     public hotSettings: Handsontable.GridSettings = {
       data: this.dataset,
       colHeaders: false,
       rowHeaders: this.rowheader,
       columns: this.columns,
+      cell: this.integer_cell,
       allowEmpty: false,
       beforeChange: (changes, source)=>{
         for(const [row, prop, oldValue, newValue] of changes){
@@ -65,11 +66,15 @@ export class SideRightCrossComponent {
           if( isNaN(value) )
             return false;
           const name: string = this.dataset[row].name;
-          this.model.cross[name] = value;
+          const isInteger = this.integer_cell.find( element => element.row === row);
+          if(isInteger != null)
+            value = Math.round(value);
+          this.model.beam[name] = value;
         }
         // 再描画
         this.redraw();
         return true;
       },
     };
+
 }

@@ -31,75 +31,67 @@ export class GirderPalamService {
 
   public beam: any = {
     'amount_V': 4.0,
-    'W': 1.70,
-    'D': 0.31,
-    'tw': 0.028,
-    'tf': 0.024,
+    'W': 1700,
+    'D': 310,
+    'tw': 28,
+    'tf': 24,
   };
 
   public mid: any = {
-    'A': 0.075,
-    'B': 0.075,
-    'H': 1.24,
-    't': 0.009,
-    's': 0.0745,
-    's_in': 0.16,
-    's_out': 0.16,
-    'dz': 0.30,
+    'A': 75,
+    'B': 75,
+    'H': 1240,
+    't': 9,
+    's': 74.5,
+    's_in': 160,
+    's_out': 160,
+    'dz': 300,
+    'GA1': 310,
+    'GB1': 490,
+    'GC1': 490,
+    'GD1': 150,
+    'Gt1': 9,
+    'GA2': 230,
+    'GB2': 250,
+    'GC2': 120,
+    'GD2': 150,
+    'Gt2': 9,
+    'Gdx2': 100,
+    'GA3': 340,
+    'GB3': 290,
+    'GC3': 100,
+    'GD3': 340,
+    'Gt3': 9,
+    'Gdx3': 100
   };
 
   public cross: any = { 
-    'W2': 0.12,
-    'D3': 0.18,
-    'tf2': 0.012,
-    'tw2': 0.012,
-    's_edge': 0.2, 
-    's_middle': 0.2,
+    'W2': 120,
+    'D3': 180,
+    'tf2': 12,
+    'tw2': 12,
+    's_edge': 200, 
+    's_middle': 200,
   };
 
   public crossbeam: any = {
-    'W3': 1.28,
-    'D4': 0.25,
-    'tf3': 0.012,
-    'tw3': 0.012,
+    'W3': 1280,
+    'D4': 250,
+    'tf3': 12,
+    'tw3': 12,
     's_edge2': 0.0,
     's_middle2': 0.0,
     'location2' : 1.0
   };
 
   public endbeam: any = {
-    'D5': 0.25,
-    'tf4': 0.012,
-    'tw4': 0.012,
+    'D5': 250,
+    'tf4': 12,
+    'tw4': 12,
     's_edge3': 0.0,
     's_middle3': 0.0
   };
 
-  public gusset01: any = {
-    'A': 0.31,
-    'B': 0.49,
-    'C': 0.49,
-    'D': 0.15,
-    't': 0.009
-  };
-
-  public gusset02: any = {
-    'A': 0.23,
-    'B': 0.25,
-    'C': 0.12,
-    'D': 0.15,
-    't': 0.009,
-    'dx':0.1
-  };
-
-  public gusset03: any = {
-    'A': 0.34,
-    'B': 0.29,
-    'C': 0.1,
-    'D': 0.34,
-    't': 0.009,
-    'dx':0.1
-  };
 
   public others: any = {
     'Name_P':'〇〇橋梁予備設計',
@@ -131,9 +123,6 @@ export class GirderPalamService {
     'cross': this.cross,
     'crossbeam': this.crossbeam,
     'endbeam': this.endbeam,
-    'gusset01': this.gusset01,
-    'gusset02': this.gusset02,
-    'gusset03': this.gusset03,
     };
   }
 
@@ -154,12 +143,6 @@ export class GirderPalamService {
       this.crossbeam = value['crossbeam'];
     if('endbeam' in value)
       this.endbeam = value['endbeam'];
-    if('gusset01' in value)
-      this.gusset01 = value['gusset01'];
-    if('gusset02' in value)
-      this.gusset02 = value['gusset02'];
-    if('gusset03' in value)
-      this.gusset03 = value['gusset03'];
   }
 
 }

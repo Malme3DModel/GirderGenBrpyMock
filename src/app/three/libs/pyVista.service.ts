@@ -23,7 +23,7 @@ export class pyVistaService {
       transparent: true,
       side: THREE.DoubleSide,
       color: 0x7f8F9F,
-      opacity: 0.7,
+      opacity: 0.85,
     });
 
     const mesh = new THREE.Mesh(geometry, material);

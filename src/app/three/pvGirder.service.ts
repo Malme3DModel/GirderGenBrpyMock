@@ -76,88 +76,83 @@ export class pvGirderService {
     // 主桁のパラメータ
     const pBeam = plam['beam'];
     const amount_V = pBeam['amount_V']; // 主桁の本数
-    const W = pBeam['W'];
-    const D = pBeam['D'];
-    const tw = pBeam['tw'];
-    const tf = pBeam['tf'];
+    const W = pBeam['W'] * 0.001;
+    const D = pBeam['D'] * 0.001;
+    const tw = pBeam['tw'] * 0.001;
+    const tf = pBeam['tf'] * 0.001;
     const interval_V = (S_B - (2 * Ss)) / (amount_V - 1.0); // 主桁の配置間隔
 
     // 中間対傾構のパラメータ
     const pMid = plam['mid'];
-    const RA = pMid['A'];
-    const RB = pMid['B'];
-    const Rt = pMid['t'];
-    const LA = pMid['A'];
-    const LB = pMid['B'];
-    const Lt = pMid['t'];
-    const TA = pMid['A'];
-    const TB = pMid['B'];
-    const Tt = pMid['t'];
-    const DA = pMid['A'];
-    const DB = pMid['B'];
-    const Dt = pMid['t'];
-    const H = pMid['H'];
-    const s = pMid['s']; // 離隔
+    const RA = pMid['A'] * 0.001;
+    const RB = pMid['B'] * 0.001;
+    const Rt = pMid['t'] * 0.001;
+    const LA = pMid['A'] * 0.001;
+    const LB = pMid['B'] * 0.001;
+    const Lt = pMid['t'] * 0.001;
+    const TA = pMid['A'] * 0.001;
+    const TB = pMid['B'] * 0.001;
+    const Tt = pMid['t'] * 0.001;
+    const DA = pMid['A'] * 0.001;
+    const DB = pMid['B'] * 0.001;
+    const Dt = pMid['t'] * 0.001;
+    const H = pMid['H'] * 0.001;
+    const s = pMid['s'] * 0.001; // 離隔
     const D2 = interval_V / 2.0 - s;
-    const s_in = pMid['s_in'];
-    const s_out = pMid['s_out'];
+    const s_in = pMid['s_in'] * 0.001;
+    const s_out = pMid['s_out'] * 0.001;
+    const GA1 = pMid['GA1'] * 0.001;
+    const GB1 = pMid['GB1'] * 0.001;
+    const GC1 = pMid['GC1'] * 0.001;
+    const GD1 = pMid['GD1'] * 0.001;
+    const Gt1 = pMid['Gt1'] * 0.001;
+    const GA2 = pMid['GA2'] * 0.001;
+    const GB2 = pMid['GB2'] * 0.001;
+    const GC2 = pMid['GC2'] * 0.001;
+    const GD2 = pMid['GD2'] * 0.001;
+    const Gt2 = pMid['Gt2'] * 0.001;
+    const Gdx2 = pMid['Gdx2'] * 0.001;
+    const GA3 = pMid['GA3'] * 0.001;
+    const GB3 = pMid['GB3'] * 0.001;
+    const GC3 = pMid['GC3'] * 0.001;
+    const GD3 = pMid['GD3'] * 0.001;
+    const Gt3 = pMid['Gt3'] * 0.001;
+    const Gdx3 = pMid['Gdx3'] * 0.001;
 
-    const dz = pMid['dz']; // ウェブから対傾構までの離隔
+    const dz = pMid['dz'] * 0.001; // ウェブから対傾構までの離隔
 
     // 横構のパラメータ
     const pCross = plam['cross'];
-    const W2 = pCross['W2'];
-    const D3 = pCross['D3'];
-    const tf2 = pCross['tf2'];
-    const tw2 = pCross['tw2'];
-    const s_edge = pCross['s_edge']; // 端部における主桁からの離隔
-    const s_middle = pCross['s_middle'];  // 中間部における主桁からの離隔
+    const W2 = pCross['W2'] * 0.001;
+    const D3 = pCross['D3'] * 0.001;
+    const tf2 = pCross['tf2'] * 0.001;
+    const tw2 = pCross['tw2'] * 0.001;
+    const s_edge = pCross['s_edge'] * 0.001; // 端部における主桁からの離隔
+    const s_middle = pCross['s_middle'] * 0.001;  // 中間部における主桁からの離隔
     const z = (dz + H + tf) - (W2 + tf2 * 2.0);
 
     // 荷重分配横桁のパラメータ;
     const pCrossBeam = plam['crossbeam'];
-    const W3 = pCrossBeam['W3'];
-    const D4 = pCrossBeam['D4'];
-    const tf3 = pCrossBeam['tf3'];
-    const tw3 = pCrossBeam['tw3'];
+    const W3 = pCrossBeam['W3'] * 0.001;
+    const D4 = pCrossBeam['D4'] * 0.001;
+    const tf3 = pCrossBeam['tf3'] * 0.001;
+    const tw3 = pCrossBeam['tw3'] * 0.001;
     const amount = pCrossBeam['location2'];
-    const s_edge2 = pCrossBeam['s_edge2']; // 端部における主桁からの離隔
-    const s_middle2 = pCrossBeam['s_middle2']; // 中間部における主桁からの離隔
+    const s_edge2 = pCrossBeam['s_edge2'] * 0.001; // 端部における主桁からの離隔
+    const s_middle2 = pCrossBeam['s_middle2'] * 0.001; // 中間部における主桁からの離隔
 
     // 端横桁のパラメータ
     const pEndBeam = plam['endbeam'];
-    const D5 = pEndBeam['D5'];
-    const tf4 = pEndBeam['tf4'];
-    const tw4 = pEndBeam['tw4'];
+    const D5 = pEndBeam['D5'] * 0.001;
+    const tf4 = pEndBeam['tf4'] * 0.001;
+    const tw4 = pEndBeam['tw4'] * 0.001;
     const W4 = W + tf - dz;
-    const s_edge3 = pEndBeam['s_edge3']; // 端部における主桁からの離隔
-    const s_middle3 = pEndBeam['s_middle3']; // 中間部における主桁からの離隔
+    const s_edge3 = pEndBeam['s_edge3'] * 0.001; // 端部における主桁からの離隔
+    const s_middle3 = pEndBeam['s_middle3'] * 0.001; // 中間部における主桁からの離隔
 
-    // ガセットプレート01のパラメータ
-    const pGusset01 = plam['gusset01'];
-    const GA1 = pGusset01['A'];
-    const GB1 = pGusset01['B'];
-    const GC1 = pGusset01['C'];
-    const GD1 = pGusset01['D'];
-    const Gt1 = pGusset01['t'];
 
-    // ガセットプレート02のパラメータ
-    const pGusset02 = plam['gusset02'];
-    const GA2 = pGusset02['A'];
-    const GB2 = pGusset02['B'];
-    const GC2 = pGusset02['C'];
-    const GD2 = pGusset02['D'];
-    const Gt2 = pGusset02['t'];
-    const Gdx2 = pGusset02['dx'];
 
-    // ガセットプレート03のパラメータ
-    const pGusset03 = plam['gusset03'];
-    const GA3 = pGusset03['A'];
-    const GB3 = pGusset03['B'];
-    const GC3 = pGusset03['C'];
-    const GD3 = pGusset03['D'];
-    const Gt3 = pGusset03['t'];
-    const Gdx3 = pGusset03['dx'];
+
 
     // 共通のパラメータ
     const pOthers = plam['others'];
@@ -195,21 +190,22 @@ export class pvGirderService {
 
     const MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V, j1, j2);
     const IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
-    const CrossBeam01_T = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, false);
-    const CrossBeam01_D = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, true);
+    const CrossBeam01_U = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, false);
+    const CrossBeam01_L = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, true);
     const CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2);
     const CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L2, amount_V, interval_V);
     const Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
     const Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location);
     const Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location);
-    const Gusset04 = this.ArrayG4.Array(GA1, GB1, GC1, GD1, Gt1, dz, H, W2, tf, tw2, amount_H, amount_V, interval_H, interval_V, location, false);
+    const Gusset04_U = this.ArrayG4.Array_u(GA1, GB1, GC1, GD1, Gt1, z, tw2, amount_H, amount_V, interval_H, interval_V,  false);
+    const Gusset04_L = this.ArrayG4.Array_l(GA1, GB1, GC1, GD1, Gt1, dz, tw2, amount_H, amount_V, interval_H, interval_V,  true);
 
     const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
     Slab.name = "Slab";
     const Pavement = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
 
     const Girder_0 = new THREE.Group();
-    Girder_0.add(MainGirader, CrossBeam01_T, CrossBeam01_D, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03, Gusset04);
+    Girder_0.add(MainGirader, CrossBeam01_U, CrossBeam01_L, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03, Gusset04_U, Gusset04_L);
     const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
 
     const Model_0 = new THREE.Group();
