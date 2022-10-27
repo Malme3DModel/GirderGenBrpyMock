@@ -86,12 +86,10 @@ export class SideRightMidComponent {
       {
         data: 'unit',
         readOnly: true,
-        width: 10,
       },
       {
         data: 'value',
         type: 'numeric',
-        width: 10,
         numericFormat: {
           pattern: '0,0.0'
         }
@@ -103,7 +101,9 @@ export class SideRightMidComponent {
       data: this.dataset,
       colHeaders: false,
       rowHeaders: this.rowheader,
+      width: '330',
       columns: this.columns,
+      colWidths: [50,100],
       allowEmpty: false,
       beforeChange: (changes, source)=>{
         for(const [row, prop, oldValue, newValue] of changes){

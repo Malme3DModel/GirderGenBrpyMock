@@ -13,6 +13,22 @@ export class GirderPalamService {
     'T': 0.2,
   };
 
+  public display: any = {
+    'pavement': true,
+    'slab': true,
+    'beam': true,
+    'mid': true,
+    'gusset01': true,
+    'gusset02': true,
+    'gusset03': true,
+    'cross': true,
+    'cross_u': false,
+    'cross_l': true,
+    'gusset04': true,
+    'crossbeam': true,
+    'endbeam': true,
+  };
+
   public slab: any = {
     'b1': 4.25,
     'b2': 4.25,
@@ -65,12 +81,12 @@ export class GirderPalamService {
     'Gdx3': 100
   };
 
-  public cross: any = { 
+  public cross: any = {
     'W2': 120,
     'D3': 180,
     'tf2': 12,
     'tw2': 12,
-    's_edge': 200, 
+    's_edge': 200,
     's_middle': 200,
   };
 
@@ -116,6 +132,7 @@ export class GirderPalamService {
   public palam(): any {
     return {
     'others': this.others,
+    'display': this.display,
     'pavement': this.pavement,
     'slab': this.slab,
     'beam': this.beam,
@@ -129,6 +146,8 @@ export class GirderPalamService {
   public set_palam(value: any){
     if('others' in value)
       this.others = value['others'];
+    if('display' in value)
+      this.display = value['display'];
     if('pavement' in value)
       this.pavement = value['pavement'];
     if('slab' in value)

@@ -50,6 +50,20 @@ export class pvGirderService {
   public createGirder(plam: any): void {
     this.scene.clear();
 
+    // 構成のパラメータ
+    const pDisplay = plam['display'];
+    const TFp = pDisplay['pavement'];
+    const TFs = pDisplay['slab'];
+    const TFb = pDisplay['beam'];
+    const TFm = pDisplay['mid'];
+    const TFc_u = pDisplay['cross_u'];
+    const TFc_l = pDisplay['cross_l'];
+    const TFc = pDisplay['crossbeam'];
+    const TFe = pDisplay['endbeam'];
+    const TFg01 = pDisplay['gusset01'];
+    const TFg02 = pDisplay['gusset02'];
+    const TFg03 = pDisplay['gusset03'];
+    const TFg04 = pDisplay['gusset04'];
 
     // 床版のパラメータ
     const pSlab = plam['slab'];
@@ -137,7 +151,10 @@ export class pvGirderService {
     const D4 = pCrossBeam['D4'] * 0.001;
     const tf3 = pCrossBeam['tf3'] * 0.001;
     const tw3 = pCrossBeam['tw3'] * 0.001;
-    const amount = pCrossBeam['location2'];
+    let amount = 0.0;
+    if (TFc == true){
+      amount = pCrossBeam['location2'];
+    }
     const s_edge2 = pCrossBeam['s_edge2'] * 0.001; // 端部における主桁からの離隔
     const s_middle2 = pCrossBeam['s_middle2'] * 0.001; // 中間部における主桁からの離隔
 
@@ -149,8 +166,6 @@ export class pvGirderService {
     const W4 = W + tf - dz;
     const s_edge3 = pEndBeam['s_edge3'] * 0.001; // 端部における主桁からの離隔
     const s_middle3 = pEndBeam['s_middle3'] * 0.001; // 中間部における主桁からの離隔
-
-
 
 
 
@@ -185,24 +200,66 @@ export class pvGirderService {
     for (let i = 0; i < location2.length; i++) {
       location = location.filter(item => item !== location2[i]);
     }
-    location.shift(); // 先頭の要素を削除
-    location.pop();   // 末尾の要素を削除
+    if (TFe === true){
+      location.shift(); // 先頭の要素を削除
+      location.pop();   // 末尾の要素を削除
+    }
 
-    const MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V, j1, j2);
-    const IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
-    const CrossBeam01_U = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, false);
-    const CrossBeam01_L = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, true);
-    const CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2);
-    const CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L2, amount_V, interval_V);
-    const Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
-    const Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location);
-    const Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location);
-    const Gusset04_U = this.ArrayG4.Array_u(GA1, GB1, GC1, GD1, Gt1, z, tw2, amount_H, amount_V, interval_H, interval_V,  false);
-    const Gusset04_L = this.ArrayG4.Array_l(GA1, GB1, GC1, GD1, Gt1, dz, tw2, amount_H, amount_V, interval_H, interval_V,  true);
+    let Slab = new THREE.Group();
+    let Pavement = new THREE.Group();
+    let MainGirader = new THREE.Group();
+    let IntermediateSwayBracing = new THREE.Group();
+    let CrossBeam01_U = new THREE.Group();
+    let CrossBeam01_L = new THREE.Group();
+    let CrossBeam02 = new THREE.Group();
+    let CrossBeam03 = new THREE.Group();
+    let Gusset01 = new THREE.Group();
+    let Gusset02 = new THREE.Group();
+    let Gusset03 = new THREE.Group();
+    let Gusset04_L = new THREE.Group();
+    let Gusset04_U = new THREE.Group();
 
-    const Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
-    Slab.name = "Slab";
-    const Pavement = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
+    if (TFb === true){
+      MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V, j1, j2);
+    }
+    if (TFm === true){
+      IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
+    }
+    if (TFc_u === true){
+      CrossBeam01_U = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, false);
+      if (TFg04 === true){
+        Gusset04_U = this.ArrayG4.Array_u(GA1, GB1, GC1, GD1, Gt1, z, tw2, amount_H, amount_V, interval_H, interval_V,  false);
+      }
+    }
+    if (TFc_l === true){
+      CrossBeam01_L = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, true);
+      if (TFg04 === true){
+        Gusset04_L = this.ArrayG4.Array_l(GA1, GB1, GC1, GD1, Gt1, dz, tw2, amount_H, amount_V, interval_H, interval_V,  true);
+      }
+    }
+    if (TFc === true){
+      CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2);
+    }
+    if (TFe === true){
+      CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L2, amount_V, interval_V);
+    }
+    if (TFg01 === true){
+      Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
+    }
+    if (TFg02 === true){
+      Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location);
+    }
+    if (TFg03 === true){
+      Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location);
+    }
+
+    if (TFs === true){
+      Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
+      Slab.name = "Slab";
+    }
+    if (TFp === true){
+      Pavement = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
+    }
 
     const Girder_0 = new THREE.Group();
     Girder_0.add(MainGirader, CrossBeam01_U, CrossBeam01_L, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03, Gusset04_U, Gusset04_L);
