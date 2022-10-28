@@ -10,7 +10,7 @@ export class GirderPalamService {
   public pavement: any = {
     'i1': 2.0,
     'i2': 2.0,
-    'T': 0.2,
+    'T2': 0.2,
   };
 
   public display: any = {
@@ -58,7 +58,7 @@ export class GirderPalamService {
     'B': 75,
     'H': 1240,
     't': 9,
-    's': 74.5,
+    's': 0.0,
     's_in': 160,
     's_out': 160,
     'dz': 300,
@@ -72,13 +72,13 @@ export class GirderPalamService {
     'GC2': 120,
     'GD2': 150,
     'Gt2': 9,
-    'Gdx2': 100,
+    'Gdx2': 0.0,
     'GA3': 340,
     'GB3': 290,
     'GC3': 100,
     'GD3': 340,
     'Gt3': 9,
-    'Gdx3': 100
+    'Gdx3': 0.0
   };
 
   public cross: any = {
@@ -88,6 +88,11 @@ export class GirderPalamService {
     'tw2': 12,
     's_edge': 200,
     's_middle': 200,
+    'GA4': 310,
+    'GB4': 490,
+    'GC4': 490,
+    'GD4': 150,
+    'Gt4': 9,
   };
 
   public crossbeam: any = {

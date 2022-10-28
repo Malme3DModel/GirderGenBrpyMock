@@ -144,6 +144,11 @@ export class pvGirderService {
     const s_edge = pCross['s_edge'] * 0.001; // 端部における主桁からの離隔
     const s_middle = pCross['s_middle'] * 0.001;  // 中間部における主桁からの離隔
     const z = (dz + H + tf) - (W2 + tf2 * 2.0);
+    const GA4 = pCross['GA4'] * 0.001;
+    const GB4 = pCross['GB4'] * 0.001;
+    const GC4 = pCross['GC4'] * 0.001;
+    const GD4 = pCross['GD4'] * 0.001;
+    const Gt4 = pCross['Gt4'] * 0.001;
 
     // 荷重分配横桁のパラメータ;
     const pCrossBeam = plam['crossbeam'];
@@ -228,13 +233,13 @@ export class pvGirderService {
     if (TFc_u === true){
       CrossBeam01_U = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, false);
       if (TFg04 === true){
-        Gusset04_U = this.ArrayG4.Array_u(GA1, GB1, GC1, GD1, Gt1, z, tw2, amount_H, amount_V, interval_H, interval_V,  false);
+        Gusset04_U = this.ArrayG4.Array_u(GA4, GB4, GC4, GD4, Gt4, z, tw2, amount_H, amount_V, interval_H, interval_V,  false);
       }
     }
     if (TFc_l === true){
       CrossBeam01_L = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, true);
       if (TFg04 === true){
-        Gusset04_L = this.ArrayG4.Array_l(GA1, GB1, GC1, GD1, Gt1, dz, tw2, amount_H, amount_V, interval_H, interval_V,  true);
+        Gusset04_L = this.ArrayG4.Array_l(GA4, GB4, GC4, GD4, Gt4, dz, tw2, amount_H, amount_V, interval_H, interval_V,  true);
       }
     }
     if (TFc === true){
