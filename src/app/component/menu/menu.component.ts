@@ -264,8 +264,8 @@ export class MenuComponent implements OnInit {
     const Class_R = pOthers['Class_R'];
     const Milepost_B = pOthers['Milepost_B'] + 'km';
     const Milepost_E = pOthers['Milepost_E'] + 'km';
-    const BP = 'NO.' + pOthers['BP'];
-    const EP = 'NO.' + pOthers['EP'];
+    const BP = pOthers['BP'];
+    const EP = pOthers['EP'];
 
 
 

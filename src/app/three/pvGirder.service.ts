@@ -85,7 +85,7 @@ export class pvGirderService {
     const pPavement = plam['pavement'];
     const i3 = pPavement['i1'] * 0.01;
     const i4 = pPavement['i2'] * 0.01;
-    const T3 = pPavement['T'];
+    const T3 = pPavement['T2'];
 
     // 主桁のパラメータ
     const pBeam = plam['beam'];
@@ -176,6 +176,13 @@ export class pvGirderService {
 
     // 共通のパラメータ
     const pOthers = plam['others'];
+    const Name_P = pOthers['Name_P'];
+    const Name_R = pOthers['Name_R'];
+    const Class_R = pOthers['Class_R']
+    const Milepost_B = pOthers['Milepost_B'];
+    const Milepost_E = pOthers['Milepost_E'];
+    const BP = pOthers['BP'];
+    const EP = pOthers['EP'];
     const BPx = pOthers['BPx'];
     const BPy = pOthers['BPy'];
     const BPz = pOthers['BPz'];
@@ -189,6 +196,10 @@ export class pvGirderService {
     const amount_H = pOthers['amount_H']; // 列数
     const interval_H = L2 / (amount_H - 1.0);  // 対傾構の配置間隔
     const z2 = tf * 2.0 + W + (b1 * i1 + T1 + (T2 - (Ss - b3) * j1));
+    let z3 = 0.0;
+    if (TFp === true){
+      z3 += T3;
+    }
     const y2 = (s_BP + s_EP) / 2.0;
     const column: number[] = new Array(); // 中間対傾構を配置する列番号（起点側から0）
     for (let i = 0; i < amount_H; i++) {
@@ -210,8 +221,8 @@ export class pvGirderService {
       location.pop();   // 末尾の要素を削除
     }
 
-    let Slab = new THREE.Group();
-    let Pavement = new THREE.Group();
+    let Slab0 = new THREE.Group();
+    let Pavement0 = new THREE.Group();
     let MainGirader = new THREE.Group();
     let IntermediateSwayBracing = new THREE.Group();
     let CrossBeam01_U = new THREE.Group();
@@ -259,16 +270,19 @@ export class pvGirderService {
     }
 
     if (TFs === true){
-      Slab = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
-      Slab.name = "Slab";
+      Slab0 = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
+      Slab0.name = "Slab";
     }
     if (TFp === true){
-      Pavement = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
+      Pavement0 = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
     }
 
     const Girder_0 = new THREE.Group();
     Girder_0.add(MainGirader, CrossBeam01_U, CrossBeam01_L, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03, Gusset04_U, Gusset04_L);
-    const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2]);
+    const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2-T3]);
+
+    const Slab = this.Move.MoveObject(Slab0, [0.0, 0.0, -T3]);
+    const Pavement = this.Move.MoveObject(Pavement0, [0.0, 0.0, -T3]);
 
     const Model_0 = new THREE.Group();
     Model_0.add(Slab, Girder, Pavement);

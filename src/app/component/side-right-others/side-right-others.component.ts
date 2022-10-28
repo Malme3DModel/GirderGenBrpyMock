@@ -66,10 +66,6 @@ export class SideRightOthersComponent{
       },
       {
         data: 'value',
-        type: 'numeric',
-        numericFormat: {
-          pattern: '0,0.000'
-        }
       }
     ];
 
