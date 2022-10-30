@@ -93,29 +93,33 @@ export class ArrayG4Service {
         const Obj_2 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0]);
         const Obj_R = this.Rotate.rotate(Obj_2, [0.0,0.0,0.0], 0.0, -90.0, -90.0);
 
-
+        let ID = 0;
         for (let i = 0; i < P1.length; i++) {
             const Obj_M = this.Move.MoveObject(Obj_L, P1[i]);
-            Obj_M.name = "PL4_01_"+ String(i)
-            Obj.add(Obj_M)
+            Obj_M.name = "PL4l_"+ String(ID);
+            Obj.add(Obj_M);
+            ID += 1;
         }
 
         for (let i = 0; i < P2.length; i++) {
             const Obj_M = this.Move.MoveObject(Obj_R, P2[i]);
-            Obj_M.name = "PL4_02_"+ String(i)
-            Obj.add(Obj_M)
+            Obj_M.name = "PL4l_"+ String(ID);
+            Obj.add(Obj_M);
+            ID += 1;
         }
 
         for (let i = 0; i < P3.length; i++) {
             const Obj_M = this.Move.MoveObject(Obj_R, P3[i]);
-            Obj_M.name = "PL4_03_"+ String(i)
-            Obj.add(Obj_M)
+            Obj_M.name = "PL4l_"+ String(ID);
+            Obj.add(Obj_M);
+            ID += 1;
         }
 
         for (let i = 0; i < P4.length; i++) {
             const Obj_M = this.Move.MoveObject(Obj_L, P4[i]);
-            Obj_M.name = "PL4_04_"+ String(i)
-            Obj.add(Obj_M)
+            Obj_M.name = "PL4l_"+ String(ID);
+            Obj.add(Obj_M);
+            ID += 1;
         }
 
         // 端部
@@ -132,16 +136,16 @@ export class ArrayG4Service {
         const p3 = [x1, interval_H * (amount_H - 1), z];
         const p4 = [x3, interval_H * (amount_H - 1), z];
         const Obj_M1 = this.Move.MoveObject(Obj_FLR1, p1);
-        Obj_M1.name = "PL4_l05_01";
+        Obj_M1.name = "PL4l_"+ String(ID);
         Obj.add(Obj_M1)
         const Obj_M2 = this.Move.MoveObject(Obj_FLR2, p2);
-        Obj_M2.name = "PL4_l05_02";
+        Obj_M2.name = "PL4l_"+ String(ID+1);
         Obj.add(Obj_M2)
         const Obj_M3 = this.Move.MoveObject(Obj_FLR3, p3);
-        Obj_M3.name = "PL4_l05_03";
+        Obj_M3.name = "PL4l_"+ String(ID+2);
         Obj.add(Obj_M3)
         const Obj_M4 = this.Move.MoveObject(Obj_FLR4, p4);
-        Obj_M4.name = "PL4_l05_04";
+        Obj_M4.name = "PL4l_"+ String(ID+3);
         Obj.add(Obj_M4)
 
         return Obj
@@ -220,28 +224,33 @@ export class ArrayG4Service {
         const Obj_2 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0]);
         const Obj_R = this.Rotate.rotate(Obj_2, [0.0,0.0,0.0], 0.0, -90.0, -90.0);
 
+        let ID = 0;
         for (let i = 0; i < P1.length; i++) {
             const Obj_M = this.Move.MoveObject(Obj_L, P1[i]);
-            Obj_M.name = "PL4_u01_"+ String(i)
-            Obj.add(Obj_M)
+            Obj_M.name = "PL4u_"+ String(ID);
+            Obj.add(Obj_M);
+            ID += 1;
         }
 
         for (let i = 0; i < P2.length; i++) {
             const Obj_M = this.Move.MoveObject(Obj_R, P2[i]);
-            Obj_M.name = "PL4_u02_"+ String(i)
-            Obj.add(Obj_M)
+            Obj_M.name = "PL4u_"+ String(ID);
+            Obj.add(Obj_M);
+            ID += 1;
         }
 
         for (let i = 0; i < P3.length; i++) {
             const Obj_M = this.Move.MoveObject(Obj_R, P3[i]);
-            Obj_M.name = "PL4_u03_"+ String(i)
-            Obj.add(Obj_M)
+            Obj_M.name = "PL4u_"+ String(ID);
+            Obj.add(Obj_M);
+            ID += 1;
         }
 
         for (let i = 0; i < P4.length; i++) {
             const Obj_M = this.Move.MoveObject(Obj_L, P4[i]);
-            Obj_M.name = "PL4_u04_"+ String(i)
-            Obj.add(Obj_M)
+            Obj_M.name = "PL4u_"+ String(ID);
+            Obj.add(Obj_M);
+            ID += 1;
         }
 
         // 端部
@@ -258,17 +267,17 @@ export class ArrayG4Service {
         const p3 = [x2, interval_H * (amount_H - 1), z];
         const p4 = [x4, interval_H * (amount_H - 1), z];
         const Obj_M1 = this.Move.MoveObject(Obj_FLR1, p1);
-        Obj_M1.name = "PL4_u05_01";
-        Obj.add(Obj_M1)
+        Obj_M1.name = "PL4u_"+ String(ID);
+        Obj.add(Obj_M1);
         const Obj_M2 = this.Move.MoveObject(Obj_FLR2, p2);
-        Obj_M2.name = "PL4_u05_02";
-        Obj.add(Obj_M2)
+        Obj_M2.name = "PL4u_"+ String(ID+1);
+        Obj.add(Obj_M2);
         const Obj_M3 = this.Move.MoveObject(Obj_FLR3, p3);
-        Obj_M3.name = "PL4_u05_03";
-        Obj.add(Obj_M3)
+        Obj_M3.name = "PL4u_"+ String(ID+2);
+        Obj.add(Obj_M3);
         const Obj_M4 = this.Move.MoveObject(Obj_FLR4, p4);
-        Obj_M4.name = "PL4_u05_04";
-        Obj.add(Obj_M4)
+        Obj_M4.name = "PL4u_"+ String(ID+3);
+        Obj.add(Obj_M4);
 
         return Obj
     }

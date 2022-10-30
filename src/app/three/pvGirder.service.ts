@@ -20,6 +20,7 @@ import { ArrayG1Service} from './Gusset/Array_Gusset01.service';
 import { ArrayG2Service} from './Gusset/Array_Gusset02.service';
 import { ArrayG3Service} from './Gusset/Array_Gusset03.service';
 import { ArrayG4Service} from './Gusset/Array_Gusset04.service';
+import { Vector3 } from 'three';
 
 @Injectable({
   providedIn: 'root'
@@ -176,24 +177,17 @@ export class pvGirderService {
 
     // 共通のパラメータ
     const pOthers = plam['others'];
-    const Name_P = pOthers['Name_P'];
-    const Name_R = pOthers['Name_R'];
-    const Class_R = pOthers['Class_R']
-    const Milepost_B = pOthers['Milepost_B'];
-    const Milepost_E = pOthers['Milepost_E'];
-    const BP = pOthers['BP'];
-    const EP = pOthers['EP'];
-    const BPx = pOthers['BPx'];
-    const BPy = pOthers['BPy'];
-    const BPz = pOthers['BPz'];
-    const EPx = pOthers['EPx'];
-    const EPy = pOthers['EPy'];
-    const EPz = pOthers['EPz'];
-    const L = pOthers['L_01']; // 桁長
-    const L2 = pOthers['L_02']; // 支間長
+    const BPx = parseFloat(pOthers['BPx']);
+    const BPy = parseFloat(pOthers['BPy']);
+    const BPz = parseFloat(pOthers['BPz']);
+    const EPx = parseFloat(pOthers['EPx']);
+    const EPy = parseFloat(pOthers['EPy']);
+    const EPz = parseFloat(pOthers['EPz']);
+    const L = parseFloat(pOthers['L_01']); // 桁長
+    const L2 = parseFloat(pOthers['L_02']); // 支間長
     const s_BP = (L - L2)/2.0; // 始点側端部から端横構までの離隔
     const s_EP = (L - L2)/2.0; // 終点側端部から端横構までの離隔
-    const amount_H = pOthers['amount_H']; // 列数
+    const amount_H = parseFloat(pOthers['amount_H']); // 列数
     const interval_H = L2 / (amount_H - 1.0);  // 対傾構の配置間隔
     const z2 = tf * 2.0 + W + (b1 * i1 + T1 + (T2 - (Ss - b3) * j1));
     let z3 = 0.0;
@@ -284,8 +278,8 @@ export class pvGirderService {
     const Slab = this.Move.MoveObject(Slab0, [0.0, 0.0, -T3]);
     const Pavement = this.Move.MoveObject(Pavement0, [0.0, 0.0, -T3]);
 
-    const Model_0 = new THREE.Group();
-    Model_0.add(Slab, Girder, Pavement);
+    const Model0= new THREE.Group();
+    Model0.add(Slab, Girder, Pavement);
 
     const Cx = EPx - BPx;
     const Cy = EPy - BPy;
@@ -305,9 +299,32 @@ export class pvGirderService {
       thetaz = this.pv.degrees(Math.atan(Cx / Cy)) ;
     }
 
-    const Model_T = this.Move.MoveObject(Model_0, [BPx,BPy,BPz]);
+    const ModelR = this.Move.MoveObject(Model0, [BPx, BPy, BPz]);
+    const Model = this.Rotate.rotate(ModelR, [BPx, BPy, BPz], thetax, 0.0, thetaz);
 
-    const Model = this.Rotate.rotate(Model_T, [BPx,BPy,BPz], thetax, 0.0, -thetaz)
+    const Cox = Math.round(this.scene.controls.target.x);
+    const Coy = Math.round(this.scene.controls.target.y);
+    const Coz = Math.round(this.scene.controls.target.z);
+
+    const ABPx = BPx + 10;
+    const ABPy = BPy - 5;
+    const ABPy2 = BPy + 10;
+    const ABPz = BPz + 5;
+
+    const CBPx = Math.round(ABPx);
+    const CBPx2 = Math.round(BPx);
+    const CBPy = Math.round(ABPy);
+    const CBPy2 = Math.round(ABPy2);
+    const CBPz = Math.round(ABPz);
+    const CBPz2 = Math.round(BPz);
+
+    if (Cox == CBPx2 && Coy == CBPy2 && Coz == CBPz2){
+    } else {
+      this.scene.camera.position.set(CBPx, CBPy, CBPz);
+      this.scene.controls.target.set(CBPx2, CBPy2, CBPz2);
+      this.scene.controls.update();
+    }
+
     this.scene.add(Model);
     this.scene.render();
   }
