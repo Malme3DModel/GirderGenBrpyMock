@@ -14,12 +14,12 @@ export class SceneService {
   private renderer!: THREE.WebGLRenderer;
 
   // カメラ
-  private camera!: THREE.OrthographicCamera;
+  public camera!: THREE.OrthographicCamera;
   private aspectRatio: number = 0;
   private Width: number = 0;
   private Height: number = 0;
 
-  private controls!: OrbitControls;
+  public controls!: OrbitControls;
 
    // 初期化
   public constructor() {

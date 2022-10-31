@@ -29,7 +29,7 @@ export class SideRightPavementComponent{
     private dataset: any[] = [
       {name: 'i1', value: this.model.pavement.i1, unit: '%'},
       {name: 'i2', value: this.model.pavement.i2, unit: '%'},
-      {name: 'T', value: this.model.pavement.T2, unit: 'm'},
+      {name: 'T', value: this.model.pavement.T, unit: 'm'},
     ];
 
     private columns = [

@@ -26,6 +26,12 @@ export class SideRightCrossComponent {
       'ウェブ厚',
       '離隔（外側',
       '離隔（内側',
+      'ガセットプレート',
+      '全体高',
+      '短辺高',
+      '天端幅',
+      '底面幅',
+      '厚さ',
     ];
 
     
@@ -36,6 +42,12 @@ export class SideRightCrossComponent {
       {name: 'tw2',       value: this.model.cross.tw2,      unit: 'mm'},
       {name: 's_edge',    value: this.model.cross.s_edge,   unit: 'mm'},
       {name: 's_middle',  value: this.model.cross.s_middle, unit: 'mm'},
+      { name: 'Gusset04', value: '', unit: ''},
+      { name: 'GA4', value: this.model.cross.GA4, unit: 'mm'},
+      { name: 'GD4', value: this.model.cross.GD4, unit: 'mm'},
+      { name: 'GB4', value: this.model.cross.GB4, unit: 'mm'},
+      { name: 'GC4', value: this.model.cross.GC4, unit: 'mm'},
+      { name: 'Gt4', value: this.model.cross.Gt4, unit: 'mm'},
       ];
 
     private columns = [
@@ -57,7 +69,9 @@ export class SideRightCrossComponent {
       data: this.dataset,
       colHeaders: false,
       rowHeaders: this.rowheader,
+      width: '300',
       columns: this.columns,
+      colWidths: [50,100],
       allowEmpty: false,
       beforeChange: (changes, source)=>{
         for(const [row, prop, oldValue, newValue] of changes){

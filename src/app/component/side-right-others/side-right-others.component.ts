@@ -66,10 +66,6 @@ export class SideRightOthersComponent{
       },
       {
         data: 'value',
-        type: 'numeric',
-        numericFormat: {
-          pattern: '0,0.000'
-        }
       }
     ];
 
@@ -86,9 +82,8 @@ export class SideRightOthersComponent{
       allowEmpty: false,
       beforeChange: (changes, source)=>{
         for(const [row, prop, oldValue, newValue] of changes){
-          let value = parseFloat(newValue);
-          if( isNaN(value) )
-            return false;
+          let value = newValue;
+
           const name: string = this.dataset[row].name;
           const isInteger = this.integer_cell.find( element => element.row === row);
           if(isInteger != null)

@@ -13,6 +13,22 @@ export class GirderPalamService {
     'T': 0.2,
   };
 
+  public display: any = {
+    'pavement': true,
+    'slab': true,
+    'beam': true,
+    'mid': true,
+    'gusset01': true,
+    'gusset02': true,
+    'gusset03': true,
+    'cross': true,
+    'cross_u': false,
+    'cross_l': true,
+    'gusset04': true,
+    'crossbeam': true,
+    'endbeam': true,
+  };
+
   public slab: any = {
     'b1': 4.25,
     'b2': 4.25,
@@ -23,7 +39,6 @@ export class GirderPalamService {
     'j2': 2.0,
     'SH': 0.55,
     'T1': 0.2,
-    'T3': 0.15,
     'T2': 0.1,
     'n': 3.0,
     'Ss': 1.025
@@ -42,7 +57,7 @@ export class GirderPalamService {
     'B': 75,
     'H': 1240,
     't': 9,
-    's': 74.5,
+    's': 0.0,
     's_in': 160,
     's_out': 160,
     'dz': 300,
@@ -56,22 +71,27 @@ export class GirderPalamService {
     'GC2': 120,
     'GD2': 150,
     'Gt2': 9,
-    'Gdx2': 100,
+    'Gdx2': 0.0,
     'GA3': 340,
     'GB3': 290,
     'GC3': 100,
     'GD3': 340,
     'Gt3': 9,
-    'Gdx3': 100
+    'Gdx3': 0.0
   };
 
-  public cross: any = { 
+  public cross: any = {
     'W2': 120,
     'D3': 180,
     'tf2': 12,
     'tw2': 12,
-    's_edge': 200, 
+    's_edge': 200,
     's_middle': 200,
+    'GA4': 310,
+    'GB4': 490,
+    'GC4': 490,
+    'GD4': 150,
+    'Gt4': 9,
   };
 
   public crossbeam: any = {
@@ -100,13 +120,13 @@ export class GirderPalamService {
     'L': 30.0,
     'L_01': 29.8,
     'L_02': 29.0,
-    'Milepost_B':'23.20',
-    'Milepost_E':'23.23',
-    'BP':'1+10.0',
+    'Milepost_B':23.20,
+    'Milepost_E':23.23,
+    'BP':'NO.1+10.0',
     'BPx': 0.0,
     'BPy': 0.0,
     'BPz': 0.0,
-    'EP':'3+0.0',
+    'EP':'NO.3+0.0',
     'EPx': 0.0,
     'EPy': 30.0,
     'EPz': 0.0,
@@ -116,6 +136,7 @@ export class GirderPalamService {
   public palam(): any {
     return {
     'others': this.others,
+    'display': this.display,
     'pavement': this.pavement,
     'slab': this.slab,
     'beam': this.beam,
@@ -129,6 +150,8 @@ export class GirderPalamService {
   public set_palam(value: any){
     if('others' in value)
       this.others = value['others'];
+    if('display' in value)
+      this.display = value['display'];
     if('pavement' in value)
       this.pavement = value['pavement'];
     if('slab' in value)
