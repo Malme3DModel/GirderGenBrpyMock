@@ -86,7 +86,7 @@ export class pvGirderService {
     const pPavement = plam['pavement'];
     const i3 = pPavement['i1'] * 0.01;
     const i4 = pPavement['i2'] * 0.01;
-    const T3 = pPavement['T2'];
+    const T3 = pPavement['T'];
 
     // 主桁のパラメータ
     const pBeam = plam['beam'];
@@ -200,7 +200,7 @@ export class pvGirderService {
       column.push(i);
     }
     let location = column;
-    const location2 :number[] = new Array();
+    let location2 :number[] = new Array();
     let m = (column.length - 1) / (amount + 1);
     for (let i = 0; i < amount; i++) {
       const A = column[Math.trunc(m)+1];
@@ -213,6 +213,13 @@ export class pvGirderService {
     if (TFe === true){
       location.shift(); // 先頭の要素を削除
       location.pop();   // 末尾の要素を削除
+    }
+    if (TFm === false && TFc === true){
+      location2 = column;
+      if (TFe === true){
+        location2.shift(); // 先頭の要素を削除
+        location2.pop();   // 末尾の要素を削除
+      }
     }
 
     let Slab0 = new THREE.Group();
@@ -302,9 +309,6 @@ export class pvGirderService {
     const ModelR = this.Move.MoveObject(Model0, [BPx, BPy, BPz]);
     const Model = this.Rotate.rotate(ModelR, [BPx, BPy, BPz], thetax, 0.0, thetaz);
 
-    const Cox = Math.round(this.scene.controls.target.x);
-    const Coy = Math.round(this.scene.controls.target.y);
-    const Coz = Math.round(this.scene.controls.target.z);
 
     const ABPx = BPx + 10;
     const ABPy = BPy - 5;
@@ -314,20 +318,27 @@ export class pvGirderService {
     const CBPx = Math.round(ABPx);
     const CBPx2 = Math.round(BPx);
     const CBPy = Math.round(ABPy);
-    const CBPy2 = Math.round(ABPy2);
+    const CBPy2 = Math.round(BPy);
     const CBPz = Math.round(ABPz);
     const CBPz2 = Math.round(BPz);
 
-    if (Cox == CBPx2 && Coy == CBPy2 && Coz == CBPz2){
+    if (this.Cox == CBPx2 && this.Coy == CBPy2 && this.Coz == CBPz2){
     } else {
       this.scene.camera.position.set(CBPx, CBPy, CBPz);
       this.scene.controls.target.set(CBPx2, CBPy2, CBPz2);
       this.scene.controls.update();
+      this.Cox = CBPx2;
+      this.Coy = CBPy2;
+      this.Coz = CBPz2;
     }
 
     this.scene.add(Model);
     this.scene.render();
   }
+
+  private Cox: number = 0;
+  private Coy: number = 0;
+  private Coz: number = 0;
 
   download() {
     const result = this.Exporter.parse(this.scene.scene);
@@ -336,3 +347,4 @@ export class pvGirderService {
   }
 
 }
+

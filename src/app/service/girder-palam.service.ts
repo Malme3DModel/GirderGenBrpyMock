@@ -10,7 +10,7 @@ export class GirderPalamService {
   public pavement: any = {
     'i1': 2.0,
     'i2': 2.0,
-    'T2': 0.2,
+    'T': 0.2,
   };
 
   public display: any = {
@@ -39,7 +39,6 @@ export class GirderPalamService {
     'j2': 2.0,
     'SH': 0.55,
     'T1': 0.2,
-    'T3': 0.15,
     'T2': 0.1,
     'n': 3.0,
     'Ss': 1.025

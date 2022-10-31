@@ -125,12 +125,20 @@ export class MenuComponent implements OnInit {
 
   }
 
+  public goToLink() {
+    window.open(
+      "https://fresh-tachometer-148.notion.site/2e5a97e10bb14bfcbece8db66dfe5c66",
+      "_blank"
+    );
+  }
+
   // ダーバーに送信する用のデータ作成する
   private getPostJson(): string {
 
     // パラメータを取得
     const palam = this.model.palam();
     const pOthers = palam['others'];
+    const pDisplay = palam['display'];
     const Name_P = pOthers['Name_P'];
     const Name_R = pOthers['Name_R'];
     const Class_R = pOthers['Class_R'];
@@ -138,6 +146,8 @@ export class MenuComponent implements OnInit {
     const Milepost_E = pOthers['Milepost_E'] + 'km';
     const BP = pOthers['BP'];
     const EP = pOthers['EP'];
+    const TFc = pDisplay['crossbeam']
+    const TFm = pDisplay['mid']
 
     // シーンから obj ファイルを生成する
     const slabs = new Array();
@@ -285,6 +295,11 @@ export class MenuComponent implements OnInit {
       pavements.push(pavement_str);
     }
 
+    let crossbeam = '荷重分配横桁';
+    if (TFc === true && TFm === false){
+      crossbeam = '中間横桁'
+    }
+
     // 付加情報と一緒に Json形式にまとめる
     const result: string = JSON.stringify({
       "body": {
@@ -342,7 +357,7 @@ export class MenuComponent implements OnInit {
         "crossbeam": {
           "obj": [crossbeams, endbeams],
           "Name":'横桁',
-          "Name_s":['荷重分配横桁', '端横桁'],
+          "Name_s":[crossbeam, '端横桁'],
           "Class":'横桁',
           "Info":'A1/A2',
           "Type":'',
