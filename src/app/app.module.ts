@@ -30,10 +30,6 @@ import { MenuComponent } from './component/menu/menu.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/check_box
 
 import { SideLeftComponent } from './component/side-left/side-left.component';
 import { SideRightSlabComponent } from './component/side-right-slab/side-right-slab.component';
@@ -44,6 +40,7 @@ import { SideRightCrossComponent } from './component/side-right-cross/side-right
 import { SideRightCrossbeamComponent } from './component/side-right-crossbeam/side-right-crossbeam.component';
 import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-right-endbeam.component';
 import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
+import { SideRightDisplayComponent } from './component/side-right-display/side-right-display.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { SocketioService } from './component/chat/socketio-service.service';
 
@@ -54,6 +51,7 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MenuComponent,
     SideLeftComponent,
     SideRightOthersComponent,
+    SideRightDisplayComponent,
     SideRightPavementComponent,
     SideRightSlabComponent,
     SideRightBeamComponent,
@@ -83,13 +81,8 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MatDialogModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule,
-<<<<<<< HEAD
     BrowserAnimationsModule,
     MatCheckboxModule
-=======
-    MatCheckboxModule,
-    BrowserAnimationsModule
->>>>>>> origin/check_box
   ],
   providers: [SocketioService],
   bootstrap: [AppComponent]

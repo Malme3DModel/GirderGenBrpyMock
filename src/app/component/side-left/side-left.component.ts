@@ -6,6 +6,7 @@ import { SideRightCrossbeamComponent } from '../side-right-crossbeam/side-right-
 import { SideRightEndbeamComponent } from '../side-right-endbeam/side-right-endbeam.component';
 import { SideRightMidComponent } from '../side-right-mid/side-right-mid.component';
 import { SideRightOthersComponent } from '../side-right-others/side-right-others.component';
+import { SideRightDisplayComponent } from '../side-right-display/side-right-display.component';
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
 import { SideRightPavementComponent } from '../side-right-pavement/side-right-pavement.component';
 import {ThemePalette} from '@angular/material/core';
@@ -31,6 +32,8 @@ export class SideLeftComponent {
     let rightSide: any = null;
     if( id==='others') // 共通
       rightSide = SideRightOthersComponent;
+      else if( id==='display')  // 構成・表示
+      rightSide = SideRightDisplayComponent;
     else if( id==='pavement')  // 舗装
       rightSide = SideRightPavementComponent;
     else if( id==='slab')  // 床版
@@ -55,40 +58,6 @@ export class SideLeftComponent {
       hasBackdrop: false
     });
   }
-  task: Task = {
-    name: 'Indeterminate',
-    completed: false,
-    color: 'primary',
-    subtasks: [
-      {name: 'Primary', completed: true, color: 'primary'},
-      {name: 'Accent', completed: false, color: 'accent'},
-      {name: 'Warn', completed: false, color: 'warn'},
-    ],
-  };
 
-  allComplete: boolean = false;
 
-  updateAllComplete() {
-    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
-  }
-
-<<<<<<< HEAD
-  someComplete(): boolean {
-    if (this.task.subtasks == null) {
-      return false;
-    }
-    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
-  }
-
-  setAll(completed: boolean) {
-    this.allComplete = completed;
-    if (this.task.subtasks == null) {
-      return;
-    }
-    this.task.subtasks.forEach(t => (t.completed = completed));
-  }
-=======
-
->>>>>>> origin/check_box
 }
-

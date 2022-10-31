@@ -6,6 +6,9 @@ import { pvGirderService } from 'src/app/three/pvGirder.service';
 import { SceneService } from 'src/app/three/scene.service';
 import { environment } from 'src/environments/environment';
 import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
+import { pvTranlateService } from 'src/app/three/libs/pvTranlate.service';
+import { pvRotateService } from 'src/app/three/libs/pvRotate.service';
+import { pyVistaService } from 'src/app/three/libs/pyVista.service';
 
 @Component({
   selector: 'app-menu',
@@ -15,9 +18,12 @@ import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
 export class MenuComponent implements OnInit {
 
   constructor(private http: HttpClient,
+    private pv: pyVistaService,
     private scene: SceneService,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    private Rotate: pvRotateService,
+    private Move: pvTranlateService) { }
 
   ngOnInit(): void {
   }
@@ -119,14 +125,37 @@ export class MenuComponent implements OnInit {
 
   }
 
+  public goToLink() {
+    window.open(
+      "https://fresh-tachometer-148.notion.site/2e5a97e10bb14bfcbece8db66dfe5c66",
+      "_blank"
+    );
+  }
+
   // ダーバーに送信する用のデータ作成する
   private getPostJson(): string {
 
+    // パラメータを取得
+    const palam = this.model.palam();
+    const pOthers = palam['others'];
+    const pDisplay = palam['display'];
+    const Name_P = pOthers['Name_P'];
+    const Name_R = pOthers['Name_R'];
+    const Class_R = pOthers['Class_R'];
+    const Milepost_B = pOthers['Milepost_B'] + 'km';
+    const Milepost_E = pOthers['Milepost_E'] + 'km';
+    const BP = pOthers['BP'];
+    const EP = pOthers['EP'];
+    const TFc = pDisplay['crossbeam']
+    const TFm = pDisplay['mid']
+
     // シーンから obj ファイルを生成する
-    const obj_str: string = this.Exporter.parse(this.scene.scene);
     const slabs = new Array();
     for (let i = 0; i < 1; i++) {
       const slab: any = this.scene.scene.getObjectByName("Slab");
+      if (slab == null){
+        break;
+      }
       let slab_str: string = this.Exporter.parse(slab);
       slabs.push(slab_str);
     }
@@ -238,14 +267,23 @@ export class MenuComponent implements OnInit {
       let gusset03_str: string = this.Exporter.parse(gusset_03);
       gusset_03s.push(gusset03_str);
     }
-    const gusset_04s = new Array();
+    const gusset_04us = new Array();
     for (let i = 0; i < 100; i++) {
-      const gusset_04: any = this.scene.scene.getObjectByName("PL4_"+ String(i));
-      if (gusset_04 == null){
+      const gusset_04u: any = this.scene.scene.getObjectByName("PL4u_"+ String(i));
+      if (gusset_04u == null){
         break;
       }
-      let gusset04_str: string = this.Exporter.parse(gusset_04);
-      gusset_04s.push(gusset04_str);
+      let gusset04u_str: string = this.Exporter.parse(gusset_04u);
+      gusset_04us.push(gusset04u_str);
+    }
+    const gusset_04ls = new Array();
+    for (let i = 0; i < 100; i++) {
+      const gusset_04l: any = this.scene.scene.getObjectByName("PL4l_"+ String(i));
+      if (gusset_04l == null){
+        break;
+      }
+      let gusset04l_str: string = this.Exporter.parse(gusset_04l);
+      gusset_04ls.push(gusset04l_str);
     }
     const pavements = new Array();
     for (let i = 0; i < 100; i++) {
@@ -257,17 +295,10 @@ export class MenuComponent implements OnInit {
       pavements.push(pavement_str);
     }
 
-    const palam = this.model.palam();
-    const pOthers = palam['others'];
-    const Name_P = pOthers['Name_P'];
-    const Name_R = pOthers['Name_R'];
-    const Class_R = pOthers['Class_R'];
-    const Milepost_B = pOthers['Milepost_B'] + 'km';
-    const Milepost_E = pOthers['Milepost_E'] + 'km';
-    const BP = 'NO.' + pOthers['BP'];
-    const EP = 'NO.' + pOthers['EP'];
-
-
+    let crossbeam = '荷重分配横桁';
+    if (TFc === true && TFm === false){
+      crossbeam = '中間横桁'
+    }
 
     // 付加情報と一緒に Json形式にまとめる
     const result: string = JSON.stringify({
@@ -308,9 +339,9 @@ export class MenuComponent implements OnInit {
           "Type":'',
         },
         "cross": {
-          "obj": [cross01s, cross02s],
+          "obj": [cross01s, cross02s, gusset_04us, gusset_04ls],
           "Name":'横構',
-          "Name_s":['下横構', '上横構'],
+          "Name_s":['下横構', '上横構', 'ガセットプレート（上横構）', 'ガセットプレート（下横構）'],
           "Class":'横構',
           "Info":'A1/A2',
           "Type":'',
@@ -318,15 +349,15 @@ export class MenuComponent implements OnInit {
         "mid": {
           "obj": [mid_Ls, mid_Rs, mid_Ds, mid_Ts, gusset_01s, gusset_02s, gusset_03s],
           "Name":'対傾構',
-          "Name_s":['左斜材', '右斜材','下弦材', '上弦材', 'ガセットプレート01-', 'ガセットプレート02-', 'ガセットプレート03-'],
+          "Name_s":['左斜材', '右斜材','下弦材', '上弦材', 'ガセットプレート（斜材）', 'ガセットプレート（上弦材）', 'ガセットプレート（下弦材）'],
           "Class":'対傾構',
           "Info":'A1/A2',
           "Type":'',
         },
         "crossbeam": {
-          "obj": [crossbeams, endbeams, gusset_04s],
+          "obj": [crossbeams, endbeams],
           "Name":'横桁',
-          "Name_s":['荷重分配横桁', '端横桁', 'ガセットプレート'],
+          "Name_s":[crossbeam, '端横桁'],
           "Class":'横桁',
           "Info":'A1/A2',
           "Type":'',

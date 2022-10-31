@@ -89,7 +89,7 @@ export class AddPavementService {
   public createPavement(b1: number, b2: number,i1: number, i2: number, i3: number, i4: number,T: number, L: number): THREE.Group {
     const Model = new THREE.Group();
     const Pave1 = this.add_Pavement(b1,b2,i1,i2,i3,i4,T,L,[0.0,0.0,0.0])
-    Pave1.name = "Pv_01"
+    Pave1.name = "Pv_1"
     Model.add(Pave1)
     return Model
   }
