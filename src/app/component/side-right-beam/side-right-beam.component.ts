@@ -69,12 +69,15 @@ export class SideRightBeamComponent {
       cell: this.integer_cell,
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        for(const [row, prop, oldValue, newValue] of changes){
-          let value = parseFloat(newValue);
+        for(const item of changes){
+          if (item === null){
+            continue
+          }
+          let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[row].name;
-          const isInteger = this.integer_cell.find( element => element.row === row);
+          const name: string = this.dataset[item[0]].name;
+          const isInteger = this.integer_cell.find( element => element.row === item[0]);
           if(isInteger != null)
             value = Math.round(value);
           this.model.beam[name] = value;

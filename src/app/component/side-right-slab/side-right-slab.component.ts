@@ -71,11 +71,14 @@ export class SideRightSlabComponent{
       columns: this.columns,
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        for(const [row, prop, oldValue, newValue] of changes){
-          let value = parseFloat(newValue);
+        for(const item of changes){
+          if (item === null){
+            continue
+          }
+          let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[row].name;
+          const name: string = this.dataset[item[0]].name;
           this.model.slab[name] = value;
         }
         // 再描画
