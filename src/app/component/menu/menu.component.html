@@ -25,4 +25,12 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with help_outline icon" (click)="goToLink()">
         <mat-icon>help_outline</mat-icon>
     </button>
+
+    <button *ngIf="!isCalculating" mat-icon-button class="example-icon favorite-icon" aria-label="Calculate document" (click)="calculate()">
+        <mat-icon>description</mat-icon>
+    </button>
+    <div *ngIf="isCalculating">
+        <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
 </mat-toolbar>

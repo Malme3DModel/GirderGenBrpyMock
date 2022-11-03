@@ -9,6 +9,7 @@ import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
 import { pvTranlateService } from 'src/app/three/libs/pvTranlate.service';
 import { pvRotateService } from 'src/app/three/libs/pvRotate.service';
 import { pyVistaService } from 'src/app/three/libs/pyVista.service';
+import * as printJS  from "print-js";
 
 @Component({
   selector: 'app-menu',
@@ -62,11 +63,11 @@ export class MenuComponent implements OnInit {
     FileSaver.saveAs(blob, "test.json");
   }
 
+  // モデルをダウンロードする
   public isLoading = false;
 
   private Exporter: OBJExporter = new OBJExporter();
 
-  // モデルをダウンロードする
   public download() {
 
     // ヘッダを用意
@@ -125,6 +126,42 @@ export class MenuComponent implements OnInit {
 
   }
 
+  // 計算書作成
+  public isCalculating = false;
+
+  public calculate() {
+
+    this.isCalculating = true;
+
+    // ヘッダを用意
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'responseType': 'text' 
+      })
+    };
+
+    const url: string = 'https://girdergenbrpyserver.azurewebsites.net/api/OnDataReady?code=Xw-pAwli2ZPrwi6ivtzOU1MaT6Sdn9ONtGo83DT_yzUTAzFuof2omg==';
+
+    const jsonStr = JSON.stringify(this.model.palam());
+
+    this.http
+    .post(url, jsonStr, options)
+    .subscribe(
+      (response) => {
+        printJS({ printable: response.toString(), type: "pdf", base64: true });
+        this.isCalculating = false;
+      },
+      (error) => {
+        this.isCalculating = false;
+        alert(error.message);
+      }
+    );
+
+  }
+
+  // ヘルプ
   public goToLink() {
     window.open(
       "https://fresh-tachometer-148.notion.site/2e5a97e10bb14bfcbece8db66dfe5c66",
