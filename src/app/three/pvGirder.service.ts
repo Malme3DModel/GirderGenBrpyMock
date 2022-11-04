@@ -272,7 +272,6 @@ export class pvGirderService {
 
     if (TFs === true){
       Slab0 = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
-      Slab0.name = "Slab";
     }
     if (TFp === true){
       Pavement0 = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);

@@ -14,9 +14,7 @@ export class ArrayH2Service {
     private Rotate: pvRotateService,
     private Move: pvTranlateService) { }
 
-  /// <summary>Ｈ桁の生成</summary>
-  /// <param name="amount">主桁の数</param>
-  /// <param name="interval">主桁の配置間隔</param>
+
   public Array( D: number, W: number, tf: number, tw: number, s_edge: number, s_middle: number, dz: number,
     amount_H: number, amount_V: number, interval_H: number, interval_V: number,
     location: number[]): THREE.Group {

@@ -152,7 +152,7 @@ export class MenuComponent implements OnInit {
     // シーンから obj ファイルを生成する
     const slabs = new Array();
     for (let i = 0; i < 1; i++) {
-      const slab: any = this.scene.scene.getObjectByName("Slab");
+      const slab: any = this.scene.scene.getObjectByName("Slab_"+ String(i));
       if (slab == null){
         break;
       }
@@ -324,7 +324,7 @@ export class MenuComponent implements OnInit {
         "slab": {
           "obj": [slabs],
           "Name":'床版',
-          "Name_s":['コンクリート'],
+          "Name_s":['床版'],
           "Class":'床版',
           "Info":'A1/A2',
           "Info_s":[],
