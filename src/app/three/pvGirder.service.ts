@@ -302,7 +302,7 @@ export class pvGirderService {
     if (Cx == 0){
       thetaz = 0.0;
     } else {
-      thetaz = this.pv.degrees(Math.atan(Cx / Cy)) ;
+      thetaz = this.pv.degrees(Math.atan(Cy / Cx)) - 90.0;
     }
 
     const ModelR = this.Move.MoveObject(Model0, [BPx, BPy, BPz]);
