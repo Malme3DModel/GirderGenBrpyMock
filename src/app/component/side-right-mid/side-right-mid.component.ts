@@ -20,14 +20,15 @@ export class SideRightMidComponent {
     }
 
     private rowheader: string[] = [
+      '中間対傾構',
       'L鋼底面幅',
       'L鋼側面幅',
       'L鋼厚',
       '水平部離隔',
       '斜部離隔（外側）',
       '斜部離隔（内側）',
-      '斜部接合点間距離（X値）',
-      '斜部接合点間距離（Z値）',
+      '中間対傾構配置高',
+      '中間対傾構全体高',
       'ガセットプレート（斜材）',
       '全体高',
       '短辺高',
@@ -52,6 +53,7 @@ export class SideRightMidComponent {
 
 
     private dataset: any[] = [
+      { name: 'mid', value: '', unit: ''},
       { name: 'A', value: this.model.mid.A, unit: 'mm'},
       { name: 'B', value: this.model.mid.B, unit: 'mm'},
       { name: 't', value: this.model.mid.t, unit: 'mm'},

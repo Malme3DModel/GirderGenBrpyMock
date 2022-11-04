@@ -28,6 +28,7 @@ export class SideRightBeamComponent {
     }
 
     private rowheader: string[] = [
+      '主桁',
       '主桁本数',
       'フランジ幅',
       'フランジ厚',
@@ -36,6 +37,7 @@ export class SideRightBeamComponent {
     ];
 
     private dataset: any[] = [
+      { name: 'Beam', value: '', unit: ''},
       {name: 'amount_V',  value: this.model.beam.amount_V,  unit: '本'},
       {name: 'D',         value: this.model.beam.D,         unit: 'mm'},
       {name: 'tf',        value: this.model.beam.tf,        unit: 'mm'},

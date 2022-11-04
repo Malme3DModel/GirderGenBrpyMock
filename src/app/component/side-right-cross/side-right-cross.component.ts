@@ -20,6 +20,7 @@ export class SideRightCrossComponent {
     }
 
     private rowheader: string[] = [
+      '横構',
       'フランジ幅',
       'フランジ厚',
       'ウェブ幅',
@@ -36,6 +37,7 @@ export class SideRightCrossComponent {
 
     
     private dataset: any[] = [
+      { name: 'Cross', value: '', unit: ''},
       {name: 'D3',        value: this.model.cross.D3,       unit: 'mm'},
       {name: 'tf2',       value: this.model.cross.tf2,      unit: 'mm'},
       {name: 'W2',        value: this.model.cross.W2,       unit: 'mm'},

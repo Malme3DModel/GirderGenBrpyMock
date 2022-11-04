@@ -112,7 +112,7 @@ export class pvGirderService {
     const DB = pMid['B'] * 0.001;
     const Dt = pMid['t'] * 0.001;
     const H = pMid['H'] * 0.001;
-    const s = pMid['s'] * 0.001; // 離隔
+    const s = pMid['s'] * 0.001; // 水平部離隔
     const D2 = interval_V / 2.0 - s;
     const s_in = pMid['s_in'] * 0.001;
     const s_out = pMid['s_out'] * 0.001;
@@ -169,7 +169,7 @@ export class pvGirderService {
     const D5 = pEndBeam['D5'] * 0.001;
     const tf4 = pEndBeam['tf4'] * 0.001;
     const tw4 = pEndBeam['tw4'] * 0.001;
-    const W4 = W + tf - dz;
+    const W4 = pEndBeam['W5'] * 0.001;
     const s_edge3 = pEndBeam['s_edge3'] * 0.001; // 端部における主桁からの離隔
     const s_middle3 = pEndBeam['s_middle3'] * 0.001; // 中間部における主桁からの離隔
 

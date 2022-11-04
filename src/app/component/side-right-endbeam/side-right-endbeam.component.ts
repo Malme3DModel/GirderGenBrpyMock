@@ -20,16 +20,20 @@ export class SideRightEndbeamComponent {
     }
 
     private rowheader: string[] = [
+      '端横桁',
       'フランジ幅',
       'フランジ厚',
+      'ウェブ幅',
       'ウェブ厚',
       '離隔（外側）',
       '離隔（内側）'
     ];
 
     private dataset: any[] = [
+      { name: 'endbeam', value: '', unit: ''},
       {name: 'D5', value: this.model.endbeam.D5, unit: 'mm'},
       {name: 'tf4', value: this.model.endbeam.tf4, unit: 'mm'},
+      {name: 'W5', value: this.model.endbeam.W5, unit: 'mm'},
       {name: 'tw4', value: this.model.endbeam.tw4, unit: 'mm'},
       {name: 's_edge3', value: this.model.endbeam.s_edge3, unit: 'mm'},
       {name: 's_middle3', value: this.model.endbeam.s_middle3, unit: 'mm'},    ];
