@@ -20,6 +20,7 @@ export class SideRightSlabComponent{
     }
 
     private rowheader: string[] = [
+      '床版',
       '左幅員',
       '右幅員',
       '地覆幅',
@@ -36,6 +37,7 @@ export class SideRightSlabComponent{
 
 
     private dataset: any[] = [
+      { name: 'Slab', value: '', unit: ''},
       {name: 'b1', value: this.model.slab.b1, unit: 'm'},
       {name: 'b2', value: this.model.slab.b2, unit: 'm'},
       {name: 'b3', value: this.model.slab.b3, unit: 'm'},

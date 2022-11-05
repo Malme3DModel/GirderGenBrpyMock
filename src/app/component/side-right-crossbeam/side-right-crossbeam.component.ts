@@ -20,6 +20,7 @@ export class SideRightCrossbeamComponent {
     }
 
     private rowheader: string[] = [
+      '荷重分配横桁',
       'フランジ幅',
       'フランジ厚',
       'ウェブ幅',
@@ -31,6 +32,7 @@ export class SideRightCrossbeamComponent {
 
 
     private dataset: any[] = [
+      { name: 'Crossbeam', value: '', unit: ''},
       { name: 'D4', value: this.model.crossbeam.D4, unit: 'mm'},
       { name: 'tf3', value: this.model.crossbeam.tf3, unit: 'mm'},
       { name: 'W3', value: this.model.crossbeam.W3, unit: 'mm'},

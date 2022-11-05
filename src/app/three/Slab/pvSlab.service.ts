@@ -266,6 +266,7 @@ export class AddSlabService {
     }
     const Mesh_Lib2 = this.Move.MoveObject(Mesh_Lib1, [0.0, L, 0.0]);
     Model.add(Mesh_Lib1, Mesh_Lib2)
+    Model.name = "Slab_0"
     return Model;
   }
 

@@ -112,7 +112,7 @@ export class pvGirderService {
     const DB = pMid['B'] * 0.001;
     const Dt = pMid['t'] * 0.001;
     const H = pMid['H'] * 0.001;
-    const s = pMid['s'] * 0.001; // 離隔
+    const s = pMid['s'] * 0.001; // 水平部離隔
     const D2 = interval_V / 2.0 - s;
     const s_in = pMid['s_in'] * 0.001;
     const s_out = pMid['s_out'] * 0.001;
@@ -169,7 +169,7 @@ export class pvGirderService {
     const D5 = pEndBeam['D5'] * 0.001;
     const tf4 = pEndBeam['tf4'] * 0.001;
     const tw4 = pEndBeam['tw4'] * 0.001;
-    const W4 = W + tf - dz;
+    const W4 = pEndBeam['W5'] * 0.001;
     const s_edge3 = pEndBeam['s_edge3'] * 0.001; // 端部における主桁からの離隔
     const s_middle3 = pEndBeam['s_middle3'] * 0.001; // 中間部における主桁からの離隔
 
@@ -272,7 +272,6 @@ export class pvGirderService {
 
     if (TFs === true){
       Slab0 = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
-      Slab0.name = "Slab";
     }
     if (TFp === true){
       Pavement0 = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
@@ -303,7 +302,7 @@ export class pvGirderService {
     if (Cx == 0){
       thetaz = 0.0;
     } else {
-      thetaz = this.pv.degrees(Math.atan(Cx / Cy)) ;
+      thetaz = this.pv.degrees(Math.atan(Cy / Cx)) - 90.0;
     }
 
     const ModelR = this.Move.MoveObject(Model0, [BPx, BPy, BPz]);
