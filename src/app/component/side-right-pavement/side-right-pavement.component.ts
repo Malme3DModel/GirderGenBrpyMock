@@ -20,6 +20,7 @@ export class SideRightPavementComponent{
     }
 
     private rowheader: string[] = [
+      '舗装',
       '舗装勾配（左）',
       '舗装勾配（右）',
       '舗装厚',
@@ -27,6 +28,7 @@ export class SideRightPavementComponent{
 
 
     private dataset: any[] = [
+      { name: 'pavement', value: '', unit: ''},
       {name: 'i1', value: this.model.pavement.i1, unit: '%'},
       {name: 'i2', value: this.model.pavement.i2, unit: '%'},
       {name: 'T', value: this.model.pavement.T, unit: 'm'},
@@ -53,11 +55,14 @@ export class SideRightPavementComponent{
       columns: this.columns,
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        for(const [row, prop, oldValue, newValue] of changes){
-          let value = parseFloat(newValue);
+        for(const item of changes){
+          if (item === null){
+            continue
+          }
+          let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[row].name;
+          const name: string = this.dataset[item[0]].name;
           this.model.pavement[name] = value;
         }
         // 再描画

@@ -20,6 +20,7 @@ export class SideRightCrossComponent {
     }
 
     private rowheader: string[] = [
+      '横構',
       'フランジ幅',
       'フランジ厚',
       'ウェブ幅',
@@ -36,6 +37,7 @@ export class SideRightCrossComponent {
 
     
     private dataset: any[] = [
+      { name: 'Cross', value: '', unit: ''},
       {name: 'D3',        value: this.model.cross.D3,       unit: 'mm'},
       {name: 'tf2',       value: this.model.cross.tf2,      unit: 'mm'},
       {name: 'W2',        value: this.model.cross.W2,       unit: 'mm'},
@@ -74,11 +76,14 @@ export class SideRightCrossComponent {
       colWidths: [50,100],
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        for(const [row, prop, oldValue, newValue] of changes){
-          let value = parseFloat(newValue);
+        for(const item of changes){
+          if (item === null){
+            continue
+          }
+          let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[row].name;
+          const name: string = this.dataset[item[0]].name;
           this.model.cross[name] = value;
         }
         // 再描画

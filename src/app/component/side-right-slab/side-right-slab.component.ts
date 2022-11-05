@@ -20,6 +20,7 @@ export class SideRightSlabComponent{
     }
 
     private rowheader: string[] = [
+      '床版',
       '左幅員',
       '右幅員',
       '地覆幅',
@@ -36,6 +37,7 @@ export class SideRightSlabComponent{
 
 
     private dataset: any[] = [
+      { name: 'Slab', value: '', unit: ''},
       {name: 'b1', value: this.model.slab.b1, unit: 'm'},
       {name: 'b2', value: this.model.slab.b2, unit: 'm'},
       {name: 'b3', value: this.model.slab.b3, unit: 'm'},
@@ -71,11 +73,14 @@ export class SideRightSlabComponent{
       columns: this.columns,
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        for(const [row, prop, oldValue, newValue] of changes){
-          let value = parseFloat(newValue);
+        for(const item of changes){
+          if (item === null){
+            continue
+          }
+          let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[row].name;
+          const name: string = this.dataset[item[0]].name;
           this.model.slab[name] = value;
         }
         // 再描画

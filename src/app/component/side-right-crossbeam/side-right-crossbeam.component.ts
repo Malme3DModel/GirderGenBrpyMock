@@ -20,6 +20,7 @@ export class SideRightCrossbeamComponent {
     }
 
     private rowheader: string[] = [
+      '荷重分配横桁',
       'フランジ幅',
       'フランジ厚',
       'ウェブ幅',
@@ -31,6 +32,7 @@ export class SideRightCrossbeamComponent {
 
 
     private dataset: any[] = [
+      { name: 'Crossbeam', value: '', unit: ''},
       { name: 'D4', value: this.model.crossbeam.D4, unit: 'mm'},
       { name: 'tf3', value: this.model.crossbeam.tf3, unit: 'mm'},
       { name: 'W3', value: this.model.crossbeam.W3, unit: 'mm'},
@@ -61,11 +63,14 @@ export class SideRightCrossbeamComponent {
       columns: this.columns,
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        for(const [row, prop, oldValue, newValue] of changes){
-          let value = parseFloat(newValue);
+        for(const item of changes){
+          if (item === null){
+            continue
+          }
+          let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[row].name;
+          const name: string = this.dataset[item[0]].name;
           this.model.crossbeam[name] = value;
         }
         // 再描画

@@ -107,6 +107,7 @@ export class GirderPalamService {
   public endbeam: any = {
     'D5': 250,
     'tf4': 12,
+    'W5': 1280,
     'tw4': 12,
     's_edge3': 0.0,
     's_middle3': 0.0

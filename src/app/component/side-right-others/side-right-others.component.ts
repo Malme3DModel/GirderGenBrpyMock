@@ -81,11 +81,13 @@ export class SideRightOthersComponent{
       cell: this.integer_cell,
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        for(const [row, prop, oldValue, newValue] of changes){
-          let value = newValue;
-
-          const name: string = this.dataset[row].name;
-          const isInteger = this.integer_cell.find( element => element.row === row);
+        for(const item of changes){
+          if (item === null){
+            continue;
+          }
+          let value = item[3];
+          const name: string = this.dataset[item[0]].name;
+          const isInteger = this.integer_cell.find( element => element.row === item[0]);
           if(isInteger != null)
             value = Math.round(value);
           this.model.others[name] = value;

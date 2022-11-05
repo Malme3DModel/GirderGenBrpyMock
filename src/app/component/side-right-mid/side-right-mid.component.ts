@@ -20,14 +20,15 @@ export class SideRightMidComponent {
     }
 
     private rowheader: string[] = [
+      '中間対傾構',
       'L鋼底面幅',
       'L鋼側面幅',
       'L鋼厚',
       '水平部離隔',
       '斜部離隔（外側）',
       '斜部離隔（内側）',
-      '斜部接合点間距離（X値）',
-      '斜部接合点間距離（Z値）',
+      '中間対傾構配置高',
+      '中間対傾構全体高',
       'ガセットプレート（斜材）',
       '全体高',
       '短辺高',
@@ -52,6 +53,7 @@ export class SideRightMidComponent {
 
 
     private dataset: any[] = [
+      { name: 'mid', value: '', unit: ''},
       { name: 'A', value: this.model.mid.A, unit: 'mm'},
       { name: 'B', value: this.model.mid.B, unit: 'mm'},
       { name: 't', value: this.model.mid.t, unit: 'mm'},
@@ -106,11 +108,14 @@ export class SideRightMidComponent {
       colWidths: [50,100],
       allowEmpty: false,
       beforeChange: (changes, source)=>{
-        for(const [row, prop, oldValue, newValue] of changes){
-          let value = parseFloat(newValue);
+        for(const item of changes){
+          if (item === null){
+            continue
+          }
+          let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[row].name;
+          const name: string = this.dataset[item[0]].name;
           this.model.mid[name] = value;
         }
         // 再描画
