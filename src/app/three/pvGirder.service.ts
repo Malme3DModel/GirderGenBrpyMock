@@ -53,7 +53,9 @@ export class pvGirderService {
 
     // 構成のパラメータ
     const pDisplay = plam['display'];
-    const TFp = pDisplay['pavement'];
+    const TFp1 = pDisplay['pv1'];
+    const TFp2 = pDisplay['pv2'];
+    const TFp3 = pDisplay['pv3'];
     const TFs = pDisplay['slab'];
     const TFb = pDisplay['beam'];
     const TFm = pDisplay['mid'];
@@ -86,7 +88,18 @@ export class pvGirderService {
     const pPavement = plam['pavement'];
     const i3 = pPavement['i1'] * 0.01;
     const i4 = pPavement['i2'] * 0.01;
-    const T3 = pPavement['T'];
+    let T3 = pPavement['T1'];
+    if (TFp1 === false){
+      T3 = 0.0;
+    }
+    let T4 = pPavement['T2'];
+    if (TFp2 === false){
+      T4 = 0.0;
+    }
+    let T5 = pPavement['T3'];
+    if (TFp3 === false){
+      T5 = 0.0;
+    }
 
     // 主桁のパラメータ
     const pBeam = plam['beam'];
@@ -183,17 +196,40 @@ export class pvGirderService {
     const EPx = parseFloat(pOthers['EPx']);
     const EPy = parseFloat(pOthers['EPy']);
     const EPz = parseFloat(pOthers['EPz']);
-    const L = parseFloat(pOthers['L_01']); // 桁長
-    const L2 = parseFloat(pOthers['L_02']); // 支間長
+    const L0 = parseFloat(pOthers['L_01']); // 桁長
+    const L20 = parseFloat(pOthers['L_02']); // 支間長
+
+    // 座標の角度計算
+    const Cx = EPx - BPx;
+    const Cy = EPy - BPy;
+    const Cz = EPz - BPz;
+    const Cl = Math.sqrt(Cx * Cx + Cy *Cy);
+    let thetax = 0.0;
+    let thetaz = 0.0;
+
+    if (Cl == 0){
+      thetax = 0.0;
+    } else {
+      thetax = this.pv.degrees(Math.atan(Cz / Cl)) ;
+    }
+
+    if (Cx == 0){
+      thetaz = 0.0;
+    } else {
+      thetaz = this.pv.degrees(Math.atan(Cy / Cx)) - 90.0;
+    }
+
+    // 制作長を算出
+    const L = L0 / Math.cos(Math.atan(Cz / Cl));
+    const L2 = L20 / Math.cos(Math.atan(Cz / Cl));
+
+
     const s_BP = (L - L2)/2.0; // 始点側端部から端横構までの離隔
     const s_EP = (L - L2)/2.0; // 終点側端部から端横構までの離隔
     const amount_H = parseFloat(pOthers['amount_H']); // 列数
     const interval_H = L2 / (amount_H - 1.0);  // 対傾構の配置間隔
     const z2 = tf * 2.0 + W + (b1 * i1 + T1 + (T2 - (Ss - b3) * j1));
-    let z3 = 0.0;
-    if (TFp === true){
-      z3 += T3;
-    }
+    let z3 = T3 + T4 + T5;
     const y2 = (s_BP + s_EP) / 2.0;
     const column: number[] = new Array(); // 中間対傾構を配置する列番号（起点側から0）
     for (let i = 0; i < amount_H; i++) {
@@ -221,6 +257,7 @@ export class pvGirderService {
         location2.pop();   // 末尾の要素を削除
       }
     }
+
 
     let Slab0 = new THREE.Group();
     let Pavement0 = new THREE.Group();
@@ -273,8 +310,8 @@ export class pvGirderService {
     if (TFs === true){
       Slab0 = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
     }
-    if (TFp === true){
-      Pavement0 = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
+    if (TFp1 === true || TFp2 === true || TFp3 === true){
+      Pavement0 = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, T4, T5, L);
     }
 
     const Girder_0 = new THREE.Group();
@@ -287,26 +324,8 @@ export class pvGirderService {
     const Model0= new THREE.Group();
     Model0.add(Slab, Girder, Pavement);
 
-    const Cx = EPx - BPx;
-    const Cy = EPy - BPy;
-    const Cz = EPz - BPz;
-    let thetax = 0.0;
-    let thetaz = 0.0;
-
-    if (Cz == 0){
-      thetax = 0.0;
-    } else {
-      thetax = this.pv.degrees(Math.atan(Cz / Cy)) ;
-    }
-
-    if (Cx == 0){
-      thetaz = 0.0;
-    } else {
-      thetaz = this.pv.degrees(Math.atan(Cy / Cx)) - 90.0;
-    }
-
     const ModelR = this.Move.MoveObject(Model0, [BPx, BPy, BPz]);
-    const Model = this.Rotate.rotate(ModelR, [BPx, BPy, BPz], thetax, 0.0, thetaz);
+    const Model = this.Rotate.rotate(ModelR, [BPx, BPy, BPz], -thetax, 0.0, thetaz);
 
 
     const ABPx = BPx + 10;

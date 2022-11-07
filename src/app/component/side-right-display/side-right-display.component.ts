@@ -35,6 +35,11 @@ export class SideRightDisplayComponent {
     public redraw(): void {
       this.model.display.slab = this.slab.completed;
       this.model.display.pavement = this.pavement.completed;
+      if (this.pavement.subtasks != null ){
+        this.model.display.pv3 = this.pavement.subtasks[0].completed;
+        this.model.display.pv2 = this.pavement.subtasks[1].completed;
+        this.model.display.pv1 = this.pavement.subtasks[2].completed;
+      }
       this.model.display.beam = this.beam.completed;
       this.model.display.crossbeam = this.crossbeam.completed;
       this.model.display.endbeam = this.endbeam.completed;
@@ -58,10 +63,16 @@ export class SideRightDisplayComponent {
     completed: this.model.display.slab,
     color: 'primary',}
 
-  pavement: SimpleTask ={
+  pavement: Task = {
     name: '舗装',
-    completed: this.model.display.pavement,
-    color: 'primary',}
+    completed: true,
+    color: 'primary',
+    subtasks: [
+      {name: '表層', completed: this.model.display.pv3, color: 'accent'},
+      {name: '上層路盤', completed: this.model.display.pv2, color: 'accent'},
+      {name: '下層路盤', completed: this.model.display.pv1, color: 'accent'},
+    ],
+  };
 
   beam: SimpleTask ={
     name: '主桁',
@@ -142,6 +153,28 @@ export class SideRightDisplayComponent {
       return;
     }
     this.cross.subtasks.forEach(t => (t.completed = completed));
+    this.redraw();
+  }
+
+  allComplete3: boolean = true;
+
+  updateAllComplete3() {
+    this.allComplete3 = this.pavement.subtasks != null && this.pavement.subtasks.every(t => t.completed);
+  }
+
+  someComplete3(): boolean {
+    if (this.pavement.subtasks == null) {
+      return false;
+    }
+    return this.pavement.subtasks.filter(t => t.completed).length > 0 && !this.allComplete3;
+  }
+
+  setAll3(completed: boolean) {
+    this.allComplete3 = completed;
+    if (this.pavement.subtasks == null) {
+      return;
+    }
+    this.pavement.subtasks.forEach(t => (t.completed = completed));
     this.redraw();
   }
 

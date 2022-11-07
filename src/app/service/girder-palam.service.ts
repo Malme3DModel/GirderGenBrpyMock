@@ -10,11 +10,15 @@ export class GirderPalamService {
   public pavement: any = {
     'i1': 2.0,
     'i2': 2.0,
-    'T': 0.2,
+    'T1': 0.15,
+    'T2': 0.10,
+    'T3': 0.05,
   };
 
   public display: any = {
-    'pavement': true,
+    'pv1': true,
+    'pv2': true,
+    'pv3': true,
     'slab': true,
     'beam': true,
     'mid': true,
