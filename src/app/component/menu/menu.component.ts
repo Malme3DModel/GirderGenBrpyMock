@@ -468,101 +468,86 @@ export class MenuComponent implements OnInit {
         "BP": BP,
         "EP": EP,
 
-        /*
-        記入例
-        "model": {
-          "obj": [models],
-          // 階層3の情報
-          "Name":'', // オブジェクト分類名
-          "Info":'', // 判別情報
-          "Type":'', // 種類・形式
-          "Standard":"", // 規格・仕様
-          // 階層4の情報
-          "Name_s":[], // オブジェクト分類名
-          "Info_s":[], // 判別情報
-          "Standard_s":[], // 規格・仕様
-        },
-        */
-
-        "pavement": {
-          "obj": [pavements],
-          // 階層3の情報
-          "Name":'舗装', // オブジェクト分類名
-          "Info":'車道', // 判別情報（車道・歩道）
-          "Type":'', // 種類・形式
-          "Standard":"", // 規格・仕様
-          // 階層4の情報
-          "Name_s":pavName, // オブジェクト名
-          "Type_s":pavName, // オブジェクト分類名
-          "Info_s":[], // 判別情報
-          "Standard_s":[], // 規格・仕様(使用する材料など)
-        },
-
-        "slab": {
-          "obj": [slabs],
-          // 階層3の情報
-          "Name":'床版', // オブジェクト分類名
-          "Info":'A1/A2', // 判別情報（設置位置）
-          "Type":'RC床版', // 種類・形式（例：鋼床版、PC床版、RC床版、合成床版）
-          "Standard":"",// 規格・仕様
-          // 階層4の情報
-          "Name_s":['コンクリート'], // オブジェクト名
-          "Type_s":['コンクリート'], // オブジェクト分類名
-          "Info_s":[], // 判別情報
-          "Standard_s":[], // 規格・仕様（使用する材料など）
-        },
-        "beam": {
-          "obj": [beams],
-          // 階層3の情報
-          "Name":'主桁', // オブジェクト分類名
-          "Info":beamInfo, // 判別情報（主桁番号）
-          "Type":[], // 種類・形式
-          "Standard":[], // 規格・仕様
-          // 階層4の情報
-          "Name_s":beamInfo, // オブジェクト名
-          "Type_s":beamtype, // オブジェクト分類名
-          "Info_s":[], // 判別情報
-          "Standard_s":[], // 規格・仕様
-        },
-        "cross": {
-          "obj": [cross01s, cross02s, gusset_04ls, gusset_04us],
-          // 階層3の情報
-          "Name":'横構', // オブジェクト分類名
-          "Info":'A1/A2', // 判別情報
-          "Type":'', // 種類・形式
-          "Standard":"", // 規格・仕様
-          // 階層4の情報
-          "Name_s":crossName, // オブジェクト名
-          "Type_s":['下横構', '上横構', 'ガセットプレート（下横構）', 'ガセットプレート（上横構）'], // オブジェクト分類名
-          "Info_s":[], // 判別情報
-          "Standard_s":[], // 規格・仕様
-        },
-        "mid": {
-          "obj": [mid_Ds, mid_Ts, mid_Ls, mid_Rs, gusset_03s, gusset_02s, gusset_01s],
-          // 階層3の情報
-          "Name":'対傾構', // オブジェクト分類名
-          "Info":'A1/A2', // 判別情報
-          "Type":'', // 種類・形式
-          "Standard":"", // 規格・仕様
-          // 階層4の情報
-          "Name_s":midName, // オブジェクト名
-          "Type_s":['下弦材', '上弦材', '左斜材', '右斜材', 'ガセットプレート（下弦材）', 'ガセットプレート（上弦材）', 'ガセットプレート（斜材）'], // オブジェクト分類名
-          "Info_s":[], // 判別情報
-          "Standard_s":[], // 規格・仕様
-        },
-        "crossbeam": {
-          "obj": [crossbeams, endbeams],
-          // 階層3の情報
-          "Name":'横桁', // オブジェクト分類名
-          "Info":'A1/A2', // 判別情報
-          "Type":'', // 種類・形式
-          "Standard":"", // 規格・仕様
-          // 階層4の情報
-          "Name_s":crossbeamName, // オブジェクト名
-          "Type_s":[crossbeam, '端横桁'], // オブジェクト分類名
-          "Info_s":[], // 判別情報
-          "Standard_s":[], // 規格・仕様
-        },
+        elements : {
+          "pavement": {
+            "obj": [pavements],
+            // 階層3の情報
+            "Name":'舗装', // オブジェクト分類名
+            "Info":'車道', // 判別情報（車道・歩道）
+            "Type":'', // 種類・形式
+            "Standard":"", // 規格・仕様
+            // 階層4の情報
+            "Name_s":pavName, // オブジェクト名
+            "Type_s":pavName, // オブジェクト分類名
+            "Info_s":[], // 判別情報
+            "Standard_s":[], // 規格・仕様(使用する材料など)
+          },
+          "slab": {
+            "obj": [slabs],
+            // 階層3の情報
+            "Name":'床版', // オブジェクト分類名
+            "Info":'A1/A2', // 判別情報（設置位置）
+            "Type":'RC床版', // 種類・形式（例：鋼床版、PC床版、RC床版、合成床版）
+            "Standard":"",// 規格・仕様
+            // 階層4の情報
+            "Name_s":['コンクリート'], // オブジェクト名
+            "Type_s":['コンクリート'], // オブジェクト分類名
+            "Info_s":[], // 判別情報
+            "Standard_s":[], // 規格・仕様（使用する材料など）
+          },
+          "beam": {
+            "obj": [beams],
+            // 階層3の情報
+            "Name":'主桁', // オブジェクト分類名
+            "Info":beamInfo, // 判別情報（主桁番号）
+            "Type":[], // 種類・形式
+            "Standard":[], // 規格・仕様
+            // 階層4の情報
+            "Name_s":beamInfo, // オブジェクト名
+            "Type_s":[beamtype], // オブジェクト分類名
+            "Info_s":[], // 判別情報
+            "Standard_s":[], // 規格・仕様
+          },
+          "cross": {
+            "obj": [cross01s, cross02s, gusset_04ls, gusset_04us],
+            // 階層3の情報
+            "Name":'横構', // オブジェクト分類名
+            "Info":'A1/A2', // 判別情報
+            "Type":[''], // 種類・形式
+            "Standard":[""], // 規格・仕様
+            // 階層4の情報
+            "Name_s":crossName, // オブジェクト名
+            "Type_s":['下横構', '上横構', 'ガセットプレート（下横構）', 'ガセットプレート（上横構）'], // オブジェクト分類名
+            "Info_s":[], // 判別情報
+            "Standard_s":[], // 規格・仕様
+          },
+          "mid": {
+            "obj": [mid_Ds, mid_Ts, mid_Ls, mid_Rs, gusset_03s, gusset_02s, gusset_01s],
+            // 階層3の情報
+            "Name":'対傾構', // オブジェクト分類名
+            "Info":'A1/A2', // 判別情報
+            "Type":'', // 種類・形式
+            "Standard":"", // 規格・仕様
+            // 階層4の情報
+            "Name_s":midName, // オブジェクト名
+            "Type_s":['下弦材', '上弦材', '左斜材', '右斜材', 'ガセットプレート（下弦材）', 'ガセットプレート（上弦材）', 'ガセットプレート（斜材）'], // オブジェクト分類名
+            "Info_s":[], // 判別情報
+            "Standard_s":[], // 規格・仕様
+          },
+          "crossbeam": {
+            "obj": [crossbeams, endbeams],
+            // 階層3の情報
+            "Name":'横桁', // オブジェクト分類名
+            "Info":'A1/A2', // 判別情報
+            "Type":'', // 種類・形式
+            "Standard":"", // 規格・仕様
+            // 階層4の情報
+            "Name_s":crossbeamName, // オブジェクト名
+            "Type_s":[crossbeam, '端横桁'], // オブジェクト分類名
+            "Info_s":[], // 判別情報
+            "Standard_s":[], // 規格・仕様
+          },
+        }
       }
     });
     return result;
