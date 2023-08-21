@@ -23,7 +23,9 @@ export class SideRightPavementComponent{
       '舗装',
       '舗装勾配（左）',
       '舗装勾配（右）',
-      '舗装厚',
+      '表層厚',
+      '上層路盤厚',
+      '下層路盤厚',
     ];
 
 
@@ -31,7 +33,9 @@ export class SideRightPavementComponent{
       { name: 'pavement', value: '', unit: ''},
       {name: 'i1', value: this.model.pavement.i1, unit: '%'},
       {name: 'i2', value: this.model.pavement.i2, unit: '%'},
-      {name: 'T', value: this.model.pavement.T, unit: 'm'},
+      {name: 'T3', value: this.model.pavement.T3, unit: 'm'},
+      {name: 'T2', value: this.model.pavement.T2, unit: 'm'},
+      {name: 'T1', value: this.model.pavement.T1, unit: 'm'},
     ];
 
     private columns = [
