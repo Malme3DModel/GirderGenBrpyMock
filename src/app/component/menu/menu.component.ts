@@ -183,8 +183,20 @@ export class MenuComponent implements OnInit {
     const Milepost_E = pOthers['Milepost_E'] + 'km';
     const BP = pOthers['BP'];
     const EP = pOthers['EP'];
-    const TFc = pDisplay['crossbeam']
-    const TFm = pDisplay['mid']
+    const TFp1 = pDisplay['pv1'];
+    const TFp2 = pDisplay['pv2'];
+    const TFp3 = pDisplay['pv3'];
+    const TFs = pDisplay['slab'];
+    const TFb = pDisplay['beam'];
+    const TFm = pDisplay['mid'];
+    const TFc_u = pDisplay['cross_u'];
+    const TFc_l = pDisplay['cross_l'];
+    const TFc = pDisplay['crossbeam'];
+    const TFe = pDisplay['endbeam'];
+    const TFg01 = pDisplay['gusset01'];
+    const TFg02 = pDisplay['gusset02'];
+    const TFg03 = pDisplay['gusset03'];
+    const TFg04 = pDisplay['gusset04'];
 
     // シーンから obj ファイルを生成する
     const slabs = new Array();
@@ -332,10 +344,118 @@ export class MenuComponent implements OnInit {
       pavements.push(pavement_str);
     }
 
+    let pavName = [];
+    if (TFp1 === true){
+      const Name = '下層路盤';
+      pavName.push(Name);
+    }
+    if (TFp2 === true){
+      const Name = '上層路盤';
+      pavName.push(Name);
+    }
+    if (TFp3 === true){
+      const Name = '表層';
+      pavName.push(Name);
+    }
+
+    let beamInfo = [];
+    for (let i = 0; i < beams.length; i++) {
+      const Info = "主桁-"+ String(i+1);
+      beamInfo.push(Info);
+    }
+    let beamtype = new Array();
+    for (let i = 0; i < beams.length; i++) {
+      const Type = "主桁";
+      beamtype.push(Type);
+    }
+
+    let crossName = new Array();
+    if (TFc_l === true){
+      for (let i = 0; i < cross01s.length; i++) {
+        const Name = "下横構-" + String(i+1);
+        crossName.push(Name);
+      }
+    }
+    if (TFc_u === true){
+      for (let i = 0; i < cross02s.length; i++) {
+        const Name = "上横構-" + String(i+1);
+        crossName.push(Name);
+      }
+    }
+    if (TFc_l === true){
+      if (TFg04 === true){
+        for (let i = 0; i < gusset_04ls.length; i++) {
+          const Name = "ガセットプレート下横構-" + String(i+1);
+          crossName.push(Name);
+        }
+      }
+    }
+    if (TFc_u === true){
+      if (TFg04 === true){
+        for (let i = 0; i < gusset_04us.length; i++) {
+          const Name = "ガセットプレート上横構-" + String(i+1);
+          crossName.push(Name);
+        }
+      }
+    }
+
+    let midName = new Array();
+    if (TFm === true){
+      for (let i = 0; i < mid_Ds.length; i++) {
+        const Name = "下弦材-" + String(i+1);
+        midName.push(Name);
+      }
+      for (let i = 0; i < mid_Ts.length; i++) {
+        const Name = "上弦材-" + String(i+1);
+        midName.push(Name);
+      }
+      for (let i = 0; i < mid_Ls.length; i++) {
+        const Name = "左斜材-" + String(i+1);
+        midName.push(Name);
+      }
+      for (let i = 0; i < mid_Rs.length; i++) {
+        const Name = "右斜材-" + String(i+1);
+        midName.push(Name);
+      }
+    }
+    if (TFg02 === true){
+      for (let i = 0; i < gusset_03s.length; i++) {
+        const Name = "ガセットプレート（下弦材）-" + String(i+1);
+        midName.push(Name);
+      }
+    }
+    if (TFg03 === true){
+      for (let i = 0; i < gusset_02s.length; i++) {
+        const Name = "ガセットプレート（上弦材）-" + String(i+1);
+        midName.push(Name);
+      }
+    }
+    if (TFg01 === true){
+      for (let i = 0; i < gusset_01s.length; i++) {
+        const Name = "ガセットプレート（斜材）-" + String(i+1);
+        midName.push(Name);
+      }
+    }
+
     let crossbeam = '荷重分配横桁';
     if (TFc === true && TFm === false){
       crossbeam = '中間横桁'
     }
+    let crossbeamName = new Array();
+    if (TFc === true){
+      for (let i = 0; i < crossbeams.length; i++) {
+        const Name = crossbeam + "-" + String(i+1);
+        crossbeamName.push(Name);
+      }
+    }
+    if (TFe === true){
+      for (let i = 0; i < endbeams.length; i++) {
+        const Name = "端横桁-" + String(i+1);
+        crossbeamName.push(Name);
+      }
+    }
+
+
 
     // 付加情報と一緒に Json形式にまとめる
     const result: string = JSON.stringify({
@@ -348,56 +468,100 @@ export class MenuComponent implements OnInit {
         "BP": BP,
         "EP": EP,
 
+        /*
+        記入例
+        "model": {
+          "obj": [models],
+          // 階層3の情報
+          "Name":'', // オブジェクト分類名
+          "Info":'', // 判別情報
+          "Type":'', // 種類・形式
+          "Standard":"", // 規格・仕様
+          // 階層4の情報
+          "Name_s":[], // オブジェクト分類名
+          "Info_s":[], // 判別情報
+          "Standard_s":[], // 規格・仕様
+        },
+        */
+
         "pavement": {
           "obj": [pavements],
-          "Name":'舗装',
-          "Name_s":['舗装'],
-          "Class":'舗装',
-          "Info":'',
-          "Info_s":[],
-          "Type":'車道',
+          // 階層3の情報
+          "Name":'舗装', // オブジェクト分類名
+          "Info":'車道', // 判別情報（車道・歩道）
+          "Type":'', // 種類・形式
+          "Standard":"", // 規格・仕様
+          // 階層4の情報
+          "Name_s":pavName, // オブジェクト名
+          "Type_s":pavName, // オブジェクト分類名
+          "Info_s":[], // 判別情報
+          "Standard_s":[], // 規格・仕様(使用する材料など)
         },
 
         "slab": {
           "obj": [slabs],
-          "Name":'床版',
-          "Name_s":['床版'],
-          "Class":'床版',
-          "Info":'A1/A2',
-          "Info_s":[],
-          "Type":'RC床版',
+          // 階層3の情報
+          "Name":'床版', // オブジェクト分類名
+          "Info":'A1/A2', // 判別情報（設置位置）
+          "Type":'RC床版', // 種類・形式（例：鋼床版、PC床版、RC床版、合成床版）
+          "Standard":"",// 規格・仕様
+          // 階層4の情報
+          "Name_s":['コンクリート'], // オブジェクト名
+          "Type_s":['コンクリート'], // オブジェクト分類名
+          "Info_s":[], // 判別情報
+          "Standard_s":[], // 規格・仕様（使用する材料など）
         },
         "beam": {
           "obj": [beams],
-          "Name":'主桁',
-          "Name_s":['主桁'],
-          "Class":'主桁',
-          "Info":'A1/A2',
-          "Type":'',
+          // 階層3の情報
+          "Name":'主桁', // オブジェクト分類名
+          "Info":beamInfo, // 判別情報（主桁番号）
+          "Type":[], // 種類・形式
+          "Standard":[], // 規格・仕様
+          // 階層4の情報
+          "Name_s":beamInfo, // オブジェクト名
+          "Type_s":beamtype, // オブジェクト分類名
+          "Info_s":[], // 判別情報
+          "Standard_s":[], // 規格・仕様
         },
         "cross": {
-          "obj": [cross01s, cross02s, gusset_04us, gusset_04ls],
-          "Name":'横構',
-          "Name_s":['下横構', '上横構', 'ガセットプレート（上横構）', 'ガセットプレート（下横構）'],
-          "Class":'横構',
-          "Info":'A1/A2',
-          "Type":'',
+          "obj": [cross01s, cross02s, gusset_04ls, gusset_04us],
+          // 階層3の情報
+          "Name":'横構', // オブジェクト分類名
+          "Info":'A1/A2', // 判別情報
+          "Type":'', // 種類・形式
+          "Standard":"", // 規格・仕様
+          // 階層4の情報
+          "Name_s":crossName, // オブジェクト名
+          "Type_s":['下横構', '上横構', 'ガセットプレート（下横構）', 'ガセットプレート（上横構）'], // オブジェクト分類名
+          "Info_s":[], // 判別情報
+          "Standard_s":[], // 規格・仕様
         },
         "mid": {
-          "obj": [mid_Ls, mid_Rs, mid_Ds, mid_Ts, gusset_01s, gusset_02s, gusset_03s],
-          "Name":'対傾構',
-          "Name_s":['左斜材', '右斜材','下弦材', '上弦材', 'ガセットプレート（斜材）', 'ガセットプレート（上弦材）', 'ガセットプレート（下弦材）'],
-          "Class":'対傾構',
-          "Info":'A1/A2',
-          "Type":'',
+          "obj": [mid_Ds, mid_Ts, mid_Ls, mid_Rs, gusset_03s, gusset_02s, gusset_01s],
+          // 階層3の情報
+          "Name":'対傾構', // オブジェクト分類名
+          "Info":'A1/A2', // 判別情報
+          "Type":'', // 種類・形式
+          "Standard":"", // 規格・仕様
+          // 階層4の情報
+          "Name_s":midName, // オブジェクト名
+          "Type_s":['下弦材', '上弦材', '左斜材', '右斜材', 'ガセットプレート（下弦材）', 'ガセットプレート（上弦材）', 'ガセットプレート（斜材）'], // オブジェクト分類名
+          "Info_s":[], // 判別情報
+          "Standard_s":[], // 規格・仕様
         },
         "crossbeam": {
           "obj": [crossbeams, endbeams],
-          "Name":'横桁',
-          "Name_s":[crossbeam, '端横桁'],
-          "Class":'横桁',
-          "Info":'A1/A2',
-          "Type":'',
+          // 階層3の情報
+          "Name":'横桁', // オブジェクト分類名
+          "Info":'A1/A2', // 判別情報
+          "Type":'', // 種類・形式
+          "Standard":"", // 規格・仕様
+          // 階層4の情報
+          "Name_s":crossbeamName, // オブジェクト名
+          "Type_s":[crossbeam, '端横桁'], // オブジェクト分類名
+          "Info_s":[], // 判別情報
+          "Standard_s":[], // 規格・仕様
         },
       }
     });

@@ -3,11 +3,24 @@
 <section class="example-section">
   <span class="example-list-section">
     <mat-checkbox class="example-margin"
-                  [(ngModel)]="pavement.completed"
+                  [checked]="allComplete3"
                   [color]="pavement.color"
-                  (change)="redraw()">
+                  [indeterminate]="someComplete3()"
+                  (change)="setAll3($event.checked)">
       {{pavement.name}}
     </mat-checkbox>
+  </span>
+  <span class="example-list-section">
+    <ul>
+      <li *ngFor="let subtask of pavement.subtasks">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      [color]="subtask.color"
+                      (ngModelChange)="updateAllComplete()"
+                      (change)="redraw()">
+          {{subtask.name}}
+        </mat-checkbox>
+      </li>
+    </ul>
   </span>
 </section>
 

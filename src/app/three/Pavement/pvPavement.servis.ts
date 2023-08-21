@@ -86,11 +86,35 @@ export class AddPavementService {
   }
 
 // 後で舗装増やす用
-  public createPavement(b1: number, b2: number,i1: number, i2: number, i3: number, i4: number,T: number, L: number): THREE.Group {
+  public createPavement(b1: number, b2: number,i1: number, i2: number, i3: number, i4: number, T1: number, T2: number, T3: number, L: number): THREE.Group {
     const Model = new THREE.Group();
-    const Pave1 = this.add_Pavement(b1,b2,i1,i2,i3,i4,T,L,[0.0,0.0,0.0])
-    Pave1.name = "Pv_0"
-    Model.add(Pave1)
+    // 下層路盤
+    let i = 0;
+    if (T1 === 0){
+    } else{
+      const Pave1 = this.add_Pavement(b1,b2,i1,i2,i3,i4,T1,L,[0.0,0.0,0.0]);
+      Pave1.name = "Pv_" + String(i);
+      Model.add(Pave1);
+      i += 1;
+    }
+    // 上層路盤
+    if (T2 === 0){
+    } else{
+      const Pave2 = this.add_Pavement(b1,b2,i1,i2,i3,i4,T2,L,[0.0,0.0,0.0]);
+      const Pave2M = this.Move.MoveObject(Pave2, [0.0,0.0,T1]);
+      Pave2M.name = "Pv_" + String(i);;
+      Model.add(Pave2M);
+      i += 1;
+    }
+    // 表層
+    if (T3 === 0){
+    } else{
+      const Pave3 = this.add_Pavement(b1,b2,i1,i2,i3,i4,T3,L,[0.0,0.0,0.0]);
+      const Pave3M = this.Move.MoveObject(Pave3, [0.0,0.0,T1+T2]);
+      Pave3M.name = "Pv_" + String(i);;
+      Model.add(Pave3M);
+      i += 1;
+    }
     return Model
   }
 }
