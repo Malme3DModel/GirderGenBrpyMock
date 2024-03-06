@@ -80,13 +80,14 @@ export class MenuComponent implements OnInit {
 
     // データを用意
     const json_str = this.getPostJson();
-    const url: string = environment.url;
+    const url: string = 'https://zm37ggrwgg.execute-api.ap-northeast-1.amazonaws.com/prod';
 
     // サーバーにポストする
     this.isLoading = true;
-    this.http.get(url, options).subscribe((response: any) => {
-      // AWS Lamdaサーバー休止状態からの起動が遅いんで、get で起こす
-      console.log(response);
+
+    // this.http.get(url, options).subscribe((response: any) => {
+    //   // AWS Lamdaサーバー休止状態からの起動が遅いんで、get で起こす
+    //   console.log(response);
       // get に成功したら post する
       this.http.post(url, json_str, options)
         .subscribe((response: any) => {
@@ -112,16 +113,16 @@ export class MenuComponent implements OnInit {
           FileSaver.saveAs(blob, 'test.ifc');
 
         },
-          (error) => {
-            this.isLoading = false;
-            alert(error.message);
-          });
+        (error: any) => {
+          this.isLoading = false;
+          alert(error.message);
+        });
 
-    },
-    (error) => {
-      this.isLoading = false;
-      alert(error.message);
-    });
+    // },
+    // (error) => {
+    //   this.isLoading = false;
+    //   alert(error.message);
+    // });
 
 
   }
