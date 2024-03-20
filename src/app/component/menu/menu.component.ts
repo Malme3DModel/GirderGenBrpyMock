@@ -80,7 +80,7 @@ export class MenuComponent implements OnInit {
 
     // データを用意
     const json_str = this.getPostJson();
-    const url: string = 'https://zm37ggrwgg.execute-api.ap-northeast-1.amazonaws.com/prod';
+    const url: string = environment.ifcDownloadURL;
 
     // サーバーにポストする
     this.isLoading = true;
