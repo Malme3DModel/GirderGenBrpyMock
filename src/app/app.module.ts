@@ -26,6 +26,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MenuComponent } from './component/menu/menu.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -43,6 +46,8 @@ import { SideRightOthersComponent } from './component/side-right-others/side-rig
 import { SideRightDisplayComponent } from './component/side-right-display/side-right-display.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { SocketioService } from './component/chat/socketio-service.service';
+import { UISettingsComponent } from './component/ui-settings/ui-settings.component';
+import { UISettingsIntegrationService } from './service/ui-settings-integration.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +64,8 @@ import { SocketioService } from './component/chat/socketio-service.service';
     SideRightCrossComponent,
     SideRightCrossbeamComponent,
     SideRightEndbeamComponent,
-    ChatComponent
+    ChatComponent,
+    UISettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -82,9 +88,12 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
-  providers: [SocketioService],
+  providers: [SocketioService, UISettingsIntegrationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

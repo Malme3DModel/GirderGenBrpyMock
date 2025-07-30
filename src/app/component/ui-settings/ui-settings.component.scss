@@ -1,0 +1,93 @@
+.settings-section {
+  padding: 20px 0;
+  
+  h3 {
+    margin: 20px 0 10px 0;
+    color: var(--text-color, #333);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  mat-checkbox {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    margin-top: 15px;
+  }
+}
+
+mat-dialog-content {
+  min-width: 600px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+mat-slider {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  
+  mat-label {
+    min-width: 150px;
+    margin-right: 10px;
+  }
+  
+  span {
+    margin-left: 10px;
+    min-width: 50px;
+  }
+}
+
+.reset-button {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+input[type="color"] {
+  width: 50px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.order-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button {
+    margin: 5px 0;
+  }
+}

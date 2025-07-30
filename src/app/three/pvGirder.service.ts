@@ -21,6 +21,7 @@ import { ArrayG2Service} from './Gusset/Array_Gusset02.service';
 import { ArrayG3Service} from './Gusset/Array_Gusset03.service';
 import { ArrayG4Service} from './Gusset/Array_Gusset04.service';
 import { Vector3 } from 'three';
+import { UISettingsService } from '../service/ui-settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,12 +45,16 @@ export class pvGirderService {
     private AddSlab: AddSlabService,
     private AddPavement: AddPavementService,
     private Rotate: pvRotateService,
-    private Move: pvTranlateService
+    private Move: pvTranlateService,
+    private uiSettingsService: UISettingsService
   ) {
   }
 
   public createGirder(plam: any): void {
     this.scene.clear();
+    
+    this.scene.updateBackgroundColor();
+    this.scene.updateLighting();
 
     // 構成のパラメータ
     const pDisplay = plam['display'];
