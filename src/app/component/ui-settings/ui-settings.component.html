@@ -1,0 +1,277 @@
+<h1 mat-dialog-title>UI設定</h1>
+
+<div mat-dialog-content>
+  <mat-tab-group>
+    
+    <!-- 外観タブ -->
+    <mat-tab label="外観">
+      <div class="settings-section">
+        <h3>カラーテーマ</h3>
+        
+        <mat-form-field appearance="fill">
+          <mat-label>プライマリカラー</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.appearance.primaryColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>背景色</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.appearance.backgroundColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>サイドバー色</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.appearance.sidebarColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>テキスト色</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.appearance.textColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>アクセント色</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.appearance.accentColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <h3>フォント設定</h3>
+        
+        <div class="slider-container">
+          <mat-label>フォントサイズ</mat-label>
+          <mat-slider min="10" max="24" step="1" [(ngModel)]="settings.appearance.fontSize" (change)="onSettingsChange()"></mat-slider>
+          <span>{{settings.appearance.fontSize}}px</span>
+        </div>
+
+        <mat-form-field appearance="fill">
+          <mat-label>フォントファミリー</mat-label>
+          <mat-select [(ngModel)]="settings.appearance.fontFamily" (selectionChange)="onSettingsChange()">
+            <mat-option value="Roboto, sans-serif">Roboto</mat-option>
+            <mat-option value="Arial, sans-serif">Arial</mat-option>
+            <mat-option value="'Helvetica Neue', sans-serif">Helvetica Neue</mat-option>
+            <mat-option value="'Noto Sans JP', sans-serif">Noto Sans JP</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <h3>アイコン設定</h3>
+        
+        <mat-checkbox [(ngModel)]="settings.appearance.iconDisplay" (change)="onSettingsChange()">
+          アイコン表示
+        </mat-checkbox>
+
+        <mat-form-field appearance="fill">
+          <mat-label>アイコンサイズ</mat-label>
+          <mat-select [(ngModel)]="settings.appearance.iconSize" (selectionChange)="onSettingsChange()">
+            <mat-option value="small">小</mat-option>
+            <mat-option value="medium">中</mat-option>
+            <mat-option value="large">大</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="reset-button">
+          <button mat-button (click)="resetCategory('appearance')">外観設定をリセット</button>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- レイアウトタブ -->
+    <mat-tab label="レイアウト">
+      <div class="settings-section">
+        <h3>パネル幅調整</h3>
+        
+        <div class="slider-container">
+          <mat-label>サイドバー幅 (%)</mat-label>
+          <mat-slider min="10" max="30" step="1" [(ngModel)]="settings.layout.sidebarWidth" (change)="onSettingsChange()"></mat-slider>
+          <span>{{settings.layout.sidebarWidth}}%</span>
+        </div>
+
+        <div class="slider-container">
+          <mat-label>パラメータパネル幅 (px)</mat-label>
+          <mat-slider min="300" max="600" step="10" [(ngModel)]="settings.layout.parameterPanelWidth" (change)="onSettingsChange()"></mat-slider>
+          <span>{{settings.layout.parameterPanelWidth}}px</span>
+        </div>
+
+        <div class="slider-container">
+          <mat-label>設定パネル幅 (px)</mat-label>
+          <mat-slider min="300" max="600" step="10" [(ngModel)]="settings.layout.settingsPanelWidth" (change)="onSettingsChange()"></mat-slider>
+          <span>{{settings.layout.settingsPanelWidth}}px</span>
+        </div>
+
+        <h3>表示要素制御</h3>
+        
+        <mat-checkbox [(ngModel)]="settings.layout.showToolbar" (change)="onSettingsChange()">
+          ツールバー表示
+        </mat-checkbox>
+
+        <mat-checkbox [(ngModel)]="settings.layout.showStatusBar" (change)="onSettingsChange()">
+          ステータスバー表示
+        </mat-checkbox>
+
+        <mat-checkbox [(ngModel)]="settings.layout.showLabels" (change)="onSettingsChange()">
+          ラベル表示
+        </mat-checkbox>
+
+        <mat-checkbox [(ngModel)]="settings.layout.showDimensions" (change)="onSettingsChange()">
+          寸法表示
+        </mat-checkbox>
+
+        <mat-checkbox [(ngModel)]="settings.layout.compactMode" (change)="onSettingsChange()">
+          コンパクトモード
+        </mat-checkbox>
+
+        <div class="reset-button">
+          <button mat-button (click)="resetCategory('layout')">レイアウト設定をリセット</button>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- メニュータブ -->
+    <mat-tab label="メニュー">
+      <div class="settings-section">
+        <h3>配置設定</h3>
+        
+        <mat-form-field appearance="fill">
+          <mat-label>位置</mat-label>
+          <mat-select [(ngModel)]="settings.menu.position" (selectionChange)="onSettingsChange()">
+            <mat-option value="top">上</mat-option>
+            <mat-option value="bottom">下</mat-option>
+            <mat-option value="left">左</mat-option>
+            <mat-option value="right">右</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>向き</mat-label>
+          <mat-select [(ngModel)]="settings.menu.orientation" (selectionChange)="onSettingsChange()">
+            <mat-option value="horizontal">横</mat-option>
+            <mat-option value="vertical">縦</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <h3>項目制御</h3>
+        
+        <div class="menu-items">
+          <mat-checkbox [(ngModel)]="settings.menu.visibleItems['file']" (change)="onSettingsChange()">
+            ファイル
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.menu.visibleItems['download']" (change)="onSettingsChange()">
+            ダウンロード
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.menu.visibleItems['help']" (change)="onSettingsChange()">
+            ヘルプ
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.menu.visibleItems['calculate']" (change)="onSettingsChange()">
+            計算
+          </mat-checkbox>
+        </div>
+
+        <h3>動作設定</h3>
+        
+        <mat-checkbox [(ngModel)]="settings.menu.grouping" (change)="onSettingsChange()">
+          グループ化
+        </mat-checkbox>
+
+        <mat-checkbox [(ngModel)]="settings.menu.collapsible" (change)="onSettingsChange()">
+          折りたたみ可能
+        </mat-checkbox>
+
+        <mat-checkbox [(ngModel)]="settings.menu.autoHide" (change)="onSettingsChange()">
+          自動隠し
+        </mat-checkbox>
+
+        <div class="reset-button">
+          <button mat-button (click)="resetCategory('menu')">メニュー設定をリセット</button>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- 3D設定タブ -->
+    <mat-tab label="3D設定">
+      <div class="settings-section">
+        <h3>モデル色設定</h3>
+        
+        <mat-form-field appearance="fill">
+          <mat-label>モデル色</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.viewport3d.modelColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>支持色</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.viewport3d.supportColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>横梁色</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.viewport3d.crossBeamColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <h3>環境設定</h3>
+        
+        <mat-form-field appearance="fill">
+          <mat-label>環境</mat-label>
+          <mat-select [(ngModel)]="settings.viewport3d.environment" (selectionChange)="onSettingsChange()">
+            <mat-option value="studio">スタジオ</mat-option>
+            <mat-option value="city">都市</mat-option>
+            <mat-option value="dawn">夜明け</mat-option>
+            <mat-option value="forest">森林</mat-option>
+            <mat-option value="sunset">夕日</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>照明</mat-label>
+          <mat-select [(ngModel)]="settings.viewport3d.lighting" (selectionChange)="onSettingsChange()">
+            <mat-option value="default">デフォルト</mat-option>
+            <mat-option value="bright">明るめ</mat-option>
+            <mat-option value="dark">暗め</mat-option>
+            <mat-option value="custom">カスタム</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <h3>表示設定</h3>
+        
+        <mat-checkbox [(ngModel)]="settings.viewport3d.shadows" (change)="onSettingsChange()">
+          影表示
+        </mat-checkbox>
+
+        <mat-checkbox [(ngModel)]="settings.viewport3d.wireframe" (change)="onSettingsChange()">
+          ワイヤーフレーム
+        </mat-checkbox>
+
+        <h3>グリッド設定</h3>
+        
+        <div class="slider-container">
+          <mat-label>グリッドサイズ</mat-label>
+          <mat-slider min="5" max="50" step="5" [(ngModel)]="settings.viewport3d.gridSize" (change)="onSettingsChange()"></mat-slider>
+          <span>{{settings.viewport3d.gridSize}}</span>
+        </div>
+
+        <mat-form-field appearance="fill">
+          <mat-label>グリッド色</mat-label>
+          <input matInput type="color" [(ngModel)]="settings.viewport3d.gridColor" (change)="onSettingsChange()">
+        </mat-form-field>
+
+        <div class="slider-container">
+          <mat-label>グリッド透明度</mat-label>
+          <mat-slider min="0" max="1" step="0.1" [(ngModel)]="settings.viewport3d.gridOpacity" (change)="onSettingsChange()"></mat-slider>
+          <span>{{settings.viewport3d.gridOpacity}}</span>
+        </div>
+
+        <div class="reset-button">
+          <button mat-button (click)="resetCategory('viewport3d')">3D設定をリセット</button>
+        </div>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="exportSettings()">エクスポート</button>
+  
+  <label mat-button for="import-file">
+    <span>インポート</span>
+    <input id="import-file" type="file" accept="application/json" (change)="onFileSelected($event)" style="display: none" />
+  </label>
+  
+  <button mat-button (click)="resetAllSettings()">全設定リセット</button>
+  <button mat-button (click)="close()">閉じる</button>
+</div>

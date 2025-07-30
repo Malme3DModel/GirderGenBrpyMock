@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
 import { OrbitControls } from '@three-ts/orbit-controls';
+import { UISettingsService } from '../service/ui-settings.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,11 @@ export class SceneService {
   public controls!: OrbitControls;
 
    // 初期化
-  public constructor() {
+  public  constructor(private uiSettingsService: UISettingsService) {
     // シーンを作成
     this.scene = new THREE.Scene();
-    // シーンの背景を白に設定
-    // this.scene.background = new THREE.Color(0xf0f0f0);
-    this.scene.background = new THREE.Color( 0xffffff );
+    // シーンの背景を設定
+    this.updateBackgroundColor();
     // レンダラーをバインド
     this.render = this.render.bind(this);
 
@@ -44,7 +44,7 @@ export class SceneService {
     this.Height = Height;
     this.createCamera(aspectRatio, Width, Height);
     // 環境光源
-    this.add(new THREE.AmbientLight(0xf0f0f0));
+    this.updateLighting();
     // レンダラー
     this.createRender(canvasElement,
                       deviceRatio,
@@ -180,6 +180,47 @@ export class SceneService {
     // 床面を生成する
      this.createHelper();
 
+  }
+
+  public updateBackgroundColor(): void {
+    const backgroundColor = this.uiSettingsService.getBackgroundColor();
+    this.scene.background = new THREE.Color(backgroundColor);
+  }
+
+  public updateLighting(): void {
+    const settings = this.uiSettingsService.getSettings();
+    
+    const existingLight = this.scene.children.find(child => child instanceof THREE.AmbientLight);
+    if (existingLight) {
+      this.scene.remove(existingLight);
+    }
+
+    let lightColor = 0xf0f0f0;
+    let intensity = 1.0;
+
+    switch (settings.viewport3d.lighting) {
+      case 'bright':
+        lightColor = 0xffffff;
+        intensity = 1.5;
+        break;
+      case 'dark':
+        lightColor = 0x808080;
+        intensity = 0.5;
+        break;
+      case 'custom':
+        lightColor = 0xf0f0f0;
+        intensity = 1.0;
+        break;
+      default:
+        lightColor = 0xf0f0f0;
+        intensity = 1.0;
+    }
+
+    this.add(new THREE.AmbientLight(lightColor, intensity));
+
+    if (this.renderer) {
+      this.renderer.shadowMap.enabled = settings.viewport3d.shadows;
+    }
   }
 
 }
