@@ -11,6 +11,7 @@ import { pvRotateService } from 'src/app/three/libs/pvRotate.service';
 import { pyVistaService } from 'src/app/three/libs/pyVista.service';
 import * as printJS  from "print-js";
 import { UISettingsComponent } from '../ui-settings/ui-settings.component';
+import { UISettingsService } from '../../service/ui-settings.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -27,7 +28,8 @@ export class MenuComponent implements OnInit {
     private girder: pvGirderService,
     private Rotate: pvRotateService,
     private Move: pvTranlateService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private uiSettingsService: UISettingsService) { }
 
   ngOnInit(): void {
   }
@@ -174,8 +176,9 @@ export class MenuComponent implements OnInit {
   }
 
   public openUISettings(): void {
+    const settings = this.uiSettingsService.getSettings();
     this.dialog.open(UISettingsComponent, {
-      width: '700px',
+      width: `${settings.layout.settingsPanelWidth}px`,
       position: { right: '10px', top: '70px' },
       hasBackdrop: false
     });

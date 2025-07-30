@@ -44,6 +44,10 @@ export interface UISettings {
     gridColor: string
     gridOpacity: number
   }
+  sidebar: {
+    visibleItems: Record<string, boolean>
+    itemOrder: string[]
+  }
 }
 
 @Injectable({
@@ -107,6 +111,20 @@ export class UISettingsService {
         gridSize: 10,
         gridColor: '#cccccc',
         gridOpacity: 0.5
+      },
+      sidebar: {
+        visibleItems: {
+          'others': true,
+          'display': true,
+          'pavement': true,
+          'slab': true,
+          'beam': true,
+          'mid': true,
+          'cross': true,
+          'crossbeam': true,
+          'endbeam': true
+        },
+        itemOrder: ['others', 'display', 'pavement', 'slab', 'beam', 'mid', 'cross', 'crossbeam', 'endbeam']
       }
     };
   }
@@ -190,7 +208,8 @@ export class UISettingsService {
            settings.appearance &&
            settings.layout &&
            settings.menu &&
-           settings.viewport3d;
+           settings.viewport3d &&
+           settings.sidebar;
   }
 
   private mergeSettings(current: UISettings, updates: Partial<UISettings>): UISettings {

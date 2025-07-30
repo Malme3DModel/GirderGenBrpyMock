@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver';
 })
 export class UISettingsComponent implements OnInit, OnDestroy {
   public settings: UISettings;
+  public selectedSidebarItem: string = '';
   private subscription!: Subscription;
 
   constructor(
@@ -63,6 +64,63 @@ export class UISettingsComponent implements OnInit, OnDestroy {
         }
       };
       reader.readAsText(file);
+    }
+  }
+
+  public getSidebarItemsForReorder(): string[] {
+    return this.settings.sidebar.itemOrder;
+  }
+
+  public getSidebarItemLabel(itemId: string): string {
+    const labels: Record<string, string> = {
+      'others': '共通',
+      'display': '構成',
+      'pavement': '舗装',
+      'slab': '床版',
+      'beam': '主桁',
+      'mid': '中間対傾構',
+      'cross': '横構',
+      'crossbeam': '荷重分配横桁',
+      'endbeam': '端横桁'
+    };
+    return labels[itemId] || itemId;
+  }
+
+  public moveSidebarItemUp(): void {
+    if (!this.selectedSidebarItem) return;
+    
+    const currentIndex = this.settings.sidebar.itemOrder.indexOf(this.selectedSidebarItem);
+    if (currentIndex > 0) {
+      const newOrder = [...this.settings.sidebar.itemOrder];
+      [newOrder[currentIndex], newOrder[currentIndex - 1]] = [newOrder[currentIndex - 1], newOrder[currentIndex]];
+      
+      this.settings = {
+        ...this.settings,
+        sidebar: {
+          ...this.settings.sidebar,
+          itemOrder: newOrder
+        }
+      };
+      this.onSettingsChange();
+    }
+  }
+
+  public moveSidebarItemDown(): void {
+    if (!this.selectedSidebarItem) return;
+    
+    const currentIndex = this.settings.sidebar.itemOrder.indexOf(this.selectedSidebarItem);
+    if (currentIndex < this.settings.sidebar.itemOrder.length - 1) {
+      const newOrder = [...this.settings.sidebar.itemOrder];
+      [newOrder[currentIndex], newOrder[currentIndex + 1]] = [newOrder[currentIndex + 1], newOrder[currentIndex]];
+      
+      this.settings = {
+        ...this.settings,
+        sidebar: {
+          ...this.settings.sidebar,
+          itemOrder: newOrder
+        }
+      };
+      this.onSettingsChange();
     }
   }
 

@@ -261,6 +261,63 @@
       </div>
     </mat-tab>
 
+    <!-- サイドバータブ -->
+    <mat-tab label="サイドバー">
+      <div class="settings-section">
+        <h3>項目表示制御</h3>
+        
+        <div class="menu-items">
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['others']" (change)="onSettingsChange()">
+            共通
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['display']" (change)="onSettingsChange()">
+            構成
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['pavement']" (change)="onSettingsChange()">
+            舗装
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['slab']" (change)="onSettingsChange()">
+            床版
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['beam']" (change)="onSettingsChange()">
+            主桁
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['mid']" (change)="onSettingsChange()">
+            中間対傾構
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['cross']" (change)="onSettingsChange()">
+            横構
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['crossbeam']" (change)="onSettingsChange()">
+            荷重分配横桁
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="settings.sidebar.visibleItems['endbeam']" (change)="onSettingsChange()">
+            端横桁
+          </mat-checkbox>
+        </div>
+
+        <h3>項目順序</h3>
+        <p>項目の順序を変更するには、下記のボタンで調整してください。</p>
+        
+        <div class="order-controls">
+          <mat-form-field appearance="fill">
+            <mat-label>項目を選択</mat-label>
+            <mat-select [(ngModel)]="selectedSidebarItem">
+              <mat-option *ngFor="let item of getSidebarItemsForReorder()" [value]="item">
+                {{getSidebarItemLabel(item)}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-button (click)="moveSidebarItemUp()" [disabled]="!selectedSidebarItem">上に移動</button>
+          <button mat-button (click)="moveSidebarItemDown()" [disabled]="!selectedSidebarItem">下に移動</button>
+        </div>
+
+        <div class="reset-button">
+          <button mat-button (click)="resetCategory('sidebar')">サイドバー設定をリセット</button>
+        </div>
+      </div>
+    </mat-tab>
+
   </mat-tab-group>
 </div>
 

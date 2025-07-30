@@ -76,3 +76,18 @@ input[type="color"] {
   border-radius: 4px;
   cursor: pointer;
 }
+
+.order-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button {
+    margin: 5px 0;
+  }
+}

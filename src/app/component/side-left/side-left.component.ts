@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { UISettingsService } from '../../service/ui-settings.service';
+import { Subscription } from 'rxjs';
 import { SideRightBeamComponent } from '../side-right-beam/side-right-beam.component';
 import { SideRightCrossComponent } from '../side-right-cross/side-right-cross.component';
 import { SideRightCrossbeamComponent } from '../side-right-crossbeam/side-right-crossbeam.component';
@@ -23,9 +25,49 @@ export interface Task {
   templateUrl: './side-left.component.html',
   styleUrls: ['./side-left.component.scss']
 })
-export class SideLeftComponent {
+export class SideLeftComponent implements OnInit, OnDestroy {
+  public sidebarItems: Array<{id: string, label: string, visible: boolean}> = [];
+  private subscription!: Subscription;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private uiSettingsService: UISettingsService) { }
+
+  ngOnInit(): void {
+    this.initializeSidebarItems();
+    this.subscription = this.uiSettingsService.settings$.subscribe(settings => {
+      this.updateSidebarItems(settings);
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
+  private initializeSidebarItems(): void {
+    const settings = this.uiSettingsService.getSettings();
+    this.updateSidebarItems(settings);
+  }
+
+  private updateSidebarItems(settings: any): void {
+    const itemLabels = {
+      'others': '共通',
+      'display': '構成',
+      'pavement': '舗装',
+      'slab': '床版',
+      'beam': '主桁',
+      'mid': '中間対傾構',
+      'cross': '横構',
+      'crossbeam': '荷重分配横桁',
+      'endbeam': '端横桁'
+    };
+
+    this.sidebarItems = settings.sidebar.itemOrder.map((id: string) => ({
+      id,
+      label: itemLabels[id as keyof typeof itemLabels] || id,
+      visible: settings.sidebar.visibleItems[id] || false
+    }));
+  }
 
   public openDialog(id: string): void {
 
@@ -52,8 +94,9 @@ export class SideLeftComponent {
     if(rightSide==null)
       return;
 
+    const settings = this.uiSettingsService.getSettings();
     this.dialog.open(rightSide, {
-      width: '400px',
+      width: `${settings.layout.parameterPanelWidth}px`,
       position: { right: '10px', top: '70px' },
       hasBackdrop: false
     });
