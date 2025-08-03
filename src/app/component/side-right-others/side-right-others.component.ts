@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
@@ -9,11 +9,18 @@ import { pvGirderService } from 'src/app/three/pvGirder.service';
   templateUrl: './side-right-others.component.html',
   styleUrls: ['../side-right/side-right.component.scss']
 })
-export class SideRightOthersComponent{
+export class SideRightOthersComponent implements OnDestroy {
 
   constructor(public dialogRef: MatDialogRef<SideRightOthersComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService) { 
+    
+    this.initializeDataset();
+    
+    this.dialogRef.beforeClosed().subscribe(() => {
+      this.saveParameters();
+    });
+  }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -39,25 +46,29 @@ export class SideRightOthersComponent{
       '横桁・対傾構の列数',
     ];
 
-    private dataset: any[] = [
-      {name: 'ProjectName', value: this.model.others.Name_P, unit: ''},
-      {name: 'RouteName', value: this.model.others.Name_R, unit: ''},
-      {name: 'RoadClass', value: this.model.others.Class_R, unit: ''},
-      {name: 'L', value: this.model.others.L, unit: 'm'},
-      {name: 'L_01', value: this.model.others.L_01, unit: 'm'},
-      {name: 'L_02', value: this.model.others.L_02, unit: 'm'},
-      {name: 'Milepost_B', value: this.model.others.Milepost_B, unit: 'km'},
-      {name: 'Milepost_E', value: this.model.others.Milepost_E, unit: 'km'},
-      {name: 'BP', value: this.model.others.BP, unit: 'NO.'},
-      {name: 'BPx', value: this.model.others.BPx, unit: 'm'},
-      {name: 'BPy', value: this.model.others.BPy, unit: 'm'},
-      {name: 'BPz', value: this.model.others.BPz, unit: 'm'},
-      {name: 'EP', value: this.model.others.EP, unit: 'NO.'},
-      {name: 'EPx', value: this.model.others.EPx, unit: 'm'},
-      {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
-      {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
-      {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
-    ];
+    private dataset: any[] = [];
+
+    private initializeDataset(): void {
+      this.dataset = [
+        {name: 'ProjectName', value: this.model.others.Name_P, unit: ''},
+        {name: 'RouteName', value: this.model.others.Name_R, unit: ''},
+        {name: 'RoadClass', value: this.model.others.Class_R, unit: ''},
+        {name: 'L', value: this.model.others.L, unit: 'm'},
+        {name: 'L_01', value: this.model.others.L_01, unit: 'm'},
+        {name: 'L_02', value: this.model.others.L_02, unit: 'm'},
+        {name: 'Milepost_B', value: this.model.others.Milepost_B, unit: 'km'},
+        {name: 'Milepost_E', value: this.model.others.Milepost_E, unit: 'km'},
+        {name: 'BP', value: this.model.others.BP, unit: 'NO.'},
+        {name: 'BPx', value: this.model.others.BPx, unit: 'm'},
+        {name: 'BPy', value: this.model.others.BPy, unit: 'm'},
+        {name: 'BPz', value: this.model.others.BPz, unit: 'm'},
+        {name: 'EP', value: this.model.others.EP, unit: 'NO.'},
+        {name: 'EPx', value: this.model.others.EPx, unit: 'm'},
+        {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
+        {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
+        {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
+      ];
+    }
 
     private columns = [
       {
@@ -73,28 +84,39 @@ export class SideRightOthersComponent{
       {row: 2, col: 2, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
-    public hotSettings: Handsontable.GridSettings = {
-      data: this.dataset,
-      colHeaders: false,
-      rowHeaders: this.rowheader,
-      columns: this.columns,
-      cell: this.integer_cell,
-      allowEmpty: false,
-      beforeChange: (changes, source)=>{
-        for(const item of changes){
-          if (item === null){
-            continue;
+    public get hotSettings(): Handsontable.GridSettings {
+      return {
+        data: this.dataset,
+        colHeaders: false,
+        rowHeaders: this.rowheader,
+        columns: this.columns,
+        cell: this.integer_cell,
+        allowEmpty: false,
+        beforeChange: (changes, source)=>{
+          for(const item of changes){
+            if (item === null){
+              continue;
+            }
+            let value = item[3];
+            const name: string = this.dataset[item[0]].name;
+            const isInteger = this.integer_cell.find( element => element.row === item[0]);
+            if(isInteger != null)
+              value = Math.round(value);
+            this.model.others[name] = value;
           }
-          let value = item[3];
-          const name: string = this.dataset[item[0]].name;
-          const isInteger = this.integer_cell.find( element => element.row === item[0]);
-          if(isInteger != null)
-            value = Math.round(value);
-          this.model.others[name] = value;
-        }
-        // 再描画
-        this.redraw();
-        return true;
-      },
+          // 再描画
+          this.redraw();
+          return true;
+        },
+      };
     };
+
+  private saveParameters(): void {
+    console.log('Saving others parameters:', this.model.others);
+    this.redraw();
+  }
+
+  ngOnDestroy(): void {
+    this.saveParameters();
+  }
 }
