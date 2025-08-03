@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
@@ -9,16 +9,11 @@ import { pvGirderService } from 'src/app/three/pvGirder.service';
   templateUrl: './side-right-others.component.html',
   styleUrls: ['../side-right/side-right.component.scss']
 })
-export class SideRightOthersComponent implements OnDestroy {
+export class SideRightOthersComponent{
 
   constructor(public dialogRef: MatDialogRef<SideRightOthersComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { 
-    
-    this.dialogRef.beforeClosed().subscribe(() => {
-      this.saveParameters();
-    });
-  }
+    private girder: pvGirderService) { }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -102,13 +97,4 @@ export class SideRightOthersComponent implements OnDestroy {
         return true;
       },
     };
-
-  private saveParameters(): void {
-    console.log('Saving others parameters:', this.model.others);
-    this.redraw();
-  }
-
-  ngOnDestroy(): void {
-    this.saveParameters();
-  }
 }
