@@ -84,30 +84,32 @@ export class SideRightOthersComponent implements OnDestroy {
       {row: 2, col: 2, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
-    public hotSettings: Handsontable.GridSettings = {
-      data: this.dataset,
-      colHeaders: false,
-      rowHeaders: this.rowheader,
-      columns: this.columns,
-      cell: this.integer_cell,
-      allowEmpty: false,
-      beforeChange: (changes, source)=>{
-        for(const item of changes){
-          if (item === null){
-            continue;
+    public get hotSettings(): Handsontable.GridSettings {
+      return {
+        data: this.dataset,
+        colHeaders: false,
+        rowHeaders: this.rowheader,
+        columns: this.columns,
+        cell: this.integer_cell,
+        allowEmpty: false,
+        beforeChange: (changes, source)=>{
+          for(const item of changes){
+            if (item === null){
+              continue;
+            }
+            let value = item[3];
+            const name: string = this.dataset[item[0]].name;
+            const isInteger = this.integer_cell.find( element => element.row === item[0]);
+            if(isInteger != null)
+              value = Math.round(value);
+            this.model.others[name] = value;
           }
-          let value = item[3];
-          const name: string = this.dataset[item[0]].name;
-          const isInteger = this.integer_cell.find( element => element.row === item[0]);
-          if(isInteger != null)
-            value = Math.round(value);
-          this.model.others[name] = value;
-        }
-        // 再描画
-        this.redraw();
-        return true;
-      },
-    };
+          // 再描画
+          this.redraw();
+          return true;
+        },
+      };
+    }
 
   private saveParameters(): void {
     console.log('Saving others parameters:', this.model.others);
