@@ -16,6 +16,7 @@ export class SideRightOthersComponent implements OnDestroy {
     private girder: pvGirderService) { 
     
     this.initializeDataset();
+    this.setupHotSettings();
     
     this.dialogRef.beforeClosed().subscribe(() => {
       this.saveParameters();
@@ -84,8 +85,10 @@ export class SideRightOthersComponent implements OnDestroy {
       {row: 2, col: 2, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
-    public get hotSettings(): Handsontable.GridSettings {
-      return {
+    public hotSettings: Handsontable.GridSettings = {};
+
+    private setupHotSettings(): void {
+      this.hotSettings = {
         data: this.dataset,
         colHeaders: false,
         rowHeaders: this.rowheader,
@@ -109,7 +112,7 @@ export class SideRightOthersComponent implements OnDestroy {
           return true;
         },
       };
-    };
+    }
 
   private saveParameters(): void {
     this.redraw();
