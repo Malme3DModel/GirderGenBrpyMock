@@ -41,6 +41,7 @@ import { SideRightCrossbeamComponent } from './component/side-right-crossbeam/si
 import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-right-endbeam.component';
 import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
 import { SideRightDisplayComponent } from './component/side-right-display/side-right-display.component';
+import { AttributeDisplayComponent } from './component/attribute-display/attribute-display.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { SocketioService } from './component/chat/socketio-service.service';
 
@@ -59,6 +60,7 @@ import { SocketioService } from './component/chat/socketio-service.service';
     SideRightCrossComponent,
     SideRightCrossbeamComponent,
     SideRightEndbeamComponent,
+    AttributeDisplayComponent,
     ChatComponent
   ],
   imports: [
