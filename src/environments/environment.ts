@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'http://127.0.0.1:5000',
+  //url: 'http://127.0.0.1:5000',
+  url: 'https://zm37ggrwgg.execute-api.ap-northeast-1.amazonaws.com/prod',
   SOCKET_ENDPOINT: 'https://intense-plains-31465.herokuapp.com/'
 };
 

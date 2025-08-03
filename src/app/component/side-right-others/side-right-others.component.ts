@@ -40,9 +40,9 @@ export class SideRightOthersComponent{
     ];
 
     private dataset: any[] = [
-      {name: 'ProjectName', value: this.model.others.Name_P, unit: ''},
-      {name: 'RouteName', value: this.model.others.Name_R, unit: ''},
-      {name: 'RoadClass', value: this.model.others.Class_R, unit: ''},
+      {name: 'Name_P', value: this.model.others.Name_P, unit: ''},
+      {name: 'Name_R', value: this.model.others.Name_R, unit: ''},
+      {name: 'Class_R', value: this.model.others.Class_R, unit: ''},
       {name: 'L', value: this.model.others.L, unit: 'm'},
       {name: 'L_01', value: this.model.others.L_01, unit: 'm'},
       {name: 'L_02', value: this.model.others.L_02, unit: 'm'},
