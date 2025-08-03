@@ -93,16 +93,19 @@ export class SideRightOthersComponent implements OnDestroy {
         cell: this.integer_cell,
         allowEmpty: false,
         beforeChange: (changes, source)=>{
+          console.log('beforeChange called with changes:', changes, 'source:', source);
           for(const item of changes){
             if (item === null){
               continue;
             }
             let value = item[3];
             const name: string = this.dataset[item[0]].name;
+            console.log('Updating parameter:', name, 'from', item[2], 'to', value);
             const isInteger = this.integer_cell.find( element => element.row === item[0]);
             if(isInteger != null)
               value = Math.round(value);
             this.model.others[name] = value;
+            console.log('Service updated:', name, '=', this.model.others[name]);
           }
           // 再描画
           this.redraw();
