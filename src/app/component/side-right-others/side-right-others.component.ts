@@ -81,7 +81,7 @@ export class SideRightOthersComponent implements OnDestroy {
     ];
 
     private integer_cell: any[] = [
-      {row: 2, col: 2, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
+      {row: 2, col: 1, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
     public get hotSettings(): Handsontable.GridSettings {
