@@ -15,6 +15,8 @@ export class SideRightOthersComponent implements OnDestroy {
     public model: GirderPalamService,
     private girder: pvGirderService) { 
     
+    this.initializeDataset();
+    
     this.dialogRef.beforeClosed().subscribe(() => {
       this.saveParameters();
     });
@@ -44,25 +46,29 @@ export class SideRightOthersComponent implements OnDestroy {
       '横桁・対傾構の列数',
     ];
 
-    private dataset: any[] = [
-      {name: 'ProjectName', value: this.model.others.Name_P, unit: ''},
-      {name: 'RouteName', value: this.model.others.Name_R, unit: ''},
-      {name: 'RoadClass', value: this.model.others.Class_R, unit: ''},
-      {name: 'L', value: this.model.others.L, unit: 'm'},
-      {name: 'L_01', value: this.model.others.L_01, unit: 'm'},
-      {name: 'L_02', value: this.model.others.L_02, unit: 'm'},
-      {name: 'Milepost_B', value: this.model.others.Milepost_B, unit: 'km'},
-      {name: 'Milepost_E', value: this.model.others.Milepost_E, unit: 'km'},
-      {name: 'BP', value: this.model.others.BP, unit: 'NO.'},
-      {name: 'BPx', value: this.model.others.BPx, unit: 'm'},
-      {name: 'BPy', value: this.model.others.BPy, unit: 'm'},
-      {name: 'BPz', value: this.model.others.BPz, unit: 'm'},
-      {name: 'EP', value: this.model.others.EP, unit: 'NO.'},
-      {name: 'EPx', value: this.model.others.EPx, unit: 'm'},
-      {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
-      {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
-      {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
-    ];
+    private dataset: any[] = [];
+
+    private initializeDataset(): void {
+      this.dataset = [
+        {name: 'ProjectName', value: this.model.others.Name_P, unit: ''},
+        {name: 'RouteName', value: this.model.others.Name_R, unit: ''},
+        {name: 'RoadClass', value: this.model.others.Class_R, unit: ''},
+        {name: 'L', value: this.model.others.L, unit: 'm'},
+        {name: 'L_01', value: this.model.others.L_01, unit: 'm'},
+        {name: 'L_02', value: this.model.others.L_02, unit: 'm'},
+        {name: 'Milepost_B', value: this.model.others.Milepost_B, unit: 'km'},
+        {name: 'Milepost_E', value: this.model.others.Milepost_E, unit: 'km'},
+        {name: 'BP', value: this.model.others.BP, unit: 'NO.'},
+        {name: 'BPx', value: this.model.others.BPx, unit: 'm'},
+        {name: 'BPy', value: this.model.others.BPy, unit: 'm'},
+        {name: 'BPz', value: this.model.others.BPz, unit: 'm'},
+        {name: 'EP', value: this.model.others.EP, unit: 'NO.'},
+        {name: 'EPx', value: this.model.others.EPx, unit: 'm'},
+        {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
+        {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
+        {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
+      ];
+    }
 
     private columns = [
       {
