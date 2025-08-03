@@ -72,11 +72,11 @@ export class SideRightOthersComponent implements OnDestroy {
 
     private columns = [
       {
-        data: 'unit',
-        readOnly: true
+        data: 'value',
       },
       {
-        data: 'value',
+        data: 'unit',
+        readOnly: true
       }
     ];
 
