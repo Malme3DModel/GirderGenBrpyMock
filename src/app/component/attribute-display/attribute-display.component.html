@@ -3,7 +3,7 @@
     <h4>階層1</h4>
     <div class="attribute-item" *ngFor="let attr of hierarchyOneAttributes">
       <span class="label">{{attr.label}}：</span>
-      <span class="value">{{model.others[attr.key]}}</span>
+      <span class="value">{{attr.value || (attr.key && model.others[attr.key])}}</span>
     </div>
   </div>
   <div class="hierarchy-section">

@@ -11,7 +11,7 @@ export class AttributeDisplayComponent {
   constructor(public model: GirderPalamService) { }
 
   public hierarchyOneAttributes = [
-    { label: 'オブジェクト分類名', key: 'Name_P' },
+    { label: 'オブジェクト分類名', value: '橋梁' },
     { label: '判別情報1（路線名）', key: 'Name_R' },
     { label: '判別情報2（道路種別）', key: 'Class_R' },
     { label: '判別情報3-1（開始距離標）', key: 'Milepost_B' },
