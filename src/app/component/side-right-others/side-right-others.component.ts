@@ -70,7 +70,6 @@ export class SideRightOthersComponent{
     ];
 
     private integer_cell: any[] = [
-      {row: 2, col: 2, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
     public hotSettings: Handsontable.GridSettings = {
