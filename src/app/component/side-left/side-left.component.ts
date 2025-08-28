@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { SettingsService } from 'src/app/service/settings.service';
 import { SideRightBeamComponent } from '../side-right-beam/side-right-beam.component';
 import { SideRightCrossComponent } from '../side-right-cross/side-right-cross.component';
 import { SideRightCrossbeamComponent } from '../side-right-crossbeam/side-right-crossbeam.component';
@@ -25,7 +26,31 @@ export interface Task {
 })
 export class SideLeftComponent {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public settings: SettingsService) { }
+
+  public getMenuVisibility(menuId: string): string {
+    const visibility = this.settings.sideMenuVisibility;
+    return visibility[menuId as keyof typeof visibility] ? 'block' : 'none';
+  }
+
+  public getMenuDisplayName(menuId: string): string {
+    const names: { [key: string]: string } = {
+      'others': '共通',
+      'display': '構成',
+      'pavement': '舗装',
+      'slab': '床版',
+      'beam': '主桁',
+      'mid': '中間対傾構',
+      'cross': '横構',
+      'crossbeam': '荷重分配横桁',
+      'endbeam': '端横桁'
+    };
+    return names[menuId] || menuId;
+  }
+
+  public openCustomDialog(customMenu: any): void {
+    console.log('Opening custom menu:', customMenu.name);
+  }
 
   public openDialog(id: string): void {
 

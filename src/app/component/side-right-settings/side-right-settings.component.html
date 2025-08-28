@@ -1,0 +1,173 @@
+<h1 mat-dialog-title>設定</h1>
+
+<mat-tab-group [(selectedIndex)]="selectedTab">
+  <!-- General Settings Tab -->
+  <mat-tab label="一般">
+    <div class="settings-section">
+      <h3>LOD設定</h3>
+      <mat-radio-group [(ngModel)]="settings.lodMode" (change)="onLODModeChange()">
+        <mat-radio-button [value]="200">LOD200 (簡易表示)</mat-radio-button>
+        <mat-radio-button [value]="300">LOD300 (詳細表示)</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="settings-section">
+      <h3>入力方式</h3>
+      <mat-radio-group [(ngModel)]="settings.inputType" (change)="onInputTypeChange()">
+        <mat-radio-button value="numeric">数値入力</mat-radio-button>
+        <mat-radio-button value="slider">スライダー入力</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="settings-section">
+      <h3>表示設定</h3>
+      <mat-checkbox [(ngModel)]="settings.showAttributeInfo" (change)="onAttributeDisplayChange()">
+        属性情報を表示
+      </mat-checkbox>
+    </div>
+  </mat-tab>
+
+  <!-- Color Settings Tab -->
+  <mat-tab label="色設定">
+    <div class="settings-section">
+      <h3>部材ごとの色分け</h3>
+      
+      <div class="color-setting">
+        <label>舗装:</label>
+        <input type="color" [(ngModel)]="settings.componentColors.pavement" (change)="onColorChange('pavement')">
+      </div>
+      
+      <div class="color-setting">
+        <label>床版:</label>
+        <input type="color" [(ngModel)]="settings.componentColors.slab" (change)="onColorChange('slab')">
+      </div>
+      
+      <div class="color-setting">
+        <label>主桁:</label>
+        <input type="color" [(ngModel)]="settings.componentColors.beam" (change)="onColorChange('beam')">
+      </div>
+      
+      <div class="color-setting">
+        <label>中間対傾構:</label>
+        <input type="color" [(ngModel)]="settings.componentColors.mid" (change)="onColorChange('mid')">
+      </div>
+      
+      <div class="color-setting">
+        <label>横構:</label>
+        <input type="color" [(ngModel)]="settings.componentColors.cross" (change)="onColorChange('cross')">
+      </div>
+      
+      <div class="color-setting">
+        <label>荷重分配横桁:</label>
+        <input type="color" [(ngModel)]="settings.componentColors.crossbeam" (change)="onColorChange('crossbeam')">
+      </div>
+      
+      <div class="color-setting">
+        <label>端横桁:</label>
+        <input type="color" [(ngModel)]="settings.componentColors.endbeam" (change)="onColorChange('endbeam')">
+      </div>
+    </div>
+  </mat-tab>
+
+  <!-- Menu Settings Tab -->
+  <mat-tab label="メニュー設定">
+    <div class="settings-section">
+      <h3>サイドメニューの表示/非表示</h3>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.others" (change)="onSideMenuVisibilityChange()">
+        共通
+      </mat-checkbox>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.display" (change)="onSideMenuVisibilityChange()">
+        構成
+      </mat-checkbox>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.pavement" (change)="onSideMenuVisibilityChange()">
+        舗装
+      </mat-checkbox>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.slab" (change)="onSideMenuVisibilityChange()">
+        床版
+      </mat-checkbox>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.beam" (change)="onSideMenuVisibilityChange()">
+        主桁
+      </mat-checkbox>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.mid" (change)="onSideMenuVisibilityChange()">
+        中間対傾構
+      </mat-checkbox>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.cross" (change)="onSideMenuVisibilityChange()">
+        横構
+      </mat-checkbox>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.crossbeam" (change)="onSideMenuVisibilityChange()">
+        荷重分配横桁
+      </mat-checkbox>
+      
+      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.endbeam" (change)="onSideMenuVisibilityChange()">
+        端横桁
+      </mat-checkbox>
+    </div>
+
+    <div class="settings-section">
+      <h3>メニュー順序</h3>
+      <div class="menu-order-list">
+        <div *ngFor="let menuId of settings.sideMenuOrder; let i = index" class="menu-order-item">
+          <span>{{getMenuDisplayName(menuId)}}</span>
+          <div class="menu-order-buttons">
+            <button mat-icon-button (click)="moveMenuUp(i)" [disabled]="i === 0">
+              <mat-icon>keyboard_arrow_up</mat-icon>
+            </button>
+            <button mat-icon-button (click)="moveMenuDown(i)" [disabled]="i === settings.sideMenuOrder.length - 1">
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <!-- Custom Menu Tab -->
+  <mat-tab label="カスタムメニュー">
+    <div class="settings-section">
+      <h3>カスタム入力メニューの作成</h3>
+      
+      <mat-form-field>
+        <mat-label>メニュー名</mat-label>
+        <input matInput [(ngModel)]="newCustomMenuName" placeholder="カスタムメニュー名を入力">
+      </mat-form-field>
+
+      <h4>入力項目を選択:</h4>
+      <div class="parameter-selection">
+        <div *ngFor="let param of availableParameters" class="parameter-item">
+          <mat-checkbox 
+            [checked]="isParameterSelected(param)"
+            (change)="toggleParameterSelection(param)">
+            {{param.label}} ({{param.category}})
+          </mat-checkbox>
+        </div>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="addCustomMenu()" 
+              [disabled]="!newCustomMenuName.trim() || selectedParameters.length === 0">
+        カスタムメニューを追加
+      </button>
+    </div>
+
+    <div class="settings-section" *ngIf="settings.customInputMenus.length > 0">
+      <h3>作成済みカスタムメニュー</h3>
+      <div *ngFor="let menu of settings.customInputMenus" class="custom-menu-item">
+        <span>{{menu.name}} ({{menu.parameters.length}}項目)</span>
+        <button mat-icon-button color="warn" (click)="removeCustomMenu(menu.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>閉じる</button>
+</div>

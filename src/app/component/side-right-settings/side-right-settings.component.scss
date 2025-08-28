@@ -1,0 +1,116 @@
+.settings-section {
+  padding: 16px 0;
+  border-bottom: 1px solid #e0e0e0;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  h4 {
+    margin: 16px 0 8px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+  }
+}
+
+.color-setting {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  
+  label {
+    min-width: 120px;
+    margin-right: 12px;
+    font-size: 14px;
+  }
+  
+  input[type="color"] {
+    width: 40px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+.parameter-selection {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+.parameter-item {
+  margin: 4px 0;
+}
+
+.custom-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin: 4px 0;
+  
+  span {
+    font-size: 14px;
+  }
+}
+
+.menu-order-list {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.menu-order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  span {
+    font-size: 14px;
+  }
+}
+
+.menu-order-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+mat-checkbox {
+  margin: 4px 0;
+}
+
+mat-form-field {
+  width: 100%;
+  margin: 8px 0;
+}
+
+button[mat-raised-button] {
+  margin: 8px 0;
+}
