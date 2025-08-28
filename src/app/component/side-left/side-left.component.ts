@@ -29,6 +29,9 @@ export class SideLeftComponent {
   constructor(public dialog: MatDialog, public settings: SettingsService) { }
 
   public getMenuVisibility(menuId: string): string {
+    if (this.settings.lodMode === 200 && menuId !== 'others') {
+      return 'none';
+    }
     const visibility = this.settings.sideMenuVisibility;
     return visibility[menuId as keyof typeof visibility] ? 'block' : 'none';
   }
@@ -49,7 +52,11 @@ export class SideLeftComponent {
   }
 
   public openCustomDialog(customMenu: any): void {
-    console.log('Opening custom menu:', customMenu.name);
+    console.log('Opening custom dialog for:', customMenu);
+    const dialogRef = this.dialog.open(SideRightOthersComponent, {
+      width: '400px',
+      data: customMenu
+    });
   }
 
   public openDialog(id: string): void {
