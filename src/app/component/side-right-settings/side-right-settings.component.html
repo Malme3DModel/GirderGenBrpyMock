@@ -146,7 +146,7 @@
 
       <h4>入力項目を選択:</h4>
       <div class="parameter-selection">
-        <div *ngFor="let param of availableParameters" class="parameter-item">
+        <div *ngFor="let param of paginatedParameters" class="parameter-item">
           <mat-checkbox 
             [checked]="isParameterSelected(param)"
             (change)="toggleParameterSelection(param)">
@@ -154,6 +154,14 @@
           </mat-checkbox>
         </div>
       </div>
+      
+      <mat-paginator 
+        [length]="availableParameters.length" 
+        [pageSize]="pageSize" 
+        [pageIndex]="currentPage"
+        (page)="onPageChange($event)"
+        showFirstLastButtons>
+      </mat-paginator>
 
       <button mat-raised-button color="primary" (click)="addCustomMenu()" 
               [disabled]="!newCustomMenuName.trim() || selectedParameters.length === 0">

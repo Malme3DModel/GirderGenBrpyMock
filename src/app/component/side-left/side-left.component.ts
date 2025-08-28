@@ -26,6 +26,8 @@ export interface Task {
 })
 export class SideLeftComponent {
 
+  private currentDialogRef: MatDialogRef<any> | null = null;
+
   constructor(public dialog: MatDialog, public settings: SettingsService) { }
 
   public getMenuVisibility(menuId: string): string {
@@ -53,8 +55,13 @@ export class SideLeftComponent {
 
   public openCustomDialog(customMenu: any): void {
     console.log('Opening custom dialog for:', customMenu);
-    const dialogRef = this.dialog.open(SideRightOthersComponent, {
-      width: '400px',
+    
+    if (this.currentDialogRef) {
+      this.currentDialogRef.close();
+    }
+    
+    this.currentDialogRef = this.dialog.open(SideRightOthersComponent, {
+      width: '700px',
       data: customMenu
     });
   }
@@ -84,8 +91,12 @@ export class SideLeftComponent {
     if(rightSide==null)
       return;
 
-    this.dialog.open(rightSide, {
-      width: '400px',
+    if (this.currentDialogRef) {
+      this.currentDialogRef.close();
+    }
+
+    this.currentDialogRef = this.dialog.open(rightSide, {
+      width: '700px',
       position: { right: '10px', top: '70px' },
       hasBackdrop: false
     });

@@ -33,6 +33,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { SideLeftComponent } from './component/side-left/side-left.component';
 import { SideRightSlabComponent } from './component/side-right-slab/side-right-slab.component';
@@ -92,7 +93,8 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MatCheckboxModule,
     MatTabsModule,
     MatRadioModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatPaginatorModule
   ],
   providers: [SocketioService],
   bootstrap: [AppComponent]

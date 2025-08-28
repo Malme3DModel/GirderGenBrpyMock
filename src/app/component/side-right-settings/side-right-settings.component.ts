@@ -15,6 +15,8 @@ export class SideRightSettingsComponent {
   public newCustomMenuName: string = '';
   public selectedParameters: CustomParameter[] = [];
   public availableParameters: CustomParameter[] = [];
+  public pageSize = 20;
+  public currentPage = 0;
 
   constructor(
     public dialogRef: MatDialogRef<SideRightSettingsComponent>,
@@ -23,6 +25,15 @@ export class SideRightSettingsComponent {
     private girder: pvGirderService
   ) {
     this.availableParameters = this.settings.getAvailableParameters();
+  }
+
+  public get paginatedParameters(): CustomParameter[] {
+    const start = this.currentPage * this.pageSize;
+    return this.availableParameters.slice(start, start + this.pageSize);
+  }
+
+  public onPageChange(event: any): void {
+    this.currentPage = event.pageIndex;
   }
 
   public onLODModeChange(): void {

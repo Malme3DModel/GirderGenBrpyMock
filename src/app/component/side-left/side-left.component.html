@@ -1,13 +1,14 @@
 <mat-selection-list #shoes [multiple]="false">
+    <!-- Custom menus first -->
+    <mat-list-option *ngFor="let customMenu of settings.customInputMenus" 
+                     (click)="openCustomDialog(customMenu)">
+        {{customMenu.name}}
+    </mat-list-option>
+    
+    <!-- Standard menus -->
     <mat-list-option *ngFor="let menuId of settings.sideMenuOrder" 
                      [style.display]="getMenuVisibility(menuId)" 
                      (click)="openDialog(menuId)">
         {{getMenuDisplayName(menuId)}}
-    </mat-list-option>
-    
-    <!-- Custom menus -->
-    <mat-list-option *ngFor="let customMenu of settings.customInputMenus" 
-                     (click)="openCustomDialog(customMenu)">
-        {{customMenu.name}}
     </mat-list-option>
 </mat-selection-list>

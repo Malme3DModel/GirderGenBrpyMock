@@ -80,7 +80,7 @@ export class SideRightOthersComponent{
     private get filteredDataset(): any[] {
       if (this.settings.lodMode === 200) {
         return this.dataset.filter((item, index) => {
-          return [0, 1, 2, 3, 4, 5, 16, 17].includes(index);
+          return [0, 1, 2, 3, 5, 16, 17].includes(index);
         });
       }
       return this.dataset;
@@ -89,7 +89,7 @@ export class SideRightOthersComponent{
     private get filteredRowHeaders(): string[] {
       if (this.settings.lodMode === 200) {
         return this.rowheader.filter((item, index) => {
-          return [0, 1, 2, 3, 4, 5, 16].includes(index);
+          return [0, 1, 2, 3, 5, 16].includes(index);
         }).concat(['主桁本数']);
       }
       return this.rowheader;

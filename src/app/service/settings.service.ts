@@ -84,7 +84,7 @@ export class SettingsService {
   public getLOD200Parameters(): any {
     return {
       others: [
-        'Name_P', 'Name_R', 'Class_R', 'L', 'L_01', 'L_02', 'amount_H'
+        'Name_P', 'Name_R', 'Class_R', 'L', 'L_02', 'amount_H'
       ],
       pavement: [],
       slab: [],
