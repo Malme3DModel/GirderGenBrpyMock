@@ -11,19 +11,29 @@
       </mat-radio-group>
     </div>
 
-    <div class="settings-section">
-      <h3>入力方式</h3>
-      <mat-radio-group [(ngModel)]="settings.inputType" (change)="onInputTypeChange()">
-        <mat-radio-button value="numeric">数値入力</mat-radio-button>
-        <mat-radio-button value="slider">スライダー入力</mat-radio-button>
-      </mat-radio-group>
-    </div>
 
     <div class="settings-section">
       <h3>表示設定</h3>
-      <mat-checkbox [(ngModel)]="settings.showAttributeInfo" (change)="onAttributeDisplayChange()">
+      <mat-checkbox [(ngModel)]="settings.attributeDisplay" (change)="onAttributeDisplayChange()">
         属性情報を表示
       </mat-checkbox>
+      
+      <div class="setting-item">
+        <label>モデル透過度:</label>
+        <input type="range" min="0" max="1" step="0.1" [(ngModel)]="settings.modelOpacity" (change)="onOpacityChange()">
+        <span>{{(settings.modelOpacity * 100).toFixed(0)}}%</span>
+      </div>
+      
+      <div class="setting-item">
+        <label>モデル背景色:</label>
+        <input type="color" [(ngModel)]="settings.backgroundColor" (change)="onBackgroundColorChange()">
+      </div>
+      
+      <div class="setting-item">
+        <mat-checkbox [(ngModel)]="settings.sideMenuMinimized" (change)="onSideMenuMinimizedChange()">
+          サイドメニューを最小化
+        </mat-checkbox>
+      </div>
     </div>
   </mat-tab>
 
@@ -79,9 +89,6 @@
             共通
           </mat-checkbox>
           
-          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.display" (change)="onSideMenuVisibilityChange()">
-            構成
-          </mat-checkbox>
           
           <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.pavement" (change)="onSideMenuVisibilityChange()">
             舗装
@@ -131,6 +138,129 @@
           </div>
         </div>
       </div>
+    </div>
+  </mat-tab>
+
+  <!-- Model Display Tab -->
+  <mat-tab label="モデル表示/非表示">
+    <div class="settings-section">
+      <h3>作成するモデルを選択</h3>
+      
+      <section class="example-section">
+        <span class="example-list-section">
+          <mat-checkbox class="example-margin"
+                        [checked]="allComplete3"
+                        [color]="pavement.color"
+                        [indeterminate]="someComplete3()"
+                        (change)="setAll3($event.checked)">
+            {{pavement.name}}
+          </mat-checkbox>
+        </span>
+        <span class="example-list-section">
+          <ul>
+            <li *ngFor="let subtask of pavement.subtasks">
+              <mat-checkbox [(ngModel)]="subtask.completed"
+                            [color]="subtask.color"
+                            (ngModelChange)="updateAllComplete3()"
+                            (change)="redraw()">
+                {{subtask.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </span>
+      </section>
+
+      <section class="example-section">
+        <span class="example-list-section">
+          <mat-checkbox class="example-margin"
+                        [(ngModel)]="slab.completed"
+                        [color]="slab.color"
+                        (change)="redraw()">
+            {{slab.name}}
+          </mat-checkbox>
+        </span>
+      </section>
+
+      <section class="example-section">
+        <span class="example-list-section">
+          <mat-checkbox class="example-margin"
+                        [(ngModel)]="beam.completed"
+                        [color]="beam.color"
+                        (change)="redraw()">
+            {{beam.name}}
+          </mat-checkbox>
+        </span>
+      </section>
+
+      <section class="example-section">
+        <span class="example-list-section">
+          <mat-checkbox class="example-margin"
+                        [checked]="allComplete"
+                        [color]="mid.color"
+                        [indeterminate]="someComplete()"
+                        (change)="setAll($event.checked)">
+            {{mid.name}}
+          </mat-checkbox>
+        </span>
+        <span class="example-list-section">
+          <ul>
+            <li *ngFor="let subtask of mid.subtasks">
+              <mat-checkbox [(ngModel)]="subtask.completed"
+                            [color]="subtask.color"
+                            (ngModelChange)="updateAllComplete()"
+                            (change)="redraw()">
+                {{subtask.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </span>
+      </section>
+
+      <section class="example-section">
+        <span class="example-list-section">
+          <mat-checkbox class="example-margin"
+                        [checked]="allComplete2"
+                        [color]="cross.color"
+                        [indeterminate]="someComplete2()"
+                        (change)="setAll2($event.checked)">
+            {{cross.name}}
+          </mat-checkbox>
+        </span>
+        <span class="example-list-section">
+          <ul>
+            <li *ngFor="let subtask of cross.subtasks">
+              <mat-checkbox [(ngModel)]="subtask.completed"
+                            [color]="subtask.color"
+                            (ngModelChange)="updateAllComplete2()"
+                            (change)="redraw()">
+              {{subtask.name}}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </span>
+    </section>
+
+    <section class="example-section">
+      <span class="example-list-section">
+        <mat-checkbox class="example-margin"
+                      [(ngModel)]="crossbeam.completed"
+                      [color]="crossbeam.color"
+                      (change)="redraw()">
+          {{crossbeam.name}}
+        </mat-checkbox>
+      </span>
+    </section>
+
+    <section class="example-section">
+      <span class="example-list-section">
+        <mat-checkbox class="example-margin"
+                      [(ngModel)]="endbeam.completed"
+                      [color]="endbeam.color"
+                      (change)="redraw()">
+          {{endbeam.name}}
+        </mat-checkbox>
+      </span>
+    </section>
     </div>
   </mat-tab>
 

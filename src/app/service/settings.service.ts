@@ -12,7 +12,6 @@ export interface ComponentColors {
 
 export interface SideMenuVisibility {
   others: boolean;
-  display: boolean;
   pavement: boolean;
   slab: boolean;
   beam: boolean;
@@ -44,7 +43,6 @@ export class SettingsService {
 
   public lodMode: 200 | 300 = 200;
 
-  public inputType: 'numeric' | 'slider' = 'numeric';
 
   public componentColors: ComponentColors = {
     pavement: '#7f8f9f',
@@ -58,7 +56,6 @@ export class SettingsService {
 
   public sideMenuVisibility: SideMenuVisibility = {
     others: true,
-    display: true,
     pavement: true,
     slab: true,
     beam: true,
@@ -71,11 +68,11 @@ export class SettingsService {
   public customInputMenus: CustomInputMenu[] = [];
 
   public sideMenuOrder: string[] = [
-    'others', 'display', 'pavement', 'slab', 'beam', 
+    'others', 'pavement', 'slab', 'beam', 
     'mid', 'cross', 'crossbeam', 'endbeam'
   ];
 
-  public showAttributeInfo: boolean = true;
+  public attributeDisplay: boolean = true;
 
   constructor() {
     this.loadSettings();
@@ -120,15 +117,21 @@ export class SettingsService {
     return this.hexToThreeColor(this.componentColors[component]);
   }
 
+  public modelOpacity: number = 1.0;
+  public backgroundColor: string = '#ffffff';
+  public sideMenuMinimized: boolean = false;
+
   public saveSettings(): void {
     const settings = {
       lodMode: this.lodMode,
-      inputType: this.inputType,
       componentColors: this.componentColors,
       sideMenuVisibility: this.sideMenuVisibility,
       customInputMenus: this.customInputMenus,
       sideMenuOrder: this.sideMenuOrder,
-      showAttributeInfo: this.showAttributeInfo
+      attributeDisplay: this.attributeDisplay,
+      modelOpacity: this.modelOpacity,
+      backgroundColor: this.backgroundColor,
+      sideMenuMinimized: this.sideMenuMinimized
     };
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(settings));
   }
@@ -139,12 +142,14 @@ export class SettingsService {
       try {
         const settings = JSON.parse(stored);
         this.lodMode = settings.lodMode || 200;
-        this.inputType = settings.inputType || 'numeric';
         this.componentColors = { ...this.componentColors, ...settings.componentColors };
         this.sideMenuVisibility = { ...this.sideMenuVisibility, ...settings.sideMenuVisibility };
         this.customInputMenus = settings.customInputMenus || [];
         this.sideMenuOrder = settings.sideMenuOrder || this.sideMenuOrder;
-        this.showAttributeInfo = settings.showAttributeInfo !== undefined ? settings.showAttributeInfo : true;
+        this.attributeDisplay = settings.attributeDisplay !== undefined ? settings.attributeDisplay : true;
+        this.modelOpacity = settings.modelOpacity !== undefined ? settings.modelOpacity : 1.0;
+        this.backgroundColor = settings.backgroundColor || '#ffffff';
+        this.sideMenuMinimized = settings.sideMenuMinimized !== undefined ? settings.sideMenuMinimized : false;
       } catch (e) {
         console.warn('Failed to load settings from localStorage:', e);
       }

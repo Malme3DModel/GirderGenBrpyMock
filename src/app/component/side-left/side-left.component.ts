@@ -7,7 +7,6 @@ import { SideRightCrossbeamComponent } from '../side-right-crossbeam/side-right-
 import { SideRightEndbeamComponent } from '../side-right-endbeam/side-right-endbeam.component';
 import { SideRightMidComponent } from '../side-right-mid/side-right-mid.component';
 import { SideRightOthersComponent } from '../side-right-others/side-right-others.component';
-import { SideRightDisplayComponent } from '../side-right-display/side-right-display.component';
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
 import { SideRightPavementComponent } from '../side-right-pavement/side-right-pavement.component';
 import {ThemePalette} from '@angular/material/core';
@@ -31,6 +30,9 @@ export class SideLeftComponent {
   constructor(public dialog: MatDialog, public settings: SettingsService) { }
 
   public getMenuVisibility(menuId: string): string {
+    if (menuId === 'display') {
+      return 'none';
+    }
     if (this.settings.lodMode === 200 && menuId !== 'others') {
       return 'none';
     }
@@ -38,10 +40,14 @@ export class SideLeftComponent {
     return visibility[menuId as keyof typeof visibility] ? 'block' : 'none';
   }
 
+  toggleSideMenu(): void {
+    this.settings.sideMenuMinimized = !this.settings.sideMenuMinimized;
+    this.settings.saveSettings();
+  }
+
   public getMenuDisplayName(menuId: string): string {
     const names: { [key: string]: string } = {
       'others': '共通',
-      'display': '構成',
       'pavement': '舗装',
       'slab': '床版',
       'beam': '主桁',
@@ -51,6 +57,20 @@ export class SideLeftComponent {
       'endbeam': '端横桁'
     };
     return names[menuId] || menuId;
+  }
+
+  public getMenuIcon(menuId: string): string {
+    const icons: { [key: string]: string } = {
+      'others': 'settings',
+      'pavement': 'layers',
+      'slab': 'view_module',
+      'beam': 'view_stream',
+      'mid': 'architecture',
+      'cross': 'grid_on',
+      'crossbeam': 'horizontal_rule',
+      'endbeam': 'border_horizontal'
+    };
+    return icons[menuId] || 'menu';
   }
 
   public openCustomDialog(customMenu: any): void {
@@ -71,8 +91,6 @@ export class SideLeftComponent {
     let rightSide: any = null;
     if( id==='others') // 共通
       rightSide = SideRightOthersComponent;
-      else if( id==='display')  // 構成・表示
-      rightSide = SideRightDisplayComponent;
     else if( id==='pavement')  // 舗装
       rightSide = SideRightPavementComponent;
     else if( id==='slab')  // 床版
