@@ -14,21 +14,7 @@ export class SideRightMidComponent {
 
   constructor(public dialogRef: MatDialogRef<SideRightMidComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService,
-    public settings: SettingsService) {
-    
-    document.addEventListener('sliderChange', (event: any) => {
-      const { row, value } = event.detail;
-      const currentDataset = this.dataset;
-      const name: string = currentDataset[row].name;
-      const numericValue = parseFloat(value);
-      
-      if (name !== 'mid' && name !== 'Gusset01' && name !== 'Gusset02' && name !== 'Gusset03') {
-        this.model.mid[name] = numericValue;
-        this.redraw();
-      }
-    });
-  }
+    private girder: pvGirderService) { }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -99,82 +85,42 @@ export class SideRightMidComponent {
       { name: 'Gdx3', value: this.model.mid.Gdx2, unit: 'mm'},
     ];
 
-    private get columns() {
-      if (this.settings.inputType === 'slider') {
-        return [
-          {
-            data: 'unit',
-            readOnly: true,
-          },
-          {
-            data: 'value',
-            type: 'numeric',
-            renderer: (instance: any, td: any, row: any, col: any, prop: any, value: any, cellProperties: any) => {
-              const item = this.dataset[row];
-              if (item && typeof item.value === 'number' && 
-                  item.name !== 'mid' && item.name !== 'Gusset01' && 
-                  item.name !== 'Gusset02' && item.name !== 'Gusset03') {
-                const max = item.value * 2;
-                const min = 0;
-                td.innerHTML = `
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <input type="range" min="${min}" max="${max}" value="${value}" 
-                           style="flex: 1;" 
-                           onchange="this.nextElementSibling.value = this.value; 
-                                    const event = new CustomEvent('sliderChange', {detail: {row: ${row}, value: this.value}});
-                                    document.dispatchEvent(event);">
-                    <input type="number" value="${value}" min="${min}" max="${max}" 
-                           style="width: 60px;" readonly>
-                  </div>
-                `;
-              } else {
-                td.innerHTML = `<input type="text" value="${value}" style="width: 100%;">`;
-              }
-              return td;
-            }
-          }
-        ];
-      } else {
-        return [
-          {
-            data: 'unit',
-            readOnly: true,
-          },
-          {
-            data: 'value',
-            type: 'numeric',
-            numericFormat: {
-              pattern: '0,0.0'
-            }
-          }
-        ];
+    private columns = [
+      {
+        data: 'unit',
+        readOnly: true,
+      },
+      {
+        data: 'value',
+        type: 'numeric',
+        numericFormat: {
+          pattern: '0,0.0'
+        }
       }
-    }
+    ];
 
 
-    public get dynamicHotSettings(): Handsontable.GridSettings {
-      return {
-        data: this.dataset,
-        colHeaders: false,
-        rowHeaders: this.rowheader,
-        width: '330',
-        columns: this.columns,
-        colWidths: [50,100],
-        allowEmpty: false,
-        beforeChange: (changes, source)=>{
-          for(const item of changes){
-            if (item === null){
-              continue
-            }
-            let value = parseFloat(item[3]);
-            if( isNaN(value) )
-              return false;
-            const name: string = this.dataset[item[0]].name;
-            this.model.mid[name] = value;
+    public hotSettings: Handsontable.GridSettings = {
+      data: this.dataset,
+      colHeaders: false,
+      rowHeaders: this.rowheader,
+      width: '330',
+      columns: this.columns,
+      colWidths: [50,100],
+      allowEmpty: false,
+      beforeChange: (changes, source)=>{
+        for(const item of changes){
+          if (item === null){
+            continue
           }
-          this.redraw();
-          return true;
-        },
-      };
-    }
+          let value = parseFloat(item[3]);
+          if( isNaN(value) )
+            return false;
+          const name: string = this.dataset[item[0]].name;
+          this.model.mid[name] = value;
+        }
+        this.redraw();
+        return true;
+      },
+    };
 }

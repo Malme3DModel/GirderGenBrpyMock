@@ -22,7 +22,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
@@ -82,7 +81,6 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MatButtonModule,
     MatToolbarModule,
     MatListModule,
-    MatSliderModule,
     MatBadgeModule,
     MatInputModule,
     MatTableModule,
@@ -94,7 +92,7 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MatTabsModule,
     MatRadioModule,
     MatFormFieldModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [SocketioService],
   bootstrap: [AppComponent]

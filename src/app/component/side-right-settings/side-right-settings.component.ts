@@ -3,6 +3,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { SettingsService, CustomInputMenu, CustomParameter } from 'src/app/service/settings.service';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import { SceneService } from 'src/app/three/scene.service';
+import {ThemePalette} from '@angular/material/core';
 
 @Component({
   selector: 'app-side-right-settings',
@@ -22,7 +24,8 @@ export class SideRightSettingsComponent {
     public dialogRef: MatDialogRef<SideRightSettingsComponent>,
     public settings: SettingsService,
     private model: GirderPalamService,
-    private girder: pvGirderService
+    private girder: pvGirderService,
+    private scene: SceneService
   ) {
     this.availableParameters = this.settings.getAvailableParameters();
   }
@@ -41,7 +44,17 @@ export class SideRightSettingsComponent {
     this.redraw();
   }
 
-  public onInputTypeChange(): void {
+  public  onOpacityChange(): void {
+    this.scene.setModelOpacity(this.settings.modelOpacity);
+    this.settings.saveSettings();
+  }
+
+  onBackgroundColorChange(): void {
+    this.scene.setBackgroundColor(this.settings.backgroundColor);
+    this.settings.saveSettings();
+  }
+
+  onSideMenuMinimizedChange(): void {
     this.settings.saveSettings();
   }
 
@@ -58,9 +71,6 @@ export class SideRightSettingsComponent {
     this.settings.saveSettings();
   }
 
-  public redraw(): void {
-    this.girder.createGirder(this.model.palam());
-  }
 
   public addCustomMenu(): void {
     if (this.newCustomMenuName.trim() && this.selectedParameters.length > 0) {
@@ -117,7 +127,6 @@ export class SideRightSettingsComponent {
   public getMenuDisplayName(menuId: string): string {
     const names: { [key: string]: string } = {
       'others': '共通',
-      'display': '構成',
       'pavement': '舗装',
       'slab': '床版',
       'beam': '主桁',
@@ -127,5 +136,154 @@ export class SideRightSettingsComponent {
       'endbeam': '端横桁'
     };
     return names[menuId] || menuId;
+  }
+
+  public redraw(): void {
+    this.model.display.slab = this.slab.completed;
+    this.model.display.pavement = this.pavement.completed;
+    if (this.pavement.subtasks != null ){
+      this.model.display.pv3 = this.pavement.subtasks[0].completed;
+      this.model.display.pv2 = this.pavement.subtasks[1].completed;
+      this.model.display.pv1 = this.pavement.subtasks[2].completed;
+    }
+    this.model.display.beam = this.beam.completed;
+    this.model.display.crossbeam = this.crossbeam.completed;
+    this.model.display.endbeam = this.endbeam.completed;
+    if (this.mid.subtasks != null ){
+      this.model.display.mid = this.mid.subtasks[0].completed;
+      this.model.display.gusset01 = this.mid.subtasks[1].completed;
+      this.model.display.gusset02 = this.mid.subtasks[2].completed;
+      this.model.display.gusset03 = this.mid.subtasks[3].completed;
+    }
+    if (this.cross.subtasks != null ){
+      this.model.display.cross_u = this.cross.subtasks[0].completed;
+      this.model.display.cross_l = this.cross.subtasks[1].completed;
+      this.model.display.gusset04 = this.cross.subtasks[2].completed;
+    }
+    this.girder.createGirder(this.model.palam());
+  }
+
+  slab: any = {
+    name: '床版',
+    completed: this.model.display.slab,
+    color: 'primary',
+  }
+
+  pavement: any = {
+    name: '舗装',
+    completed: true,
+    color: 'primary',
+    subtasks: [
+      {name: '表層', completed: this.model.display.pv3, color: 'accent'},
+      {name: '上層路盤', completed: this.model.display.pv2, color: 'accent'},
+      {name: '下層路盤', completed: this.model.display.pv1, color: 'accent'},
+    ],
+  };
+
+  beam: any = {
+    name: '主桁',
+    completed: this.model.display.beam,
+    color: 'primary',
+  }
+
+  crossbeam: any = {
+    name: '荷重分配横桁',
+    completed: this.model.display.crossbeam,
+    color: 'primary',
+  }
+
+  endbeam: any = {
+    name: '端横桁',
+    completed: this.model.display.endbeam,
+    color: 'primary',
+  }
+
+  mid: any = {
+    name: '中間対傾構',
+    completed: true,
+    color: 'primary',
+    subtasks: [
+      {name: '対傾構', completed: this.model.display.mid, color: 'accent'},
+      {name: 'ガセットプレート（斜材）', completed: this.model.display.gusset01, color: 'accent'},
+      {name: 'ガセットプレート（上弦材）', completed: this.model.display.gusset02, color: 'accent'},
+      {name: 'ガセットプレート（下弦材）', completed: this.model.display.gusset03, color: 'accent'},
+    ],
+  };
+
+  allComplete: boolean = true;
+
+  updateAllComplete() {
+    this.allComplete = this.mid.subtasks != null && this.mid.subtasks.every((t: any) => t.completed);
+  }
+
+  someComplete(): boolean {
+    if (this.mid.subtasks == null) {
+      return false;
+    }
+    return this.mid.subtasks.filter((t: any) => t.completed).length > 0 && !this.allComplete;
+  }
+
+  setAll(completed: boolean) {
+    this.allComplete = completed;
+    if (this.mid.subtasks == null) {
+      return;
+    }
+    this.mid.subtasks.forEach((t: any) => (t.completed = completed));
+    this.redraw();
+  }
+
+  cross: any = {
+    name: '横構',
+    completed: true,
+    color: 'primary',
+    subtasks: [
+      {name: '上横構', completed: this.model.display.cross_u, color: 'accent'},
+      {name: '下横構', completed: this.model.display.cross_l, color: 'accent'},
+      {name: 'ガセットプレート', completed: this.model.display.gusset04, color: 'accent'},
+    ]
+  };
+
+  allComplete2: boolean = true;
+
+  updateAllComplete2() {
+    this.allComplete2 = this.cross.subtasks != null && this.cross.subtasks.every((t: any) => t.completed);
+  }
+
+  someComplete2(): boolean {
+    if (this.cross.subtasks == null) {
+      return false;
+    }
+    return this.cross.subtasks.filter((t: any) => t.completed).length > 0 && !this.allComplete2;
+  }
+
+  setAll2(completed: boolean) {
+    this.allComplete2 = completed;
+    if (this.cross.subtasks == null) {
+      return;
+    }
+    this.cross.subtasks.forEach((t: any) => (t.completed = completed));
+    this.redraw();
+  }
+
+  allComplete3: boolean = true;
+
+  updateAllComplete3() {
+    this.allComplete3 = this.pavement.subtasks != null && this.pavement.subtasks.every((t: any) => t.completed);
+  }
+
+  someComplete3(): boolean {
+    if (this.pavement.subtasks == null) {
+      return false;
+    }
+    return this.pavement.subtasks.filter((t: any) => t.completed).length > 0 && !this.allComplete3;
+  }
+
+  setAll3(completed: boolean) {
+    this.allComplete3 = completed;
+    if (this.pavement.subtasks == null) {
+      return;
+    }
+    this.pavement.subtasks.forEach((t: any) => (t.completed = completed));
+    this.redraw();
   }
 }

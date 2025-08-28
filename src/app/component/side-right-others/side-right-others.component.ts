@@ -17,19 +17,6 @@ export class SideRightOthersComponent{
     private girder: pvGirderService,
     public settings: SettingsService) {
     
-    document.addEventListener('sliderChange', (event: any) => {
-      const { row, value } = event.detail;
-      const currentDataset = this.filteredDataset;
-      const name: string = currentDataset[row].name;
-      const numericValue = parseFloat(value);
-      
-      if (name === 'amount_V') {
-        this.model.beam[name] = numericValue;
-      } else {
-        this.model.others[name] = numericValue;
-      }
-      this.redraw();
-    });
   }
 
     public redraw(): void {
@@ -83,7 +70,9 @@ export class SideRightOthersComponent{
           return [0, 1, 2, 3, 5, 16, 17].includes(index);
         });
       }
-      return this.dataset;
+      return this.dataset.filter((item, index) => {
+        return index !== 17;
+      });
     }
 
     private get filteredRowHeaders(): string[] {
@@ -96,57 +85,22 @@ export class SideRightOthersComponent{
     }
 
     private get columns() {
-      if (this.settings.inputType === 'slider') {
-        return [
-          {
-            data: 'unit',
-            readOnly: true
-          },
-          {
-            data: 'value',
-            type: 'numeric',
-            renderer: (instance: any, td: any, row: any, col: any, prop: any, value: any, cellProperties: any) => {
-              const currentDataset = this.filteredDataset;
-              const item = currentDataset[row];
-              if (item && typeof item.value === 'number') {
-                const max = item.value * 2;
-                const min = 0;
-                td.innerHTML = `
-                  <div style="display: flex; align-items: center; gap: 8px;">
-                    <input type="range" min="${min}" max="${max}" value="${value}" 
-                           style="flex: 1;" 
-                           onchange="this.nextElementSibling.value = this.value; 
-                                    const event = new CustomEvent('sliderChange', {detail: {row: ${row}, value: this.value}});
-                                    document.dispatchEvent(event);">
-                    <input type="number" value="${value}" min="${min}" max="${max}" 
-                           style="width: 60px;" readonly>
-                  </div>
-                `;
-              } else {
-                td.innerHTML = `<input type="text" value="${value}" style="width: 100%;">`;
-              }
-              return td;
-            }
-          }
-        ];
-      } else {
-        return [
-          {
-            data: 'unit',
-            readOnly: true
-          },
-          {
-            data: 'value',
-          }
-        ];
-      }
+      return [
+        {
+          data: 'unit',
+          readOnly: true
+        },
+        {
+          data: 'value',
+        }
+      ];
     }
 
     private integer_cell: any[] = [
       {row: 2, col: 2, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
-    public get dynamicHotSettings(): Handsontable.GridSettings {
+    public get hotSettings(): Handsontable.GridSettings {
       return {
         data: this.filteredDataset,
         colHeaders: false,
