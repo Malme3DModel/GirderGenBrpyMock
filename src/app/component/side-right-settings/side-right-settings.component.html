@@ -73,42 +73,47 @@
   <mat-tab label="メニュー設定">
     <div class="settings-section">
       <h3>サイドメニューの表示/非表示</h3>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.others" (change)="onSideMenuVisibilityChange()">
-        共通
-      </mat-checkbox>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.display" (change)="onSideMenuVisibilityChange()">
-        構成
-      </mat-checkbox>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.pavement" (change)="onSideMenuVisibilityChange()">
-        舗装
-      </mat-checkbox>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.slab" (change)="onSideMenuVisibilityChange()">
-        床版
-      </mat-checkbox>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.beam" (change)="onSideMenuVisibilityChange()">
-        主桁
-      </mat-checkbox>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.mid" (change)="onSideMenuVisibilityChange()">
-        中間対傾構
-      </mat-checkbox>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.cross" (change)="onSideMenuVisibilityChange()">
-        横構
-      </mat-checkbox>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.crossbeam" (change)="onSideMenuVisibilityChange()">
-        荷重分配横桁
-      </mat-checkbox>
-      
-      <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.endbeam" (change)="onSideMenuVisibilityChange()">
-        端横桁
-      </mat-checkbox>
+      <div class="menu-visibility-grid">
+        <div class="menu-row">
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.others" (change)="onSideMenuVisibilityChange()">
+            共通
+          </mat-checkbox>
+          
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.display" (change)="onSideMenuVisibilityChange()">
+            構成
+          </mat-checkbox>
+          
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.pavement" (change)="onSideMenuVisibilityChange()">
+            舗装
+          </mat-checkbox>
+          
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.slab" (change)="onSideMenuVisibilityChange()">
+            床版
+          </mat-checkbox>
+          
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.beam" (change)="onSideMenuVisibilityChange()">
+            主桁
+          </mat-checkbox>
+        </div>
+        
+        <div class="menu-row">
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.mid" (change)="onSideMenuVisibilityChange()">
+            中間対傾構
+          </mat-checkbox>
+          
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.cross" (change)="onSideMenuVisibilityChange()">
+            横構
+          </mat-checkbox>
+          
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.crossbeam" (change)="onSideMenuVisibilityChange()">
+            荷重分配横桁
+          </mat-checkbox>
+          
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.endbeam" (change)="onSideMenuVisibilityChange()">
+            端横桁
+          </mat-checkbox>
+        </div>
+      </div>
     </div>
 
     <div class="settings-section">

@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import { SettingsService } from 'src/app/service/settings.service';
 
 @Component({
   selector: 'app-side-right-others',
@@ -13,7 +14,23 @@ export class SideRightOthersComponent{
 
   constructor(public dialogRef: MatDialogRef<SideRightOthersComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    public settings: SettingsService) {
+    
+    document.addEventListener('sliderChange', (event: any) => {
+      const { row, value } = event.detail;
+      const currentDataset = this.filteredDataset;
+      const name: string = currentDataset[row].name;
+      const numericValue = parseFloat(value);
+      
+      if (name === 'amount_V') {
+        this.model.beam[name] = numericValue;
+      } else {
+        this.model.others[name] = numericValue;
+      }
+      this.redraw();
+    });
+  }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -57,44 +74,107 @@ export class SideRightOthersComponent{
       {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
       {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
       {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
+      {name: 'amount_V', value: this.model.beam.amount_V, unit: '本'},
     ];
 
-    private columns = [
-      {
-        data: 'unit',
-        readOnly: true
-      },
-      {
-        data: 'value',
+    private get filteredDataset(): any[] {
+      if (this.settings.lodMode === 200) {
+        return this.dataset.filter((item, index) => {
+          return [0, 1, 2, 3, 4, 5, 16, 17].includes(index);
+        });
       }
-    ];
+      return this.dataset;
+    }
+
+    private get filteredRowHeaders(): string[] {
+      if (this.settings.lodMode === 200) {
+        return this.rowheader.filter((item, index) => {
+          return [0, 1, 2, 3, 4, 5, 16].includes(index);
+        }).concat(['主桁本数']);
+      }
+      return this.rowheader;
+    }
+
+    private get columns() {
+      if (this.settings.inputType === 'slider') {
+        return [
+          {
+            data: 'unit',
+            readOnly: true
+          },
+          {
+            data: 'value',
+            type: 'numeric',
+            renderer: (instance: any, td: any, row: any, col: any, prop: any, value: any, cellProperties: any) => {
+              const currentDataset = this.filteredDataset;
+              const item = currentDataset[row];
+              if (item && typeof item.value === 'number') {
+                const max = item.value * 2;
+                const min = 0;
+                td.innerHTML = `
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <input type="range" min="${min}" max="${max}" value="${value}" 
+                           style="flex: 1;" 
+                           onchange="this.nextElementSibling.value = this.value; 
+                                    const event = new CustomEvent('sliderChange', {detail: {row: ${row}, value: this.value}});
+                                    document.dispatchEvent(event);">
+                    <input type="number" value="${value}" min="${min}" max="${max}" 
+                           style="width: 60px;" readonly>
+                  </div>
+                `;
+              } else {
+                td.innerHTML = `<input type="text" value="${value}" style="width: 100%;">`;
+              }
+              return td;
+            }
+          }
+        ];
+      } else {
+        return [
+          {
+            data: 'unit',
+            readOnly: true
+          },
+          {
+            data: 'value',
+          }
+        ];
+      }
+    }
 
     private integer_cell: any[] = [
       {row: 2, col: 2, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
-    public hotSettings: Handsontable.GridSettings = {
-      data: this.dataset,
-      colHeaders: false,
-      rowHeaders: this.rowheader,
-      columns: this.columns,
-      cell: this.integer_cell,
-      allowEmpty: false,
-      beforeChange: (changes, source)=>{
-        for(const item of changes){
-          if (item === null){
-            continue;
+    public get dynamicHotSettings(): Handsontable.GridSettings {
+      return {
+        data: this.filteredDataset,
+        colHeaders: false,
+        rowHeaders: this.filteredRowHeaders,
+        columns: this.columns,
+        cell: this.integer_cell,
+        allowEmpty: false,
+        beforeChange: (changes, source)=>{
+          for(const item of changes){
+            if (item === null){
+              continue;
+            }
+            let value = item[3];
+            const currentDataset = this.filteredDataset;
+            const name: string = currentDataset[item[0]].name;
+            const isInteger = this.integer_cell.find( element => element.row === item[0]);
+            if(isInteger != null)
+              value = Math.round(value);
+            
+            if (name === 'amount_V') {
+              this.model.beam[name] = value;
+            } else {
+              this.model.others[name] = value;
+            }
           }
-          let value = item[3];
-          const name: string = this.dataset[item[0]].name;
-          const isInteger = this.integer_cell.find( element => element.row === item[0]);
-          if(isInteger != null)
-            value = Math.round(value);
-          this.model.others[name] = value;
-        }
-        // 再描画
-        this.redraw();
-        return true;
-      },
-    };
+          this.redraw();
+          return true;
+        },
+      };
+    }
 }

@@ -24,17 +24,20 @@
 .color-setting {
   display: flex;
   align-items: center;
-  margin: 8px 0;
+  justify-content: space-between;
+  margin: 12px 0;
+  padding: 8px 0;
   
   label {
-    min-width: 120px;
-    margin-right: 12px;
+    flex: 1;
+    text-align: left;
+    margin-right: 16px;
     font-size: 14px;
   }
   
   input[type="color"] {
-    width: 40px;
-    height: 30px;
+    width: 50px;
+    height: 35px;
     border: 1px solid #ccc;
     border-radius: 4px;
     cursor: pointer;
@@ -104,6 +107,22 @@ mat-radio-group {
 
 mat-checkbox {
   margin: 4px 0;
+}
+
+.menu-visibility-grid {
+  margin: 16px 0;
+}
+
+.menu-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 8px 0;
+  
+  mat-checkbox {
+    margin: 4px 0;
+    min-width: 120px;
+  }
 }
 
 mat-form-field {
