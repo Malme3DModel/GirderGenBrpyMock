@@ -121,6 +121,17 @@
   gap: 4px;
 }
 
+.display-checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+  
+  mat-checkbox {
+    margin-bottom: 8px;
+  }
+}
+
 mat-radio-group {
   display: flex;
   flex-direction: column;
