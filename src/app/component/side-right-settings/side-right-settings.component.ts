@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SettingsService, CustomInputMenu, CustomParameter } from 'src/app/service/settings.service';
+import { SettingsService, CustomInputMenu, CustomParameter } from '../../service/settings.service';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
 import { SceneService } from 'src/app/three/scene.service';
@@ -42,6 +42,11 @@ export class SideRightSettingsComponent {
   public onLODModeChange(): void {
     this.settings.saveSettings();
     this.redraw();
+  }
+
+  public onUnitSystemChange(system: string): void {
+    this.settings.unitSystem = system as 'default' | 'metric';
+    this.settings.saveSettings();
   }
 
   public  onOpacityChange(): void {
@@ -127,6 +132,7 @@ export class SideRightSettingsComponent {
   public getMenuDisplayName(menuId: string): string {
     const names: { [key: string]: string } = {
       'others': '共通',
+      'material': '材料強度',
       'pavement': '舗装',
       'slab': '床版',
       'beam': '主桁',

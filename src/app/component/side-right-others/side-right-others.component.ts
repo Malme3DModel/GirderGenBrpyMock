@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
-import { SettingsService } from 'src/app/service/settings.service';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-side-right-others',
@@ -116,9 +116,16 @@ export class SideRightOthersComponent{
             let value = item[3];
             const currentDataset = this.filteredDataset;
             const name: string = currentDataset[item[0]].name;
+            const unit: string = currentDataset[item[0]].unit;
             const isInteger = this.integer_cell.find( element => element.row === item[0]);
             if(isInteger != null)
               value = Math.round(value);
+            
+            if (this.settings.unitSystem === 'metric' && typeof value === 'number') {
+              if (unit === 'm') {
+                value = value * 1000; // Convert m to mm for internal storage
+              }
+            }
             
             if (name === 'amount_V') {
               this.model.beam[name] = value;

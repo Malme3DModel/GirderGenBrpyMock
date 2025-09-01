@@ -25,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 import { MenuComponent } from './component/menu/menu.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -46,6 +47,7 @@ import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-r
 import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
 import { SideRightDisplayComponent } from './component/side-right-display/side-right-display.component';
 import { SideRightSettingsComponent } from './component/side-right-settings/side-right-settings.component';
+import { SideRightMaterialComponent } from './component/side-right-material/side-right-material.component';
 import { AttributeDisplayComponent } from './component/attribute-display/attribute-display.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { SocketioService } from './component/chat/socketio-service.service';
@@ -59,6 +61,7 @@ import { SocketioService } from './component/chat/socketio-service.service';
     SideRightOthersComponent,
     SideRightDisplayComponent,
     SideRightSettingsComponent,
+    SideRightMaterialComponent,
     AttributeDisplayComponent,
     SideRightPavementComponent,
     SideRightSlabComponent,
@@ -85,6 +88,7 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MatBadgeModule,
     MatInputModule,
     MatTableModule,
+    MatSelectModule,
     MatDialogModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule,

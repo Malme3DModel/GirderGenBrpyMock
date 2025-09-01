@@ -138,6 +138,8 @@ export class GirderPalamService {
     'amount_H': 6.0
   };
 
+  public material: any = {};
+
   public palam(): any {
     return {
     'others': this.others,
@@ -149,6 +151,7 @@ export class GirderPalamService {
     'cross': this.cross,
     'crossbeam': this.crossbeam,
     'endbeam': this.endbeam,
+    'material': this.material,
     };
   }
 
@@ -171,6 +174,16 @@ export class GirderPalamService {
       this.crossbeam = value['crossbeam'];
     if('endbeam' in value)
       this.endbeam = value['endbeam'];
+    if('material' in value)
+      this.material = value['material'];
+  }
+
+  public setMaterialProperties(materialData: any[]): void {
+    this.material = {};
+    materialData.forEach(item => {
+      const key = `${item.category}_${item.parameter}`;
+      this.material[key] = item.value;
+    });
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
-import { SettingsService } from 'src/app/service/settings.service';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-attribute-display',

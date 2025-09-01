@@ -11,6 +11,17 @@
       </mat-radio-group>
     </div>
 
+    <div class="settings-section">
+      <h3>単位系設定</h3>
+      <mat-form-field>
+        <mat-label>単位系</mat-label>
+        <mat-select [(value)]="settings.unitSystem" (selectionChange)="onUnitSystemChange($event.value)">
+          <mat-option value="default">デフォルト (mm, N)</mat-option>
+          <mat-option value="metric">メートル系 (m, kN)</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
 
     <div class="settings-section">
       <h3>表示設定</h3>
@@ -89,6 +100,9 @@
             共通
           </mat-checkbox>
           
+          <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.material" (change)="onSideMenuVisibilityChange()">
+            材料強度
+          </mat-checkbox>
           
           <mat-checkbox [(ngModel)]="settings.sideMenuVisibility.pavement" (change)="onSideMenuVisibilityChange()">
             舗装

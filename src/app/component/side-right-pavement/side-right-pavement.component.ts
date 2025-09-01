@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-side-right-pavement',
@@ -13,10 +14,22 @@ export class SideRightPavementComponent{
 
   constructor(public dialogRef: MatDialogRef<SideRightPavementComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    private settings: SettingsService) { }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
+    }
+
+    private convertInputToDefault(value: number, unit: string): number {
+      if (this.settings.unitSystem === 'metric') {
+        if (unit.includes('m') && !unit.includes('mm')) {
+          return value * 1000; // m to mm
+        } else if (unit.includes('N') && !unit.includes('kN')) {
+          return value * 1000; // kN to N
+        }
+      }
+      return value;
     }
 
     private rowheader: string[] = [
@@ -66,8 +79,12 @@ export class SideRightPavementComponent{
           let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[item[0]].name;
-          this.model.pavement[name] = value;
+          
+          const dataItem = this.dataset[item[0]];
+          const convertedValue = this.convertInputToDefault(value, dataItem.unit);
+          
+          const name: string = dataItem.name;
+          this.model.pavement[name] = convertedValue;
         }
         this.redraw();
         return true;

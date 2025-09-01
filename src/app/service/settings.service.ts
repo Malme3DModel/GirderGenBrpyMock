@@ -12,6 +12,7 @@ export interface ComponentColors {
 
 export interface SideMenuVisibility {
   others: boolean;
+  material: boolean;
   pavement: boolean;
   slab: boolean;
   beam: boolean;
@@ -56,6 +57,7 @@ export class SettingsService {
 
   public sideMenuVisibility: SideMenuVisibility = {
     others: true,
+    material: true,
     pavement: true,
     slab: true,
     beam: true,
@@ -68,7 +70,7 @@ export class SettingsService {
   public customInputMenus: CustomInputMenu[] = [];
 
   public sideMenuOrder: string[] = [
-    'others', 'pavement', 'slab', 'beam', 
+    'others', 'material', 'pavement', 'slab', 'beam', 
     'mid', 'cross', 'crossbeam', 'endbeam'
   ];
 
@@ -120,6 +122,7 @@ export class SettingsService {
   public modelOpacity: number = 1.0;
   public backgroundColor: string = '#ffffff';
   public sideMenuMinimized: boolean = false;
+  public unitSystem: 'default' | 'metric' = 'default';
 
   public saveSettings(): void {
     const settings = {
@@ -131,7 +134,8 @@ export class SettingsService {
       attributeDisplay: this.attributeDisplay,
       modelOpacity: this.modelOpacity,
       backgroundColor: this.backgroundColor,
-      sideMenuMinimized: this.sideMenuMinimized
+      sideMenuMinimized: this.sideMenuMinimized,
+      unitSystem: this.unitSystem
     };
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(settings));
   }
@@ -150,6 +154,7 @@ export class SettingsService {
         this.modelOpacity = settings.modelOpacity !== undefined ? settings.modelOpacity : 1.0;
         this.backgroundColor = settings.backgroundColor || '#ffffff';
         this.sideMenuMinimized = settings.sideMenuMinimized !== undefined ? settings.sideMenuMinimized : false;
+        this.unitSystem = settings.unitSystem || 'default';
       } catch (e) {
         console.warn('Failed to load settings from localStorage:', e);
       }

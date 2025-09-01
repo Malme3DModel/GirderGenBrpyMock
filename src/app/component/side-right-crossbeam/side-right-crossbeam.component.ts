@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
-import { SettingsService } from 'src/app/service/settings.service';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-side-right-crossbeam',
@@ -68,6 +68,7 @@ export class SideRightCrossbeamComponent {
         columns: this.columns,
         allowEmpty: false,
         beforeChange: (changes, source)=>{
+          if (source === 'loadData') return true;
           for(const item of changes){
             if (item === null){
               continue
@@ -75,6 +76,16 @@ export class SideRightCrossbeamComponent {
             let value = parseFloat(item[3]);
             if( isNaN(value) )
               return false;
+            
+            const rowData = this.dataset[item[0]];
+            if (rowData && rowData.unit && this.settings.unitSystem === 'metric') {
+              if (rowData.unit.includes('mm')) {
+                value = value * 1000; // Convert m to mm
+              } else if (rowData.unit.includes('N') && !rowData.unit.includes('kN')) {
+                value = value * 1000; // Convert kN to N
+              }
+            }
+            
             const name: string = this.dataset[item[0]].name;
             this.model.crossbeam[name] = value;
           }

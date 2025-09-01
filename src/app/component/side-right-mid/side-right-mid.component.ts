@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
-import { SettingsService } from 'src/app/service/settings.service';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-side-right-mid',
@@ -14,7 +14,8 @@ export class SideRightMidComponent {
 
   constructor(public dialogRef: MatDialogRef<SideRightMidComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    private settings: SettingsService) { }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -116,6 +117,16 @@ export class SideRightMidComponent {
           let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
+          
+          const dataItem = this.dataset[item[0]];
+          if (dataItem && dataItem.unit && this.settings.unitSystem === 'metric') {
+            if (dataItem.unit.includes('mm')) {
+              value = value * 1000; // Convert m to mm
+            } else if (dataItem.unit.includes('N') && !dataItem.unit.includes('kN')) {
+              value = value * 1000; // Convert kN to N
+            }
+          }
+          
           const name: string = this.dataset[item[0]].name;
           this.model.mid[name] = value;
         }

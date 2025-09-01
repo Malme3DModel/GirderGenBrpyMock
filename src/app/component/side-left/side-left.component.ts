@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import { SettingsService } from 'src/app/service/settings.service';
+import { SettingsService } from '../../service/settings.service';
 import { SideRightBeamComponent } from '../side-right-beam/side-right-beam.component';
 import { SideRightCrossComponent } from '../side-right-cross/side-right-cross.component';
 import { SideRightCrossbeamComponent } from '../side-right-crossbeam/side-right-crossbeam.component';
 import { SideRightEndbeamComponent } from '../side-right-endbeam/side-right-endbeam.component';
 import { SideRightMidComponent } from '../side-right-mid/side-right-mid.component';
 import { SideRightOthersComponent } from '../side-right-others/side-right-others.component';
+import { SideRightMaterialComponent } from '../side-right-material/side-right-material.component';
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
 import { SideRightPavementComponent } from '../side-right-pavement/side-right-pavement.component';
 import {ThemePalette} from '@angular/material/core';
@@ -33,7 +34,7 @@ export class SideLeftComponent {
     if (menuId === 'display') {
       return 'none';
     }
-    if (this.settings.lodMode === 200 && menuId !== 'others') {
+    if (this.settings.lodMode === 200 && menuId !== 'others' && menuId !== 'material') {
       return 'none';
     }
     const visibility = this.settings.sideMenuVisibility;
@@ -48,6 +49,7 @@ export class SideLeftComponent {
   public getMenuDisplayName(menuId: string): string {
     const names: { [key: string]: string } = {
       'others': '共通',
+      'material': '材料強度',
       'pavement': '舗装',
       'slab': '床版',
       'beam': '主桁',
@@ -62,6 +64,7 @@ export class SideLeftComponent {
   public getMenuIcon(menuId: string): string {
     const icons: { [key: string]: string } = {
       'others': 'settings',
+      'material': 'science',
       'pavement': 'layers',
       'slab': 'view_module',
       'beam': 'view_stream',
@@ -91,6 +94,8 @@ export class SideLeftComponent {
     let rightSide: any = null;
     if( id==='others') // 共通
       rightSide = SideRightOthersComponent;
+    else if( id==='material')  // 材料強度
+      rightSide = SideRightMaterialComponent;
     else if( id==='pavement')  // 舗装
       rightSide = SideRightPavementComponent;
     else if( id==='slab')  // 床版
