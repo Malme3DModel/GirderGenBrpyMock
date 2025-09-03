@@ -147,7 +147,11 @@ export class SettingsService {
         const settings = JSON.parse(stored);
         this.lodMode = settings.lodMode || 200;
         this.componentColors = { ...this.componentColors, ...settings.componentColors };
-        this.sideMenuVisibility = { ...this.sideMenuVisibility, ...settings.sideMenuVisibility };
+        this.sideMenuVisibility = { 
+          ...this.sideMenuVisibility, 
+          ...settings.sideMenuVisibility,
+          material: settings.sideMenuVisibility?.material !== undefined ? settings.sideMenuVisibility.material : true
+        };
         this.customInputMenus = settings.customInputMenus || [];
         this.sideMenuOrder = settings.sideMenuOrder || this.sideMenuOrder;
         this.attributeDisplay = settings.attributeDisplay !== undefined ? settings.attributeDisplay : true;
@@ -157,8 +161,36 @@ export class SettingsService {
         this.unitSystem = settings.unitSystem || 'default';
       } catch (e) {
         console.warn('Failed to load settings from localStorage:', e);
+        this.initializeDefaults();
       }
+    } else {
+      this.initializeDefaults();
     }
+  }
+
+  private initializeDefaults(): void {
+    this.lodMode = 200;
+    this.sideMenuVisibility = {
+      others: true,
+      material: true,
+      pavement: true,
+      slab: true,
+      beam: true,
+      mid: true,
+      cross: true,
+      crossbeam: true,
+      endbeam: true
+    };
+    this.customInputMenus = [];
+    this.sideMenuOrder = [
+      'others', 'material', 'pavement', 'slab', 'beam', 
+      'mid', 'cross', 'crossbeam', 'endbeam'
+    ];
+    this.attributeDisplay = true;
+    this.modelOpacity = 1.0;
+    this.backgroundColor = '#ffffff';
+    this.sideMenuMinimized = false;
+    this.unitSystem = 'default';
   }
 
   public addCustomInputMenu(menu: CustomInputMenu): void {

@@ -18,6 +18,11 @@
 
 
 app-side-left {
-    width: 15%;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    width: 200px;
+    height: calc(100vh - 64px);
     display: block;
+    z-index: 1000;
 }

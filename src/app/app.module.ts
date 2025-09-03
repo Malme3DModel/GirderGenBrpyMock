@@ -34,7 +34,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSliderModule} from '@angular/material/slider';
 
 import { SideLeftComponent } from './component/side-left/side-left.component';
 import { SideRightSlabComponent } from './component/side-right-slab/side-right-slab.component';
@@ -45,7 +44,6 @@ import { SideRightCrossComponent } from './component/side-right-cross/side-right
 import { SideRightCrossbeamComponent } from './component/side-right-crossbeam/side-right-crossbeam.component';
 import { SideRightEndbeamComponent } from './component/side-right-endbeam/side-right-endbeam.component';
 import { SideRightOthersComponent } from './component/side-right-others/side-right-others.component';
-import { SideRightDisplayComponent } from './component/side-right-display/side-right-display.component';
 import { SideRightSettingsComponent } from './component/side-right-settings/side-right-settings.component';
 import { SideRightMaterialComponent } from './component/side-right-material/side-right-material.component';
 import { AttributeDisplayComponent } from './component/attribute-display/attribute-display.component';
@@ -59,7 +57,6 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MenuComponent,
     SideLeftComponent,
     SideRightOthersComponent,
-    SideRightDisplayComponent,
     SideRightSettingsComponent,
     SideRightMaterialComponent,
     AttributeDisplayComponent,
@@ -92,13 +89,12 @@ import { SocketioService } from './component/chat/socketio-service.service';
     MatDialogModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule,
-    BrowserAnimationsModule,
     MatCheckboxModule,
+    BrowserAnimationsModule,
     MatTabsModule,
     MatRadioModule,
     MatFormFieldModule,
     MatPaginatorModule,
-    MatSliderModule,
   ],
   providers: [SocketioService],
   bootstrap: [AppComponent]
