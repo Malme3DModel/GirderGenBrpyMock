@@ -10,6 +10,8 @@ import { pvTranlateService } from 'src/app/three/libs/pvTranlate.service';
 import { pvRotateService } from 'src/app/three/libs/pvRotate.service';
 import { pyVistaService } from 'src/app/three/libs/pyVista.service';
 import * as printJS  from "print-js";
+import { MatDialog } from '@angular/material/dialog';
+import { SideRightSettingsComponent } from '../side-right-settings/side-right-settings.component';
 
 @Component({
   selector: 'app-menu',
@@ -24,7 +26,8 @@ export class MenuComponent implements OnInit {
     public model: GirderPalamService,
     private girder: pvGirderService,
     private Rotate: pvRotateService,
-    private Move: pvTranlateService) { }
+    private Move: pvTranlateService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -168,6 +171,14 @@ export class MenuComponent implements OnInit {
       "https://fresh-tachometer-148.notion.site/2e5a97e10bb14bfcbece8db66dfe5c66",
       "_blank"
     );
+  }
+
+  public openSettings(): void {
+    this.dialog.open(SideRightSettingsComponent, {
+      width: '600px',
+      position: { right: '10px', top: '70px' },
+      hasBackdrop: false
+    });
   }
 
   // ダーバーに送信する用のデータ作成する

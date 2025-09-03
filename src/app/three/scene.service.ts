@@ -177,9 +177,29 @@ export class SceneService {
       const mesh = this.scene.children[0];
       this.scene.remove(mesh);
     }
-    // 床面を生成する
-     this.createHelper();
+    this.createHelper();
+  }
 
+  public setModelOpacity(opacity: number): void {
+    this.scene.traverse((child) => {
+      if (child instanceof THREE.Mesh && child.material) {
+        if (Array.isArray(child.material)) {
+          child.material.forEach(mat => {
+            mat.transparent = opacity < 1.0;
+            mat.opacity = opacity;
+          });
+        } else {
+          child.material.transparent = opacity < 1.0;
+          child.material.opacity = opacity;
+        }
+      }
+    });
+    this.render();
+  }
+
+  public setBackgroundColor(color: string): void {
+    this.scene.background = new THREE.Color(color);
+    this.render();
   }
 
 }

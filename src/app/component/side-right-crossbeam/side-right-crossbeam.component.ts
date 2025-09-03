@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-side-right-crossbeam',
@@ -13,7 +14,10 @@ export class SideRightCrossbeamComponent {
 
   constructor(public dialogRef: MatDialogRef<SideRightCrossbeamComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    public settings: SettingsService) {
+    
+  }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -56,27 +60,31 @@ export class SideRightCrossbeamComponent {
       }
     ];
 
-    public hotSettings: Handsontable.GridSettings = {
-      data: this.dataset,
-      colHeaders: false,
-      rowHeaders: this.rowheader,
-      columns: this.columns,
-      allowEmpty: false,
-      beforeChange: (changes, source)=>{
-        for(const item of changes){
-          if (item === null){
-            continue
+    public get hotSettings(): Handsontable.GridSettings {
+      return {
+        data: this.dataset,
+        colHeaders: false,
+        rowHeaders: this.rowheader,
+        columns: this.columns,
+        allowEmpty: false,
+        beforeChange: (changes, source)=>{
+          if (source === 'loadData') return true;
+          for(const item of changes){
+            if (item === null){
+              continue
+            }
+            let value = parseFloat(item[3]);
+            if( isNaN(value) )
+              return false;
+            
+            
+            const name: string = this.dataset[item[0]].name;
+            this.model.crossbeam[name] = value;
           }
-          let value = parseFloat(item[3]);
-          if( isNaN(value) )
-            return false;
-          const name: string = this.dataset[item[0]].name;
-          this.model.crossbeam[name] = value;
-        }
-        // 再描画
-        this.redraw();
-        return true;
-      },
-    };
+          this.redraw();
+          return true;
+        },
+      };
+    }
     
 }

@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-side-right-pavement',
@@ -13,11 +14,13 @@ export class SideRightPavementComponent{
 
   constructor(public dialogRef: MatDialogRef<SideRightPavementComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    private settings: SettingsService) { }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
     }
+
 
     private rowheader: string[] = [
       '舗装',
@@ -66,10 +69,12 @@ export class SideRightPavementComponent{
           let value = parseFloat(item[3]);
           if( isNaN(value) )
             return false;
-          const name: string = this.dataset[item[0]].name;
+          
+          const dataItem = this.dataset[item[0]];
+          
+          const name: string = dataItem.name;
           this.model.pavement[name] = value;
         }
-        // 再描画
         this.redraw();
         return true;
       },

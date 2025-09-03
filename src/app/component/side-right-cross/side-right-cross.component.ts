@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import { SettingsService } from '../../service/settings.service';
 
 @Component({
   selector: 'app-side-right-cross',
@@ -13,7 +14,10 @@ export class SideRightCrossComponent {
 
   constructor(public dialogRef: MatDialogRef<SideRightCrossComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    public settings: SettingsService) {
+    
+  }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -67,28 +71,32 @@ export class SideRightCrossComponent {
     ];
 
 
-    public hotSettings: Handsontable.GridSettings = {
-      data: this.dataset,
-      colHeaders: false,
-      rowHeaders: this.rowheader,
-      width: '300',
-      columns: this.columns,
-      colWidths: [50,100],
-      allowEmpty: false,
-      beforeChange: (changes, source)=>{
-        for(const item of changes){
-          if (item === null){
-            continue
+    public get hotSettings(): Handsontable.GridSettings {
+      return {
+        data: this.dataset,
+        colHeaders: false,
+        rowHeaders: this.rowheader,
+        width: '300',
+        columns: this.columns,
+        colWidths: [50,100],
+        allowEmpty: false,
+        beforeChange: (changes, source)=>{
+          for(const item of changes){
+            if (item === null){
+              continue
+            }
+            let value = parseFloat(item[3]);
+            if( isNaN(value) )
+              return false;
+            
+            const dataItem = this.dataset[item[0]];
+            
+            const name: string = this.dataset[item[0]].name;
+            this.model.cross[name] = value;
           }
-          let value = parseFloat(item[3]);
-          if( isNaN(value) )
-            return false;
-          const name: string = this.dataset[item[0]].name;
-          this.model.cross[name] = value;
-        }
-        // 再描画
-        this.redraw();
-        return true;
-      },
-    };
+          this.redraw();
+          return true;
+        },
+      };
+    }
 }

@@ -1,11 +1,25 @@
-<mat-selection-list #shoes [multiple]="false">
-    <mat-list-option (click)="openDialog('others')">共通</mat-list-option>
-    <mat-list-option (click)="openDialog('display')">構成</mat-list-option>
-    <mat-list-option (click)="openDialog('pavement')">舗装</mat-list-option>
-    <mat-list-option (click)="openDialog('slab')">床版</mat-list-option>
-    <mat-list-option (click)="openDialog('beam')">主桁</mat-list-option>
-    <mat-list-option (click)="openDialog('mid')">中間対傾構</mat-list-option>
-    <mat-list-option (click)="openDialog('cross')">横構</mat-list-option>
-    <mat-list-option (click)="openDialog('crossbeam')">荷重分配横桁</mat-list-option>
-    <mat-list-option (click)="openDialog('endbeam')">端横桁</mat-list-option>
-</mat-selection-list>
+<nav class="side-navigation" [class.minimized]="settings.sideMenuMinimized">
+  <div class="nav-header">
+    <h3 *ngIf="!settings.sideMenuMinimized">メニュー</h3>
+    <button mat-icon-button (click)="toggleSideMenu()" class="minimize-button">
+      <mat-icon>{{settings.sideMenuMinimized ? 'menu' : 'menu_open'}}</mat-icon>
+    </button>
+  </div>
+  
+  <div class="nav-content">
+    <!-- Custom menus first -->
+    <button mat-button class="nav-button" *ngFor="let customMenu of settings.customInputMenus" 
+            (click)="openCustomDialog(customMenu)" [title]="settings.sideMenuMinimized ? customMenu.name : ''">
+      <mat-icon *ngIf="settings.sideMenuMinimized">star</mat-icon>
+      <span *ngIf="!settings.sideMenuMinimized">{{customMenu.name}}</span>
+    </button>
+    
+    <!-- Standard menus -->
+    <button mat-button class="nav-button" *ngFor="let menuId of settings.sideMenuOrder" 
+            [style.display]="getMenuVisibility(menuId)" 
+            (click)="openDialog(menuId)" [title]="settings.sideMenuMinimized ? getMenuDisplayName(menuId) : ''">
+      <mat-icon *ngIf="settings.sideMenuMinimized">{{getMenuIcon(menuId)}}</mat-icon>
+      <span *ngIf="!settings.sideMenuMinimized">{{getMenuDisplayName(menuId)}}</span>
+    </button>
+  </div>
+</nav>

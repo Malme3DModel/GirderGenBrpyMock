@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, Optional } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import { SettingsService, CustomInputMenu } from '../../service/settings.service';
 
 @Component({
   selector: 'app-side-right-others',
@@ -13,7 +14,14 @@ export class SideRightOthersComponent{
 
   constructor(public dialogRef: MatDialogRef<SideRightOthersComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    public settings: SettingsService,
+    @Optional() @Inject(MAT_DIALOG_DATA) public customMenuData: CustomInputMenu) {
+    
+    if (this.customMenuData) {
+      this.initializeCustomDataset();
+    }
+  }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -57,44 +65,156 @@ export class SideRightOthersComponent{
       {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
       {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
       {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
+      {name: 'amount_V', value: this.model.beam.amount_V, unit: '本'},
     ];
 
-    private columns = [
-      {
-        data: 'unit',
-        readOnly: true
-      },
-      {
-        data: 'value',
+    private customDataset: any[] = [];
+
+    private get filteredDataset(): any[] {
+      if (this.customMenuData) {
+        return this.customDataset;
       }
-    ];
+      
+      if (this.settings.lodMode === 200) {
+        return this.dataset.filter((item, index) => {
+          return [0, 1, 2, 3, 5, 16, 17].includes(index);
+        });
+      }
+      return this.dataset.filter((item, index) => {
+        return index !== 17;
+      });
+    }
+
+    private get filteredRowHeaders(): string[] {
+      if (this.customMenuData) {
+        return this.customDataset.map(item => item.label || item.name);
+      }
+      
+      if (this.settings.lodMode === 200) {
+        return this.rowheader.filter((item, index) => {
+          return [0, 1, 2, 3, 5, 16].includes(index);
+        }).concat(['主桁本数']);
+      }
+      return this.rowheader;
+    }
+
+    private get columns() {
+      return [
+        {
+          data: 'unit',
+          readOnly: true,
+          width: 60
+        },
+        {
+          data: 'value',
+          width: 120
+        },
+      ];
+    }
 
     private integer_cell: any[] = [
       {row: 2, col: 2, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
-    public hotSettings: Handsontable.GridSettings = {
-      data: this.dataset,
-      colHeaders: false,
-      rowHeaders: this.rowheader,
-      columns: this.columns,
-      cell: this.integer_cell,
-      allowEmpty: false,
-      beforeChange: (changes, source)=>{
-        for(const item of changes){
-          if (item === null){
-            continue;
+    public get hotSettings(): Handsontable.GridSettings {
+      return {
+        data: this.filteredDataset,
+        colHeaders: ['単位', '値'],
+        rowHeaders: this.filteredRowHeaders,
+        columns: this.columns,
+        cell: this.integer_cell,
+        allowEmpty: false,
+        beforeChange: (changes, source)=>{
+          for(const item of changes){
+            if (item === null){
+              continue;
+            }
+            let value = item[3];
+            const currentDataset = this.filteredDataset;
+            const dataItem = currentDataset[item[0]];
+            const name: string = dataItem.name;
+            const isInteger = this.integer_cell.find( element => element.row === item[0]);
+            
+            if (item[1] === 'value') {
+              if(isInteger != null)
+                value = Math.round(value);
+              
+              if (this.customMenuData) {
+                const param = this.customMenuData.parameters.find(p => p.key === name);
+                if (param) {
+                  if (param.category === 'beam') {
+                    this.model.beam[name] = value;
+                  } else if (param.category === 'slab') {
+                    this.model.slab[name] = value;
+                  } else if (param.category === 'pavement') {
+                    this.model.pavement[name] = value;
+                  } else if (param.category === 'mid') {
+                    this.model.mid[name] = value;
+                  } else if (param.category === 'cross') {
+                    this.model.cross[name] = value;
+                  } else if (param.category === 'crossbeam') {
+                    this.model.crossbeam[name] = value;
+                  } else if (param.category === 'endbeam') {
+                    this.model.endbeam[name] = value;
+                  } else {
+                    this.model.others[name] = value;
+                  }
+                }
+              } else {
+                if (name === 'amount_V') {
+                  this.model.beam[name] = value;
+                } else {
+                  this.model.others[name] = value;
+                }
+              }
+            }
           }
-          let value = item[3];
-          const name: string = this.dataset[item[0]].name;
-          const isInteger = this.integer_cell.find( element => element.row === item[0]);
-          if(isInteger != null)
-            value = Math.round(value);
-          this.model.others[name] = value;
+          this.redraw();
+          return true;
+        },
+      };
+    }
+
+    private initializeCustomDataset(): void {
+      this.customDataset = this.customMenuData.parameters.map(param => {
+        let value;
+        if (param.category === 'beam') {
+          value = this.model.beam[param.key];
+        } else if (param.category === 'slab') {
+          value = this.model.slab[param.key];
+        } else if (param.category === 'pavement') {
+          value = this.model.pavement[param.key];
+        } else if (param.category === 'mid') {
+          value = this.model.mid[param.key];
+        } else if (param.category === 'cross') {
+          value = this.model.cross[param.key];
+        } else if (param.category === 'crossbeam') {
+          value = this.model.crossbeam[param.key];
+        } else if (param.category === 'endbeam') {
+          value = this.model.endbeam[param.key];
+        } else {
+          value = this.model.others[param.key];
         }
-        // 再描画
-        this.redraw();
-        return true;
-      },
-    };
+        
+        return {
+          name: param.key,
+          label: param.label,
+          value: value,
+          unit: this.getUnitForParameter(param.key)
+        };
+      });
+    }
+
+    private getUnitForParameter(key: string): string {
+      const unitMap: { [key: string]: string } = {
+        'L': 'm', 'L_01': 'm', 'L_02': 'm',
+        'BPx': 'm', 'BPy': 'm', 'BPz': 'm',
+        'EPx': 'm', 'EPy': 'm', 'EPz': 'm',
+        'D': 'mm', 'tf': 'mm', 'W': 'mm', 'tw': 'mm',
+        'b1': 'm', 'b2': 'm', 'b3': 'm', 'SH': 'mm',
+        'T1': 'mm', 'T2': 'mm', 'T3': 'mm',
+        'amount_H': '列', 'amount_V': '本'
+      };
+      return unitMap[key] || '';
+    }
 }

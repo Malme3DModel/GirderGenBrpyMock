@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import Handsontable from 'handsontable';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
+import { SettingsService } from '../../service/settings.service';
 import {ThemePalette} from '@angular/material/core';
 
 export interface Task {
@@ -21,7 +22,10 @@ export class SideRightBeamComponent {
 
   constructor(public dialogRef: MatDialogRef<SideRightBeamComponent>,
     public model: GirderPalamService,
-    private girder: pvGirderService) { }
+    private girder: pvGirderService,
+    public settings: SettingsService) {
+    
+  }
 
     public redraw(): void {
       this.girder.createGirder(this.model.palam());
@@ -63,31 +67,35 @@ export class SideRightBeamComponent {
       {row: 0, col: 1, type: 'numeric', numericFormat: {pattern: 'mantissa'}},
     ];
 
-    public hotSettings: Handsontable.GridSettings = {
-      data: this.dataset,
-      colHeaders: false,
-      rowHeaders: this.rowheader,
-      columns: this.columns,
-      cell: this.integer_cell,
-      allowEmpty: false,
-      beforeChange: (changes, source)=>{
-        for(const item of changes){
-          if (item === null){
-            continue
+    public get hotSettings(): Handsontable.GridSettings {
+      return {
+        data: this.dataset,
+        colHeaders: false,
+        rowHeaders: this.rowheader,
+        columns: this.columns,
+        cell: this.integer_cell,
+        allowEmpty: false,
+        beforeChange: (changes, source)=>{
+          for(const item of changes){
+            if (item === null){
+              continue
+            }
+            let value = parseFloat(item[3]);
+            if( isNaN(value) )
+              return false;
+            
+            const dataItem = this.dataset[item[0]];
+            
+            const name: string = this.dataset[item[0]].name;
+            const isInteger = this.integer_cell.find( element => element.row === item[0]);
+            if(isInteger != null)
+              value = Math.round(value);
+            this.model.beam[name] = value;
           }
-          let value = parseFloat(item[3]);
-          if( isNaN(value) )
-            return false;
-          const name: string = this.dataset[item[0]].name;
-          const isInteger = this.integer_cell.find( element => element.row === item[0]);
-          if(isInteger != null)
-            value = Math.round(value);
-          this.model.beam[name] = value;
-        }
-        // 再描画
-        this.redraw();
-        return true;
-      },
-    };
+          this.redraw();
+          return true;
+        },
+      };
+    }
 
 }

@@ -5,6 +5,7 @@ import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter'
 import * as FileSaver from "file-saver";
 import { pyVistaService } from 'src/app/three/libs/pyVista.service';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
+import { SettingsService } from 'src/app/service/settings.service';
 import { ArrayH1Service } from 'src/app/three/Hsteel/Array_Hsteel01.service';
 import { ArrayH2Service } from 'src/app/three/Hsteel/Array_Hsteel02.service';
 import { ArrayH3Service } from 'src/app/three/Hsteel/Array_Hsteel03.service';
@@ -44,7 +45,8 @@ export class pvGirderService {
     private AddSlab: AddSlabService,
     private AddPavement: AddPavementService,
     private Rotate: pvRotateService,
-    private Move: pvTranlateService
+    private Move: pvTranlateService,
+    private settings: SettingsService
   ) {
   }
 
@@ -314,6 +316,15 @@ export class pvGirderService {
       Pavement0 = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, T4, T5, L);
     }
 
+    this.applyComponentColors(MainGirader, this.settings.componentColors.beam);
+    this.applyComponentColors(IntermediateSwayBracing, this.settings.componentColors.mid);
+    this.applyComponentColors(CrossBeam01_U, this.settings.componentColors.cross);
+    this.applyComponentColors(CrossBeam01_L, this.settings.componentColors.cross);
+    this.applyComponentColors(CrossBeam02, this.settings.componentColors.crossbeam);
+    this.applyComponentColors(CrossBeam03, this.settings.componentColors.endbeam);
+    this.applyComponentColors(Slab0, this.settings.componentColors.slab);
+    this.applyComponentColors(Pavement0, this.settings.componentColors.pavement);
+
     const Girder_0 = new THREE.Group();
     Girder_0.add(MainGirader, CrossBeam01_U, CrossBeam01_L, IntermediateSwayBracing, CrossBeam02, CrossBeam03, Gusset01, Gusset02, Gusset03, Gusset04_U, Gusset04_L);
     const Girder = this.Move.MoveObject(Girder_0, [0.0, y2, -z2-T3]);
@@ -357,6 +368,19 @@ export class pvGirderService {
   private Cox: number = 0;
   private Coy: number = 0;
   private Coz: number = 0;
+
+  private applyComponentColors(group: THREE.Group, color: string): void {
+    group.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        if (child.material instanceof THREE.Material) {
+          const material = child.material as any;
+          if (material.color) {
+            material.color.setHex(parseInt(color.replace('#', '0x')));
+          }
+        }
+      }
+    });
+  }
 
   download() {
     const result = this.Exporter.parse(this.scene.scene);
