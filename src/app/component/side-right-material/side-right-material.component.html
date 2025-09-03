@@ -1,15 +1,6 @@
 <div class="dialog-content">
   <h2 mat-dialog-title>材料強度設定</h2>
   
-  <div class="unit-system-selector">
-    <mat-form-field>
-      <mat-label>単位系</mat-label>
-      <mat-select [(value)]="unitSystem" (selectionChange)="changeUnitSystem($event.value)">
-        <mat-option value="default">デフォルト (mm, N)</mat-option>
-        <mat-option value="metric">メートル系 (m, kN)</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
 
   <div class="material-table">
     <hot-table

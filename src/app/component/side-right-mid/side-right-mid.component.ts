@@ -118,14 +118,6 @@ export class SideRightMidComponent {
           if( isNaN(value) )
             return false;
           
-          const dataItem = this.dataset[item[0]];
-          if (dataItem && dataItem.unit && this.settings.unitSystem === 'metric') {
-            if (dataItem.unit.includes('mm')) {
-              value = value * 1000; // Convert m to mm
-            } else if (dataItem.unit.includes('N') && !dataItem.unit.includes('kN')) {
-              value = value * 1000; // Convert kN to N
-            }
-          }
           
           const name: string = this.dataset[item[0]].name;
           this.model.mid[name] = value;

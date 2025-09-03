@@ -68,14 +68,6 @@ export class SideRightSlabComponent{
       }
     ];
 
-    private convertInputToDefault(value: number, unit: string): number {
-      if (this.settings.unitSystem === 'metric') {
-        if (unit === 'm') {
-          return value * 1000;
-        }
-      }
-      return value;
-    }
 
     public get hotSettings(): Handsontable.GridSettings {
       return {
@@ -93,11 +85,8 @@ export class SideRightSlabComponent{
             if( isNaN(value) )
               return false;
             
-            const rowData = this.dataset[item[0]];
-            const convertedValue = this.convertInputToDefault(value, rowData.unit);
-            
             const name: string = this.dataset[item[0]].name;
-            this.model.slab[name] = convertedValue;
+            this.model.slab[name] = value;
           }
           this.redraw();
           return true;

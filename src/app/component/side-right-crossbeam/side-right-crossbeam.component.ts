@@ -77,14 +77,6 @@ export class SideRightCrossbeamComponent {
             if( isNaN(value) )
               return false;
             
-            const rowData = this.dataset[item[0]];
-            if (rowData && rowData.unit && this.settings.unitSystem === 'metric') {
-              if (rowData.unit.includes('mm')) {
-                value = value * 1000; // Convert m to mm
-              } else if (rowData.unit.includes('N') && !rowData.unit.includes('kN')) {
-                value = value * 1000; // Convert kN to N
-              }
-            }
             
             const name: string = this.dataset[item[0]].name;
             this.model.crossbeam[name] = value;

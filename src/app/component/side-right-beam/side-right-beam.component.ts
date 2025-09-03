@@ -85,13 +85,6 @@ export class SideRightBeamComponent {
               return false;
             
             const dataItem = this.dataset[item[0]];
-            if (dataItem && dataItem.unit && this.settings.unitSystem === 'metric') {
-              if (dataItem.unit.includes('mm')) {
-                value = value * 1000; // Convert m to mm
-              } else if (dataItem.unit.includes('N') && !dataItem.unit.includes('kN')) {
-                value = value * 1000; // Convert kN to N
-              }
-            }
             
             const name: string = this.dataset[item[0]].name;
             const isInteger = this.integer_cell.find( element => element.row === item[0]);

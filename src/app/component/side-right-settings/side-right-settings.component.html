@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>設定</h1>
 
+<div class="settings-dialog-content">
 <mat-tab-group [(selectedIndex)]="selectedTab">
   <!-- General Settings Tab -->
   <mat-tab label="一般">
@@ -11,16 +12,6 @@
       </mat-radio-group>
     </div>
 
-    <div class="settings-section">
-      <h3>単位系設定</h3>
-      <mat-form-field>
-        <mat-label>単位系</mat-label>
-        <mat-select [(value)]="settings.unitSystem" (selectionChange)="onUnitSystemChange($event.value)">
-          <mat-option value="default">デフォルト (mm, N)</mat-option>
-          <mat-option value="metric">メートル系 (m, kN)</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
 
 
     <div class="settings-section">
@@ -330,6 +321,7 @@
     </div>
   </mat-tab>
 </mat-tab-group>
+</div>
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>閉じる</button>

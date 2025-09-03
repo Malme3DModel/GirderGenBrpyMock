@@ -44,10 +44,6 @@ export class SideRightSettingsComponent {
     this.redraw();
   }
 
-  public onUnitSystemChange(system: string): void {
-    this.settings.unitSystem = system as 'default' | 'metric';
-    this.settings.saveSettings();
-  }
 
   public  onOpacityChange(): void {
     this.scene.setModelOpacity(this.settings.modelOpacity);

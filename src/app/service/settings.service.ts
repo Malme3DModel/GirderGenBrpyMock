@@ -122,7 +122,6 @@ export class SettingsService {
   public modelOpacity: number = 1.0;
   public backgroundColor: string = '#ffffff';
   public sideMenuMinimized: boolean = false;
-  public unitSystem: 'default' | 'metric' = 'default';
 
   public saveSettings(): void {
     const settings = {
@@ -134,8 +133,7 @@ export class SettingsService {
       attributeDisplay: this.attributeDisplay,
       modelOpacity: this.modelOpacity,
       backgroundColor: this.backgroundColor,
-      sideMenuMinimized: this.sideMenuMinimized,
-      unitSystem: this.unitSystem
+      sideMenuMinimized: this.sideMenuMinimized
     };
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(settings));
   }
@@ -158,7 +156,6 @@ export class SettingsService {
         this.modelOpacity = settings.modelOpacity !== undefined ? settings.modelOpacity : 1.0;
         this.backgroundColor = settings.backgroundColor || '#ffffff';
         this.sideMenuMinimized = settings.sideMenuMinimized !== undefined ? settings.sideMenuMinimized : false;
-        this.unitSystem = settings.unitSystem || 'default';
       } catch (e) {
         console.warn('Failed to load settings from localStorage:', e);
         this.initializeDefaults();
@@ -190,7 +187,6 @@ export class SettingsService {
     this.modelOpacity = 1.0;
     this.backgroundColor = '#ffffff';
     this.sideMenuMinimized = false;
-    this.unitSystem = 'default';
   }
 
   public addCustomInputMenu(menu: CustomInputMenu): void {

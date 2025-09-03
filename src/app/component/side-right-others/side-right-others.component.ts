@@ -48,24 +48,24 @@ export class SideRightOthersComponent{
     ];
 
     private dataset: any[] = [
-      {name: 'ProjectName', value: this.model.others.Name_P, unit: '', unitSystem: 'default'},
-      {name: 'RouteName', value: this.model.others.Name_R, unit: '', unitSystem: 'default'},
-      {name: 'RoadClass', value: this.model.others.Class_R, unit: '', unitSystem: 'default'},
-      {name: 'L', value: this.model.others.L, unit: 'm', unitSystem: 'default'},
-      {name: 'L_01', value: this.model.others.L_01, unit: 'm', unitSystem: 'default'},
-      {name: 'L_02', value: this.model.others.L_02, unit: 'm', unitSystem: 'default'},
-      {name: 'Milepost_B', value: this.model.others.Milepost_B, unit: 'km', unitSystem: 'default'},
-      {name: 'Milepost_E', value: this.model.others.Milepost_E, unit: 'km', unitSystem: 'default'},
-      {name: 'BP', value: this.model.others.BP, unit: 'NO.', unitSystem: 'default'},
-      {name: 'BPx', value: this.model.others.BPx, unit: 'm', unitSystem: 'default'},
-      {name: 'BPy', value: this.model.others.BPy, unit: 'm', unitSystem: 'default'},
-      {name: 'BPz', value: this.model.others.BPz, unit: 'm', unitSystem: 'default'},
-      {name: 'EP', value: this.model.others.EP, unit: 'NO.', unitSystem: 'default'},
-      {name: 'EPx', value: this.model.others.EPx, unit: 'm', unitSystem: 'default'},
-      {name: 'EPy', value: this.model.others.EPy, unit: 'm', unitSystem: 'default'},
-      {name: 'EPz', value: this.model.others.EPz, unit: 'm', unitSystem: 'default'},
-      {name: 'amount_H', value: this.model.others.amount_H, unit: '列', unitSystem: 'default'},
-      {name: 'amount_V', value: this.model.beam.amount_V, unit: '本', unitSystem: 'default'},
+      {name: 'ProjectName', value: this.model.others.Name_P, unit: ''},
+      {name: 'RouteName', value: this.model.others.Name_R, unit: ''},
+      {name: 'RoadClass', value: this.model.others.Class_R, unit: ''},
+      {name: 'L', value: this.model.others.L, unit: 'm'},
+      {name: 'L_01', value: this.model.others.L_01, unit: 'm'},
+      {name: 'L_02', value: this.model.others.L_02, unit: 'm'},
+      {name: 'Milepost_B', value: this.model.others.Milepost_B, unit: 'km'},
+      {name: 'Milepost_E', value: this.model.others.Milepost_E, unit: 'km'},
+      {name: 'BP', value: this.model.others.BP, unit: 'NO.'},
+      {name: 'BPx', value: this.model.others.BPx, unit: 'm'},
+      {name: 'BPy', value: this.model.others.BPy, unit: 'm'},
+      {name: 'BPz', value: this.model.others.BPz, unit: 'm'},
+      {name: 'EP', value: this.model.others.EP, unit: 'NO.'},
+      {name: 'EPx', value: this.model.others.EPx, unit: 'm'},
+      {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
+      {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
+      {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
+      {name: 'amount_V', value: this.model.beam.amount_V, unit: '本'},
     ];
 
     private customDataset: any[] = [];
@@ -109,12 +109,6 @@ export class SideRightOthersComponent{
           data: 'value',
           width: 120
         },
-        {
-          data: 'unitSystem',
-          type: 'dropdown',
-          source: ['default', 'metric'],
-          width: 80
-        }
       ];
     }
 
@@ -125,7 +119,7 @@ export class SideRightOthersComponent{
     public get hotSettings(): Handsontable.GridSettings {
       return {
         data: this.filteredDataset,
-        colHeaders: ['単位', '値', '単位系'],
+        colHeaders: ['単位', '値'],
         rowHeaders: this.filteredRowHeaders,
         columns: this.columns,
         cell: this.integer_cell,
@@ -139,26 +133,11 @@ export class SideRightOthersComponent{
             const currentDataset = this.filteredDataset;
             const dataItem = currentDataset[item[0]];
             const name: string = dataItem.name;
-            const unit: string = dataItem.unit;
-            const unitSystem: string = dataItem.unitSystem || 'default';
             const isInteger = this.integer_cell.find( element => element.row === item[0]);
-            
-            if (item[1] === 'unitSystem') {
-              dataItem.unitSystem = value;
-              return true;
-            }
             
             if (item[1] === 'value') {
               if(isInteger != null)
                 value = Math.round(value);
-              
-              if (unitSystem === 'metric' && typeof value === 'number') {
-                if (unit === 'm') {
-                  value = value * 1000;
-                } else if (unit === 'N') {
-                  value = value * 1000;
-                }
-              }
               
               if (this.customMenuData) {
                 const param = this.customMenuData.parameters.find(p => p.key === name);
@@ -221,8 +200,7 @@ export class SideRightOthersComponent{
           name: param.key,
           label: param.label,
           value: value,
-          unit: this.getUnitForParameter(param.key),
-          unitSystem: 'default'
+          unit: this.getUnitForParameter(param.key)
         };
       });
     }

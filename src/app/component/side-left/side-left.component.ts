@@ -84,7 +84,9 @@ export class SideLeftComponent {
     }
     
     this.currentDialogRef = this.dialog.open(SideRightOthersComponent, {
-      width: '700px',
+      width: '800px',
+      height: '600px',
+      maxHeight: '90vh',
       data: customMenu
     });
   }
@@ -119,7 +121,9 @@ export class SideLeftComponent {
     }
 
     this.currentDialogRef = this.dialog.open(rightSide, {
-      width: '700px',
+      width: '800px',
+      height: '600px',
+      maxHeight: '90vh',
       position: { right: '10px', top: '70px' },
       hasBackdrop: false
     });

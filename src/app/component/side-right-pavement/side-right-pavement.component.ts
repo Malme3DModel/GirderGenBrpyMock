@@ -21,16 +21,6 @@ export class SideRightPavementComponent{
       this.girder.createGirder(this.model.palam());
     }
 
-    private convertInputToDefault(value: number, unit: string): number {
-      if (this.settings.unitSystem === 'metric') {
-        if (unit.includes('m') && !unit.includes('mm')) {
-          return value * 1000; // m to mm
-        } else if (unit.includes('N') && !unit.includes('kN')) {
-          return value * 1000; // kN to N
-        }
-      }
-      return value;
-    }
 
     private rowheader: string[] = [
       '舗装',
@@ -81,10 +71,9 @@ export class SideRightPavementComponent{
             return false;
           
           const dataItem = this.dataset[item[0]];
-          const convertedValue = this.convertInputToDefault(value, dataItem.unit);
           
           const name: string = dataItem.name;
-          this.model.pavement[name] = convertedValue;
+          this.model.pavement[name] = value;
         }
         this.redraw();
         return true;
