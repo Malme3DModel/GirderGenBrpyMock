@@ -53,7 +53,7 @@ export class SideLeftComponent {
       return;
 
     this.dialog.open(rightSide, {
-      width: '400px',
+      width: '600px',
       position: { right: '10px', top: '70px' },
       hasBackdrop: false
     });
