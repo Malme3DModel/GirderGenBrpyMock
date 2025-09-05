@@ -105,7 +105,6 @@ export class SideRightMidComponent {
       rowHeaders: this.rowheader,
       width: '330',
       columns: this.columns,
-      colWidths: [50,100],
       allowEmpty: false,
       preventOverflow: 'horizontal',
       beforeChange: (changes, source)=>{

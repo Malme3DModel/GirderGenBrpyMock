@@ -6,3 +6,12 @@ body {
     margin: 0;
     overflow: hidden;
   }
+
+/* Force hide horizontal scrollbars in Handsontable components */
+.handsontable .wtHolder {
+    overflow-x: hidden !important;
+}
+
+.handsontable .wtHider {
+    overflow-x: hidden !important;
+}
