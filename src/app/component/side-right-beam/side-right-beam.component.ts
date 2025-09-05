@@ -70,6 +70,7 @@ export class SideRightBeamComponent {
       columns: this.columns,
       cell: this.integer_cell,
       allowEmpty: false,
+      preventOverflow: 'horizontal',
       beforeChange: (changes, source)=>{
         for(const item of changes){
           if (item === null){

@@ -75,6 +75,7 @@ export class SideRightCrossComponent {
       columns: this.columns,
       colWidths: [50,100],
       allowEmpty: false,
+      preventOverflow: 'horizontal',
       beforeChange: (changes, source)=>{
         for(const item of changes){
           if (item === null){

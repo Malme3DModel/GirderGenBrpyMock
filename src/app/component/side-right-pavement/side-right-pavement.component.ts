@@ -54,6 +54,7 @@ export class SideRightPavementComponent{
       rowHeaders: this.rowheader,
       columns: this.columns,
       allowEmpty: false,
+      preventOverflow: 'horizontal',
       beforeChange: (changes, source)=>{
         for(const item of changes){
           if (item === null){
