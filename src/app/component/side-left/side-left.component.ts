@@ -52,6 +52,8 @@ export class SideLeftComponent {
     if(rightSide==null)
       return;
 
+    this.dialog.closeAll();
+
     this.dialog.open(rightSide, {
       width: '400px',
       position: { right: '10px', top: '70px' },
