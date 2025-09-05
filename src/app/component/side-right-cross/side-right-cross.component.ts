@@ -71,7 +71,7 @@ export class SideRightCrossComponent {
       data: this.dataset,
       colHeaders: false,
       rowHeaders: this.rowheader,
-      width: '300',
+      colWidths: [50, 100],
       columns: this.columns,
       allowEmpty: false,
       preventOverflow: 'horizontal',

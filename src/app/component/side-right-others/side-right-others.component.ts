@@ -77,6 +77,7 @@ export class SideRightOthersComponent{
       colHeaders: false,
       rowHeaders: this.rowheader,
       columns: this.columns,
+      colWidths: [50, 150],
       cell: this.integer_cell,
       allowEmpty: false,
       preventOverflow: 'horizontal',

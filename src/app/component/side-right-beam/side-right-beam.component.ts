@@ -68,6 +68,7 @@ export class SideRightBeamComponent {
       colHeaders: false,
       rowHeaders: this.rowheader,
       columns: this.columns,
+      colWidths: [50, 100],
       cell: this.integer_cell,
       allowEmpty: false,
       preventOverflow: 'horizontal',

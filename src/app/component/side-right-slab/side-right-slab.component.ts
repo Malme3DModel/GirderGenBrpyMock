@@ -71,6 +71,7 @@ export class SideRightSlabComponent{
       colHeaders: false,
       rowHeaders: this.rowheader,
       columns: this.columns,
+      colWidths: [50, 100],
       allowEmpty: false,
       preventOverflow: 'horizontal',
       beforeChange: (changes, source)=>{

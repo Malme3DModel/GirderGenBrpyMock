@@ -103,8 +103,8 @@ export class SideRightMidComponent {
       data: this.dataset,
       colHeaders: false,
       rowHeaders: this.rowheader,
-      width: '330',
       columns: this.columns,
+      colWidths: [50, 100],
       allowEmpty: false,
       preventOverflow: 'horizontal',
       beforeChange: (changes, source)=>{
