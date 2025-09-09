@@ -169,6 +169,9 @@ export class MenuComponent implements OnInit {
     );
   }
 
+  public openChatbot() {
+  }
+
   // ダーバーに送信する用のデータ作成する
   private getPostJson(): string {
 
