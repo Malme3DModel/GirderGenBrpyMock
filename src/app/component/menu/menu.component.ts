@@ -27,6 +27,11 @@ export class MenuComponent implements OnInit {
     private Move: pvTranlateService) { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+      if (typeof window !== 'undefined' && (window as any).chatplus) {
+        (window as any).chatplus.setWindowStatus('open');
+      }
+    }, 1000);
   }
 
   public open(evt: any) {
@@ -170,6 +175,10 @@ export class MenuComponent implements OnInit {
   }
 
   public openChatbot() {
+    const chatplusHeader = document.getElementById('chatplusheader');
+    if (chatplusHeader) {
+      chatplusHeader.click();
+    }
   }
 
   // ダーバーに送信する用のデータ作成する
