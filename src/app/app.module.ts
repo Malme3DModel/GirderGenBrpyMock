@@ -52,6 +52,9 @@ import { SettingsMenuComponent } from './component/settings-menu/settings-menu.c
 import { SettingsCustomMenuComponent } from './component/settings-custom-menu/settings-custom-menu.component';
 import { SettingsUnitsComponent } from './component/settings-units/settings-units.component';
 import { SettingsMaterialStrengthComponent } from './component/settings-material-strength/settings-material-strength.component';
+import { SideRightLod200Component } from './component/side-right-lod200/side-right-lod200.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,8 @@ import { SettingsMaterialStrengthComponent } from './component/settings-material
     SettingsMenuComponent,
     SettingsCustomMenuComponent,
     SettingsUnitsComponent,
-    SettingsMaterialStrengthComponent
+    SettingsMaterialStrengthComponent,
+    SideRightLod200Component
   ],
   imports: [
     BrowserModule,
@@ -100,7 +104,9 @@ import { SettingsMaterialStrengthComponent } from './component/settings-material
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatRadioModule,
+    MatSlideToggleModule
   ],
   providers: [SocketioService],
   bootstrap: [AppComponent]

@@ -1,10 +1,10 @@
 <mat-selection-list #shoes [multiple]="false">
     <mat-list-option (click)="openDialog('others')">共通</mat-list-option>
-    <mat-list-option (click)="openDialog('pavement')">舗装</mat-list-option>
-    <mat-list-option (click)="openDialog('slab')">床版</mat-list-option>
-    <mat-list-option (click)="openDialog('beam')">主桁</mat-list-option>
-    <mat-list-option (click)="openDialog('mid')">中間対傾構</mat-list-option>
-    <mat-list-option (click)="openDialog('cross')">横構</mat-list-option>
-    <mat-list-option (click)="openDialog('crossbeam')">荷重分配横桁</mat-list-option>
-    <mat-list-option (click)="openDialog('endbeam')">端横桁</mat-list-option>
+    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300'" (click)="openDialog('pavement')">舗装</mat-list-option>
+    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300'" (click)="openDialog('slab')">床版</mat-list-option>
+    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300'" (click)="openDialog('beam')">主桁</mat-list-option>
+    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300'" (click)="openDialog('mid')">中間対傾構</mat-list-option>
+    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300'" (click)="openDialog('cross')">横構</mat-list-option>
+    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300'" (click)="openDialog('crossbeam')">荷重分配横桁</mat-list-option>
+    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300'" (click)="openDialog('endbeam')">端横桁</mat-list-option>
 </mat-selection-list>

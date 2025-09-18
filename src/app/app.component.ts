@@ -13,7 +13,8 @@ export class AppComponent{
 
   constructor(
     public changeDetectorRef: ChangeDetectorRef,
-    public dialog: MatDialog){ }
+    public dialog: MatDialog,
+    public model: GirderPalamService){ }
 
     public openChat(){
       this.dialog.open(ChatComponent, {

@@ -10,6 +10,8 @@ import { SideRightDisplayComponent } from '../side-right-display/side-right-disp
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
 import { SideRightPavementComponent } from '../side-right-pavement/side-right-pavement.component';
 import { SettingsModelComponent } from '../settings-model/settings-model.component';
+import { SideRightLod200Component } from '../side-right-lod200/side-right-lod200.component';
+import { GirderPalamService } from '../../service/girder-palam.service';
 import {ThemePalette} from '@angular/material/core';
 
 export interface Task {
@@ -26,13 +28,18 @@ export interface Task {
 })
 export class SideLeftComponent {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public model: GirderPalamService) { }
 
   public openDialog(id: string): void {
 
     let rightSide: any = null;
-    if( id==='others') // 共通
-      rightSide = SideRightOthersComponent;
+    if( id==='others') { // 共通
+      if (this.model.generalSettings.lodMode === 'LOD200') {
+        rightSide = SideRightLod200Component;
+      } else {
+        rightSide = SideRightOthersComponent;
+      }
+    }
       else if( id==='display') { // 構成・表示 -> モデル設定にリダイレクト
       this.openModelSettings();
       return;

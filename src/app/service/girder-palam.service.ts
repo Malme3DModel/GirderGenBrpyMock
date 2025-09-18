@@ -134,6 +134,11 @@ export class GirderPalamService {
     'amount_H': 6.0
   };
 
+  public generalSettings: any = {
+    lodMode: 'LOD300', // 'LOD200' or 'LOD300'
+    showAttributeInfo: false
+  };
+
   public materialStrength: any = {
     steel: {
       mainGirder: {
@@ -215,6 +220,7 @@ export class GirderPalamService {
     'crossbeam': this.crossbeam,
     'endbeam': this.endbeam,
     'materialStrength': this.materialStrength,
+    'generalSettings': this.generalSettings,
     };
   }
 
@@ -239,6 +245,8 @@ export class GirderPalamService {
       this.endbeam = value['endbeam'];
     if('materialStrength' in value)
       this.materialStrength = value['materialStrength'];
+    if('generalSettings' in value)
+      this.generalSettings = value['generalSettings'];
   }
 
 }
