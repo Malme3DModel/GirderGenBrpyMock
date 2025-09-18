@@ -139,6 +139,18 @@ export class GirderPalamService {
     showAttributeInfo: false
   };
 
+  public menuSettings: any = {
+    visibleMenus: {
+      pavement: true,    // 舗装
+      slab: true,        // 床版
+      beam: true,        // 主桁
+      mid: true,         // 中間対傾構
+      cross: true,       // 横構
+      crossbeam: true,   // 荷重分配横桁
+      endbeam: true      // 端横桁
+    }
+  };
+
   public materialStrength: any = {
     steel: {
       mainGirder: {
@@ -221,6 +233,7 @@ export class GirderPalamService {
     'endbeam': this.endbeam,
     'materialStrength': this.materialStrength,
     'generalSettings': this.generalSettings,
+    'menuSettings': this.menuSettings,
     };
   }
 
@@ -247,6 +260,8 @@ export class GirderPalamService {
       this.materialStrength = value['materialStrength'];
     if('generalSettings' in value)
       this.generalSettings = value['generalSettings'];
+    if('menuSettings' in value)
+      this.menuSettings = value['menuSettings'];
   }
 
 }
