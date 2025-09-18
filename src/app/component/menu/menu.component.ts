@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
+import { MatDialog } from '@angular/material/dialog';
 import { GirderPalamService } from 'src/app/service/girder-palam.service';
 import { pvGirderService } from 'src/app/three/pvGirder.service';
 import { SceneService } from 'src/app/three/scene.service';
@@ -10,6 +11,11 @@ import { pvTranlateService } from 'src/app/three/libs/pvTranlate.service';
 import { pvRotateService } from 'src/app/three/libs/pvRotate.service';
 import { pyVistaService } from 'src/app/three/libs/pyVista.service';
 import * as printJS  from "print-js";
+import { SettingsGeneralComponent } from '../settings-general/settings-general.component';
+import { SettingsModelComponent } from '../settings-model/settings-model.component';
+import { SettingsMenuComponent } from '../settings-menu/settings-menu.component';
+import { SettingsCustomMenuComponent } from '../settings-custom-menu/settings-custom-menu.component';
+import { SettingsUnitsComponent } from '../settings-units/settings-units.component';
 
 @Component({
   selector: 'app-menu',
@@ -24,7 +30,8 @@ export class MenuComponent implements OnInit {
     public model: GirderPalamService,
     private girder: pvGirderService,
     private Rotate: pvRotateService,
-    private Move: pvTranlateService) { }
+    private Move: pvTranlateService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -179,6 +186,31 @@ export class MenuComponent implements OnInit {
     if (chatplusHeader) {
       chatplusHeader.click();
     }
+  }
+
+  public openSettingsDialog(id: string): void {
+    let settingsComponent: any = null;
+    if (id === 'general')
+      settingsComponent = SettingsGeneralComponent;
+    else if (id === 'model')
+      settingsComponent = SettingsModelComponent;
+    else if (id === 'menu')
+      settingsComponent = SettingsMenuComponent;
+    else if (id === 'custom-menu')
+      settingsComponent = SettingsCustomMenuComponent;
+    else if (id === 'units')
+      settingsComponent = SettingsUnitsComponent;
+
+    if (settingsComponent == null)
+      return;
+
+    this.dialog.closeAll();
+
+    this.dialog.open(settingsComponent, {
+      width: '500px',
+      position: { right: '10px', top: '70px' },
+      hasBackdrop: false
+    });
   }
 
   // ダーバーに送信する用のデータ作成する

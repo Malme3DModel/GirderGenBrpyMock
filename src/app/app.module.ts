@@ -44,6 +44,11 @@ import { SideRightDisplayComponent } from './component/side-right-display/side-r
 import { AttributeDisplayComponent } from './component/attribute-display/attribute-display.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { SocketioService } from './component/chat/socketio-service.service';
+import { SettingsGeneralComponent } from './component/settings-general/settings-general.component';
+import { SettingsModelComponent } from './component/settings-model/settings-model.component';
+import { SettingsMenuComponent } from './component/settings-menu/settings-menu.component';
+import { SettingsCustomMenuComponent } from './component/settings-custom-menu/settings-custom-menu.component';
+import { SettingsUnitsComponent } from './component/settings-units/settings-units.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +66,12 @@ import { SocketioService } from './component/chat/socketio-service.service';
     SideRightCrossbeamComponent,
     SideRightEndbeamComponent,
     AttributeDisplayComponent,
-    ChatComponent
+    ChatComponent,
+    SettingsGeneralComponent,
+    SettingsModelComponent,
+    SettingsMenuComponent,
+    SettingsCustomMenuComponent,
+    SettingsUnitsComponent
   ],
   imports: [
     BrowserModule,
