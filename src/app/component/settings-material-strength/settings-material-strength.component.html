@@ -110,7 +110,24 @@
 </div>
 
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>閉じる</button>
+    <div class="preset-buttons">
+        <button mat-raised-button color="primary" (click)="savePreset()">
+            <mat-icon>save</mat-icon>
+            プリセット保存
+        </button>
+        <button mat-raised-button color="accent" (click)="triggerFileInput()">
+            <mat-icon>upload</mat-icon>
+            プリセット読込
+        </button>
+        <input type="file" 
+               id="preset-file-input" 
+               accept=".json" 
+               (change)="loadPreset($event)" 
+               style="display: none;">
+    </div>
+    <div class="dialog-close">
+        <button mat-button mat-dialog-close>閉じる</button>
+    </div>
 </div>
 
 <style>
@@ -164,5 +181,28 @@ h3 {
 mat-form-field {
     width: 100%;
     margin-bottom: 16px;
+}
+
+.preset-buttons {
+    display: flex;
+    gap: 12px;
+    margin-right: auto;
+}
+
+.preset-buttons button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dialog-close {
+    margin-left: auto;
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
 }
 </style>
