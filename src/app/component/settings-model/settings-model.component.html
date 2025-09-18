@@ -103,30 +103,6 @@
     </mat-checkbox>
   </span>
 
-<section class="example-section">
-  <h3>モデルの外観設定</h3>
-  
-  <div class="appearance-controls">
-    <div class="color-control">
-      <label for="model-color">モデルの色:</label>
-      <input type="color" 
-             id="model-color"
-             [(ngModel)]="model.modelAppearance.color"
-             (change)="redraw()"
-             class="color-picker">
-    </div>
-    
-    <div class="opacity-control">
-      <label for="model-opacity">透過度:</label>
-      <mat-slider min="0" max="1" step="0.05" 
-                  [(ngModel)]="model.modelAppearance.opacity"
-                  (change)="redraw()"
-                  class="opacity-slider">
-      </mat-slider>
-      <span class="opacity-value">{{(model.modelAppearance.opacity * 100).toFixed(0)}}%</span>
-    </div>
-  </div>
-</section>
 
 </section>
 </div>
