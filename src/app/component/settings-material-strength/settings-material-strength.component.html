@@ -1,0 +1,168 @@
+<h1 mat-dialog-title>材料強度設定の編集</h1>
+
+<div mat-dialog-content>
+    <div class="material-sections">
+        <!-- Steel Materials Section -->
+        <div class="material-section">
+            <h3>鋼材（主桁・横桁）</h3>
+            <mat-form-field appearance="outline">
+                <mat-label>鋼材種別</mat-label>
+                <mat-select [value]="model.materialStrength.steel.selectedType" 
+                           (selectionChange)="onSteelTypeChange($event.value)">
+                    <mat-option *ngFor="let type of model.materialStrength.steel.types" [value]="type.name">
+                        {{type.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <div class="strength-values">
+                <div class="value-item">
+                    <label>降伏強度 fy:</label>
+                    <span>{{model.materialStrength.steel.fy}} N/mm²</span>
+                </div>
+                <div class="value-item">
+                    <label>引張強度 fu:</label>
+                    <span>{{model.materialStrength.steel.fu}} N/mm²</span>
+                </div>
+                <div class="value-item">
+                    <label>密度 γ:</label>
+                    <span>{{model.materialStrength.steel.density}} kN/m³</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rebar Materials Section -->
+        <div class="material-section">
+            <h3>鉄筋（床版補強筋）</h3>
+            <mat-form-field appearance="outline">
+                <mat-label>鉄筋種別</mat-label>
+                <mat-select [value]="model.materialStrength.rebar.selectedType" 
+                           (selectionChange)="onRebarTypeChange($event.value)">
+                    <mat-option *ngFor="let type of model.materialStrength.rebar.types" [value]="type.name">
+                        {{type.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>鉄筋径</mat-label>
+                <mat-select [value]="model.materialStrength.rebar.selectedDiameter" 
+                           (selectionChange)="onRebarDiameterChange($event.value)">
+                    <mat-option *ngFor="let diameter of model.materialStrength.rebar.diameters" [value]="diameter.name">
+                        {{diameter.name}} (φ{{diameter.diameter}}mm)
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>配筋間隔</mat-label>
+                <input matInput type="number" 
+                       [value]="model.materialStrength.rebar.spacing"
+                       (input)="onSpacingChange($event)"
+                       placeholder="@mm">
+            </mat-form-field>
+            
+            <div class="strength-values">
+                <div class="value-item">
+                    <label>降伏強度 fy:</label>
+                    <span>{{model.materialStrength.rebar.fy}} N/mm²</span>
+                </div>
+                <div class="value-item">
+                    <label>引張強度 fu:</label>
+                    <span>{{model.materialStrength.rebar.fu}} N/mm²</span>
+                </div>
+                <div class="value-item">
+                    <label>断面積 As:</label>
+                    <span>{{model.materialStrength.rebar.area}} mm²</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Concrete Materials Section -->
+        <div class="material-section">
+            <h3>コンクリート（床版・舗装）</h3>
+            <mat-form-field appearance="outline">
+                <mat-label>設計基準強度 f'c</mat-label>
+                <mat-select [value]="model.materialStrength.concrete.selectedFc" 
+                           (selectionChange)="onConcreteStrengthChange($event.value)">
+                    <mat-option *ngFor="let option of model.materialStrength.concrete.fcOptions" [value]="option.fc">
+                        {{option.fc}} N/mm²
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <div class="strength-values">
+                <div class="value-item">
+                    <label>設計基準強度 f'c:</label>
+                    <span>{{model.materialStrength.concrete.fc}} N/mm²</span>
+                </div>
+                <div class="value-item">
+                    <label>弾性係数 Ec:</label>
+                    <span>{{model.materialStrength.concrete.ec}} N/mm²</span>
+                </div>
+                <div class="value-item">
+                    <label>密度 γ:</label>
+                    <span>{{model.materialStrength.concrete.density}} kN/m³</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>閉じる</button>
+</div>
+
+<style>
+.material-sections {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.material-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+.strength-values {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.value-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    background-color: white;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+}
+
+.value-item label {
+    font-weight: 500;
+    color: #666;
+}
+
+.value-item span {
+    font-weight: 600;
+    color: #333;
+}
+
+h3 {
+    color: #1976d2;
+    margin-bottom: 16px;
+    font-size: 16px;
+    margin-top: 0;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+}
+</style>
