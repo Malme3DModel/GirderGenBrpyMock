@@ -148,7 +148,16 @@ export class GirderPalamService {
       cross: true,       // 横構
       crossbeam: true,   // 荷重分配横桁
       endbeam: true      // 端横桁
-    }
+    },
+    menuOrder: [
+      'pavement',    // 舗装
+      'slab',        // 床版
+      'beam',        // 主桁
+      'mid',         // 中間対傾構
+      'cross',       // 横構
+      'crossbeam',   // 荷重分配横桁
+      'endbeam'      // 端横桁
+    ]
   };
 
   public materialStrength: any = {

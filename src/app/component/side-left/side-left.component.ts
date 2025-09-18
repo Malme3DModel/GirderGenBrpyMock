@@ -81,4 +81,27 @@ export class SideLeftComponent {
     });
   }
 
+  getOrderedVisibleMenus(): string[] {
+    if (this.model.generalSettings.lodMode !== 'LOD300') {
+      return [];
+    }
+    
+    return this.model.menuSettings.menuOrder.filter((menuKey: string) => 
+      this.model.menuSettings.visibleMenus[menuKey]
+    );
+  }
+
+  getMenuLabel(menuKey: string): string {
+    const menuLabels: { [key: string]: string } = {
+      'pavement': '舗装',
+      'slab': '床版',
+      'beam': '主桁',
+      'mid': '中間対傾構',
+      'cross': '横構',
+      'crossbeam': '荷重分配横桁',
+      'endbeam': '端横桁'
+    };
+    return menuLabels[menuKey] || menuKey;
+  }
+
 }

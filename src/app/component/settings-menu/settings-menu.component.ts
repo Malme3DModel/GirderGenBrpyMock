@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { GirderPalamService } from '../../service/girder-palam.service';
 
 @Component({
@@ -28,9 +29,21 @@ export class SettingsMenuComponent {
     return this.model.generalSettings.lodMode === 'LOD300';
   }
 
+  get orderedMenuItems(): any[] {
+    return this.model.menuSettings.menuOrder.map((key: string) => 
+      this.menuItems.find(item => item.key === key)
+    ).filter(Boolean);
+  }
+
   onMenuVisibilityChange(menuKey: string, visible: boolean): void {
     if (this.isLod300) {
       this.model.menuSettings.visibleMenus[menuKey] = visible;
+    }
+  }
+
+  onMenuOrderChange(event: CdkDragDrop<any[]>): void {
+    if (this.isLod300) {
+      moveItemInArray(this.model.menuSettings.menuOrder, event.previousIndex, event.currentIndex);
     }
   }
 

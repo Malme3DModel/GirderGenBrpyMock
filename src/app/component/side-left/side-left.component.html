@@ -1,10 +1,7 @@
 <mat-selection-list #shoes [multiple]="false">
     <mat-list-option (click)="openDialog('others')">共通</mat-list-option>
-    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300' && model.menuSettings.visibleMenus.pavement" (click)="openDialog('pavement')">舗装</mat-list-option>
-    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300' && model.menuSettings.visibleMenus.slab" (click)="openDialog('slab')">床版</mat-list-option>
-    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300' && model.menuSettings.visibleMenus.beam" (click)="openDialog('beam')">主桁</mat-list-option>
-    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300' && model.menuSettings.visibleMenus.mid" (click)="openDialog('mid')">中間対傾構</mat-list-option>
-    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300' && model.menuSettings.visibleMenus.cross" (click)="openDialog('cross')">横構</mat-list-option>
-    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300' && model.menuSettings.visibleMenus.crossbeam" (click)="openDialog('crossbeam')">荷重分配横桁</mat-list-option>
-    <mat-list-option *ngIf="model.generalSettings.lodMode === 'LOD300' && model.menuSettings.visibleMenus.endbeam" (click)="openDialog('endbeam')">端横桁</mat-list-option>
+    <mat-list-option *ngFor="let menuKey of getOrderedVisibleMenus()" 
+                     (click)="openDialog(menuKey)">
+        {{getMenuLabel(menuKey)}}
+    </mat-list-option>
 </mat-selection-list>
