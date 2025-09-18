@@ -15,14 +15,25 @@ export class SettingsMaterialStrengthComponent {
     public model: GirderPalamService
   ) { }
 
-  onSteelTypeChange(selectedType: string): void {
-    const steelType = this.model.materialStrength.steel.types.find(
+  onMainGirderSteelTypeChange(selectedType: string): void {
+    const steelType = this.model.materialStrength.steel.mainGirder.types.find(
       (type: any) => type.name === selectedType
     );
     if (steelType) {
-      this.model.materialStrength.steel.selectedType = selectedType;
-      this.model.materialStrength.steel.fy = steelType.fy;
-      this.model.materialStrength.steel.fu = steelType.fu;
+      this.model.materialStrength.steel.mainGirder.selectedType = selectedType;
+      this.model.materialStrength.steel.mainGirder.fy = steelType.fy;
+      this.model.materialStrength.steel.mainGirder.fu = steelType.fu;
+    }
+  }
+
+  onCrossBeamSteelTypeChange(selectedType: string): void {
+    const steelType = this.model.materialStrength.steel.crossBeam.types.find(
+      (type: any) => type.name === selectedType
+    );
+    if (steelType) {
+      this.model.materialStrength.steel.crossBeam.selectedType = selectedType;
+      this.model.materialStrength.steel.crossBeam.fy = steelType.fy;
+      this.model.materialStrength.steel.crossBeam.fu = steelType.fu;
     }
   }
 

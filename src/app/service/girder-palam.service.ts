@@ -136,16 +136,30 @@ export class GirderPalamService {
 
   public materialStrength: any = {
     steel: {
-      selectedType: 'SM490Y',
-      fy: 355,
-      fu: 490,
-      density: 78.5,
-      types: [
-        { name: 'SM400A/B', fy: 235, fu: 400 },
-        { name: 'SM490A/B', fy: 325, fu: 490 },
-        { name: 'SM490Y', fy: 355, fu: 490 },
-        { name: 'SM570', fy: 450, fu: 570 }
-      ]
+      mainGirder: {
+        selectedType: 'SM490Y',
+        fy: 355,
+        fu: 490,
+        density: 78.5,
+        types: [
+          { name: 'SM400A/B', fy: 235, fu: 400 },
+          { name: 'SM490A/B', fy: 325, fu: 490 },
+          { name: 'SM490Y', fy: 355, fu: 490 },
+          { name: 'SM570', fy: 450, fu: 570 }
+        ]
+      },
+      crossBeam: {
+        selectedType: 'SM490Y',
+        fy: 355,
+        fu: 490,
+        density: 78.5,
+        types: [
+          { name: 'SM400A/B', fy: 235, fu: 400 },
+          { name: 'SM490A/B', fy: 325, fu: 490 },
+          { name: 'SM490Y', fy: 355, fu: 490 },
+          { name: 'SM570', fy: 450, fu: 570 }
+        ]
+      }
     },
     rebar: {
       selectedType: 'SD345',

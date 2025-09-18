@@ -2,14 +2,14 @@
 
 <div mat-dialog-content>
     <div class="material-sections">
-        <!-- Steel Materials Section -->
+        <!-- Main Girder Steel Materials Section -->
         <div class="material-section">
-            <h3>鋼材（主桁・横桁）</h3>
+            <h3>鋼材（主桁）</h3>
             <mat-form-field appearance="outline">
                 <mat-label>鋼材種別</mat-label>
-                <mat-select [value]="model.materialStrength.steel.selectedType" 
-                           (selectionChange)="onSteelTypeChange($event.value)">
-                    <mat-option *ngFor="let type of model.materialStrength.steel.types" [value]="type.name">
+                <mat-select [value]="model.materialStrength.steel.mainGirder.selectedType" 
+                           (selectionChange)="onMainGirderSteelTypeChange($event.value)">
+                    <mat-option *ngFor="let type of model.materialStrength.steel.mainGirder.types" [value]="type.name">
                         {{type.name}}
                     </mat-option>
                 </mat-select>
@@ -18,15 +18,44 @@
             <div class="strength-values">
                 <div class="value-item">
                     <label>降伏強度 fy:</label>
-                    <span>{{model.materialStrength.steel.fy}} N/mm²</span>
+                    <span>{{model.materialStrength.steel.mainGirder.fy}} N/mm²</span>
                 </div>
                 <div class="value-item">
                     <label>引張強度 fu:</label>
-                    <span>{{model.materialStrength.steel.fu}} N/mm²</span>
+                    <span>{{model.materialStrength.steel.mainGirder.fu}} N/mm²</span>
                 </div>
                 <div class="value-item">
                     <label>密度 γ:</label>
-                    <span>{{model.materialStrength.steel.density}} kN/m³</span>
+                    <span>{{model.materialStrength.steel.mainGirder.density}} kN/m³</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cross Beam Steel Materials Section -->
+        <div class="material-section">
+            <h3>鋼材（横桁・端横桁・荷重分配横桁）</h3>
+            <mat-form-field appearance="outline">
+                <mat-label>鋼材種別</mat-label>
+                <mat-select [value]="model.materialStrength.steel.crossBeam.selectedType" 
+                           (selectionChange)="onCrossBeamSteelTypeChange($event.value)">
+                    <mat-option *ngFor="let type of model.materialStrength.steel.crossBeam.types" [value]="type.name">
+                        {{type.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <div class="strength-values">
+                <div class="value-item">
+                    <label>降伏強度 fy:</label>
+                    <span>{{model.materialStrength.steel.crossBeam.fy}} N/mm²</span>
+                </div>
+                <div class="value-item">
+                    <label>引張強度 fu:</label>
+                    <span>{{model.materialStrength.steel.crossBeam.fu}} N/mm²</span>
+                </div>
+                <div class="value-item">
+                    <label>密度 γ:</label>
+                    <span>{{model.materialStrength.steel.crossBeam.density}} kN/m³</span>
                 </div>
             </div>
         </div>
