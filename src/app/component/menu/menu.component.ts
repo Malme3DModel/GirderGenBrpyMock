@@ -17,6 +17,7 @@ import { SettingsMenuComponent } from '../settings-menu/settings-menu.component'
 import { SettingsCustomMenuComponent } from '../settings-custom-menu/settings-custom-menu.component';
 import { SettingsUnitsComponent } from '../settings-units/settings-units.component';
 import { SettingsMaterialStrengthComponent } from '../settings-material-strength/settings-material-strength.component';
+import { SettingsModelAppearanceComponent } from '../settings-model-appearance/settings-model-appearance.component';
 
 @Component({
   selector: 'app-menu',
@@ -203,13 +204,15 @@ export class MenuComponent implements OnInit {
       settingsComponent = SettingsUnitsComponent;
     else if (id === 'material-strength')
       settingsComponent = SettingsMaterialStrengthComponent;
+    else if (id === 'model-appearance')
+      settingsComponent = SettingsModelAppearanceComponent;
 
     if (settingsComponent == null)
       return;
 
     this.dialog.closeAll();
 
-    const dialogWidth = id === 'material-strength' ? '700px' : '500px';
+    const dialogWidth = (id === 'material-strength' || id === 'model-appearance') ? '700px' : '500px';
 
     this.dialog.open(settingsComponent, {
       width: dialogWidth,

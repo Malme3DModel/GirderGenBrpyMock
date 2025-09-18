@@ -1,0 +1,140 @@
+<h1 mat-dialog-title>モデル外観設定の編集</h1>
+
+<div mat-dialog-content>
+    <div class="appearance-sections">
+        <div class="component-section" *ngFor="let componentType of getComponentTypes()">
+            <h3>{{model.componentAppearance[componentType].name}}</h3>
+            
+            <div class="appearance-controls">
+                <div class="color-control">
+                    <label [for]="componentType + '-color'">色:</label>
+                    <input type="color" 
+                           [id]="componentType + '-color'"
+                           [value]="model.componentAppearance[componentType].color"
+                           (change)="onColorChange(componentType, $event)"
+                           class="color-picker">
+                </div>
+                
+                <div class="opacity-control">
+                    <label [for]="componentType + '-opacity'">透過度:</label>
+                    <mat-slider min="0" max="1" step="0.05" 
+                                [id]="componentType + '-opacity'"
+                                [value]="model.componentAppearance[componentType].opacity"
+                                (change)="onOpacityChange(componentType, $event)"
+                                class="opacity-slider">
+                    </mat-slider>
+                    <span class="opacity-value">{{(model.componentAppearance[componentType].opacity * 100).toFixed(0)}}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <div class="preset-buttons">
+        <button mat-raised-button color="primary" (click)="savePreset()">
+            <mat-icon>save</mat-icon>
+            プリセット保存
+        </button>
+        <button mat-raised-button color="accent" (click)="triggerFileInput()">
+            <mat-icon>upload</mat-icon>
+            プリセット読込
+        </button>
+        <input type="file" 
+               id="preset-file-input" 
+               accept=".json" 
+               (change)="loadPreset($event)" 
+               style="display: none;">
+    </div>
+    <div class="dialog-close">
+        <button mat-button mat-dialog-close>閉じる</button>
+    </div>
+</div>
+
+<style>
+.appearance-sections {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.component-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+.appearance-controls {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 16px;
+    align-items: center;
+}
+
+.color-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.color-picker {
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.opacity-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.opacity-slider {
+    flex: 1;
+}
+
+.opacity-value {
+    min-width: 40px;
+    font-weight: 600;
+    color: #333;
+}
+
+h3 {
+    color: #1976d2;
+    margin-bottom: 16px;
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.preset-buttons {
+    display: flex;
+    gap: 12px;
+    margin-right: auto;
+}
+
+.preset-buttons button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dialog-close {
+    margin-left: auto;
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+}
+
+label {
+    font-weight: 500;
+    color: #666;
+    min-width: 60px;
+}
+</style>

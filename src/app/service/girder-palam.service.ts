@@ -160,9 +160,15 @@ export class GirderPalamService {
     ]
   };
 
-  public modelAppearance: any = {
-    color: '#7f8f9f',
-    opacity: 0.85
+  public componentAppearance: any = {
+    slab: { color: '#7f8f9f', opacity: 0.85, name: '床版' },
+    pavement: { color: '#404040', opacity: 0.85, name: '舗装' },
+    mainGirder: { color: '#8B4513', opacity: 0.85, name: '主桁' },
+    crossBeam: { color: '#CD853F', opacity: 0.85, name: '横桁' },
+    endBeam: { color: '#D2691E', opacity: 0.85, name: '端横桁' },
+    crossFrame: { color: '#A0522D', opacity: 0.85, name: '横構' },
+    bracing: { color: '#8FBC8F', opacity: 0.85, name: '対傾構' },
+    gussetPlate: { color: '#708090', opacity: 0.85, name: 'ガセットプレート' }
   };
 
   public materialStrength: any = {
@@ -248,7 +254,7 @@ export class GirderPalamService {
     'materialStrength': this.materialStrength,
     'generalSettings': this.generalSettings,
     'menuSettings': this.menuSettings,
-    'modelAppearance': this.modelAppearance,
+    'componentAppearance': this.componentAppearance,
     };
   }
 
@@ -277,8 +283,8 @@ export class GirderPalamService {
       this.generalSettings = value['generalSettings'];
     if('menuSettings' in value)
       this.menuSettings = value['menuSettings'];
-    if('modelAppearance' in value)
-      this.modelAppearance = value['modelAppearance'];
+    if('componentAppearance' in value)
+      this.componentAppearance = value['componentAppearance'];
   }
 
 }

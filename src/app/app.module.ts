@@ -53,6 +53,7 @@ import { SettingsMenuComponent } from './component/settings-menu/settings-menu.c
 import { SettingsCustomMenuComponent } from './component/settings-custom-menu/settings-custom-menu.component';
 import { SettingsUnitsComponent } from './component/settings-units/settings-units.component';
 import { SettingsMaterialStrengthComponent } from './component/settings-material-strength/settings-material-strength.component';
+import { SettingsModelAppearanceComponent } from './component/settings-model-appearance/settings-model-appearance.component';
 import { SideRightLod200Component } from './component/side-right-lod200/side-right-lod200.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -80,6 +81,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     SettingsCustomMenuComponent,
     SettingsUnitsComponent,
     SettingsMaterialStrengthComponent,
+    SettingsModelAppearanceComponent,
     SideRightLod200Component
   ],
   imports: [
