@@ -19,7 +19,7 @@ export interface SimpleTask {
 @Component({
   selector: 'app-settings-model',
   templateUrl: './settings-model.component.html',
-  styleUrls: ['../side-right/side-right.component.scss', './settings-model.component.scss']
+  styleUrls: ['../side-right/side-right.component.scss']
 })
 export class SettingsModelComponent {
 
