@@ -10,7 +10,8 @@ export class ArrayH1Service {
   constructor(private Hsteel: HsteelService) { }
 
   public Array(L: number, D: number, W: number, tf: number, tw: number,
-                s_BP: number, s_EP: number, amount: number, interval: number, j1: number, j2: number): THREE.Group {
+                s_BP: number, s_EP: number, amount: number, interval: number, j1: number, j2: number, 
+                color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
     const pointlist: number[][] = [];
     let x = -(amount - 1.0) * interval / 2.0;
     let A = 0.0;
@@ -47,7 +48,7 @@ export class ArrayH1Service {
 
     const Models = new THREE.Group();
     for (let i = 0; i < amount; i++) {
-      const Model = this.Hsteel.CreateBeam(L, D, W, tf, tw, pointlist[i]);
+      const Model = this.Hsteel.CreateBeam(L, D, W, tf, tw, pointlist[i], color, opacity);
       Model.name = "Hsteel-01-"+ String(i);
       Models.add(Model);
     }

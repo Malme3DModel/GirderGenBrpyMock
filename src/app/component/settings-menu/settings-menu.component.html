@@ -1,7 +1,57 @@
-<h1 mat-dialog-title>メニュー設定の編集</h1>
+<h1 mat-dialog-title>メニュー設定</h1>
 
 <div mat-dialog-content>
-    <p>この設定画面は今後実装予定です。</p>
+    <section class="settings-section">
+        <h3>サイドメニューの表示順序</h3>
+        
+        <div *ngIf="!isLod300" class="lod-restriction-notice">
+            <mat-icon>info</mat-icon>
+            <span>この設定はLOD300モードでのみ利用可能です。</span>
+        </div>
+
+        <div class="menu-order-controls" [class.disabled]="!isLod300">
+            <div cdkDropList 
+                 [cdkDropListDisabled]="!isLod300"
+                 (cdkDropListDropped)="onMenuOrderChange($event)"
+                 class="menu-order-list">
+                <div *ngFor="let item of orderedMenuItems" 
+                     cdkDrag 
+                     [cdkDragDisabled]="!isLod300"
+                     class="menu-order-item">
+                    <mat-icon cdkDragHandle class="drag-handle">drag_indicator</mat-icon>
+                    <span class="menu-label">{{item.label}}</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="description" *ngIf="isLod300">
+            ドラッグアンドドロップでメニュー項目の表示順序を変更できます。
+        </p>
+    </section>
+
+    <section class="settings-section">
+        <h3>サイドメニューの表示設定</h3>
+        
+        <div *ngIf="!isLod300" class="lod-restriction-notice">
+            <mat-icon>info</mat-icon>
+            <span>この設定はLOD300モードでのみ利用可能です。</span>
+        </div>
+
+        <div class="menu-visibility-controls" [class.disabled]="!isLod300">
+            <div *ngFor="let item of orderedMenuItems" class="menu-item-control">
+                <mat-checkbox 
+                    [checked]="model.menuSettings.visibleMenus[item.key]"
+                    [disabled]="!isLod300"
+                    (change)="onMenuVisibilityChange(item.key, $event.checked)">
+                    {{item.label}}
+                </mat-checkbox>
+            </div>
+        </div>
+
+        <p class="description" *ngIf="isLod300">
+            チェックを外したメニュー項目はサイドメニューから非表示になります。
+        </p>
+    </section>
 </div>
 
 <div mat-dialog-actions>

@@ -11,7 +11,7 @@ export class Gusset03Service {
 
 
     public CreateGusset(A: number, B: number, C: number, D: number, t: number,
-    position: number[], reverse: boolean): THREE.Group {
+    position: number[], reverse: boolean, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
         const pointlist: number[][][] = [];
         const Obj = new THREE.Group();
         const x = position[0];
@@ -60,8 +60,8 @@ export class Gusset03Service {
             for (let j = 0; j < A1.length; j++) {
                 const Apoints = [A1[j], A3[j], A2[j]];
                 const Bpoints = [A2[j], A4[j], A3[j]];
-                const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2]);
-                const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2]);
+                const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2], color, opacity);
+                const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2], color, opacity);
                 Obj.add(Mesh_A, Mesh_B);
             }
         }
@@ -73,12 +73,12 @@ export class Gusset03Service {
         const m7 = [q0, q2, q3];
         const m8 = [q0, q3, q4];
 
-        const o1 = this.pv.PolyData(m1, [3, 0, 1, 2]);
-        const o2 = this.pv.PolyData(m2, [3, 0, 1, 2]);
-        const o3 = this.pv.PolyData(m3, [3, 0, 1, 2]);
-        const o6 = this.pv.PolyData(m6, [3, 0, 1, 2]);
-        const o7 = this.pv.PolyData(m7, [3, 0, 1, 2]);
-        const o8 = this.pv.PolyData(m8, [3, 0, 1, 2]);
+        const o1 = this.pv.PolyData(m1, [3, 0, 1, 2], color, opacity);
+        const o2 = this.pv.PolyData(m2, [3, 0, 1, 2], color, opacity);
+        const o3 = this.pv.PolyData(m3, [3, 0, 1, 2], color, opacity);
+        const o6 = this.pv.PolyData(m6, [3, 0, 1, 2], color, opacity);
+        const o7 = this.pv.PolyData(m7, [3, 0, 1, 2], color, opacity);
+        const o8 = this.pv.PolyData(m8, [3, 0, 1, 2], color, opacity);
 
         Obj.add(o1, o2, o3, o6, o7, o8);
         return Obj

@@ -134,6 +134,43 @@ export class GirderPalamService {
     'amount_H': 6.0
   };
 
+  public generalSettings: any = {
+    lodMode: 'LOD300', // 'LOD200' or 'LOD300'
+    showAttributeInfo: false
+  };
+
+  public menuSettings: any = {
+    visibleMenus: {
+      pavement: true,    // 舗装
+      slab: true,        // 床版
+      beam: true,        // 主桁
+      mid: true,         // 中間対傾構
+      cross: true,       // 横構
+      crossbeam: true,   // 荷重分配横桁
+      endbeam: true      // 端横桁
+    },
+    menuOrder: [
+      'pavement',    // 舗装
+      'slab',        // 床版
+      'beam',        // 主桁
+      'mid',         // 中間対傾構
+      'cross',       // 横構
+      'crossbeam',   // 荷重分配横桁
+      'endbeam'      // 端横桁
+    ]
+  };
+
+  public componentAppearance: any = {
+    slab: { color: '#7f8f9f', opacity: 0.85, name: '床版' },
+    pavement: { color: '#404040', opacity: 0.85, name: '舗装' },
+    mainGirder: { color: '#8B4513', opacity: 0.85, name: '主桁' },
+    crossBeam: { color: '#CD853F', opacity: 0.85, name: '横桁' },
+    endBeam: { color: '#D2691E', opacity: 0.85, name: '端横桁' },
+    crossFrame: { color: '#A0522D', opacity: 0.85, name: '横構' },
+    bracing: { color: '#8FBC8F', opacity: 0.85, name: '対傾構' },
+    gussetPlate: { color: '#708090', opacity: 0.85, name: 'ガセットプレート' }
+  };
+
   public materialStrength: any = {
     steel: {
       mainGirder: {
@@ -215,6 +252,9 @@ export class GirderPalamService {
     'crossbeam': this.crossbeam,
     'endbeam': this.endbeam,
     'materialStrength': this.materialStrength,
+    'generalSettings': this.generalSettings,
+    'menuSettings': this.menuSettings,
+    'componentAppearance': this.componentAppearance,
     };
   }
 
@@ -239,6 +279,12 @@ export class GirderPalamService {
       this.endbeam = value['endbeam'];
     if('materialStrength' in value)
       this.materialStrength = value['materialStrength'];
+    if('generalSettings' in value)
+      this.generalSettings = value['generalSettings'];
+    if('menuSettings' in value)
+      this.menuSettings = value['menuSettings'];
+    if('componentAppearance' in value)
+      this.componentAppearance = value['componentAppearance'];
   }
 
 }

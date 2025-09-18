@@ -48,11 +48,34 @@ export class pvGirderService {
   ) {
   }
 
+  private getDefaultAppearance(): any {
+    return {
+      slab: { color: '#7f8f9f', opacity: 0.85 },
+      pavement: { color: '#404040', opacity: 0.85 },
+      mainGirder: { color: '#8B4513', opacity: 0.85 },
+      crossBeam: { color: '#CD853F', opacity: 0.85 },
+      endBeam: { color: '#D2691E', opacity: 0.85 },
+      crossFrame: { color: '#A0522D', opacity: 0.85 },
+      bracing: { color: '#8FBC8F', opacity: 0.85 },
+      gussetPlate: { color: '#708090', opacity: 0.85 }
+    };
+  }
+
   public createGirder(plam: any): void {
     this.scene.clear();
 
     // 構成のパラメータ
     const pDisplay = plam['display'];
+    const pAppearance = plam['componentAppearance'] || this.getDefaultAppearance();
+    
+    const slabAppearance = pAppearance['slab'] || { color: '#7f8f9f', opacity: 0.85 };
+    const pavementAppearance = pAppearance['pavement'] || { color: '#404040', opacity: 0.85 };
+    const mainGirderAppearance = pAppearance['mainGirder'] || { color: '#8B4513', opacity: 0.85 };
+    const crossBeamAppearance = pAppearance['crossBeam'] || { color: '#CD853F', opacity: 0.85 };
+    const endBeamAppearance = pAppearance['endBeam'] || { color: '#D2691E', opacity: 0.85 };
+    const crossFrameAppearance = pAppearance['crossFrame'] || { color: '#A0522D', opacity: 0.85 };
+    const bracingAppearance = pAppearance['bracing'] || { color: '#8FBC8F', opacity: 0.85 };
+    const gussetPlateAppearance = pAppearance['gussetPlate'] || { color: '#708090', opacity: 0.85 };
     const TFp = pDisplay['pavement'];
     const TFs = pDisplay['slab'];
     const TFb = pDisplay['beam'];
@@ -237,44 +260,44 @@ export class pvGirderService {
     let Gusset04_U = new THREE.Group();
 
     if (TFb === true){
-      MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V, j1, j2);
+      MainGirader = this.ArrayH1.Array(L, D, W, tf, tw, s_BP, s_EP, amount_V, interval_V, j1, j2, mainGirderAppearance.color, mainGirderAppearance.opacity);
     }
     if (TFm === true){
-      IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
+      IntermediateSwayBracing = this.ArrayL.Array(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt, H, D2, s, s_in, s_out, dz, tf, amount_H, amount_V, interval_H, interval_V, location, bracingAppearance.color, bracingAppearance.opacity);
     }
     if (TFc_u === true){
-      CrossBeam01_U = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, false);
+      CrossBeam01_U = this.ArrayH3_u.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, z, false, crossFrameAppearance.color, crossFrameAppearance.opacity);
       if (TFg04 === true){
-        Gusset04_U = this.ArrayG4.Array_u(GA4, GB4, GC4, GD4, Gt4, z, tw2, amount_H, amount_V, interval_H, interval_V,  false);
+        Gusset04_U = this.ArrayG4.Array_u(GA4, GB4, GC4, GD4, Gt4, z, tw2, amount_H, amount_V, interval_H, interval_V,  false, gussetPlateAppearance.color, gussetPlateAppearance.opacity);
       }
     }
     if (TFc_l === true){
-      CrossBeam01_L = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, true);
+      CrossBeam01_L = this.ArrayH3_l.Array(D3, W2, tf2, tw2, s_edge, s_middle, amount_H, amount_V, interval_H, interval_V, dz, true, crossFrameAppearance.color, crossFrameAppearance.opacity);
       if (TFg04 === true){
-        Gusset04_L = this.ArrayG4.Array_l(GA4, GB4, GC4, GD4, Gt4, dz, tw2, amount_H, amount_V, interval_H, interval_V,  true);
+        Gusset04_L = this.ArrayG4.Array_l(GA4, GB4, GC4, GD4, Gt4, dz, tw2, amount_H, amount_V, interval_H, interval_V,  true, gussetPlateAppearance.color, gussetPlateAppearance.opacity);
       }
     }
     if (TFc === true){
-      CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2);
+      CrossBeam02 = this.ArrayH2.Array(D4, W3, tf3, tw3, s_edge2, s_middle2, dz, amount_H, amount_V, interval_H, interval_V, location2, crossBeamAppearance.color, crossBeamAppearance.opacity);
     }
     if (TFe === true){
-      CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L2, amount_V, interval_V);
+      CrossBeam03 = this.ArrayH4.Array(D5, W4, tf4, tw4, s_edge3, s_middle3, dz, L2, amount_V, interval_V, endBeamAppearance.color, endBeamAppearance.opacity);
     }
     if (TFg01 === true){
-      Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location);
+      Gusset01 = this.ArrayG1.Array(GA1, GB1, GC1, GD1, Gt1, dz, tf, amount_H, amount_V, interval_H, interval_V, location, gussetPlateAppearance.color, gussetPlateAppearance.opacity);
     }
     if (TFg02 === true){
-      Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location);
+      Gusset02 = this.ArrayG2.Array(GA2, GB2, GC2, GD2, Gt2, dz, Gdx2, tf, amount_H, amount_V, interval_H, interval_V, location, gussetPlateAppearance.color, gussetPlateAppearance.opacity);
     }
     if (TFg03 === true){
-      Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location);
+      Gusset03 = this.ArrayG3.Array(GA3, GB3, GC3, GD3, Gt3, dz, Gdx3, tf, H, amount_H, amount_V, interval_H, interval_V, location, gussetPlateAppearance.color, gussetPlateAppearance.opacity);
     }
 
     if (TFs === true){
-      Slab0 = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V);
+      Slab0 = this.AddSlab.add_Slab(b1, b2, b3, i1, i2, j1, j2, SH, T1, T2, n, Ss, D, L, amount_V, interval_V, slabAppearance.color, slabAppearance.opacity);
     }
     if (TFp === true){
-      Pavement0 = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L);
+      Pavement0 = this.AddPavement.createPavement(b1, b2, i1, i2, i3, i4, T3, L, pavementAppearance.color, pavementAppearance.opacity);
     }
 
     const Girder_0 = new THREE.Group();

@@ -18,11 +18,11 @@ export class ArrayLService {
     TA: number, TB: number, Tt: number, DA: number, DB: number, Dt: number,
     H: number, D: number, s: number, s_in: number, s_out: number, dz: number, tf: number,
     amount_H: number, amount_V: number, interval_H: number, interval_V: number,
-    location: number[]): THREE.Group {
+    location: number[], color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
 
     // 対傾構の作成
     const Model = this.Lsteel.add_LSteel(RA, RB, Rt, LA, LB, Lt, TA, TB, Tt, DA, DB, Dt,
-      H, D, s, s_in, s_out, dz, tf);
+      H, D, s, s_in, s_out, dz, tf, color, opacity);
     const Pointlist0_R: number[][] = [];
     const Pointlist0_L: number[][] = [];
     const Pointlist0_T: number[][] = [];

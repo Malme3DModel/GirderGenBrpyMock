@@ -11,7 +11,7 @@ export class HsteelService {
 
 
   public CreateBeam(L: number, D: number, W: number, tf: number, tw: number,
-    position: number[]): THREE.Group {
+    position: number[], color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
 
     const x = position[0];
     const y = position[1];
@@ -73,30 +73,30 @@ export class HsteelService {
     const p23 = [b12, b11, a12];
     const p24 = [b1, b12, a1];
 
-    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2]);
-    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2]);
-    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2]);
-    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2]);
-    const m5 = this.pv.PolyData(p5, [3, 0, 1, 2]);
-    const m6 = this.pv.PolyData(p6, [3, 0, 1, 2]);
-    const m7 = this.pv.PolyData(p7, [3, 0, 1, 2]);
-    const m8 = this.pv.PolyData(p8, [3, 0, 1, 2]);
-    const m9 = this.pv.PolyData(p9, [3, 0, 1, 2]);
-    const m10 = this.pv.PolyData(p10, [3, 0, 1, 2]);
-    const m11 = this.pv.PolyData(p11, [3, 0, 1, 2]);
-    const m12 = this.pv.PolyData(p12, [3, 0, 1, 2]);
-    const m13 = this.pv.PolyData(p13, [3, 0, 1, 2]);
-    const m14 = this.pv.PolyData(p14, [3, 0, 1, 2]);
-    const m15 = this.pv.PolyData(p15, [3, 0, 1, 2]);
-    const m16 = this.pv.PolyData(p16, [3, 0, 1, 2]);
-    const m17 = this.pv.PolyData(p17, [3, 0, 1, 2]);
-    const m18 = this.pv.PolyData(p18, [3, 0, 1, 2]);
-    const m19 = this.pv.PolyData(p19, [3, 0, 1, 2]);
-    const m20 = this.pv.PolyData(p20, [3, 0, 1, 2]);
-    const m21 = this.pv.PolyData(p21, [3, 0, 1, 2]);
-    const m22 = this.pv.PolyData(p22, [3, 0, 1, 2]);
-    const m23 = this.pv.PolyData(p23, [3, 0, 1, 2]);
-    const m24 = this.pv.PolyData(p24, [3, 0, 1, 2]);
+    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2], color, opacity);
+    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2], color, opacity);
+    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2], color, opacity);
+    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2], color, opacity);
+    const m5 = this.pv.PolyData(p5, [3, 0, 1, 2], color, opacity);
+    const m6 = this.pv.PolyData(p6, [3, 0, 1, 2], color, opacity);
+    const m7 = this.pv.PolyData(p7, [3, 0, 1, 2], color, opacity);
+    const m8 = this.pv.PolyData(p8, [3, 0, 1, 2], color, opacity);
+    const m9 = this.pv.PolyData(p9, [3, 0, 1, 2], color, opacity);
+    const m10 = this.pv.PolyData(p10, [3, 0, 1, 2], color, opacity);
+    const m11 = this.pv.PolyData(p11, [3, 0, 1, 2], color, opacity);
+    const m12 = this.pv.PolyData(p12, [3, 0, 1, 2], color, opacity);
+    const m13 = this.pv.PolyData(p13, [3, 0, 1, 2], color, opacity);
+    const m14 = this.pv.PolyData(p14, [3, 0, 1, 2], color, opacity);
+    const m15 = this.pv.PolyData(p15, [3, 0, 1, 2], color, opacity);
+    const m16 = this.pv.PolyData(p16, [3, 0, 1, 2], color, opacity);
+    const m17 = this.pv.PolyData(p17, [3, 0, 1, 2], color, opacity);
+    const m18 = this.pv.PolyData(p18, [3, 0, 1, 2], color, opacity);
+    const m19 = this.pv.PolyData(p19, [3, 0, 1, 2], color, opacity);
+    const m20 = this.pv.PolyData(p20, [3, 0, 1, 2], color, opacity);
+    const m21 = this.pv.PolyData(p21, [3, 0, 1, 2], color, opacity);
+    const m22 = this.pv.PolyData(p22, [3, 0, 1, 2], color, opacity);
+    const m23 = this.pv.PolyData(p23, [3, 0, 1, 2], color, opacity);
+    const m24 = this.pv.PolyData(p24, [3, 0, 1, 2], color, opacity);
 
     const l1 = [a2, a3, a4]
     const l2 = [a2, a4, a5]
@@ -111,18 +111,18 @@ export class HsteelService {
     const l11 = [b8, b9, b10]
     const l12 = [b8, b10, b11]
 
-    const m25 = this.pv.PolyData(l1, [3, 0, 1, 2])
-    const m26 = this.pv.PolyData(l2, [3, 0, 1, 2])
-    const m27 = this.pv.PolyData(l3, [3, 0, 1, 2])
-    const m28 = this.pv.PolyData(l4, [3, 0, 1, 2])
-    const m29 = this.pv.PolyData(l5, [3, 0, 1, 2])
-    const m30 = this.pv.PolyData(l6, [3, 0, 1, 2])
-    const m31 = this.pv.PolyData(l7, [3, 0, 1, 2])
-    const m32 = this.pv.PolyData(l8, [3, 0, 1, 2])
-    const m33 = this.pv.PolyData(l9, [3, 0, 1, 2])
-    const m34 = this.pv.PolyData(l10, [3, 0, 1, 2])
-    const m35 = this.pv.PolyData(l11, [3, 0, 1, 2])
-    const m36 = this.pv.PolyData(l12, [3, 0, 1, 2])
+    const m25 = this.pv.PolyData(l1, [3, 0, 1, 2], color, opacity)
+    const m26 = this.pv.PolyData(l2, [3, 0, 1, 2], color, opacity)
+    const m27 = this.pv.PolyData(l3, [3, 0, 1, 2], color, opacity)
+    const m28 = this.pv.PolyData(l4, [3, 0, 1, 2], color, opacity)
+    const m29 = this.pv.PolyData(l5, [3, 0, 1, 2], color, opacity)
+    const m30 = this.pv.PolyData(l6, [3, 0, 1, 2], color, opacity)
+    const m31 = this.pv.PolyData(l7, [3, 0, 1, 2], color, opacity)
+    const m32 = this.pv.PolyData(l8, [3, 0, 1, 2], color, opacity)
+    const m33 = this.pv.PolyData(l9, [3, 0, 1, 2], color, opacity)
+    const m34 = this.pv.PolyData(l10, [3, 0, 1, 2], color, opacity)
+    const m35 = this.pv.PolyData(l11, [3, 0, 1, 2], color, opacity)
+    const m36 = this.pv.PolyData(l12, [3, 0, 1, 2], color, opacity)
 
     const H_list = new THREE.Group();
 

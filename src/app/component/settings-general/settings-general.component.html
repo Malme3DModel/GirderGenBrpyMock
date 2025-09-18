@@ -1,7 +1,31 @@
-<h1 mat-dialog-title>一般設定の編集</h1>
+<h1 mat-dialog-title>一般設定</h1>
 
 <div mat-dialog-content>
-    <p>この設定画面は今後実装予定です。</p>
+    <section class="settings-section">
+        <h3>モデル詳細度設定</h3>
+        <mat-radio-group 
+            [value]="model.generalSettings.lodMode" 
+            (change)="onLodModeChange($event.value)">
+            <mat-radio-button value="LOD200">LOD200（簡易表示）</mat-radio-button>
+            <mat-radio-button value="LOD300">LOD300（詳細表示）</mat-radio-button>
+        </mat-radio-group>
+        <p class="description">
+            LOD200: 共通項目と主桁本数のみ表示<br>
+            LOD300: 全ての入力メニューを表示（デフォルト）
+        </p>
+    </section>
+
+    <section class="settings-section">
+        <h3>属性情報の表示設定</h3>
+        <mat-slide-toggle 
+            [checked]="model.generalSettings.showAttributeInfo"
+            (change)="onAttributeDisplayChange($event.checked)">
+            属性情報を表示
+        </mat-slide-toggle>
+        <p class="description">
+            画面左下の属性情報パネルの表示/非表示を切り替えます
+        </p>
+    </section>
 </div>
 
 <div mat-dialog-actions>

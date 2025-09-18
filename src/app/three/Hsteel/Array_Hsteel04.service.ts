@@ -18,7 +18,7 @@ export class ArrayH4Service {
   /// <param name="interval">主桁の配置間隔</param>
   public Array(D: number, W: number, tf: number, tw: number, s_edge: number,
     s_middle: number, dz: number, L: number, amount_V: number,
-    interval_V: number): THREE.Group {
+    interval_V: number, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
 
     // 端横桁を作成
     const Amount = amount_V - 1.0;
@@ -27,8 +27,8 @@ export class ArrayH4Service {
     const y1 = -L1 / 2.0;
     const y2 = -L2 / 2.0;
     let z = (W / 2.0 + tf);
-    const Model_E = this.Hsteel.CreateBeam(L1, D, W, tf, tw, [0.0, y1, z]);
-    const Model_M = this.Hsteel.CreateBeam(L2, D, W, tf, tw, [0.0, y2, z]);
+    const Model_E = this.Hsteel.CreateBeam(L1, D, W, tf, tw, [0.0, y1, z], color, opacity);
+    const Model_M = this.Hsteel.CreateBeam(L2, D, W, tf, tw, [0.0, y2, z], color, opacity);
 
     // 端横桁を回転,移動
     const dx = s_middle - s_edge;

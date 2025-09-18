@@ -17,7 +17,7 @@ export class ArrayH2Service {
 
   public Array( D: number, W: number, tf: number, tw: number, s_edge: number, s_middle: number, dz: number,
     amount_H: number, amount_V: number, interval_H: number, interval_V: number,
-    location: number[]): THREE.Group {
+    location: number[], color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
 
     // 荷重分配横桁を作成
     const Amount = amount_V - 1.0;
@@ -26,8 +26,8 @@ export class ArrayH2Service {
     const y1 = -L1 / 2.0;
     const y2 = -L2 / 2.0;
     let z = (W / 2.0 + tf);
-    const Model_E = this.Hsteel.CreateBeam(L1, D, W, tf, tw, [0.0, y1, z]);
-    const Model_M = this.Hsteel.CreateBeam(L2, D, W, tf, tw, [0.0, y2, z]);
+    const Model_E = this.Hsteel.CreateBeam(L1, D, W, tf, tw, [0.0, y1, z], color, opacity);
+    const Model_M = this.Hsteel.CreateBeam(L2, D, W, tf, tw, [0.0, y2, z], color, opacity);
 
     // 荷重分配横桁を回転,移動
     const dx = s_middle - s_edge;

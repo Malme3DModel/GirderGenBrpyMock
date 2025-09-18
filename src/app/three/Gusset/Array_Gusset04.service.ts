@@ -18,7 +18,7 @@ export class ArrayG4Service {
 
     public Array_l(A: number, B: number, C: number, D: number, t: number,
         dz: number, tw2: number, amount_H: number, amount_V: number, interval_H: number, interval_V: number,
-        reverse: boolean): THREE.Group {
+        reverse: boolean, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
         // ガセットプレートの配置座標を計算
         const pointlist1: number[][] = [];
         const pointlist2: number[][] = [];
@@ -88,9 +88,9 @@ export class ArrayG4Service {
         const P3 = pointlist3;
         const P4 = pointlist4;
 
-        const Obj_1 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0]);
+        const Obj_1 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0], color, opacity);
         const Obj_L = this.Rotate.rotate(Obj_1, [0.0,0.0,0.0], 0.0, 90.0, 90.0);
-        const Obj_2 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0]);
+        const Obj_2 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0], color, opacity);
         const Obj_R = this.Rotate.rotate(Obj_2, [0.0,0.0,0.0], 0.0, -90.0, -90.0);
 
         let ID = 0;
@@ -123,10 +123,10 @@ export class ArrayG4Service {
         }
 
         // 端部
-        const Obj_FL1 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], false);
-        const Obj_FL2 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], true);
-        const Obj_FL3 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], true);
-        const Obj_FL4 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], false);
+        const Obj_FL1 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], false, color, opacity);
+        const Obj_FL2 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], true, color, opacity);
+        const Obj_FL3 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], true, color, opacity);
+        const Obj_FL4 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], false, color, opacity);
         const Obj_FLR1 = this.Rotate.rotate(Obj_FL1, [0.0,0.0,0.0], 0.0, 90.0, 90.0);
         const Obj_FLR2 = this.Rotate.rotate(Obj_FL2, [0.0,0.0,0.0], 0.0, -90.0, -90.0);
         const Obj_FLR3 = this.Rotate.rotate(Obj_FL3, [0.0,0.0,0.0], 0.0, 90.0, 90.0);
@@ -152,7 +152,7 @@ export class ArrayG4Service {
     }
     public Array_u(A: number, B: number, C: number, D: number, t: number,
         dz: number, tw2: number, amount_H: number, amount_V: number, interval_H: number, interval_V: number,
-        reverse: boolean): THREE.Group {
+        reverse: boolean, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
         // ガセットプレートの配置座標を計算
         const pointlist1: number[][] = [];
         const pointlist2: number[][] = [];
@@ -219,9 +219,9 @@ export class ArrayG4Service {
         const P3 = pointlist3;
         const P4 = pointlist4;
 
-        const Obj_1 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0]);
+        const Obj_1 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0], color, opacity);
         const Obj_L = this.Rotate.rotate(Obj_1, [0.0,0.0,0.0], 0.0, 90.0, 90.0);
-        const Obj_2 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0]);
+        const Obj_2 = this.Gusset.CreateGusset(A, B, C, D, t, [0.0,0.0,0.0], color, opacity);
         const Obj_R = this.Rotate.rotate(Obj_2, [0.0,0.0,0.0], 0.0, -90.0, -90.0);
 
         let ID = 0;
@@ -254,10 +254,10 @@ export class ArrayG4Service {
         }
 
         // 端部
-        const Obj_FL1 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], true);
-        const Obj_FL2 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], false);
-        const Obj_FL3 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], false);
-        const Obj_FL4 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], true);
+        const Obj_FL1 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], true, color, opacity);
+        const Obj_FL2 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], false, color, opacity);
+        const Obj_FL3 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], false, color, opacity);
+        const Obj_FL4 = this.Gusset2.CreateGusset(A, C/2, B/2, D, t, [0.0,0.0,0.0], true, color, opacity);
         const Obj_FLR1 = this.Rotate.rotate(Obj_FL1, [0.0,0.0,0.0], 0.0, -90.0, -90.0);
         const Obj_FLR2 = this.Rotate.rotate(Obj_FL2, [0.0,0.0,0.0], 0.0, 90.0, 90.0);
         const Obj_FLR3 = this.Rotate.rotate(Obj_FL3, [0.0,0.0,0.0], 0.0, -90.0, -90.0);
