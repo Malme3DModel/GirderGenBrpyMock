@@ -1,9 +1,110 @@
-<h1 mat-dialog-title>モデル設定の編集</h1>
+<h1 mat-dialog-title>モデル表示設定</h1>
 
 <div mat-dialog-content>
-    <p>この設定画面は今後実装予定です。</p>
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [(ngModel)]="pavement.completed"
+                  [color]="pavement.color"
+                  (change)="redraw()">
+      {{pavement.name}}
+    </mat-checkbox>
+  </span>
+</section>
+
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [(ngModel)]="slab.completed"
+                  [color]="slab.color"
+                  (change)="redraw()">
+      {{slab.name}}
+    </mat-checkbox>
+  </span>
+</section>
+
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [(ngModel)]="beam.completed"
+                  [color]="beam.color"
+                  (change)="redraw()">
+      {{beam.name}}
+    </mat-checkbox>
+  </span>
+</section>
+
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [checked]="allComplete"
+                  [color]="mid.color"
+                  [indeterminate]="someComplete()"
+                  (change)="setAll($event.checked)">
+      {{mid.name}}
+    </mat-checkbox>
+  </span>
+  <span class="example-list-section">
+    <ul>
+      <li *ngFor="let subtask of mid.subtasks">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      [color]="subtask.color"
+                      (ngModelChange)="updateAllComplete()"
+                      (change)="redraw()">
+          {{subtask.name}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+</section>
+
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [checked]="allComplete2"
+                  [color]="cross.color"
+                  [indeterminate]="someComplete2()"
+                  (change)="setAll2($event.checked)">
+      {{cross.name}}
+    </mat-checkbox>
+  </span>
+  <span class="example-list-section">
+    <ul>
+      <li *ngFor="let subtask of cross.subtasks">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      [color]="subtask.color"
+                      (ngModelChange)="updateAllComplete2()"
+                      (change)="redraw()">
+          {{subtask.name}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+</section>
+
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [(ngModel)]="crossbeam.completed"
+                  [color]="crossbeam.color"
+                  (change)="redraw()">
+      {{crossbeam.name}}
+    </mat-checkbox>
+  </span>
+</section>
+
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox class="example-margin"
+                  [(ngModel)]="endbeam.completed"
+                  [color]="endbeam.color"
+                  (change)="redraw()">
+      {{endbeam.name}}
+    </mat-checkbox>
+  </span>
+</section>
 </div>
 
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>閉じる</button>
+  <button mat-button mat-dialog-close>閉じる</button>
 </div>
