@@ -31,10 +31,11 @@
     </button>
     <mat-menu #settingsMenu="matMenu">
         <button mat-menu-item (click)="openSettingsDialog('general')">一般設定</button>
-        <button mat-menu-item (click)="openSettingsDialog('model')">モデル設定</button>
+        <button mat-menu-item (click)="openSettingsDialog('model')">モデル表示設定</button>
         <button mat-menu-item (click)="openSettingsDialog('menu')">メニュー設定</button>
         <button mat-menu-item (click)="openSettingsDialog('custom-menu')">カスタムメニュー設定</button>
         <button mat-menu-item (click)="openSettingsDialog('units')">単位系設定</button>
+        <button mat-menu-item (click)="openSettingsDialog('material-strength')">材料強度設定</button>
     </mat-menu>
 
     <button mat-icon-button class="example-icon" aria-label="Open chatbot" (click)="openChatbot()">

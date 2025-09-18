@@ -26,6 +26,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MenuComponent } from './component/menu/menu.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -49,6 +51,7 @@ import { SettingsModelComponent } from './component/settings-model/settings-mode
 import { SettingsMenuComponent } from './component/settings-menu/settings-menu.component';
 import { SettingsCustomMenuComponent } from './component/settings-custom-menu/settings-custom-menu.component';
 import { SettingsUnitsComponent } from './component/settings-units/settings-units.component';
+import { SettingsMaterialStrengthComponent } from './component/settings-material-strength/settings-material-strength.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,8 @@ import { SettingsUnitsComponent } from './component/settings-units/settings-unit
     SettingsModelComponent,
     SettingsMenuComponent,
     SettingsCustomMenuComponent,
-    SettingsUnitsComponent
+    SettingsUnitsComponent,
+    SettingsMaterialStrengthComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +98,9 @@ import { SettingsUnitsComponent } from './component/settings-units/settings-unit
     MatBottomSheetModule,
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [SocketioService],
   bootstrap: [AppComponent]

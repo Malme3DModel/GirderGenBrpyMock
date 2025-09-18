@@ -9,6 +9,7 @@ import { SideRightOthersComponent } from '../side-right-others/side-right-others
 import { SideRightDisplayComponent } from '../side-right-display/side-right-display.component';
 import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.component';
 import { SideRightPavementComponent } from '../side-right-pavement/side-right-pavement.component';
+import { SettingsModelComponent } from '../settings-model/settings-model.component';
 import {ThemePalette} from '@angular/material/core';
 
 export interface Task {
@@ -32,8 +33,10 @@ export class SideLeftComponent {
     let rightSide: any = null;
     if( id==='others') // 共通
       rightSide = SideRightOthersComponent;
-      else if( id==='display')  // 構成・表示
-      rightSide = SideRightDisplayComponent;
+      else if( id==='display') { // 構成・表示 -> モデル設定にリダイレクト
+      this.openModelSettings();
+      return;
+    }
     else if( id==='pavement')  // 舗装
       rightSide = SideRightPavementComponent;
     else if( id==='slab')  // 床版
@@ -61,5 +64,14 @@ export class SideLeftComponent {
     });
   }
 
+  private openModelSettings(): void {
+    this.dialog.closeAll();
+    
+    this.dialog.open(SettingsModelComponent, {
+      width: '500px',
+      position: { right: '10px', top: '70px' },
+      hasBackdrop: false
+    });
+  }
 
 }

@@ -134,6 +134,75 @@ export class GirderPalamService {
     'amount_H': 6.0
   };
 
+  public materialStrength: any = {
+    steel: {
+      mainGirder: {
+        selectedType: 'SM490Y',
+        fy: 355,
+        fu: 490,
+        density: 78.5,
+        types: [
+          { name: 'SM400A/B', fy: 235, fu: 400 },
+          { name: 'SM490A/B', fy: 325, fu: 490 },
+          { name: 'SM490Y', fy: 355, fu: 490 },
+          { name: 'SM570', fy: 450, fu: 570 }
+        ]
+      },
+      crossBeam: {
+        selectedType: 'SM490Y',
+        fy: 355,
+        fu: 490,
+        density: 78.5,
+        types: [
+          { name: 'SM400A/B', fy: 235, fu: 400 },
+          { name: 'SM490A/B', fy: 325, fu: 490 },
+          { name: 'SM490Y', fy: 355, fu: 490 },
+          { name: 'SM570', fy: 450, fu: 570 }
+        ]
+      }
+    },
+    rebar: {
+      selectedType: 'SD345',
+      selectedDiameter: 'D16',
+      spacing: 200,
+      fy: 345,
+      fu: 490,
+      area: 199,
+      types: [
+        { name: 'SD295A', fy: 295, fu: 440 },
+        { name: 'SD295B', fy: 295, fu: 440 },
+        { name: 'SD345', fy: 345, fu: 490 },
+        { name: 'SD390', fy: 390, fu: 560 },
+        { name: 'SD490', fy: 490, fu: 620 }
+      ],
+      diameters: [
+        { name: 'D10', diameter: 9.53, area: 71 },
+        { name: 'D13', diameter: 12.7, area: 127 },
+        { name: 'D16', diameter: 15.9, area: 199 },
+        { name: 'D19', diameter: 19.1, area: 284 },
+        { name: 'D22', diameter: 22.2, area: 387 },
+        { name: 'D25', diameter: 25.4, area: 507 },
+        { name: 'D29', diameter: 28.6, area: 642 },
+        { name: 'D32', diameter: 31.8, area: 794 },
+        { name: 'D35', diameter: 35.0, area: 962 },
+        { name: 'D38', diameter: 38.2, area: 1145 },
+        { name: 'D41', diameter: 41.3, area: 1333 }
+      ]
+    },
+    concrete: {
+      selectedFc: 30,
+      fc: 30,
+      ec: 27000,
+      density: 24.0,
+      fcOptions: [
+        { fc: 24, ec: 23000 },
+        { fc: 30, ec: 27000 },
+        { fc: 36, ec: 30000 },
+        { fc: 40, ec: 33000 }
+      ]
+    }
+  };
+
   public palam(): any {
     return {
     'others': this.others,
@@ -145,6 +214,7 @@ export class GirderPalamService {
     'cross': this.cross,
     'crossbeam': this.crossbeam,
     'endbeam': this.endbeam,
+    'materialStrength': this.materialStrength,
     };
   }
 
@@ -167,6 +237,8 @@ export class GirderPalamService {
       this.crossbeam = value['crossbeam'];
     if('endbeam' in value)
       this.endbeam = value['endbeam'];
+    if('materialStrength' in value)
+      this.materialStrength = value['materialStrength'];
   }
 
 }
