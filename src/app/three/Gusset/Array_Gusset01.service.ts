@@ -11,7 +11,7 @@ export class ArrayG1Service {
 
     public Array(A: number, B: number, C: number, D: number, t: number,
         dz: number, tf: number, amount_H: number, amount_V: number, interval_H: number, interval_V: number,
-        location: number[] ): THREE.Group {
+        location: number[], color: string = '#7f8f9f', opacity: number = 0.85 ): THREE.Group {
         // ガセットプレートの配置座標を計算
         const pointlist: number[][] = [];
         const pointlist2: number[][] = [];
@@ -36,7 +36,7 @@ export class ArrayG1Service {
         }
         
         for (let i = 0; i < pointlist2.length; i++) {
-            const Obj0 = this.Gusset.CreateGusset(A, B, C, D, t, pointlist2[i]);
+            const Obj0 = this.Gusset.CreateGusset(A, B, C, D, t, pointlist2[i], color, opacity);
             Obj0.name = "PL1_"+ String(i)
             Obj.add(Obj0)
         }

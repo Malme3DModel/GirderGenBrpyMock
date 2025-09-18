@@ -166,7 +166,8 @@ export class AddSlabService {
   }
 
   public add_Slab(b1: number, b2: number, b3: number, i1: number, i2: number, j1: number, j2: number, H: number,
-    T1: number, T2: number, n: number, s: number, D: number, L: number, amount_V: number, interval_V: number): THREE.Group {
+    T1: number, T2: number, n: number, s: number, D: number, L: number, amount_V: number, interval_V: number, 
+    color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
 
     const points_BP = this.selection(b1, b2, b3, i1, i2, j1, j2, H, T1, T2, n, s, D, [0.0, 0.0, 0.0], amount_V, interval_V);
     const points_EP = this.selection(b1, b2, b3, i1, i2, j1, j2, H, T1, T2, n, s, D, [0.0, L, 0.0], amount_V, interval_V);
@@ -186,8 +187,8 @@ export class AddSlabService {
       for (let j = 0; j < A1.length; j++) {
         const Apoints = [A1[j], A3[j], A2[j]];
         const Bpoints = [A2[j], A4[j], A3[j]];
-        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2])
-        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2])
+        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2], color, opacity)
+        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2], color, opacity)
         Model.add(Mesh_A, Mesh_B);
       }
     }
@@ -209,21 +210,21 @@ export class AddSlabService {
     const p12 = [Lib1[11], Lib1[12], Lib1[15]];
     const p13 = [Lib1[12], Lib1[13], Lib1[15]];
     const p14 = [Lib1[13], Lib1[14], Lib1[15]];
-    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2]);
-    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2]);
-    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2]);
-    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2]);
-    const m5 = this.pv.PolyData(p5, [3, 0, 1, 2]);
-    const m6 = this.pv.PolyData(p6, [3, 0, 1, 2]);
-    const m7 = this.pv.PolyData(p7, [3, 0, 1, 2]);
-    const m8_0 = this.pv.PolyData(p8_0, [3, 0, 1, 2]);
-    const m8_1 = this.pv.PolyData(p8_1, [3, 0, 1, 2]);
-    const m9 = this.pv.PolyData(p9, [3, 0, 1, 2]);
-    const m10 = this.pv.PolyData(p10, [3, 0, 1, 2]);
-    const m11 = this.pv.PolyData(p11, [3, 0, 1, 2]);
-    const m12 = this.pv.PolyData(p12, [3, 0, 1, 2]);
-    const m13 = this.pv.PolyData(p13, [3, 0, 1, 2]);
-    const m14 = this.pv.PolyData(p14, [3, 0, 1, 2]);
+    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2], color, opacity);
+    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2], color, opacity);
+    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2], color, opacity);
+    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2], color, opacity);
+    const m5 = this.pv.PolyData(p5, [3, 0, 1, 2], color, opacity);
+    const m6 = this.pv.PolyData(p6, [3, 0, 1, 2], color, opacity);
+    const m7 = this.pv.PolyData(p7, [3, 0, 1, 2], color, opacity);
+    const m8_0 = this.pv.PolyData(p8_0, [3, 0, 1, 2], color, opacity);
+    const m8_1 = this.pv.PolyData(p8_1, [3, 0, 1, 2], color, opacity);
+    const m9 = this.pv.PolyData(p9, [3, 0, 1, 2], color, opacity);
+    const m10 = this.pv.PolyData(p10, [3, 0, 1, 2], color, opacity);
+    const m11 = this.pv.PolyData(p11, [3, 0, 1, 2], color, opacity);
+    const m12 = this.pv.PolyData(p12, [3, 0, 1, 2], color, opacity);
+    const m13 = this.pv.PolyData(p13, [3, 0, 1, 2], color, opacity);
+    const m14 = this.pv.PolyData(p14, [3, 0, 1, 2], color, opacity);
     const Mesh_Lib1 = new THREE.Group();
     Mesh_Lib1.add(m1, m2, m3, m4, m5, m6, m7,m8_0, m8_1, m9, m10, m11, m12, m13, m14);
     let count = 0;
@@ -237,9 +238,9 @@ export class AddSlabService {
       const Hp0 = [H0, H1, H4];
       const Hp1 = [H1, H2, H3];
       const Hp2 = [H1, H3, H4];
-      const Hm0 = this.pv.PolyData(Hp0, [3, 0, 1, 2]);
-      const Hm1 = this.pv.PolyData(Hp1, [3, 0, 1, 2]);
-      const Hm2 = this.pv.PolyData(Hp2, [3, 0, 1, 2]);
+      const Hm0 = this.pv.PolyData(Hp0, [3, 0, 1, 2], color, opacity);
+      const Hm1 = this.pv.PolyData(Hp1, [3, 0, 1, 2], color, opacity);
+      const Hm2 = this.pv.PolyData(Hp2, [3, 0, 1, 2], color, opacity);
       Mesh_Lib1.add(Hm0, Hm1, Hm2);
       count += 4;
     }
@@ -249,8 +250,8 @@ export class AddSlabService {
       const H2 = Lib2[count + 1];
       const Hp1 = [Lib1[0], H1, Lib1[8]];
       const Hp2 = [Lib1[0], Lib1[8], H2];
-      const Hm1 = this.pv.PolyData(Hp1, [3, 0, 1, 2]);
-      const Hm2 = this.pv.PolyData(Hp2, [3, 0, 1, 2]);
+      const Hm1 = this.pv.PolyData(Hp1, [3, 0, 1, 2], color, opacity);
+      const Hm2 = this.pv.PolyData(Hp2, [3, 0, 1, 2], color, opacity);
       Mesh_Lib1.add(Hm1, Hm2);
     } else if (amount_V > 3){
       count = (amount_V - 5) / 2 * 4 + 3;
@@ -260,8 +261,8 @@ export class AddSlabService {
       const H4 = Lib2[count + 5]
       const Hp1 = [Lib1[0], H1, H2];
       const Hp2 = [Lib1[0], H3, H4];
-      const Hm1 = this.pv.PolyData(Hp1, [3, 0, 1, 2]);
-      const Hm2 = this.pv.PolyData(Hp2, [3, 0, 1, 2]);
+      const Hm1 = this.pv.PolyData(Hp1, [3, 0, 1, 2], color, opacity);
+      const Hm2 = this.pv.PolyData(Hp2, [3, 0, 1, 2], color, opacity);
       Mesh_Lib1.add(Hm1, Hm2);
     }
     const Mesh_Lib2 = this.Move.MoveObject(Mesh_Lib1, [0.0, L, 0.0]);

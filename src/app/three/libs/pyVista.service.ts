@@ -8,7 +8,7 @@ export class pyVistaService {
 
   constructor() { }
 
-  public PolyData(poi: number[][], list: number[]): THREE.Mesh {
+  public PolyData(poi: number[][], list: number[], color: string = '#7f8f9f', opacity: number = 0.85): THREE.Mesh {
 
     const points = []
     for (let p of poi) {
@@ -22,8 +22,8 @@ export class pyVistaService {
     const material = new THREE.MeshBasicMaterial({
       transparent: true,
       side: THREE.DoubleSide,
-      color: 0x7f8F9F,
-      opacity: 0.85,
+      color: new THREE.Color(color),
+      opacity: opacity,
     });
 
     const mesh = new THREE.Mesh(geometry, material);

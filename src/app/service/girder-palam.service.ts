@@ -160,6 +160,11 @@ export class GirderPalamService {
     ]
   };
 
+  public modelAppearance: any = {
+    color: '#7f8f9f',
+    opacity: 0.85
+  };
+
   public materialStrength: any = {
     steel: {
       mainGirder: {
@@ -243,6 +248,7 @@ export class GirderPalamService {
     'materialStrength': this.materialStrength,
     'generalSettings': this.generalSettings,
     'menuSettings': this.menuSettings,
+    'modelAppearance': this.modelAppearance,
     };
   }
 
@@ -271,6 +277,8 @@ export class GirderPalamService {
       this.generalSettings = value['generalSettings'];
     if('menuSettings' in value)
       this.menuSettings = value['menuSettings'];
+    if('modelAppearance' in value)
+      this.modelAppearance = value['modelAppearance'];
   }
 
 }

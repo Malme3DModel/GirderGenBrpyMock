@@ -42,7 +42,7 @@ export class AddPavementService {
     return points ;
   }
 
-  private add_Pavement(b1: number, b2: number,i1: number, i2: number,i3: number, i4: number, T: number, L: number,position: number[]): THREE.Group {
+  private add_Pavement(b1: number, b2: number,i1: number, i2: number,i3: number, i4: number, T: number, L: number,position: number[], color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
     const x = position[0];
     const z = position[2];
     const points_BP = this.selection(b1, b2, i1, i2, i3, i4, T, [x, 0.0, z]);
@@ -63,8 +63,8 @@ export class AddPavementService {
       for (let j = 0; j < A1.length; j++) {
         const Apoints = [A1[j], A3[j], A2[j]];
         const Bpoints = [A2[j], A4[j], A3[j]];
-        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2])
-        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2])
+        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2], color, opacity)
+        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2], color, opacity)
         Model.add(Mesh_A, Mesh_B);
       }
     }
@@ -74,10 +74,10 @@ export class AddPavementService {
     const p2 = [Lib1[0], Lib1[2], Lib1[3]];
     const p3 = [Lib1[0], Lib1[3], Lib1[4]];
     const p4 = [Lib1[0], Lib1[4], Lib1[5]];
-    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2]);
-    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2]);
-    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2]);
-    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2]);
+    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2], color, opacity);
+    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2], color, opacity);
+    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2], color, opacity);
+    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2], color, opacity);
     const Mesh_Lib1 = new THREE.Group();
     Mesh_Lib1.add(m1, m2, m3, m4);
     const Mesh_Lib2 = this.Move.MoveObject(Mesh_Lib1, [0.0, L, 0.0]);
@@ -86,9 +86,9 @@ export class AddPavementService {
   }
 
 // 後で舗装増やす用
-  public createPavement(b1: number, b2: number,i1: number, i2: number, i3: number, i4: number,T: number, L: number): THREE.Group {
+  public createPavement(b1: number, b2: number,i1: number, i2: number, i3: number, i4: number,T: number, L: number, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
     const Model = new THREE.Group();
-    const Pave1 = this.add_Pavement(b1,b2,i1,i2,i3,i4,T,L,[0.0,0.0,0.0])
+    const Pave1 = this.add_Pavement(b1,b2,i1,i2,i3,i4,T,L,[0.0,0.0,0.0], color, opacity)
     Pave1.name = "Pv_0"
     Model.add(Pave1)
     return Model

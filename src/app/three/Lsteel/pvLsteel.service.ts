@@ -13,7 +13,7 @@ export class LsteelService {
     private Rotate: pvRotateService,
     private Move: pvTranlateService) { }
 
-  private Create_Lsteel_R(A: number, B: number, t: number, L: number): THREE.Group {
+  private Create_Lsteel_R(A: number, B: number, t: number, L: number, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
     const pointlist: number[][][] = [];
     const Obj = new THREE.Group();
 
@@ -46,8 +46,8 @@ export class LsteelService {
       for (let j = 0; j < A1.length; j++) {
         const Apoints = [A1[j], A3[j], A2[j]];
         const Bpoints = [A2[j], A4[j], A3[j]];
-        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2]);
-        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2]);
+        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2], color, opacity);
+        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2], color, opacity);
         Obj.add(Mesh_B, Mesh_A);
       }
     }
@@ -61,20 +61,20 @@ export class LsteelService {
     const p6 = [Lib2[0], Lib2[2], Lib2[3]];
     const p7 = [Lib2[0], Lib2[3], Lib2[4]];
     const p8 = [Lib2[0], Lib2[4], Lib2[5]];
-    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2]);
-    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2]);
-    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2]);
-    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2]);
-    const m5 = this.pv.PolyData(p5, [3, 0, 1, 2]);
-    const m6 = this.pv.PolyData(p6, [3, 0, 1, 2]);
-    const m7 = this.pv.PolyData(p7, [3, 0, 1, 2]);
-    const m8 = this.pv.PolyData(p8, [3, 0, 1, 2]);
+    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2], color, opacity);
+    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2], color, opacity);
+    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2], color, opacity);
+    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2], color, opacity);
+    const m5 = this.pv.PolyData(p5, [3, 0, 1, 2], color, opacity);
+    const m6 = this.pv.PolyData(p6, [3, 0, 1, 2], color, opacity);
+    const m7 = this.pv.PolyData(p7, [3, 0, 1, 2], color, opacity);
+    const m8 = this.pv.PolyData(p8, [3, 0, 1, 2], color, opacity);
 
     Obj.add(m1, m2, m3, m4, m5, m6, m7, m8);
     return Obj;
   }
 
-  private Create_Lsteel_L(A: number, B: number, t: number, L: number) {
+  private Create_Lsteel_L(A: number, B: number, t: number, L: number, color: string = '#7f8f9f', opacity: number = 0.85) {
     const pointlist: number[][][] = [];
     const Obj = new THREE.Group();
 
@@ -107,8 +107,8 @@ export class LsteelService {
       for (let j = 0; j < A1.length; j++) {
         const Apoints = [A1[j], A3[j], A2[j]];
         const Bpoints = [A2[j], A4[j], A3[j]];
-        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2]);
-        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2]);
+        const Mesh_A = this.pv.PolyData(Apoints, [3, 0, 1, 2], color, opacity);
+        const Mesh_B = this.pv.PolyData(Bpoints, [3, 0, 1, 2], color, opacity);
         Obj.add(Mesh_A, Mesh_B);
       }
     }
@@ -122,14 +122,14 @@ export class LsteelService {
     const p6 = [Lib2[0], Lib2[2], Lib2[3]];
     const p7 = [Lib2[0], Lib2[3], Lib2[4]];
     const p8 = [Lib2[0], Lib2[4], Lib2[5]];
-    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2]);
-    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2]);
-    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2]);
-    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2]);
-    const m5 = this.pv.PolyData(p5, [3, 0, 1, 2]);
-    const m6 = this.pv.PolyData(p6, [3, 0, 1, 2]);
-    const m7 = this.pv.PolyData(p7, [3, 0, 1, 2]);
-    const m8 = this.pv.PolyData(p8, [3, 0, 1, 2]);
+    const m1 = this.pv.PolyData(p1, [3, 0, 1, 2], color, opacity);
+    const m2 = this.pv.PolyData(p2, [3, 0, 1, 2], color, opacity);
+    const m3 = this.pv.PolyData(p3, [3, 0, 1, 2], color, opacity);
+    const m4 = this.pv.PolyData(p4, [3, 0, 1, 2], color, opacity);
+    const m5 = this.pv.PolyData(p5, [3, 0, 1, 2], color, opacity);
+    const m6 = this.pv.PolyData(p6, [3, 0, 1, 2], color, opacity);
+    const m7 = this.pv.PolyData(p7, [3, 0, 1, 2], color, opacity);
+    const m8 = this.pv.PolyData(p8, [3, 0, 1, 2], color, opacity);
 
     Obj.add(m1, m2, m3, m4, m5, m6, m7, m8);
     return Obj;
@@ -147,56 +147,56 @@ export class LsteelService {
   /// <param name="s_c">内側の離隔</param>
   /// <param name="s_e">外側の離隔</param>
   private add_LSteel_R(A: number, B: number, t: number, H: number, D: number,
-    s_in: number, s_out: number, dz: number, tf: number): THREE.Object3D {
+    s_in: number, s_out: number, dz: number, tf: number, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Object3D {
 
     const L = Math.sqrt(H ** 2.0 + D ** 2.0) - (s_in + s_out);
     const x = (s_in * D) / (L + s_in + s_out);
     const z = (s_in * H) / (L + s_in + s_out) + dz + tf;
-    const Obj = this.Create_Lsteel_R(A, B, t, L);
+    const Obj = this.Create_Lsteel_R(A, B, t, L, color, opacity);
     const y_rotate_R = Math.round(this.pv.degrees(Math.atan(D / H)) * 10) / 10;
     const Model_R = this.exchange(Obj, y_rotate_R, [x, 0.0, z]);
     return Model_R;
   }
 
   private add_LSteel_L(A: number, B: number, t: number, H: number, D: number,
-    s_in: number, s_out: number, dz: number, tf: number): THREE.Object3D {
+    s_in: number, s_out: number, dz: number, tf: number, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Object3D {
     const L = Math.sqrt(H ** 2.0 + D ** 2.0) - (s_in + s_out);
     const x = -(s_in * D) / (L + s_in + s_out);
     const z = (s_in * H) / (L + s_in + s_out) + dz + tf;
-    const Obj = this.Create_Lsteel_L(A, B, t, L);
+    const Obj = this.Create_Lsteel_L(A, B, t, L, color, opacity);
     const y_rotate_L = -Math.round(this.pv.degrees(Math.atan(D / H)) * 10) / 10;
     const Model_L = this.exchange(Obj, y_rotate_L, [x, 0.0, z]);
     return Model_L;
   }
 
   private add_LSteel_T(A: number, B: number, t: number, s: number, H: number, D: number,
-    dz: number, tf: number): THREE.Object3D {
+    dz: number, tf: number, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Object3D {
     const L = D * 2.0 - (s * 2.0);
     const x = L / 2.0;
     const z = H + dz + tf;
-    const Obj = this.Create_Lsteel_L(A, B, t, L);
+    const Obj = this.Create_Lsteel_L(A, B, t, L, color, opacity);
     const Model_T = this.exchange(Obj, -90.0, [x, 0.0, z]);
     return Model_T;
   }
 
   private add_LSteel_D(A: number, B: number, t: number, s: number, D: number,
-    dz: number, tf: number): THREE.Object3D {
+    dz: number, tf: number, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Object3D {
     const L = D * 2.0 - (s * 2.0);
     const x = L / 2.0;
     const z = dz + tf;
-    const Obj = this.Create_Lsteel_L(A, B, t, L);
+    const Obj = this.Create_Lsteel_L(A, B, t, L, color, opacity);
     const Model_T = this.exchange(Obj, 90.0, [-x, 0.0, z]);
     return Model_T;
   }
 
   public add_LSteel(RA: number, RB: number, Rt: number, LA: number, LB: number, Lt: number,
     TA: number, TB: number, Tt: number, DA: number, DB: number, Dt: number,
-    H: number, D: number, s: number, s_in: number, s_out: number, dz: number, tf: number) {
+    H: number, D: number, s: number, s_in: number, s_out: number, dz: number, tf: number, color: string = '#7f8f9f', opacity: number = 0.85) {
 
-    const Model_R = this.add_LSteel_R(RA, RB, Rt, H, D, s_in, s_out, dz, tf);
-    const Model_L = this.add_LSteel_L(LA, LB, Lt, H, D, s_in, s_out, dz, tf);
-    const Model_T = this.add_LSteel_T(TA, TB, Tt, s, H, D, dz, tf);
-    const Model_D = this.add_LSteel_D(DA, DB, Dt, s, D, dz, tf);
+    const Model_R = this.add_LSteel_R(RA, RB, Rt, H, D, s_in, s_out, dz, tf, color, opacity);
+    const Model_L = this.add_LSteel_L(LA, LB, Lt, H, D, s_in, s_out, dz, tf, color, opacity);
+    const Model_T = this.add_LSteel_T(TA, TB, Tt, s, H, D, dz, tf, color, opacity);
+    const Model_D = this.add_LSteel_D(DA, DB, Dt, s, D, dz, tf, color, opacity);
 
     const Model: THREE.Object3D[] = [];
     Model.push(Model_L, Model_R, Model_T, Model_D);

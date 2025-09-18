@@ -18,12 +18,12 @@ export class ArrayH3Service {
 
     public Array_V(D: number, W: number, tf: number, tw: number, s_edge: number, s_middle: number,
       amount_H: number, interval_H: number, interval_V: number, dz: number,
-      reverse: boolean): THREE.Group {
+      reverse: boolean, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
 
     const L = Math.sqrt((interval_H / 2.0) ** 2.0 + (interval_V) ** 2.0) - (s_edge + s_middle);
     const y = -L / 2.0;
     const z = W / 2.0 + tf;
-    const Model = this.Hsteel.CreateBeam(L, D, W, tf, tw, [0.0, y, z]);
+    const Model = this.Hsteel.CreateBeam(L, D, W, tf, tw, [0.0, y, z], color, opacity);
     const x = s_edge - s_middle;
     let y2_L = interval_H / 4.0;
     let y2_R = 3.0 * interval_H / 4.0;
@@ -67,10 +67,10 @@ export class ArrayH3Service {
   /// <summary>水平方向に配置</summary>
   public Array(D: number, W: number, tf: number, tw: number, s_edge: number,
     s_middle: number, amount_H: number, amount_V: number, interval_H: number,
-    interval_V: number, dz: number, reverse: boolean): THREE.Group {
+    interval_V: number, dz: number, reverse: boolean, color: string = '#7f8f9f', opacity: number = 0.85): THREE.Group {
 
-    const Obj_L = this.Array_V(D, W, tf, tw, s_edge, s_middle, amount_H, interval_H, interval_V, dz, false);
-    const Obj_R = this.Array_V(D, W, tf, tw, s_edge, s_middle, amount_H, interval_H, interval_V, dz, true);
+    const Obj_L = this.Array_V(D, W, tf, tw, s_edge, s_middle, amount_H, interval_H, interval_V, dz, false, color, opacity);
+    const Obj_R = this.Array_V(D, W, tf, tw, s_edge, s_middle, amount_H, interval_H, interval_V, dz, true, color, opacity);
     let x = (amount_V - 2.0) * (interval_V / 2.0);
     if (reverse == true) {
       x *= -1.0;
