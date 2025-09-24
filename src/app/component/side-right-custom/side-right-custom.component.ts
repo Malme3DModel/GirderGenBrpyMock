@@ -44,14 +44,15 @@ export class SideRightCustomComponent {
       rowHeaders.push(item.label);
       
       const value = this.getValueFromPath(item.dataPath);
-      console.log(`Item ${item.label}: value=${value}, dataPath=${item.dataPath}`);
+      console.log(`Item ${item.label}: value=${value}, dataPath=${item.dataPath}, inputType=${item.inputType}`);
       
       dataset.push({
         name: item.name,
         value: value,
         unit: item.unit,
         dataPath: item.dataPath,
-        menuKey: item.menuKey
+        menuKey: item.menuKey,
+        inputType: item.inputType
       });
     });
 
@@ -61,11 +62,7 @@ export class SideRightCustomComponent {
         readOnly: true
       },
       {
-        data: 'value',
-        type: 'numeric',
-        numericFormat: {
-          pattern: '0,0.000'
-        }
+        data: 'value'
       }
     ];
 
@@ -82,12 +79,17 @@ export class SideRightCustomComponent {
           if (item === null) {
             continue;
           }
-          let value = parseFloat(item[3]);
-          if (isNaN(value)) {
-            return false;
-          }
           
           const dataItem = dataset[item[0]];
+          let value = item[3];
+          
+          if (dataItem.inputType === 'numeric') {
+            value = parseFloat(value);
+            if (isNaN(value)) {
+              return false;
+            }
+          }
+          
           this.setValueFromPath(dataItem.dataPath, value);
         }
         this.redraw();
