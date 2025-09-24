@@ -58,7 +58,7 @@
       
       <div class="available-items">
         <h4>利用可能な入力項目</h4>
-        <div *ngFor="let menuKey of Object.keys(getItemsByMenu())" class="menu-group">
+        <div *ngFor="let menuKey of getMenuKeys()" class="menu-group">
           <h5>{{getMenuLabel(menuKey)}}</h5>
           <div class="items-grid">
             <div *ngFor="let item of getItemsByMenu()[menuKey]" 

@@ -104,6 +104,10 @@ export class SettingsCustomMenuComponent {
     return grouped;
   }
 
+  public getMenuKeys(): string[] {
+    return Object.keys(this.getItemsByMenu());
+  }
+
   public getMenuLabel(menuKey: string): string {
     const labels: any = {
       'others': '共通',
