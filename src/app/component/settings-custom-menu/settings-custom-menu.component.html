@@ -1,9 +1,265 @@
-<h1 mat-dialog-title>カスタムメニュー設定の編集</h1>
+<h1 mat-dialog-title>カスタムメニュー設定</h1>
 
 <div mat-dialog-content>
-    <p>この設定画面は今後実装予定です。</p>
+  <div *ngIf="!showCreateForm">
+    <!-- Custom Menu List -->
+    <div class="custom-menu-list">
+      <h3>作成済みカスタムメニュー</h3>
+      
+      <div *ngIf="getCustomMenus().length === 0" class="no-menus">
+        カスタムメニューがありません。
+      </div>
+      
+      <div *ngFor="let menu of getCustomMenus()" class="menu-item">
+        <div class="menu-info">
+          <h4>{{menu.name}}</h4>
+          <p>{{menu.items.length}}個の入力項目</p>
+        </div>
+        <div class="menu-actions">
+          <button mat-icon-button (click)="startEditMenu(menu)" title="編集">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteCustomMenu(menu.id)" title="削除">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="create-button-container">
+      <button mat-raised-button color="primary" (click)="startCreateMenu()">
+        <mat-icon>add</mat-icon>
+        新しいカスタムメニューを作成
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showCreateForm">
+    <!-- Custom Menu Creation Form -->
+    <div class="create-form">
+      <h3>{{editingMenuId ? 'カスタムメニューを編集' : 'カスタムメニューを作成'}}</h3>
+      
+      <mat-form-field appearance="outline" class="menu-name-field">
+        <mat-label>メニュー名</mat-label>
+        <input matInput [(ngModel)]="customMenuName" placeholder="カスタムメニュー名を入力">
+      </mat-form-field>
+      
+      <div class="selected-items">
+        <h4>選択済み項目 ({{selectedItems.length}}個)</h4>
+        <div class="selected-items-list">
+          <div *ngFor="let item of selectedItems" class="selected-item">
+            <span>{{getMenuLabel(item.menuKey)}} - {{item.label}}</span>
+            <button mat-icon-button (click)="toggleItemSelection(item)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="available-items">
+        <h4>利用可能な入力項目</h4>
+        <div *ngFor="let menuKey of Object.keys(getItemsByMenu())" class="menu-group">
+          <h5>{{getMenuLabel(menuKey)}}</h5>
+          <div class="items-grid">
+            <div *ngFor="let item of getItemsByMenu()[menuKey]" 
+                 class="item-card"
+                 [class.selected]="isItemSelected(item)"
+                 (click)="toggleItemSelection(item)">
+              <div class="item-label">{{item.label}}</div>
+              <div class="item-unit">{{item.unit}}</div>
+              <mat-icon *ngIf="isItemSelected(item)" class="selected-icon">check</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button mat-button (click)="cancelEdit()">キャンセル</button>
+        <button mat-raised-button color="primary" (click)="saveCustomMenu()">
+          {{editingMenuId ? '更新' : '作成'}}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div mat-dialog-actions>
+  <div class="preset-buttons">
+    <button mat-raised-button color="primary" (click)="savePreset()">
+      <mat-icon>save</mat-icon>
+      プリセット保存
+    </button>
+    <button mat-raised-button color="accent" (click)="triggerFileInput()">
+      <mat-icon>upload</mat-icon>
+      プリセット読込
+    </button>
+    <input type="file" 
+           id="custom-menu-file-input" 
+           accept=".json" 
+           (change)="loadPreset($event)" 
+           style="display: none;">
+  </div>
+  <div class="dialog-close">
     <button mat-button mat-dialog-close>閉じる</button>
+  </div>
 </div>
+
+<style>
+.custom-menu-list {
+  margin-bottom: 20px;
+}
+
+.no-menus {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.menu-info h4 {
+  margin: 0 0 4px 0;
+  color: #1976d2;
+}
+
+.menu-info p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.menu-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.create-button-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.create-form {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.menu-name-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.selected-items {
+  margin-bottom: 20px;
+}
+
+.selected-items-list {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.selected-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.available-items {
+  margin-bottom: 20px;
+}
+
+.menu-group {
+  margin-bottom: 16px;
+}
+
+.menu-group h5 {
+  color: #1976d2;
+  margin-bottom: 8px;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.item-card {
+  position: relative;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.item-card:hover {
+  background-color: #f5f5f5;
+}
+
+.item-card.selected {
+  background-color: #e3f2fd;
+  border-color: #1976d2;
+}
+
+.item-label {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.item-unit {
+  font-size: 12px;
+  color: #666;
+}
+
+.selected-icon {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  color: #1976d2;
+  font-size: 16px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.preset-buttons {
+  display: flex;
+  gap: 12px;
+  margin-right: auto;
+}
+
+.preset-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dialog-close {
+  margin-left: auto;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+</style>

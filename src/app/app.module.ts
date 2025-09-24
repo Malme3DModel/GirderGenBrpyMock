@@ -6,8 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ThreeComponent } from './three/three.component';
 import { HttpClientModule, HttpClient } from "@angular/common/http";
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HotTableModule } from '@handsontable/angular';
@@ -51,6 +50,7 @@ import { SettingsGeneralComponent } from './component/settings-general/settings-
 import { SettingsModelComponent } from './component/settings-model/settings-model.component';
 import { SettingsMenuComponent } from './component/settings-menu/settings-menu.component';
 import { SettingsCustomMenuComponent } from './component/settings-custom-menu/settings-custom-menu.component';
+import { SideRightCustomComponent } from './component/side-right-custom/side-right-custom.component';
 import { SettingsUnitsComponent } from './component/settings-units/settings-units.component';
 import { SettingsMaterialStrengthComponent } from './component/settings-material-strength/settings-material-strength.component';
 import { SettingsModelAppearanceComponent } from './component/settings-model-appearance/settings-model-appearance.component';
@@ -79,6 +79,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     SettingsModelComponent,
     SettingsMenuComponent,
     SettingsCustomMenuComponent,
+    SideRightCustomComponent,
     SettingsUnitsComponent,
     SettingsMaterialStrengthComponent,
     SettingsModelAppearanceComponent,
@@ -110,7 +111,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatFormFieldModule,
     MatRadioModule,
     MatSlideToggleModule,
-    DragDropModule
+    DragDropModule,
+    FormsModule
   ],
   providers: [SocketioService],
   bootstrap: [AppComponent]

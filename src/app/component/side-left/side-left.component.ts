@@ -11,6 +11,7 @@ import { SideRightSlabComponent } from '../side-right-slab/side-right-slab.compo
 import { SideRightPavementComponent } from '../side-right-pavement/side-right-pavement.component';
 import { SettingsModelComponent } from '../settings-model/settings-model.component';
 import { SideRightLod200Component } from '../side-right-lod200/side-right-lod200.component';
+import { SideRightCustomComponent } from '../side-right-custom/side-right-custom.component';
 import { GirderPalamService } from '../../service/girder-palam.service';
 import {ThemePalette} from '@angular/material/core';
 
@@ -58,6 +59,8 @@ export class SideLeftComponent {
       rightSide = SideRightCrossbeamComponent;
     else if( id==='endbeam') // 端横桁
       rightSide = SideRightEndbeamComponent;
+    else if( id.startsWith('custom-')) // カスタムメニュー
+      return this.openCustomMenu(id);
 
     if(rightSide==null)
       return;
@@ -81,17 +84,43 @@ export class SideLeftComponent {
     });
   }
 
-  getOrderedVisibleMenus(): string[] {
-    if (this.model.generalSettings.lodMode !== 'LOD300') {
-      return [];
-    }
+  private openCustomMenu(menuId: string): void {
+    const customMenuId = parseInt(menuId.replace('custom-', ''));
+    const customMenu = this.model.getCustomMenuById(customMenuId);
     
-    return this.model.menuSettings.menuOrder.filter((menuKey: string) => 
+    if (!customMenu) return;
+
+    this.dialog.closeAll();
+    
+    this.dialog.open(SideRightCustomComponent, {
+      width: '500px',
+      position: { right: '10px', top: '70px' },
+      hasBackdrop: false,
+      data: { customMenu }
+    });
+  }
+
+  getOrderedVisibleMenus(): string[] {
+    const standardMenus = this.model.menuSettings.menuOrder.filter((menuKey: string) => 
       this.model.menuSettings.visibleMenus[menuKey]
     );
+    
+    const customMenus = this.model.customMenus.menus.map((menu: any) => `custom-${menu.id}`);
+    
+    if (this.model.generalSettings.lodMode !== 'LOD300') {
+      return customMenus;
+    }
+    
+    return [...standardMenus, ...customMenus];
   }
 
   getMenuLabel(menuKey: string): string {
+    if (menuKey.startsWith('custom-')) {
+      const customMenuId = parseInt(menuKey.replace('custom-', ''));
+      const customMenu = this.model.getCustomMenuById(customMenuId);
+      return customMenu ? customMenu.name : menuKey;
+    }
+    
     const menuLabels: { [key: string]: string } = {
       'pavement': '舗装',
       'slab': '床版',

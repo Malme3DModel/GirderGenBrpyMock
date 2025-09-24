@@ -171,6 +171,11 @@ export class GirderPalamService {
     gussetPlate: { color: '#708090', opacity: 0.85, name: 'ガセットプレート' }
   };
 
+  public customMenus: any = {
+    menus: [],
+    nextId: 1
+  };
+
   public materialStrength: any = {
     steel: {
       mainGirder: {
@@ -240,6 +245,98 @@ export class GirderPalamService {
     }
   };
 
+  public getAllAvailableInputItems(): any[] {
+    const items: any[] = [];
+    
+    const othersItems = [
+      { menuKey: 'others', name: 'Name_P', label: '業務名', unit: '', dataPath: 'others.Name_P' },
+      { menuKey: 'others', name: 'Name_R', label: '路線名', unit: '', dataPath: 'others.Name_R' },
+      { menuKey: 'others', name: 'Class_R', label: '道路種別', unit: '', dataPath: 'others.Class_R' },
+      { menuKey: 'others', name: 'L', label: '橋長', unit: 'm', dataPath: 'others.L' },
+      { menuKey: 'others', name: 'L_01', label: '桁長', unit: 'm', dataPath: 'others.L_01' },
+      { menuKey: 'others', name: 'L_02', label: '支間長', unit: 'm', dataPath: 'others.L_02' },
+      { menuKey: 'others', name: 'amount_H', label: '横桁・対傾構の列数', unit: '列', dataPath: 'others.amount_H' }
+    ];
+    
+    const beamItems = [
+      { menuKey: 'beam', name: 'amount_V', label: '主桁本数', unit: '本', dataPath: 'beam.amount_V' },
+      { menuKey: 'beam', name: 'D', label: 'フランジ幅', unit: 'mm', dataPath: 'beam.D' },
+      { menuKey: 'beam', name: 'tf', label: 'フランジ厚', unit: 'mm', dataPath: 'beam.tf' },
+      { menuKey: 'beam', name: 'W', label: 'ウェブ幅', unit: 'mm', dataPath: 'beam.W' },
+      { menuKey: 'beam', name: 'tw', label: 'ウェブ厚', unit: 'mm', dataPath: 'beam.tw' }
+    ];
+    
+    const slabItems = [
+      { menuKey: 'slab', name: 'b1', label: '左幅員', unit: 'm', dataPath: 'slab.b1' },
+      { menuKey: 'slab', name: 'b2', label: '右幅員', unit: 'm', dataPath: 'slab.b2' },
+      { menuKey: 'slab', name: 'b3', label: '地覆幅', unit: 'm', dataPath: 'slab.b3' },
+      { menuKey: 'slab', name: 'SH', label: '壁高', unit: 'm', dataPath: 'slab.SH' },
+      { menuKey: 'slab', name: 'T1', label: '床版厚', unit: 'm', dataPath: 'slab.T1' },
+      { menuKey: 'slab', name: 'T2', label: 'ハンチ高', unit: 'm', dataPath: 'slab.T2' }
+    ];
+    
+    const pavementItems = [
+      { menuKey: 'pavement', name: 'i1', label: '舗装勾配（左）', unit: '%', dataPath: 'pavement.i1' },
+      { menuKey: 'pavement', name: 'i2', label: '舗装勾配（右）', unit: '%', dataPath: 'pavement.i2' },
+      { menuKey: 'pavement', name: 'T', label: '舗装厚', unit: 'm', dataPath: 'pavement.T' }
+    ];
+
+    const crossItems = [
+      { menuKey: 'cross', name: 'D3', label: 'フランジ幅', unit: 'mm', dataPath: 'cross.D3' },
+      { menuKey: 'cross', name: 'tf2', label: 'フランジ厚', unit: 'mm', dataPath: 'cross.tf2' },
+      { menuKey: 'cross', name: 'W2', label: 'ウェブ幅', unit: 'mm', dataPath: 'cross.W2' },
+      { menuKey: 'cross', name: 'tw2', label: 'ウェブ厚', unit: 'mm', dataPath: 'cross.tw2' },
+      { menuKey: 'cross', name: 's_edge', label: '離隔（外側）', unit: 'mm', dataPath: 'cross.s_edge' },
+      { menuKey: 'cross', name: 's_middle', label: '離隔（内側）', unit: 'mm', dataPath: 'cross.s_middle' }
+    ];
+
+    const midItems = [
+      { menuKey: 'mid', name: 'A', label: 'L鋼底面幅', unit: 'mm', dataPath: 'mid.A' },
+      { menuKey: 'mid', name: 'B', label: 'L鋼側面幅', unit: 'mm', dataPath: 'mid.B' },
+      { menuKey: 'mid', name: 't', label: 'L鋼厚', unit: 'mm', dataPath: 'mid.t' },
+      { menuKey: 'mid', name: 'H', label: '中間対傾構全体高', unit: 'mm', dataPath: 'mid.H' },
+      { menuKey: 'mid', name: 'dz', label: '中間対傾構配置高', unit: 'mm', dataPath: 'mid.dz' }
+    ];
+
+    const crossbeamItems = [
+      { menuKey: 'crossbeam', name: 'D4', label: 'フランジ幅', unit: 'mm', dataPath: 'crossbeam.D4' },
+      { menuKey: 'crossbeam', name: 'tf3', label: 'フランジ厚', unit: 'mm', dataPath: 'crossbeam.tf3' },
+      { menuKey: 'crossbeam', name: 'W3', label: 'ウェブ幅', unit: 'mm', dataPath: 'crossbeam.W3' },
+      { menuKey: 'crossbeam', name: 'tw3', label: 'ウェブ厚', unit: 'mm', dataPath: 'crossbeam.tw3' }
+    ];
+
+    const endbeamItems = [
+      { menuKey: 'endbeam', name: 'D5', label: 'フランジ幅', unit: 'mm', dataPath: 'endbeam.D5' },
+      { menuKey: 'endbeam', name: 'tf4', label: 'フランジ厚', unit: 'mm', dataPath: 'endbeam.tf4' },
+      { menuKey: 'endbeam', name: 'W5', label: 'ウェブ幅', unit: 'mm', dataPath: 'endbeam.W5' },
+      { menuKey: 'endbeam', name: 'tw4', label: 'ウェブ厚', unit: 'mm', dataPath: 'endbeam.tw4' }
+    ];
+    
+    items.push(...othersItems, ...beamItems, ...slabItems, ...pavementItems, ...crossItems, ...midItems, ...crossbeamItems, ...endbeamItems);
+    
+    return items;
+  }
+
+  public getCustomMenuById(id: number): any {
+    return this.customMenus.menus.find((menu: any) => menu.id === id);
+  }
+
+  public addCustomMenu(menu: any): void {
+    menu.id = this.customMenus.nextId++;
+    this.customMenus.menus.push(menu);
+  }
+
+  public updateCustomMenu(id: number, updatedMenu: any): void {
+    const index = this.customMenus.menus.findIndex((menu: any) => menu.id === id);
+    if (index !== -1) {
+      this.customMenus.menus[index] = { ...updatedMenu, id };
+    }
+  }
+
+  public deleteCustomMenu(id: number): void {
+    this.customMenus.menus = this.customMenus.menus.filter((menu: any) => menu.id !== id);
+  }
+
   public palam(): any {
     return {
     'others': this.others,
@@ -255,6 +352,7 @@ export class GirderPalamService {
     'generalSettings': this.generalSettings,
     'menuSettings': this.menuSettings,
     'componentAppearance': this.componentAppearance,
+    'customMenus': this.customMenus,
     };
   }
 
@@ -285,6 +383,8 @@ export class GirderPalamService {
       this.menuSettings = value['menuSettings'];
     if('componentAppearance' in value)
       this.componentAppearance = value['componentAppearance'];
+    if('customMenus' in value)
+      this.customMenus = value['customMenus'];
   }
 
 }
