@@ -38,18 +38,18 @@ export class SideRightSlabComponent{
 
     private dataset: any[] = [
       { name: 'Slab', value: '', unit: ''},
-      {name: 'b1', value: this.model.slab.b1, unit: 'm'},
-      {name: 'b2', value: this.model.slab.b2, unit: 'm'},
-      {name: 'b3', value: this.model.slab.b3, unit: 'm'},
-      {name: 'SH', value: this.model.slab.SH, unit: 'm'},
+      {name: 'b1', value: this.model.getDisplayValue(this.model.slab.b1, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'b2', value: this.model.getDisplayValue(this.model.slab.b2, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'b3', value: this.model.getDisplayValue(this.model.slab.b3, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'SH', value: this.model.getDisplayValue(this.model.slab.SH, 'm'), unit: this.model.getDisplayUnit('m')},
       {name: 'i1', value: this.model.slab.i1, unit: '%'},
       {name: 'i2', value: this.model.slab.i2, unit: '%'},
       {name: 'j1', value: this.model.slab.i1, unit: '%'},
       {name: 'j2', value: this.model.slab.i2, unit: '%'},
-      {name: 'T1', value: this.model.slab.T1, unit: 'm'},
-      {name: 'T2', value: this.model.slab.T2, unit: 'm'},
+      {name: 'T1', value: this.model.getDisplayValue(this.model.slab.T1, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'T2', value: this.model.getDisplayValue(this.model.slab.T2, 'm'), unit: this.model.getDisplayUnit('m')},
       {name: 'n', value: this.model.slab.n, unit: '1:n'},
-      {name: 'Ss', value: this.model.slab.Ss, unit: 'm'},
+      {name: 'Ss', value: this.model.getDisplayValue(this.model.slab.Ss, 'm'), unit: this.model.getDisplayUnit('m')},
     ];
 
     private columns = [
@@ -83,11 +83,32 @@ export class SideRightSlabComponent{
           if( isNaN(value) )
             return false;
           const name: string = this.dataset[item[0]].name;
-          this.model.slab[name] = value;
+          
+          const originalUnit = this.getOriginalUnit(name);
+          const storageValue = this.model.getStorageValue(value, originalUnit);
+          this.model.slab[name] = storageValue;
         }
         // 再描画
         this.redraw();
         return true;
       },
     };
+
+  private getOriginalUnit(fieldName: string): string {
+    const unitMap: any = {
+      'b1': 'm',
+      'b2': 'm',
+      'b3': 'm',
+      'SH': 'm',
+      'i1': '%',
+      'i2': '%',
+      'j1': '%',
+      'j2': '%',
+      'T1': 'm',
+      'T2': 'm',
+      'n': '1:n',
+      'Ss': 'm'
+    };
+    return unitMap[fieldName] || '';
+  }
 }

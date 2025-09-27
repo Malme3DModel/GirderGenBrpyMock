@@ -39,10 +39,10 @@ export class SideRightBeamComponent {
     private dataset: any[] = [
       { name: 'Beam', value: '', unit: ''},
       {name: 'amount_V',  value: this.model.beam.amount_V,  unit: '本'},
-      {name: 'D',         value: this.model.beam.D,         unit: 'mm'},
-      {name: 'tf',        value: this.model.beam.tf,        unit: 'mm'},
-      {name: 'W',         value: this.model.beam.W,         unit: 'mm'},
-      {name: 'tw',        value: this.model.beam.tw,        unit: 'mm'},
+      {name: 'D',         value: this.model.getDisplayValue(this.model.beam.D, 'mm'),         unit: this.model.getDisplayUnit('mm')},
+      {name: 'tf',        value: this.model.getDisplayValue(this.model.beam.tf, 'mm'),        unit: this.model.getDisplayUnit('mm')},
+      {name: 'W',         value: this.model.getDisplayValue(this.model.beam.W, 'mm'),         unit: this.model.getDisplayUnit('mm')},
+      {name: 'tw',        value: this.model.getDisplayValue(this.model.beam.tw, 'mm'),        unit: this.model.getDisplayUnit('mm')},
     ];
 
     private columns = [
@@ -84,12 +84,26 @@ export class SideRightBeamComponent {
           const isInteger = this.integer_cell.find( element => element.row === item[0]);
           if(isInteger != null)
             value = Math.round(value);
-          this.model.beam[name] = value;
+          
+          const originalUnit = this.getOriginalUnit(name);
+          const storageValue = this.model.getStorageValue(value, originalUnit);
+          this.model.beam[name] = storageValue;
         }
         // 再描画
         this.redraw();
         return true;
       },
     };
+
+  private getOriginalUnit(fieldName: string): string {
+    const unitMap: any = {
+      'D': 'mm',
+      'tf': 'mm', 
+      'W': 'mm',
+      'tw': 'mm',
+      'amount_V': '本'
+    };
+    return unitMap[fieldName] || '';
+  }
 
 }

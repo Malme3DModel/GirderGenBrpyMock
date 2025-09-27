@@ -43,19 +43,19 @@ export class SideRightOthersComponent{
       {name: 'Name_P', value: this.model.others.Name_P, unit: ''},
       {name: 'Name_R', value: this.model.others.Name_R, unit: ''},
       {name: 'Class_R', value: this.model.others.Class_R, unit: ''},
-      {name: 'L', value: this.model.others.L, unit: 'm'},
-      {name: 'L_01', value: this.model.others.L_01, unit: 'm'},
-      {name: 'L_02', value: this.model.others.L_02, unit: 'm'},
-      {name: 'Milepost_B', value: this.model.others.Milepost_B, unit: 'km'},
-      {name: 'Milepost_E', value: this.model.others.Milepost_E, unit: 'km'},
+      {name: 'L', value: this.model.getDisplayValue(this.model.others.L, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'L_01', value: this.model.getDisplayValue(this.model.others.L_01, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'L_02', value: this.model.getDisplayValue(this.model.others.L_02, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'Milepost_B', value: this.model.getDisplayValue(this.model.others.Milepost_B, 'km'), unit: this.model.getDisplayUnit('km')},
+      {name: 'Milepost_E', value: this.model.getDisplayValue(this.model.others.Milepost_E, 'km'), unit: this.model.getDisplayUnit('km')},
       {name: 'BP', value: this.model.others.BP, unit: 'NO.'},
-      {name: 'BPx', value: this.model.others.BPx, unit: 'm'},
-      {name: 'BPy', value: this.model.others.BPy, unit: 'm'},
-      {name: 'BPz', value: this.model.others.BPz, unit: 'm'},
+      {name: 'BPx', value: this.model.getDisplayValue(this.model.others.BPx, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'BPy', value: this.model.getDisplayValue(this.model.others.BPy, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'BPz', value: this.model.getDisplayValue(this.model.others.BPz, 'm'), unit: this.model.getDisplayUnit('m')},
       {name: 'EP', value: this.model.others.EP, unit: 'NO.'},
-      {name: 'EPx', value: this.model.others.EPx, unit: 'm'},
-      {name: 'EPy', value: this.model.others.EPy, unit: 'm'},
-      {name: 'EPz', value: this.model.others.EPz, unit: 'm'},
+      {name: 'EPx', value: this.model.getDisplayValue(this.model.others.EPx, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'EPy', value: this.model.getDisplayValue(this.model.others.EPy, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'EPz', value: this.model.getDisplayValue(this.model.others.EPz, 'm'), unit: this.model.getDisplayUnit('m')},
       {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
     ];
 
@@ -98,4 +98,27 @@ export class SideRightOthersComponent{
         return true;
       },
     };
+
+  private getOriginalUnit(fieldName: string): string {
+    const unitMap: any = {
+      'Name_P': '',
+      'Name_R': '',
+      'Class_R': '',
+      'L': 'm',
+      'L_01': 'm',
+      'L_02': 'm',
+      'Milepost_B': 'km',
+      'Milepost_E': 'km',
+      'BP': 'NO.',
+      'BPx': 'm',
+      'BPy': 'm',
+      'BPz': 'm',
+      'EP': 'NO.',
+      'EPx': 'm',
+      'EPy': 'm',
+      'EPz': 'm',
+      'amount_H': '列'
+    };
+    return unitMap[fieldName] || '';
+  }
 }

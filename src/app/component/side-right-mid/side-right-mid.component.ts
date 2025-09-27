@@ -54,34 +54,34 @@ export class SideRightMidComponent {
 
     private dataset: any[] = [
       { name: 'mid', value: '', unit: ''},
-      { name: 'A', value: this.model.mid.A, unit: 'mm'},
-      { name: 'B', value: this.model.mid.B, unit: 'mm'},
-      { name: 't', value: this.model.mid.t, unit: 'mm'},
-      { name: 's', value: this.model.mid.s, unit: 'mm'},
-      { name: 's_out', value: this.model.mid.s_out, unit: 'mm'},
-      { name: 's_in', value: this.model.mid.s_in, unit: 'mm'},
-      { name: 'dz', value: this.model.mid.dz, unit: 'mm'},
-      { name: 'H', value: this.model.mid.H, unit: 'mm'},
+      { name: 'A', value: this.model.getDisplayValue(this.model.mid.A, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'B', value: this.model.getDisplayValue(this.model.mid.B, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 't', value: this.model.getDisplayValue(this.model.mid.t, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 's', value: this.model.getDisplayValue(this.model.mid.s, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 's_out', value: this.model.getDisplayValue(this.model.mid.s_out, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 's_in', value: this.model.getDisplayValue(this.model.mid.s_in, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'dz', value: this.model.getDisplayValue(this.model.mid.dz, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'H', value: this.model.getDisplayValue(this.model.mid.H, 'mm'), unit: this.model.getDisplayUnit('mm')},
       { name: 'Gusset01', value: '', unit: ''},
-      { name: 'GA1', value: this.model.mid.GA1, unit: 'mm'},
-      { name: 'GD1', value: this.model.mid.GD1, unit: 'mm'},
-      { name: 'GB1', value: this.model.mid.GB1, unit: 'mm'},
-      { name: 'GC1', value: this.model.mid.GC1, unit: 'mm'},
-      { name: 'Gt1', value: this.model.mid.Gt1, unit: 'mm'},
+      { name: 'GA1', value: this.model.getDisplayValue(this.model.mid.GA1, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GD1', value: this.model.getDisplayValue(this.model.mid.GD1, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GB1', value: this.model.getDisplayValue(this.model.mid.GB1, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GC1', value: this.model.getDisplayValue(this.model.mid.GC1, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'Gt1', value: this.model.getDisplayValue(this.model.mid.Gt1, 'mm'), unit: this.model.getDisplayUnit('mm')},
       { name: 'Gusset02', value: '', unit: ''},
-      { name: 'GA2', value: this.model.mid.GA2, unit: 'mm'},
-      { name: 'GD2', value: this.model.mid.GD2, unit: 'mm'},
-      { name: 'GB2', value: this.model.mid.GB2, unit: 'mm'},
-      { name: 'GC2', value: this.model.mid.GC2, unit: 'mm'},
-      { name: 'Gt2', value: this.model.mid.Gt2, unit: 'mm'},
-      { name: 'Gdx2', value: this.model.mid.Gdx2, unit: 'mm'},
+      { name: 'GA2', value: this.model.getDisplayValue(this.model.mid.GA2, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GD2', value: this.model.getDisplayValue(this.model.mid.GD2, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GB2', value: this.model.getDisplayValue(this.model.mid.GB2, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GC2', value: this.model.getDisplayValue(this.model.mid.GC2, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'Gt2', value: this.model.getDisplayValue(this.model.mid.Gt2, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'Gdx2', value: this.model.getDisplayValue(this.model.mid.Gdx2, 'mm'), unit: this.model.getDisplayUnit('mm')},
       { name: 'Gusset03', value: '', unit: ''},
-      { name: 'GA3', value: this.model.mid.GA3, unit: 'mm'},
-      { name: 'GD3', value: this.model.mid.GD3, unit: 'mm'},
-      { name: 'GC3', value: this.model.mid.GC3, unit: 'mm'},
-      { name: 'GB3', value: this.model.mid.GB3, unit: 'mm'},
-      { name: 'Gt3', value: this.model.mid.Gt1, unit: 'mm'},
-      { name: 'Gdx3', value: this.model.mid.Gdx2, unit: 'mm'},
+      { name: 'GA3', value: this.model.getDisplayValue(this.model.mid.GA3, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GD3', value: this.model.getDisplayValue(this.model.mid.GD3, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GC3', value: this.model.getDisplayValue(this.model.mid.GC3, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GB3', value: this.model.getDisplayValue(this.model.mid.GB3, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'Gt3', value: this.model.getDisplayValue(this.model.mid.Gt1, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'Gdx3', value: this.model.getDisplayValue(this.model.mid.Gdx2, 'mm'), unit: this.model.getDisplayUnit('mm')},
     ];
 
     private columns = [
@@ -116,11 +116,24 @@ export class SideRightMidComponent {
           if( isNaN(value) )
             return false;
           const name: string = this.dataset[item[0]].name;
-          this.model.mid[name] = value;
+          
+          const originalUnit = this.getOriginalUnit(name);
+          const storageValue = this.model.getStorageValue(value, originalUnit);
+          this.model.mid[name] = storageValue;
         }
         // 再描画
         this.redraw();
         return true;
       },
     };
+
+  private getOriginalUnit(fieldName: string): string {
+    const unitMap: any = {
+      'A': 'mm', 'B': 'mm', 't': 'mm', 's': 'mm', 's_out': 'mm', 's_in': 'mm', 'dz': 'mm', 'H': 'mm',
+      'GA1': 'mm', 'GD1': 'mm', 'GB1': 'mm', 'GC1': 'mm', 'Gt1': 'mm',
+      'GA2': 'mm', 'GD2': 'mm', 'GB2': 'mm', 'GC2': 'mm', 'Gt2': 'mm', 'Gdx2': 'mm',
+      'GA3': 'mm', 'GD3': 'mm', 'GC3': 'mm', 'GB3': 'mm', 'Gt3': 'mm', 'Gdx3': 'mm'
+    };
+    return unitMap[fieldName] || '';
+  }
 }
