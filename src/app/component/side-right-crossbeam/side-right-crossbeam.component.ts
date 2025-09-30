@@ -33,12 +33,12 @@ export class SideRightCrossbeamComponent {
 
     private dataset: any[] = [
       { name: 'Crossbeam', value: '', unit: ''},
-      { name: 'D4', value: this.model.crossbeam.D4, unit: 'mm'},
-      { name: 'tf3', value: this.model.crossbeam.tf3, unit: 'mm'},
-      { name: 'W3', value: this.model.crossbeam.W3, unit: 'mm'},
-      { name: 'tw3', value: this.model.crossbeam.tw3, unit: 'mm'},
-      { name: 's_edge2', value: this.model.crossbeam.s_edge2, unit: 'mm'},
-      { name: 's_middle2', value: this.model.crossbeam.s_middle2, unit: 'mm'},
+      { name: 'D4', value: this.model.getDisplayValue(this.model.crossbeam.D4, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'tf3', value: this.model.getDisplayValue(this.model.crossbeam.tf3, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'W3', value: this.model.getDisplayValue(this.model.crossbeam.W3, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'tw3', value: this.model.getDisplayValue(this.model.crossbeam.tw3, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 's_edge2', value: this.model.getDisplayValue(this.model.crossbeam.s_edge2, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 's_middle2', value: this.model.getDisplayValue(this.model.crossbeam.s_middle2, 'mm'), unit: this.model.getDisplayUnit('mm')},
       { name: 'location2', value: this.model.crossbeam.location2, unit: '列'},
     ];
 
@@ -73,12 +73,27 @@ export class SideRightCrossbeamComponent {
           if( isNaN(value) )
             return false;
           const name: string = this.dataset[item[0]].name;
-          this.model.crossbeam[name] = value;
+          
+          const originalUnit = this.getOriginalUnit(name);
+          const storageValue = this.model.getStorageValue(value, originalUnit);
+          this.model.crossbeam[name] = storageValue;
         }
         // 再描画
         this.redraw();
         return true;
       },
     };
-    
+
+  private getOriginalUnit(fieldName: string): string {
+    const unitMap: any = {
+      'D4': 'mm',
+      'tf3': 'mm',
+      'W3': 'mm',
+      'tw3': 'mm',
+      's_edge2': 'mm',
+      's_middle2': 'mm',
+      'location2': '列'
+    };
+    return unitMap[fieldName] || '';
+  }
 }

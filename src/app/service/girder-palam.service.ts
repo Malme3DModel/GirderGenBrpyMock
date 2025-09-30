@@ -244,6 +244,21 @@ export class GirderPalamService {
       ]
     }
   };
+    public unitSettings: any = {
+    length: 'mm',
+    distance: 'm'
+  };
+
+  private unitConversionFactors: any = {
+    length: {
+      'mm': { 'mm': 1, 'm': 0.001 },
+      'm': { 'mm': 1000, 'm': 1 }
+    },
+    distance: {
+      'm': { 'm': 1, 'km': 0.001 },
+      'km': { 'm': 1000, 'km': 1 }
+    }
+  };
 
   public getAllAvailableInputItems(): any[] {
     const items: any[] = [];
@@ -353,6 +368,7 @@ export class GirderPalamService {
     'menuSettings': this.menuSettings,
     'componentAppearance': this.componentAppearance,
     'customMenus': this.customMenus,
+    'unitSettings': this.unitSettings,
     };
   }
 
@@ -385,6 +401,50 @@ export class GirderPalamService {
       this.componentAppearance = value['componentAppearance'];
     if('customMenus' in value)
       this.customMenus = value['customMenus'];
+    if('unitSettings' in value)
+      this.unitSettings = value['unitSettings'];
+  }
+
+  public getUnitOptions(): any {
+    return {
+      length: ['mm', 'm'],
+      distance: ['m', 'km']
+    };
+  }
+
+  public getUnitCategory(unit: string): string {
+    if (['mm', 'm'].includes(unit)) return 'length';
+    if (['m', 'km'].includes(unit)) return 'distance';
+    return 'other';
+  }
+
+  public convertValue(value: number, fromUnit: string, toUnit: string): number {
+    const category = this.getUnitCategory(fromUnit);
+    if (category === 'length' || category === 'distance') {
+      const factors = this.unitConversionFactors[category];
+      if (factors[fromUnit] && factors[fromUnit][toUnit]) {
+        return value * factors[fromUnit][toUnit];
+      }
+    }
+    return value;
+  }
+
+  public getDisplayUnit(originalUnit: string): string {
+    const category = this.getUnitCategory(originalUnit);
+    if (category === 'length' || category === 'distance') {
+      return this.unitSettings[category];
+    }
+    return originalUnit;
+  }
+
+  public getDisplayValue(value: number, originalUnit: string): number {
+    const displayUnit = this.getDisplayUnit(originalUnit);
+    return this.convertValue(value, originalUnit, displayUnit);
+  }
+
+  public getStorageValue(displayValue: number, originalUnit: string): number {
+    const displayUnit = this.getDisplayUnit(originalUnit);
+    return this.convertValue(displayValue, displayUnit, originalUnit);
   }
 
 }

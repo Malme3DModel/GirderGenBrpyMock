@@ -1,9 +1,106 @@
-<h1 mat-dialog-title>単位系設定の編集</h1>
+<h1 mat-dialog-title>単位系設定</h1>
 
 <div mat-dialog-content>
-    <p>この設定画面は今後実装予定です。</p>
+  <div class="unit-settings-container">
+    <div *ngFor="let category of getUnitCategories()" class="unit-category">
+      <h3>{{getCategoryLabel(category)}}</h3>
+      <mat-form-field appearance="outline" class="unit-select">
+        <mat-label>単位を選択</mat-label>
+        <mat-select [value]="model.unitSettings[category]" 
+                    (selectionChange)="onUnitChange(category, $event.value)">
+          <mat-option *ngFor="let unit of getUnitOptions()[category]" [value]="unit">
+            {{unit}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <div class="unit-description">
+        <p *ngIf="category === 'length'">
+          構造部材の寸法（フランジ幅、厚さ等）に適用されます
+        </p>
+        <p *ngIf="category === 'distance'">
+          橋長、桁長、距離標等に適用されます
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div mat-dialog-actions>
+  <div class="preset-buttons">
+    <button mat-raised-button color="primary" (click)="savePreset()">
+      <mat-icon>save</mat-icon>
+      プリセット保存
+    </button>
+    <button mat-raised-button color="accent" (click)="triggerFileInput()">
+      <mat-icon>upload</mat-icon>
+      プリセット読込
+    </button>
+    <input type="file" 
+           id="unit-settings-file-input" 
+           accept=".json" 
+           (change)="loadPreset($event)" 
+           style="display: none;">
+  </div>
+  <div class="dialog-close">
     <button mat-button mat-dialog-close>閉じる</button>
+  </div>
 </div>
+
+<style>
+.unit-settings-container {
+  min-width: 400px;
+  padding: 20px 0;
+}
+
+.unit-category {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.unit-category h3 {
+  margin: 0 0 16px 0;
+  color: #1976d2;
+  font-size: 18px;
+}
+
+.unit-select {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.unit-description {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.unit-description p {
+  margin: 0;
+}
+
+.preset-buttons {
+  display: flex;
+  gap: 12px;
+  margin-right: auto;
+}
+
+.preset-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dialog-close {
+  margin-left: auto;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+</style>

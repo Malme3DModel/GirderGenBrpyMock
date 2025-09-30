@@ -31,7 +31,7 @@ export class SideRightPavementComponent{
       { name: 'pavement', value: '', unit: ''},
       {name: 'i1', value: this.model.pavement.i1, unit: '%'},
       {name: 'i2', value: this.model.pavement.i2, unit: '%'},
-      {name: 'T', value: this.model.pavement.T, unit: 'm'},
+      {name: 'T', value: this.model.getDisplayValue(this.model.pavement.T, 'm'), unit: this.model.getDisplayUnit('m')},
     ];
 
     private columns = [
@@ -65,11 +65,23 @@ export class SideRightPavementComponent{
           if( isNaN(value) )
             return false;
           const name: string = this.dataset[item[0]].name;
-          this.model.pavement[name] = value;
+          
+          const originalUnit = this.getOriginalUnit(name);
+          const storageValue = this.model.getStorageValue(value, originalUnit);
+          this.model.pavement[name] = storageValue;
         }
         // 再描画
         this.redraw();
         return true;
       },
     };
+
+  private getOriginalUnit(fieldName: string): string {
+    const unitMap: any = {
+      'i1': '%',
+      'i2': '%',
+      'T': 'm'
+    };
+    return unitMap[fieldName] || '';
+  }
 }
