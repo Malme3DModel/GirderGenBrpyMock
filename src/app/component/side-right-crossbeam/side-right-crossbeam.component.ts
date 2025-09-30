@@ -51,7 +51,7 @@ export class SideRightCrossbeamComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: '0,0.0'
+          pattern: this.model.getDisplayFormat('mm')
         }
       }
     ];
