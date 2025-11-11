@@ -447,4 +447,12 @@ export class GirderPalamService {
     return this.convertValue(displayValue, displayUnit, originalUnit);
   }
 
+  public getDisplayFormat(originalUnit: string): string {
+    const displayUnit = this.getDisplayUnit(originalUnit);
+    if (displayUnit === 'm') {
+      return '0,0.000';
+    }
+    return '0,0.0';
+  }
+
 }

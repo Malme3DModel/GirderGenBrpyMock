@@ -72,7 +72,7 @@ export class SideRightLod200Component {
       data: 'value',
       type: 'numeric',
       numericFormat: {
-        pattern: '0,0.0'
+        pattern: this.model.getDisplayFormat('m')
       }
     }
   ];
