@@ -31,7 +31,7 @@ export class SideRightPavementComponent{
       { name: 'pavement', value: '', unit: ''},
       {name: 'i1', value: this.model.pavement.i1, unit: '%'},
       {name: 'i2', value: this.model.pavement.i2, unit: '%'},
-      {name: 'T', value: this.model.getDisplayValue(this.model.pavement.T, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'T', value: this.model.getDisplayValue(this.model.pavement.T, 'm', 'T'), unit: this.model.getDisplayUnit('m', 'T')},
     ];
 
     private columns = [
@@ -67,7 +67,7 @@ export class SideRightPavementComponent{
           const name: string = this.dataset[item[0]].name;
           
           const originalUnit = this.getOriginalUnit(name);
-          const storageValue = this.model.getStorageValue(value, originalUnit);
+          const storageValue = this.model.getStorageValue(value, originalUnit, name);
           this.model.pavement[name] = storageValue;
         }
         // 再描画

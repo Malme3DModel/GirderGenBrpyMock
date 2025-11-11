@@ -39,10 +39,10 @@ export class SideRightBeamComponent {
     private dataset: any[] = [
       { name: 'Beam', value: '', unit: ''},
       {name: 'amount_V',  value: this.model.beam.amount_V,  unit: '本'},
-      {name: 'D',         value: this.model.getDisplayValue(this.model.beam.D, 'mm'),         unit: this.model.getDisplayUnit('mm')},
-      {name: 'tf',        value: this.model.getDisplayValue(this.model.beam.tf, 'mm'),        unit: this.model.getDisplayUnit('mm')},
-      {name: 'W',         value: this.model.getDisplayValue(this.model.beam.W, 'mm'),         unit: this.model.getDisplayUnit('mm')},
-      {name: 'tw',        value: this.model.getDisplayValue(this.model.beam.tw, 'mm'),        unit: this.model.getDisplayUnit('mm')},
+      {name: 'D',         value: this.model.getDisplayValue(this.model.beam.D, 'mm', 'D'),         unit: this.model.getDisplayUnit('mm', 'D')},
+      {name: 'tf',        value: this.model.getDisplayValue(this.model.beam.tf, 'mm', 'tf'),        unit: this.model.getDisplayUnit('mm', 'tf')},
+      {name: 'W',         value: this.model.getDisplayValue(this.model.beam.W, 'mm', 'W'),         unit: this.model.getDisplayUnit('mm', 'W')},
+      {name: 'tw',        value: this.model.getDisplayValue(this.model.beam.tw, 'mm', 'tw'),        unit: this.model.getDisplayUnit('mm', 'tw')},
     ];
 
     private columns = [
@@ -54,7 +54,7 @@ export class SideRightBeamComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: this.model.getDisplayFormat('mm')
+          pattern: this.model.getDisplayFormat('mm', 'D')
         }
       }
     ];
@@ -86,7 +86,7 @@ export class SideRightBeamComponent {
             value = Math.round(value);
           
           const originalUnit = this.getOriginalUnit(name);
-          const storageValue = this.model.getStorageValue(value, originalUnit);
+          const storageValue = this.model.getStorageValue(value, originalUnit, name);
           this.model.beam[name] = storageValue;
         }
         // 再描画

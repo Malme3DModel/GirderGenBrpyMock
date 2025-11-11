@@ -43,19 +43,19 @@ export class SideRightOthersComponent{
       {name: 'Name_P', value: this.model.others.Name_P, unit: ''},
       {name: 'Name_R', value: this.model.others.Name_R, unit: ''},
       {name: 'Class_R', value: this.model.others.Class_R, unit: ''},
-      {name: 'L', value: this.model.getDisplayValue(this.model.others.L, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'L_01', value: this.model.getDisplayValue(this.model.others.L_01, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'L_02', value: this.model.getDisplayValue(this.model.others.L_02, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'Milepost_B', value: this.model.getDisplayValue(this.model.others.Milepost_B, 'km'), unit: this.model.getDisplayUnit('km')},
-      {name: 'Milepost_E', value: this.model.getDisplayValue(this.model.others.Milepost_E, 'km'), unit: this.model.getDisplayUnit('km')},
+      {name: 'L', value: this.model.getDisplayValue(this.model.others.L, 'm', 'L'), unit: this.model.getDisplayUnit('m', 'L')},
+      {name: 'L_01', value: this.model.getDisplayValue(this.model.others.L_01, 'm', 'L_01'), unit: this.model.getDisplayUnit('m', 'L_01')},
+      {name: 'L_02', value: this.model.getDisplayValue(this.model.others.L_02, 'm', 'L_02'), unit: this.model.getDisplayUnit('m', 'L_02')},
+      {name: 'Milepost_B', value: this.model.getDisplayValue(this.model.others.Milepost_B, 'km', 'Milepost_B'), unit: this.model.getDisplayUnit('km', 'Milepost_B')},
+      {name: 'Milepost_E', value: this.model.getDisplayValue(this.model.others.Milepost_E, 'km', 'Milepost_E'), unit: this.model.getDisplayUnit('km', 'Milepost_E')},
       {name: 'BP', value: this.model.others.BP, unit: 'NO.'},
-      {name: 'BPx', value: this.model.getDisplayValue(this.model.others.BPx, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'BPy', value: this.model.getDisplayValue(this.model.others.BPy, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'BPz', value: this.model.getDisplayValue(this.model.others.BPz, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'BPx', value: this.model.getDisplayValue(this.model.others.BPx, 'm', 'BPx'), unit: this.model.getDisplayUnit('m', 'BPx')},
+      {name: 'BPy', value: this.model.getDisplayValue(this.model.others.BPy, 'm', 'BPy'), unit: this.model.getDisplayUnit('m', 'BPy')},
+      {name: 'BPz', value: this.model.getDisplayValue(this.model.others.BPz, 'm', 'BPz'), unit: this.model.getDisplayUnit('m', 'BPz')},
       {name: 'EP', value: this.model.others.EP, unit: 'NO.'},
-      {name: 'EPx', value: this.model.getDisplayValue(this.model.others.EPx, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'EPy', value: this.model.getDisplayValue(this.model.others.EPy, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'EPz', value: this.model.getDisplayValue(this.model.others.EPz, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'EPx', value: this.model.getDisplayValue(this.model.others.EPx, 'm', 'EPx'), unit: this.model.getDisplayUnit('m', 'EPx')},
+      {name: 'EPy', value: this.model.getDisplayValue(this.model.others.EPy, 'm', 'EPy'), unit: this.model.getDisplayUnit('m', 'EPy')},
+      {name: 'EPz', value: this.model.getDisplayValue(this.model.others.EPz, 'm', 'EPz'), unit: this.model.getDisplayUnit('m', 'EPz')},
       {name: 'amount_H', value: this.model.others.amount_H, unit: '列'},
     ];
 
@@ -91,7 +91,14 @@ export class SideRightOthersComponent{
           const isInteger = this.integer_cell.find( element => element.row === item[0]);
           if(isInteger != null)
             value = Math.round(value);
-          this.model.others[name] = value;
+          
+          const originalUnit = this.getOriginalUnit(name);
+          if (originalUnit && (originalUnit === 'm' || originalUnit === 'mm' || originalUnit === 'km')) {
+            const storageValue = this.model.getStorageValue(value, originalUnit, name);
+            this.model.others[name] = storageValue;
+          } else {
+            this.model.others[name] = value;
+          }
         }
         // 再描画
         this.redraw();

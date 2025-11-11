@@ -260,6 +260,88 @@ export class GirderPalamService {
     }
   };
 
+  private fieldCategoryMap: any = {
+    'L': 'distance',
+    'L_01': 'distance',
+    'L_02': 'distance',
+    'Milepost_B': 'distance',
+    'Milepost_E': 'distance',
+    
+    'BPx': 'length',
+    'BPy': 'length',
+    'BPz': 'length',
+    'EPx': 'length',
+    'EPy': 'length',
+    'EPz': 'length',
+    
+    'T': 'length',
+    
+    'b1': 'length',
+    'b2': 'length',
+    'b3': 'length',
+    'SH': 'length',
+    'T1': 'length',
+    'T2': 'length',
+    'Ss': 'length',
+    
+    'D': 'length',
+    'tf': 'length',
+    'W': 'length',
+    'tw': 'length',
+    
+    'A': 'length',
+    'B': 'length',
+    't': 'length',
+    's': 'length',
+    's_out': 'length',
+    's_in': 'length',
+    'dz': 'length',
+    'H': 'length',
+    'GA1': 'length',
+    'GD1': 'length',
+    'GB1': 'length',
+    'GC1': 'length',
+    'Gt1': 'length',
+    'GA2': 'length',
+    'GD2': 'length',
+    'GB2': 'length',
+    'GC2': 'length',
+    'Gt2': 'length',
+    'Gdx2': 'length',
+    'GA3': 'length',
+    'GD3': 'length',
+    'GC3': 'length',
+    'GB3': 'length',
+    'Gt3': 'length',
+    'Gdx3': 'length',
+    
+    'D3': 'length',
+    'tf2': 'length',
+    'W2': 'length',
+    'tw2': 'length',
+    's_edge': 'length',
+    's_middle': 'length',
+    'GA4': 'length',
+    'GD4': 'length',
+    'GB4': 'length',
+    'GC4': 'length',
+    'Gt4': 'length',
+    
+    'D4': 'length',
+    'tf3': 'length',
+    'W3': 'length',
+    'tw3': 'length',
+    's_edge2': 'length',
+    's_middle2': 'length',
+    
+    'D5': 'length',
+    'tf4': 'length',
+    'W5': 'length',
+    'tw4': 'length',
+    's_edge3': 'length',
+    's_middle3': 'length'
+  };
+
   public getAllAvailableInputItems(): any[] {
     const items: any[] = [];
     
@@ -412,14 +494,17 @@ export class GirderPalamService {
     };
   }
 
-  public getUnitCategory(unit: string): string {
+  public getUnitCategory(unit: string, fieldName?: string): string {
+    if (fieldName && this.fieldCategoryMap[fieldName]) {
+      return this.fieldCategoryMap[fieldName];
+    }
     if (['mm', 'm'].includes(unit)) return 'length';
     if (['m', 'km'].includes(unit)) return 'distance';
     return 'other';
   }
 
-  public convertValue(value: number, fromUnit: string, toUnit: string): number {
-    const category = this.getUnitCategory(fromUnit);
+  public convertValue(value: number, fromUnit: string, toUnit: string, fieldName?: string): number {
+    const category = this.getUnitCategory(fromUnit, fieldName);
     if (category === 'length' || category === 'distance') {
       const factors = this.unitConversionFactors[category];
       if (factors[fromUnit] && factors[fromUnit][toUnit]) {
@@ -429,26 +514,26 @@ export class GirderPalamService {
     return value;
   }
 
-  public getDisplayUnit(originalUnit: string): string {
-    const category = this.getUnitCategory(originalUnit);
+  public getDisplayUnit(originalUnit: string, fieldName?: string): string {
+    const category = this.getUnitCategory(originalUnit, fieldName);
     if (category === 'length' || category === 'distance') {
       return this.unitSettings[category];
     }
     return originalUnit;
   }
 
-  public getDisplayValue(value: number, originalUnit: string): number {
-    const displayUnit = this.getDisplayUnit(originalUnit);
-    return this.convertValue(value, originalUnit, displayUnit);
+  public getDisplayValue(value: number, originalUnit: string, fieldName?: string): number {
+    const displayUnit = this.getDisplayUnit(originalUnit, fieldName);
+    return this.convertValue(value, originalUnit, displayUnit, fieldName);
   }
 
-  public getStorageValue(displayValue: number, originalUnit: string): number {
-    const displayUnit = this.getDisplayUnit(originalUnit);
-    return this.convertValue(displayValue, displayUnit, originalUnit);
+  public getStorageValue(displayValue: number, originalUnit: string, fieldName?: string): number {
+    const displayUnit = this.getDisplayUnit(originalUnit, fieldName);
+    return this.convertValue(displayValue, displayUnit, originalUnit, fieldName);
   }
 
-  public getDisplayFormat(originalUnit: string): string {
-    const displayUnit = this.getDisplayUnit(originalUnit);
+  public getDisplayFormat(originalUnit: string, fieldName?: string): string {
+    const displayUnit = this.getDisplayUnit(originalUnit, fieldName);
     if (displayUnit === 'm') {
       return '0,0.000';
     }

@@ -38,18 +38,18 @@ export class SideRightCrossComponent {
     
     private dataset: any[] = [
       { name: 'Cross', value: '', unit: ''},
-      {name: 'D3',        value: this.model.getDisplayValue(this.model.cross.D3, 'mm'),       unit: this.model.getDisplayUnit('mm')},
-      {name: 'tf2',       value: this.model.getDisplayValue(this.model.cross.tf2, 'mm'),      unit: this.model.getDisplayUnit('mm')},
-      {name: 'W2',        value: this.model.getDisplayValue(this.model.cross.W2, 'mm'),       unit: this.model.getDisplayUnit('mm')},
-      {name: 'tw2',       value: this.model.getDisplayValue(this.model.cross.tw2, 'mm'),      unit: this.model.getDisplayUnit('mm')},
-      {name: 's_edge',    value: this.model.getDisplayValue(this.model.cross.s_edge, 'mm'),   unit: this.model.getDisplayUnit('mm')},
-      {name: 's_middle',  value: this.model.getDisplayValue(this.model.cross.s_middle, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      {name: 'D3',        value: this.model.getDisplayValue(this.model.cross.D3, 'mm', 'D3'),       unit: this.model.getDisplayUnit('mm', 'D3')},
+      {name: 'tf2',       value: this.model.getDisplayValue(this.model.cross.tf2, 'mm', 'tf2'),      unit: this.model.getDisplayUnit('mm', 'tf2')},
+      {name: 'W2',        value: this.model.getDisplayValue(this.model.cross.W2, 'mm', 'W2'),       unit: this.model.getDisplayUnit('mm', 'W2')},
+      {name: 'tw2',       value: this.model.getDisplayValue(this.model.cross.tw2, 'mm', 'tw2'),      unit: this.model.getDisplayUnit('mm', 'tw2')},
+      {name: 's_edge',    value: this.model.getDisplayValue(this.model.cross.s_edge, 'mm', 's_edge'),   unit: this.model.getDisplayUnit('mm', 's_edge')},
+      {name: 's_middle',  value: this.model.getDisplayValue(this.model.cross.s_middle, 'mm', 's_middle'), unit: this.model.getDisplayUnit('mm', 's_middle')},
       { name: 'Gusset04', value: '', unit: ''},
-      { name: 'GA4', value: this.model.getDisplayValue(this.model.cross.GA4, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 'GD4', value: this.model.getDisplayValue(this.model.cross.GD4, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 'GB4', value: this.model.getDisplayValue(this.model.cross.GB4, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 'GC4', value: this.model.getDisplayValue(this.model.cross.GC4, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 'Gt4', value: this.model.getDisplayValue(this.model.cross.Gt4, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'GA4', value: this.model.getDisplayValue(this.model.cross.GA4, 'mm', 'GA4'), unit: this.model.getDisplayUnit('mm', 'GA4')},
+      { name: 'GD4', value: this.model.getDisplayValue(this.model.cross.GD4, 'mm', 'GD4'), unit: this.model.getDisplayUnit('mm', 'GD4')},
+      { name: 'GB4', value: this.model.getDisplayValue(this.model.cross.GB4, 'mm', 'GB4'), unit: this.model.getDisplayUnit('mm', 'GB4')},
+      { name: 'GC4', value: this.model.getDisplayValue(this.model.cross.GC4, 'mm', 'GC4'), unit: this.model.getDisplayUnit('mm', 'GC4')},
+      { name: 'Gt4', value: this.model.getDisplayValue(this.model.cross.Gt4, 'mm', 'Gt4'), unit: this.model.getDisplayUnit('mm', 'Gt4')},
       ];
 
     private columns = [
@@ -61,7 +61,7 @@ export class SideRightCrossComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: this.model.getDisplayFormat('mm')
+          pattern: this.model.getDisplayFormat('mm', 'D3')
         }
       }
     ];
@@ -86,7 +86,7 @@ export class SideRightCrossComponent {
           const name: string = this.dataset[item[0]].name;
           
           const originalUnit = this.getOriginalUnit(name);
-          const storageValue = this.model.getStorageValue(value, originalUnit);
+          const storageValue = this.model.getStorageValue(value, originalUnit, name);
           this.model.cross[name] = storageValue;
         }
         // 再描画

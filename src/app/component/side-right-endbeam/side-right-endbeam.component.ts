@@ -31,12 +31,12 @@ export class SideRightEndbeamComponent {
 
     private dataset: any[] = [
       { name: 'endbeam', value: '', unit: ''},
-      {name: 'D5', value: this.model.getDisplayValue(this.model.endbeam.D5, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      {name: 'tf4', value: this.model.getDisplayValue(this.model.endbeam.tf4, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      {name: 'W5', value: this.model.getDisplayValue(this.model.endbeam.W5, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      {name: 'tw4', value: this.model.getDisplayValue(this.model.endbeam.tw4, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      {name: 's_edge3', value: this.model.getDisplayValue(this.model.endbeam.s_edge3, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      {name: 's_middle3', value: this.model.getDisplayValue(this.model.endbeam.s_middle3, 'mm'), unit: this.model.getDisplayUnit('mm')},    ];
+      {name: 'D5', value: this.model.getDisplayValue(this.model.endbeam.D5, 'mm', 'D5'), unit: this.model.getDisplayUnit('mm', 'D5')},
+      {name: 'tf4', value: this.model.getDisplayValue(this.model.endbeam.tf4, 'mm', 'tf4'), unit: this.model.getDisplayUnit('mm', 'tf4')},
+      {name: 'W5', value: this.model.getDisplayValue(this.model.endbeam.W5, 'mm', 'W5'), unit: this.model.getDisplayUnit('mm', 'W5')},
+      {name: 'tw4', value: this.model.getDisplayValue(this.model.endbeam.tw4, 'mm', 'tw4'), unit: this.model.getDisplayUnit('mm', 'tw4')},
+      {name: 's_edge3', value: this.model.getDisplayValue(this.model.endbeam.s_edge3, 'mm', 's_edge3'), unit: this.model.getDisplayUnit('mm', 's_edge3')},
+      {name: 's_middle3', value: this.model.getDisplayValue(this.model.endbeam.s_middle3, 'mm', 's_middle3'), unit: this.model.getDisplayUnit('mm', 's_middle3')},    ];
 
     private columns = [
       {
@@ -47,7 +47,7 @@ export class SideRightEndbeamComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: this.model.getDisplayFormat('mm')
+          pattern: this.model.getDisplayFormat('mm', 'D5')
         }
       }
     ];
@@ -72,7 +72,7 @@ export class SideRightEndbeamComponent {
           const name: string = this.dataset[item[0]].name;
           
           const originalUnit = this.getOriginalUnit(name);
-          const storageValue = this.model.getStorageValue(value, originalUnit);
+          const storageValue = this.model.getStorageValue(value, originalUnit, name);
           this.model.endbeam[name] = storageValue;
         }
         // 再描画

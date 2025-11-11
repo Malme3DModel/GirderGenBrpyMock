@@ -38,18 +38,18 @@ export class SideRightSlabComponent{
 
     private dataset: any[] = [
       { name: 'Slab', value: '', unit: ''},
-      {name: 'b1', value: this.model.getDisplayValue(this.model.slab.b1, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'b2', value: this.model.getDisplayValue(this.model.slab.b2, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'b3', value: this.model.getDisplayValue(this.model.slab.b3, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'SH', value: this.model.getDisplayValue(this.model.slab.SH, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'b1', value: this.model.getDisplayValue(this.model.slab.b1, 'm', 'b1'), unit: this.model.getDisplayUnit('m', 'b1')},
+      {name: 'b2', value: this.model.getDisplayValue(this.model.slab.b2, 'm', 'b2'), unit: this.model.getDisplayUnit('m', 'b2')},
+      {name: 'b3', value: this.model.getDisplayValue(this.model.slab.b3, 'm', 'b3'), unit: this.model.getDisplayUnit('m', 'b3')},
+      {name: 'SH', value: this.model.getDisplayValue(this.model.slab.SH, 'm', 'SH'), unit: this.model.getDisplayUnit('m', 'SH')},
       {name: 'i1', value: this.model.slab.i1, unit: '%'},
       {name: 'i2', value: this.model.slab.i2, unit: '%'},
       {name: 'j1', value: this.model.slab.i1, unit: '%'},
       {name: 'j2', value: this.model.slab.i2, unit: '%'},
-      {name: 'T1', value: this.model.getDisplayValue(this.model.slab.T1, 'm'), unit: this.model.getDisplayUnit('m')},
-      {name: 'T2', value: this.model.getDisplayValue(this.model.slab.T2, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'T1', value: this.model.getDisplayValue(this.model.slab.T1, 'm', 'T1'), unit: this.model.getDisplayUnit('m', 'T1')},
+      {name: 'T2', value: this.model.getDisplayValue(this.model.slab.T2, 'm', 'T2'), unit: this.model.getDisplayUnit('m', 'T2')},
       {name: 'n', value: this.model.slab.n, unit: '1:n'},
-      {name: 'Ss', value: this.model.getDisplayValue(this.model.slab.Ss, 'm'), unit: this.model.getDisplayUnit('m')},
+      {name: 'Ss', value: this.model.getDisplayValue(this.model.slab.Ss, 'm', 'Ss'), unit: this.model.getDisplayUnit('m', 'Ss')},
     ];
 
     private columns = [
@@ -85,7 +85,7 @@ export class SideRightSlabComponent{
           const name: string = this.dataset[item[0]].name;
           
           const originalUnit = this.getOriginalUnit(name);
-          const storageValue = this.model.getStorageValue(value, originalUnit);
+          const storageValue = this.model.getStorageValue(value, originalUnit, name);
           this.model.slab[name] = storageValue;
         }
         // 再描画

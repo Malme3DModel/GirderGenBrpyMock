@@ -33,12 +33,12 @@ export class SideRightCrossbeamComponent {
 
     private dataset: any[] = [
       { name: 'Crossbeam', value: '', unit: ''},
-      { name: 'D4', value: this.model.getDisplayValue(this.model.crossbeam.D4, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 'tf3', value: this.model.getDisplayValue(this.model.crossbeam.tf3, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 'W3', value: this.model.getDisplayValue(this.model.crossbeam.W3, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 'tw3', value: this.model.getDisplayValue(this.model.crossbeam.tw3, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 's_edge2', value: this.model.getDisplayValue(this.model.crossbeam.s_edge2, 'mm'), unit: this.model.getDisplayUnit('mm')},
-      { name: 's_middle2', value: this.model.getDisplayValue(this.model.crossbeam.s_middle2, 'mm'), unit: this.model.getDisplayUnit('mm')},
+      { name: 'D4', value: this.model.getDisplayValue(this.model.crossbeam.D4, 'mm', 'D4'), unit: this.model.getDisplayUnit('mm', 'D4')},
+      { name: 'tf3', value: this.model.getDisplayValue(this.model.crossbeam.tf3, 'mm', 'tf3'), unit: this.model.getDisplayUnit('mm', 'tf3')},
+      { name: 'W3', value: this.model.getDisplayValue(this.model.crossbeam.W3, 'mm', 'W3'), unit: this.model.getDisplayUnit('mm', 'W3')},
+      { name: 'tw3', value: this.model.getDisplayValue(this.model.crossbeam.tw3, 'mm', 'tw3'), unit: this.model.getDisplayUnit('mm', 'tw3')},
+      { name: 's_edge2', value: this.model.getDisplayValue(this.model.crossbeam.s_edge2, 'mm', 's_edge2'), unit: this.model.getDisplayUnit('mm', 's_edge2')},
+      { name: 's_middle2', value: this.model.getDisplayValue(this.model.crossbeam.s_middle2, 'mm', 's_middle2'), unit: this.model.getDisplayUnit('mm', 's_middle2')},
       { name: 'location2', value: this.model.crossbeam.location2, unit: '列'},
     ];
 
@@ -51,7 +51,7 @@ export class SideRightCrossbeamComponent {
         data: 'value',
         type: 'numeric',
         numericFormat: {
-          pattern: this.model.getDisplayFormat('mm')
+          pattern: this.model.getDisplayFormat('mm', 'D4')
         }
       }
     ];
@@ -75,7 +75,7 @@ export class SideRightCrossbeamComponent {
           const name: string = this.dataset[item[0]].name;
           
           const originalUnit = this.getOriginalUnit(name);
-          const storageValue = this.model.getStorageValue(value, originalUnit);
+          const storageValue = this.model.getStorageValue(value, originalUnit, name);
           this.model.crossbeam[name] = storageValue;
         }
         // 再描画
