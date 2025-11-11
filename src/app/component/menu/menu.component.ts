@@ -141,38 +141,8 @@ export class MenuComponent implements OnInit {
   }
 
   // 計算書作成
-  public isCalculating = false;
-
   public calculate() {
-
-    this.isCalculating = true;
-
-    // ヘッダを用意
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'responseType': 'text' 
-      })
-    };
-
-    const url: string = 'https://girdergenbrpyserver.azurewebsites.net/api/OnDataReady?code=Xw-pAwli2ZPrwi6ivtzOU1MaT6Sdn9ONtGo83DT_yzUTAzFuof2omg==';
-
-    const jsonStr = JSON.stringify(this.model.palam());
-
-    this.http
-    .post(url, jsonStr, options)
-    .subscribe(
-      (response) => {
-        printJS({ printable: response.toString(), type: "pdf", base64: true });
-        this.isCalculating = false;
-      },
-      (error) => {
-        this.isCalculating = false;
-        alert(error.message);
-      }
-    );
-
+    alert('計算書作成機能は現在開発中です。');
   }
 
   // ヘルプ
